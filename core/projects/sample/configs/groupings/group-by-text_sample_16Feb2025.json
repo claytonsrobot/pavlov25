@@ -1,0 +1,6 @@
+{   
+    "group_names": "maxson,stiles,bulldog",
+    "subgroup_names": "analytics,january,february,march,april,may,june,july,august,september,october,november,december",
+	"group_map_based_on_filename_true_translated_name_false":true,
+	"name_translation_filename":"name_translation_array_08Feb2025.csv"
+}

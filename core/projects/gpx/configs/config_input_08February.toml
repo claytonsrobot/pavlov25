@@ -1,0 +1,22 @@
+[Export Model Style]
+stack_direction_groups = "diagonal_stack"
+stack_direction_subgroups = "time_stack"
+stack_direction_curves = "depth_stack"
+export_style_plugin = "export_plugin_createFBX_bar_3D"
+color_style_plugin = "color_plugin_binned_gradient"
+file_encoding = "bin"
+file_format = "FBX"
+
+[Data Selection]
+import_style_plugin = "import_plugin_CSV_3D"
+column_time = "Time"
+column_height = "Force"
+column_depth = "Elevation"
+column_color = "Distance"
+columns_metadata = ""
+data_start_idx = 0
+
+[Program Controls]
+time-series-transcoding = null
+keep-true-destroy-false-unassigned-curves = false
+real-true-normalized-false-scale = true

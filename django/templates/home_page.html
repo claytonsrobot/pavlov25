@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{%block content%}
+<h6>Thank you for using Pavlov 3D</h6>
+<br>
+<img width="40px" src="/media/svg/csv-svgrepo-com.svg" alt=""></img>
+Please choose CSV file(s):  
+<!--img width="40px" src="/media/svg/files-csv-collection-svgrepo-com.svg" alt=""></img><br-->
+<br>
+<br>
+<!--control Z-->
+
+<form enctype='multipart/form-data' action="upload_csv" method='POST' class="dropzone dz" id="my-dropzone" >
+    {% csrf_token %}
+    <div class="fallback">
+      <input name="file" type="file" multiple />
+    </div>  
+</form>
+
+<br>
+<!--
+<form action="switchboard"
+method="post">
+{% csrf_token %}
+{{ form }}
+<img width="20px" src="/media/svg/next-svgrepo-com.svg" alt=""></img>
+<input type="submit"
+value="Next">
+</form> 
+<br>
+-->
+
+<!-- -->
+<!--{{ form }}-->
+<img width="20px" src="/media/svg/next-svgrepo-com.svg" alt=""></img>
+<u><a href="{% url 'home:autocontrol' %}"> Automatic Model Control</a></u> <br>
+<img width="20px" src="/media/svg/next-svgrepo-com.svg" alt=""></img>
+<u><a href="{% url 'home:basiccontrol' %}"> Basic Model Control</a></u> <br>
+<!--<img width="20px" src="/media/svg/next-svgrepo-com.svg" alt=""></img>
+<u><a href="{% url 'home:jsonpick' %}"> Advanced Model Control</a></u> <br>-->
+</br-><!-- -->
+{{session_object}}
+<br>
+
+<img width="3px" src="null" alt=""></img>
+<img width="12px" src="/media/svg/cross-mark-svgrepo-com.svg" alt=""></img>
+<img width="5px" src="null" alt=""></img>
+<a><a href="{% url 'home:cleanSlate' %}"> Start Over</a></a> <i>(refresh session)</i><br>
+
+<br>
+<img width="30px" src="/media/svg/readme-svgrepo-com.svg" alt=""></img>
+
+<a href="{% url 'home:howto' %}">How-To Guide</a><br>
+<br>
+
+<img width="90px" src="/media/svg/planet-svgrepo-com.svg" alt=""></img><br>
+<br>
+<img width="25px" src="/media/svg/information-circle-svgrepo-com.svg" alt=""></img> 
+<a href="{% url 'home:about' %}">About</a><br>
+<br>
+
+<div id="footer" height: 100px>
+  <p>&copy;Pavlov Software & Services <a href="{% url 'home:launch_local' %}">LLC</a></p> 
+</div>
+
+{%endblock%}
+  

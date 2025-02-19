@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{%block content%}
+<head>
+    <meta charset="UTF-8">
+    <title>How-To</title>
+</head>
+<!--svg></svg-->
+
+<body>
+    <h1>How-To</h1>
+    <!-- Add other content here -->
+    <img width="50px" src="/media/svg/loupe-search-svgrepo-com.svg" alt=""></img>
+    <img width="50px" src="/media/svg/flask-laboratory-svgrepo-com.svg" alt=""></img>
+    <img width="50px" src="/media/svg/pen-writer-svgrepo-com.svg" alt=""></img>
+    <br><br>
+    <img width="50px" src="/media/svg/json-file-svgrepo-com.svg" alt=""></img>
+    <img width="50px" src="/media/svg/files-csv-collection-svgrepo-com.svg" alt=""></img>
+    <img width="50px" src="/media/svg/analytics-svgrepo-com.svg" alt=""></img><br><br>
+    <img width="50px" src="/media/svg/data-trends-svgrepo-com.svg" alt=""></img>
+    <img width="50px" src="/media/svg/find-path-svgrepo-com.svg" alt=""></img>
+    <img width="50px" src="/media/svg/eye-svgrepo-com.svg" alt=""></img>
+    <br>
+    <br>
+    
+    <iframe width="336" height="189" src="https://www.youtube.com/embed/ttBwGudNsxk?si=hlQsOH_SxOYLS3tX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    
+    <br>
+    <br>
+    <img width="50px" src="/media/svg/brain-svgrepo-com.svg" alt=""></img>
+    <img width="50px" src="/media/svg/brainstorm-idea-svgrepo-com.svg" alt=""></img>
+    <img width="50px" src="/media/svg/rocket-svgrepo-com.svg" alt=""></img>
+    <br>
+    <br>
+    <br>
+    <a href="https://6wuanrrsyel9ave8.public.blob.vercel-storage.com/fbx_samples/pavlov_small.fbx">Download Sample FBX Export File, Small</a><br>
+    <a href="https://6wuanrrsyel9ave8.public.blob.vercel-storage.com/fbx_samples/pavlov_big_2D_binned_square.fbx">Download Sample FBX Export File, Big</a><br>
+    <a href="https://6wuanrrsyel9ave8.public.blob.vercel-storage.com/csv_samples/csv_samples_2D.zip">Download Sample CSV Files</a><br>
+    <br>
+    <a href="https://dev.opencascade.org/project/cad-assistant">Download and install CAD Assitant Model Viewer</a><br>
+    <a href="https://www.csvplot.com/">Plot your CSV files in 2D in www.csvplot.com</a><br>
+    <br>
+
+    <p>
+        Pavlov 3D expects your CSV files to be columnar, with a header row.  
+        <a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMDrX21Jj4QuoZJFnljFWUkyU74eNs6EJ3OA&usqp=CAU">
+        Here is an example of a CSV in the expected format</a>.
+    </p>
+    <p>
+        When the Basic Model Controls are used, the column name or number can be specified.
+        Also, if you have metadata at the top of your file, and your header row is below this on a different row, you can specify the  proper header row by providing a skiprow value.
+    </p>
+    <p>
+        The skiprow default is 0.
+        The Automatic Model Controls are will use columns 0 and 1 for 2D models. In Excelspeak, columns A and B are columns 0 and 1.
+        Future development is planned for up to seven dimensions. The Autmatic Model Controls will use each successive column for each additional dimension.  
+    </p>
+    
+    <br>    
+    <img width="30px" src="/media/svg/home-04-svgrepo-com.svg" alt=""></img> 
+    <a href="{% url 'home:home' %}">Home Page</a><br>
+    
+</body>
+<br>
+<p>&copy;Pavlov Software & Services LLC</p>
+
+{%endblock%}

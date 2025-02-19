@@ -1,0 +1,83 @@
+<!-- export_page.html -->
+{% extends 'base.html' %}
+
+{%block content%}
+<head>
+    <meta charset="UTF-8">
+    <title>Export</title>
+</head>
+<body>
+    <h1>Export</h1>
+    <!-- Add other content here -->
+    
+    <!--Show Model Preview</a-->
+    
+    
+    
+    
+    <!--img width="50px" src="/media/svg/progress-07-cursor-svgrepo-com.svg" alt=""></img><br-->
+    
+    
+    <br>
+
+    <img width="150px" src="/media/svg/mountains-sun-svgrepo-com.svg" alt=""></img> 
+    <br>
+    <br>
+
+    <p>
+    Status:<br>
+    <i>{{ download_complete_msg }}</i><br>
+    <a>CSV file count: <span id="csv_count">{{ csv_count }}</span></a> <br>
+    <!--folder_fbx: {{ folder_FBX }} <br>-->
+    </p>
+    Coming soon: Loading bar<br>
+    Generation could take a moment.<br>
+    
+    <br>
+    <img width="23px" src="/media/svg/next-svgrepo-com.svg" alt=""></img>
+    <u><a href="{% url 'home:generateFbxExport' %}">Generate FBX Export Model</a></u><br>
+    <img width="32px" src="/media/svg/download-svgrepo-com.svg" alt=""></img>
+    <!--u><a href="{% url 'home:downloadFbxExportLocal' %}">Download FBX Export File</a> </u><br-->
+    <u><a href = {{download_url}}>Download FBX Export File</a></u><br>
+    <br>
+    <p>
+    &#128027; &#128029; 
+    <a href="{% url 'home:downloadFbxExportLocal' %}">&#128028;</a> <br>
+    </p>
+    <img width="32px" src="/media/svg/download-svgrepo-com.svg" alt=""></img>
+    <a href="https://6wuanrrsyel9ave8.public.blob.vercel-stora  ge.com/fbx_samples/pavlov_small.fbx">Download a sample FBX file instead.</a><br>
+    <br>
+    <img width="23px" src="/media/svg/back-return-svgrepo-com.svg" alt=""></img>
+    
+    <a href="{% url 'home:home' %}">Go Back to the Start</a><br>
+    <br>    
+    
+    <img width="90px" src="/media/svg/fbx-svgrepo-com.svg" alt=""></img>
+    <img width="90px" src="/media/svg/azure-vms-svgrepo-com.svg" alt=""></img><br>
+    <!--img width="90px" src="/media/svg/linode-svgrepo-com.svg" alt=""></img-->
+    <!--img width="90px" src="/media/svg/virtual-glasses-side-svgrepo-com.svg" alt=""></img><br-->
+    
+    
+    <br>
+
+    Visit the Open Cascade website to <br>
+    download the
+    <u><a href="https://dev.opencascade.org/project/cad-assistant">CAD Assistant</a></u> file viewer app <br>
+    <br>
+
+    <img width="160px" src="/media/svg/grand-canyon-svgrepo-com.svg" alt=""></img>
+    
+    <br>
+    <h4>Thank you for using Pavlov 3D.</h4>
+    
+    <br>
+    <img width="20px" src="/media/svg/information-circle-svgrepo-com.svg" alt=""></img> 
+    <a href="{% url 'home:about' %}">About</a><br>
+    <!--img width="20px" src="/media/svg/river-svgrepo-com.svg" alt=""></img--> 
+    <img width="20px" src="/media/svg/home-04-svgrepo-com.svg" alt=""></img> 
+    <a href="{% url 'home:home' %}">Home Page</a><br>
+    <br>
+    <p>&copy;Pavlov Software & Services LLC</p>
+</body>
+</html>
+{%endblock%}

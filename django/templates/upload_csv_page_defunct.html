@@ -1,0 +1,18 @@
+<!-- /templates/upload_csv_deffile.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload and Download Files</title>
+</head>
+<body>
+    <h2>Upload Files</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+
+</body>
+</html>

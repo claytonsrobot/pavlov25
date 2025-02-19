@@ -1,0 +1,12 @@
+{   
+    "group_names": "Maxson,Stiles",
+    "subgroup_names": "January,February,March,April,May,June,July,August,September,October,November,December",
+	{
+		"group":"Maxson",
+		"subgroups_of_group":"January,February,March,April,May,June,July,August,September,October,November,December",
+	},
+	{
+		"group":"Stiles",
+		"subgroups_of_group":"January,February,March,April,May,June,July,August,September,October,November,December",
+	}
+}

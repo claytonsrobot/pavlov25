@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{%block content%}
+<h1>Preview</h1>
+
+<br>
+Show Preview Image Here<br>
+<br>
+
+<img width="200px" src="/media/svg/graph-and-people-svgrepo-com.svg" alt=""></img><br>
+
+<br>
+<a href="{% url 'home:export' %}">Go to Export Page</a><br>
+<br>
+<a href="{% url 'home:home' %}">Go Back to Home Page</a><br>
+<br>
+<p>&copy;Pavlov Software & Services LLC</p>
+
+{%endblock%}

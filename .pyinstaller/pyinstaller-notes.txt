@@ -1,0 +1,41 @@
+run pyinstaller --onefile -w backend\main.py --paths backend\ --collect-submodules fbx
+or
+pyinstaller --onefile -w backend\main.py --paths backend\
+
+--paths backend\ allows all packages to be added, from the pyenv packages and local custom packages
+
+for some reason the exported exe has gotten smaller and is failing earlier
+
+
+
+pyinstaller --onefile -w backend\main.py --paths backend\ --hidden-import=fbx --hidden-import=fbxsip
+pyinstaller --onefile -w core\main.py --paths core\ --hidden-import=fbx --hidden-import=fbxsip
+pyinstaller --onefile -w -F core\main.py --paths=.\pavlov_exe\core\ --collect-submodules fbx --hidden-import=fbx --hidden-import=fbxsip*
+pyinstaller --onefile -w -F core\main.py --paths=.\core\ --collect-submodules fbx --hidden-import=fbx --hidden-import=fbxsip --add-data ".\core\config_entry.json;." --add-data ".\core\user_input_configs\;." --add-data ".\core\plugins\*;."
+pyinstaller --console --onefile -F core\main.py --paths=.\core\ --collect-submodules fbx --hidden-import=fbx --hidden-import=fbxsip --add-data ".\core\config_entry.json;." --add-data ".\core\user_input_configs\;." --add-data ".\core\plugins\*;." --splash splashfile.png
+pyinstaller --console --onefile -F core\main.py --paths=.\core\ --collect-submodules fbx --hidden-import=fbx --hidden-import=fbxsip --hidden-import=plugins --hidden-import=curve_ --hidden-import=datapoint --add-data ".\core\config_entry.json;." --add-data ".\core\user_input_configs\;." --add-data ".\core\plugins\*;." --splash splashfile.png
+pyinstaller --console --onefile -F core\main.py --paths=.\core\ --collect-submodules fbx --hidden-import=fbx --hidden-import=fbxsip --hidden-import=plugins --hidden-import=curve_ --hidden-import=datapoint --add-data ".\core\config_entry.json;." --add-data ".\core\user_input_configs\;." --add-data ".\core\plugins\*;." --add-data ".\core\alphanumeric_character_library\*;." --splash splashfile.png
+pyinstaller --console --onefile -F core\cli.py --paths=.\core\ --collect-submodules fbx --hidden-import=fbx --hidden-import=fbxsip --hidden-import=plugins --hidden-import=curve_ --hidden-import=datapoint --add-data ".\core\config_entry.json;." --add-data ".\core\user_input_configs\;." --add-data ".\core\plugins\*;." --add-data ".\core\alphanumeric_character_library\*;."
+pyinstaller --console --onefile -F core\main.py --paths=.\core\ --collect-submodules fbx --hidden-import=fbx --hidden-import=fbxsip --hidden-import=curve_ --hidden-import=datapoint --add-data ".\core\config_entry.json;." --add-data ".\core\user_input_configs\;." --add-data ".\core\plugins\*;." --splash splashfile.png
+pyinstaller --console --onefile -F core\cli.py --paths=.\core\ --paths=.\core\plugins\ --collect-submodules fbx --hidden-import=fbx --hidden-import=fbxsip --hidden-import=curve_ --hidden-import=datapoint --add-data ".\core\alphanumeric_character_library\*;." --add-data ".\core\plugins\;."
+pyinstaller --console --onefile -F core\cli.py --paths=.\core\ --paths=.\core\alphanumeric_character_library\ --paths=.\core\plugins\ --collect-submodules fbx --hidden-import=fbx --hidden-import=fbxsip --hidden-import=curve_ --hidden-import=datapoint --add-data ".\core\alphanumeric_character_library\;.\alphanumeric_character_library\" --add-data ".\core\plugins\;.\plugins\"
+pyinstaller --console --onefile -F core\cli.py --paths=.\core\ --paths=.\core\plugins\ --paths=.\core\alphanumeric_character_library\ --collect-submodules fbx --hidden-import=fbx --hidden-import=fbxsip --hidden-import=curve_ --hidden-import=datapoint
+pyinstaller --console --onefile -F core\cli.py --paths=.\core\ --paths=.\core\alphanumeric_character_library\ --paths=.\core\plugins\ --collect-submodules fbx --hidden-import=fbx --hidden-import=fbxsip --hidden-import=curve_ --hidden-import=datapoint --add-data ".\core\alphanumeric_character_library\;.\alphanumeric_character_library\"
+pyinstaller --console --onefile -F core\cli.py --paths=.\core\ --paths=.\core\alphanumeric_character_library\ --paths=.\core\plugins\ --collect-submodules fbx --hidden-import=fbx --hidden-import=fbxsip --hidden-import=curve_ --hidden-import=datapoint --add-data ".\core\alphanumeric_character_library\;.\alphanumeric_character_library\"
+
+#You dont need to include (--add-data) the plugins file, if they are preloaded. This prevents exposing the code.
+
+pyenv local 3.10.10 
+
+pyinstaller --console --onefile -F core\main.py --paths=.\core\ --paths=.\core\plugins\ --collect-submodules fbx --hidden-import=fbx --hidden-import=fbxsip --hidden-import=curve_ --hidden-import=datapoint --add-data ".\core\alphanumeric_character_library\;.\alphanumeric_character_library\" --add-data ".\core\plugins\;.\plugins\" --splash splashfile.png
+
+make plugins and alphanumeric_character_library not necessary to be in dist directory
+
+use pyenv local 3.10.10 for pavlov_exe, because it hs a clean pip
+you should probably learn to use virtualenv
+
+run this:
+pyinstaller main.spec
+
+https://pyinstaller.org/en/stable/spec-files.html
+

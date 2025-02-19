@@ -1,0 +1,21 @@
+{   
+    "group_names": ".",
+    "subgroup_names": "csv,xlsx,json",
+    "stack_direction_groups":"diagonal_stack",
+    "stack_direction_subgroups":"time_stack",
+    "stack_direction_curves":"depth_stack",
+    "column_time":"0",
+    "column_height":"1",
+    "column_depth":"2",
+    "column_color":"1",
+    "columns_metadata":"",	
+    "data_start_idx":0,
+	"import_style_plugin": "import_plugin_CSV_3D",
+    "export_style_plugin": "export_plugin_createFBX_bar_3D",
+    "color_style_plugin":"color_plugin_binned_gradient",
+    "file_encoding":"bin",
+    "file_format":"FBX",   
+	"time-series-transcoding":null,
+	"keep-true-destroy-false-unassigned-curves":false,
+	"real-true-normalized-false-scale":true	
+}

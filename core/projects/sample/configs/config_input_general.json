@@ -1,0 +1,18 @@
+{   
+    "groups_tier1": ".",
+    "groups_tier2": "csv,xlsx,json",
+    "stack_direction_scene_tier0_children":"diagonal_stack",
+    "stack_direction_groups_tier1_children":"diagonal_stack",
+    "stack_direction_subgroups_tier2_children":"diagonal_stack",
+    "column_time":"0",
+    "column_height":"1",
+    "column_depth":"",
+    "column_color":"",
+    "columns_metadata":"",
+    "data_start_idx":0,
+    "import_style_plugin": "import_plugin_CSV_2D",
+    "export_style_plugin": "export_plugin_createFBX_square_columns_2D",
+    "color_style_plugin":"color_plugin_binned_gradient",
+    "file_encoding":"bin",
+    "file_format":"FBX"       
+}

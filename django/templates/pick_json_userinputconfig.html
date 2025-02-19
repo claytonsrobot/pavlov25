@@ -1,0 +1,55 @@
+<!-- templates/upload_file.html -->
+{% extends 'base.html' %}
+
+{%block content%}
+
+<head>
+    <title>Upload User Input Configuration JSON File</title>
+</head>
+<body>
+    <h2>User Input Configuration<br>JSON File Upload </h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form_ujpu.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+
+    <h3></h3>
+    <ul>
+        {% for file in files_ujpu %} <!--This actually refernces the data base file, It is saved by home.views.upload_json_userinputconfig() -->
+        <li>{{ file.file.name }} <a href="'home:remove_file_ujpu'file.id"> Remove</a> </li>
+
+        {% empty %}
+            <li>No files uploaded yet.</li>
+        {% endfor %}
+    </ul>
+    <br>
+    || <a href="{% url 'home:export' %}">Generate Export Model</a> ||<br>
+    
+    <br>
+    <br>
+
+    <!--{% load static %} -->
+    Download <a href="{%url 'home:download_json_template_file'%}">Template</a>*<br>
+    <br>
+    †Instructions:<br>
+    Open the downloaded JSON configuration <br>template file in a text editor app on your computer.<br>
+    <br>
+    Upload the file after editing, <br>using the upload button on this page.<br>
+    <br>
+    The benefit to this is that you <br>can save and reuse previous settings.<br>
+    <br>
+    *Only the last upoad file in the <br>upload list will be used to control the export model.<br>
+
+    <br>
+    <a href="{% url 'home:home' %}">Go Back to Home Page</a><br>
+</body>
+<p>&copy;Pavlov Software & Services LLC</p>
+<br>
+<i>"A foolish consistency is the hobgoblin of little minds."<br> - Guido van Rossum</i>
+<br>
+
+<br>
+</html>
+{%endblock%}

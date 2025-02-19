@@ -1,0 +1,151 @@
+ 
+{% extends 'base.html' %}
+
+{%block content%}
+<head>
+<title>Pavlov 3D</title>
+</head>
+<body>
+<h1>Pavlov 3D</h1>
+
+Pavlov 3D is an app for converting <br>columnar <a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMDrX21Jj4QuoZJFnljFWUkyU74eNs6EJ3OA&usqp=CAU">CSV</a> data into 3D models,<br>
+of <a href="https://3dcloud.com/fbx-files/">FBX</a> filetype.<br> <br>
+
+<img width="100px" src="/media/svg/virtual-glasses-side-svgrepo-com.svg" alt=""></img>
+<img width="100px" src="/media/svg/linode-svgrepo-com.svg" alt=""></img><br>
+<br>
+
+Using Pavlov 3D, scientists and <br>
+STEM students can veiw<br>
+collections of data quickly.<br>
+Also, users can<br>
+extend the shelf life of their data,<br>
+easily discuss their data <br>
+in a group setting,<br>
+and perform high-level analysis.<br>
+<br>
+FBX files can be viewed in <br>
+virtual reality (VR) and <br>
+<a href="https://www.forbes.com/sites/theyec/2019/02/06/augmented-reality-in-business-how-ar-may-change-the-way-we-work/">augmented reality (AR)</a>.<br>
+Many features have been added to <br>
+leverage the benefits of <br>
+CAD Assistant by Open Cascade.<br>
+<br>
+The backend of Pavlov 3D is <br>compatible with Python 3.9 to 3.12. 
+<br><br>
+The web app version of Pavlov 3D <br>
+is available at 
+<a href="https://pavlov3d.world">this </a> 
+URL as of <br>
+July 2024. <br>
+<br>
+Initial deployment came during <br>
+participation in <a href="https://buildspace.so/nw">buildspace n&w s5</a>. <br> 
+The next deployment target is<br>
+the <a href="https://apps.microsoft.com/home?hl=en-us&gl=AU">Microsoft Store</a>.<br>
+<br>
+This project started with STL files<br>
+generated in MATLAB,<br>
+organized and exported using Blender.<br>
+<br>
+Many thanks to:<br>
+<ul>
+    <li><a href="https://aps.autodesk.com/developer/overview/fbx-sdk">Autodesk</a></li>
+    <li><a href="https://www.python.org/">Python</a></li>
+    <li><a href="https://dev.opencascade.org/project/cad-assistant">Open Cascade</a></li>
+    <li><a href="https://www.khronos.org/">KhronosGroup</a></li>
+    <li><a href="https://pypi.org/project/bpy/">Blender</a></li>
+    <li><a href="https://gltf-viewer.donmccurdy.com/">Don McCurdy</a></li>
+    <li><a href="https://www.uidaho.edu/engr/departments/me/our-people/faculty/daniel-robertson">Dr. Daniel Robertson</a></li>
+</ul>
+<br> 
+Contact <a href="https://au.linkedin.com/in/clayton-bennett-897659a0">Clayton Bennett</a><br>
+to participate in the project.<br>
+Datasets are welcomed for testing.<br>
+Product testers needed.<br>
+Interns considered.<br>
+We offer data viz services,<br>
+as contract or potentially <br>
+pro bono.<br>
+
+<br>
+<img width="180px" src="/media/svg/world-internet-svgrepo-com.svg" alt=""></img><br>
+<br>
+Future progress is planned for:<br>
+<ul>
+    <li><a href = "https://segments.ai/blog/mastering-point-clouds/">PLY point cloud export, with PLY text</a>
+    <li><a href="https://felix-dgg.medium.com/building-a-jpeg-for-3d-the-new-standard-that-will-power-a-3d-revolution-119574719fae">GLB export</a></li>
+    <li><a href="https://www.babylonjs.com/">Babylon.js</a> web viewer, with animation</li>
+    <li><a href="https://ultimaker.com/learn/how-to-find-free-stl-files/">STL</a> import</li>
+    <li><a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQURqwQAl9oNkQNeWnMEpdRBf_BhTitz5v7WgGKYQUtDcha9iMNA28-1Ks&s=10">PNG</a> import</li>
+    <li><a href="https://developer.apple.com/augmented-reality/quick-look/">USDZ</a> export</li>
+    <li><a href="https://www.adobe.com/au/creativecloud/file-types/image/vector/dxf-file.html">DXF</a> export (for lasercutting)</li>
+    <li><a href="https://www.hdfgroup.org/solutions/hdf5/">H5</a> export</li>
+    <li><a href="https://www.ni.com/en/support/documentation/supplemental/06/the-ni-tdms-file-format.html">TDMS</a> export</li>
+    <li><a href="https://pypi.org/">PyPI</a> library release</li>
+    <li><a href="https://accucities.com/textured-3d-model-of-london-in-unity/">Unity-based desktop interface</a></li>
+    <li><a href="https://feeds.buzzsprout.com/2371119.rss">Hardware implementation</a></li>
+</ul>
+
+Learn more about Pavlov 3D <br>
+at the links below.<br>
+<br>    
+
+Browse Pavov 3D models online:<br>
+<ul>
+    <li><a href = "https://sketchfab.com/pavlovsoftware">Sketchfab</a></li>
+</ul>
+
+<!--
+Project podcast: <br>
+<ul>
+    <li><a href = "https://feeds.buzzsprout.com/2371119.rss">Podcast</a></li>
+</ul>
+-->
+
+YouTube, overview:<br>
+<ul>
+    <li><a href= "https://youtu.be/mmE7ApECzsw?si=c-CuakPss7sJntRR">Quick </a></li>
+<li><a href="
+https://youtu.be/JLASrAgqHNg?si=r_ka-puBU0zF1HvW">Long</a></li>
+</ul>
+<br>    
+<img width="30px" src="/media/svg/home-04-svgrepo-com.svg" alt=""></img> 
+<a href="{% url 'home:home' %}">Home Page</a><br>
+
+<img width="30px" src="/media/svg/readme-svgrepo-com.svg" alt=""></img>
+<a href="{% url 'home:howto' %}">How-To Guide</a> <br>
+<br>
+&copy; Pavlov Software & Services LLC, 2024
+<br><br>
+Random Fun Stuff:<br>
+<ul>
+    <li>Check out <u><a href="https://sketchfab.com/3d-models/trees-of-paris-18b6147712854200bdbc5c5424e3c0dd">this awesome 3D map</a></u> on Sketchfab.</li>
+    <li>Check out <u><a href="https://gltf-viewer.donmccurdy.com/">this online viewer for GLB files</a></u>.</li>
+    <li>Take a moment of silence for the recently deceased <u><a href="https://www.codegram.com/case-studies/github-skyline/">GitHub Skyline</a></u>. Fingers crossed it will rise again. <u><a href="https://skyline.github.com/">Check</a></u>!</li>
+</ul>
+
+Pavlov 3D was proudly made in
+<br>
+<img width="30px" src="/media/svg/united-states-of-america-united-states-svgrepo-com.svg" alt=""></img>
+<img width="30px" src="/media/svg/flag-for-new-zealand-svgrepo-com.svg" alt=""></img>
+<img width="30px" src="/media/svg/flag-for-thailand-svgrepo-com.svg" alt=""></img>
+<img width="30px" src="/media/svg/flag-for-laos-svgrepo-com.svg" alt=""></img>
+<img width="30px" src="/media/svg/flag-for-vietnam-svgrepo-com.svg" alt=""></img>
+<img width="30px" src="/media/svg/flag-for-australia-svgrepo-com.svg" alt=""></img>
+<img width="30px" src="/media/svg/japan-svgrepo-com.svg" alt=""></img>
+<br>
+<img width="37px" src="/media/svg/united-states-map-usa-america-svgrepo-com.svg" alt=""></img>
+<img width="25px" src="/media/svg/New_Zealand_Simplified.svg" alt=""></img>
+<img width="35px" src="/media/svg/thailand-thailand-svgrepo-com.svg" alt=""></img>
+<img width="23px" src="/media/svg/laos-svgrepo-com.svg" alt=""></img>
+<img width="20px" src="/media/svg/map-vietnam.svg" alt=""></img>
+<img width="40px" src="/media/svg/australia-australia-svgrepo-com.svg" alt=""></img>
+<img width="30px" src="/media/svg/japan-map-svgrepo-com.svg" alt=""></img>
+
+</body>
+<br>
+<br>
+<br>
+
+{%endblock%}

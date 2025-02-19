@@ -1,0 +1,1 @@
+Assume that this directory runs on Python 3.12.4 in a separate vertual machine from the core project, or anywhere else in the {{project}} directory.

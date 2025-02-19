@@ -1,0 +1,1 @@
+Focus on converting to FastAPI (migrate away from Django), and then rollout dockerized APIs.

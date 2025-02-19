@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{%block content%}
+<h1>Model Controls</h1>
+
+<br>
+<div class="form__">
+    {{ form.as_p }}
+</div>
+
+
+<img width="30px" src="/media/svg/next-svgrepo-com.svg" alt=""></img>
+<u><a href="{% url 'home:export' %}">Go to Export Page</a></u><br>
+
+<br>
+<img width="23px" src="/media/svg/back-return-svgrepo-com.svg" alt=""></img>
+<a href="{% url 'home:home' %}">Go Back to the Start</a><br>
+
+<!--button type="button" formaction="downloadFormAsJSON/">Download responses as JSON file</button><br-->
+<br>
+
+<img width="24px" src="/media/svg/home-04-svgrepo-com.svg" alt=""></img> 
+<a href="{% url 'home:home' %}">Home Page</a><br>
+<img width="30px" src="/media/svg/readme-svgrepo-com.svg" alt=""></img>
+<a href="{% url 'home:howto' %}">How-To Guide</a> <br>
+<img width="25px" src="/media/svg/information-circle-svgrepo-com.svg" alt=""></img> 
+
+<a href="{% url 'home:about' %}">About</a><br>
+<br>
+<!--center this cactus please-->
+<img width="70px" src="/media/svg/cactus-svgrepo-com.svg" alt=""></img>
+<br>
+<br>
+<p>&copy;Pavlov Software & Services LLC</p>
+
+{%endblock%}

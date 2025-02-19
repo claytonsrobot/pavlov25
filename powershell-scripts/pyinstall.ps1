@@ -1,0 +1,1 @@
+pyinstaller --console --onefile -F core\cli.py --paths=.\core\ --paths=.\core\alphanumeric_character_library\ --paths=.\core\plugins\ --collect-submodules fbx --hidden-import=fbx --hidden-import=fbxsip --hidden-import=curve_ --hidden-import=datapoint --add-data ".\core\alphanumeric_character_library\;.\alphanumeric_character_library\"

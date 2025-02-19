@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!--shrink-to-fit=yes"?-->
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
+    <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
+
+    <title>Pavlov 3D</title>
+	
+
+	<style>
+	.content {
+		max-width: 500px;
+		margin: 15 auto;
+		text-align: center
+		}
+	body {
+		font-face : courier new;
+		background-color: DimGrey;
+		}
+	launch {
+		text-decoration: underline white;
+		-webkit-text-decoration-color: white; /* safari still uses vendor prefix */
+		
+}
+
+	</style>
+
+</head>
+<div class = "content">
+<h3 style="color:white;">Welcome to the Pavlov Project</h3>
+<br>
+<img width="320px" src="/media/svg/river-svgrepo-com.svg" alt=""></img>
+
+<br>
+<br>
+<br>
+<div class="launch">
+	<!--img width="30px" src="/media/svg/rocket-svgrepo-com.svg" alt=""></img-->
+	<span style="font-size:30px">&#128640; </span>
+	<a href="{% url 'home:cleanSlate' %}" style="color:white;font-size:20px;">Launch the Pavlov3D Web App</a>
+	<span style="font-size:30px">  &#128640; </span>
+	<!--img width="30px" src="/media/svg/rocket-svgrepo-com.svg" alt=""></img-->
+	<br>
+	<span style="font-size:20px;font-weight: 666;">CSV to FBX</span>
+</div>
+<br>
+<br>
+<br>
+<img width="70px" src="/media/svg/grand-canyon-svgrepo-com.svg" alt=""></img>
+<!--img width="30px" src="/media/svg/cactus-svgrepo-com.svg" alt=""></img-->
+
+<p style="color:white;">&copy;Pavlov Software & Services LLC</p> 
+</div>
+</html>
