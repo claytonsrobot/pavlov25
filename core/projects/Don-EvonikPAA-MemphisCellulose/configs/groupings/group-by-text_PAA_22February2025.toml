@@ -1,0 +1,5 @@
+[grouping]
+"group_names" = "."
+"subgroup_names" = "2025-01Jan-13 to 2025-01Jan-21" # must be manually altered with subgroup injection
+"group_map_based_on_filename_true_translated_name_false" = false
+"name_codex_filename" = ""

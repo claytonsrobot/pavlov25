@@ -94,7 +94,7 @@ class UserInput:
         # edit this after the fact, instead of requiring skip_interface?
 
         # need to filter without the gui :)
-        cij = config_input_object.loaded_json # self.dict_config_input = loaded_json # like this, make dictionary! instead of individual mapping, below:
+        cij = config_input_object.loaded_config # self.dict_config_input = loaded_json # like this, make dictionary! instead of individual mapping, below:
         
         self.cij = cij # or use cij
         self.dict_config = dict()
@@ -103,7 +103,7 @@ class UserInput:
         #self.subgroup_names = gj["subgroup_names"]
         
         try:
-            gj = config_input_object.loaded_json_grouping
+            gj = config_input_object.loaded_grouping["grouping"]
         except:
             gj = config_input_object.loaded_csv_grouping
         self.group_names = gj["group_names"]
