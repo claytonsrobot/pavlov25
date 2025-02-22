@@ -69,20 +69,16 @@ class Directories:
         return cls.project
     @classmethod
     def get_config_dir(cls):
-        #return cls.configs
         return cls.get_project_dir()+"\\configs\\"
     @classmethod
     def get_export_dir(cls):
-        #return cls.exports
         return cls.get_project_dir()+"\\exports\\"
     @classmethod
     def get_import_dir(cls):
-        #return cls.imports
         return cls.get_project_dir()+"\\imports\\"
     @classmethod
     def get_groupings_dir(cls):
-        #return cls.groupings
-        return cls.get_project_dir()+"\\groupings\\"
+        return cls.get_config_dir()+"\\groupings\\"
     
     # migrated
     @classmethod

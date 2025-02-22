@@ -13,6 +13,10 @@ import filter_files as ff
 import environmental
 from directories import Directories
 from pprint import pprint
+import sys
+
+import tomlib
+
 if 'win' in platform.platform().lower():
     vercel=False
 else:
@@ -80,6 +84,11 @@ class ConfigInput:
         grouping_selection_path = os.path.normpath(Directories.get_groupings_dir()+"\\"+grouping_selection_filename)
         Directories.check_file(grouping_selection_path)
         return grouping_selection_path,grouping_algorithm
+    
+    def load_toml(self,filename):
+        with open(filename,"r") as file:
+            json_data = file.read()
+        loaded_json = json.loads(json_data)
 
     def load_json(self,filename):
         # we need a way to check that the json file is formatted properly, namey that commas are in the right place, before attemptig to load itusing json.loads(), because otherwise it might freak out
@@ -92,7 +101,6 @@ class ConfigInput:
             raise RuntimeError("Stopping execution")
         #print(f'{filename}: ')
         #print(json.dumps(self.loaded_json, indent=4))
-
         return loaded_json
     
     def load_csv(self,filename):

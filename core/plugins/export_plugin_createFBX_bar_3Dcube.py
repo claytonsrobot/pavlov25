@@ -1,5 +1,5 @@
 '''
-Title: export_plugin_createFBX_bar_3D
+Title: export_plugin_createFBX_bar_3Dcube
 Created: 10 February 2024
 Author: Clayton Bennett
 '''

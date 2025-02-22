@@ -152,7 +152,7 @@ class Scene:
 
     def populate_halfwidth_data(self,vectorArray_halfwidth_time,vectorArray_halfwidth_height,vectorArray_halfwidth_depth,
                                   average_halfwidth_time,average_halfwidth_height,average_halfwidth_depth):
-        
+        # the reason this exists is for explicit oversight from main.py
         self.vectorArray_halfwidth_time = vectorArray_halfwidth_time
         self.vectorArray_halfwidth_height = vectorArray_halfwidth_height
         self.vectorArray_halfwidth_depth = vectorArray_halfwidth_depth
