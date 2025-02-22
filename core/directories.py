@@ -103,5 +103,13 @@ class Directories:
         else:
             # the file exists
             pass
-
+    @classmethod
+    def check_first_level_import_directory_names():
+        group_names = [None]
+        return group_names
+    
+    @classmethod
+    def check_second_level_import_directory_names():
+        subgroup_names = [None]
+        return subgroup_names
 

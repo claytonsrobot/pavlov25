@@ -174,8 +174,11 @@ class ConfigInput:
             print(f"self.loaded_csv_grouping = {self.loaded_csv_grouping}")
 
         elif self.grouping_algorithm == "group-by-directory":
+            self.group_names = Directories.check_first_level_import_directory_names()
+            self.subgroup_names = Directories.check_second_level_import_directory_names()
+            HEY! Adjust the way you get data files, from subdirs
             # explore first and second level directories in the projects/{project_name}/"imports" folder
-            pass
+            
 
         self.determine_data_directory(self.loaded_config,self.script_dir)
         #self.determine_export_directory(self.loaded_config,self.script_dir)
