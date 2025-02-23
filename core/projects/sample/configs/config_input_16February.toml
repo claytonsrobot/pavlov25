@@ -10,7 +10,7 @@
 "column_depth" = "Elevation"
 "column_color" = "Distance"
 "columns_metadata" = ""	
-"data_start_idx" = 0,
+"data_start_idx" = 0
 "file_encoding" = "bin"
 "file_format" = "FBX"       
 "time-series-transcoding" = "null"

@@ -83,7 +83,10 @@ class ConfigInput:
         #grouping_algorithm = loaded_grouping_entry_json["algorithm"]
         grouping_selection_filename = loaded_grouping_entry_toml["grouping"]["grouping_selection_filename"]
         grouping_algorithm = loaded_grouping_entry_toml["grouping"]["algorithm"]
-        grouping_selection_path = os.path.normpath(Directories.get_groupings_dir()+"\\"+grouping_selection_filename)
+        if grouping_selection_filename is None:
+            grouping_selection_path = None
+        else:    
+            grouping_selection_path = os.path.normpath(Directories.get_groupings_dir()+"\\"+grouping_selection_filename)
         Directories.check_file(grouping_selection_path)
         return grouping_selection_path,grouping_algorithm
     
@@ -176,7 +179,7 @@ class ConfigInput:
         elif self.grouping_algorithm == "group-by-directory":
             self.group_names = Directories.check_first_level_import_directory_names()
             self.subgroup_names = Directories.check_second_level_import_directory_names()
-            HEY! Adjust the way you get data files, from subdirs
+            #HEY! Adjust the way you get data files, from subdirs
             # explore first and second level directories in the projects/{project_name}/"imports" folder
             
 
