@@ -112,44 +112,15 @@ class MultipleAxesScalingAlgorithm:
         pass
     @staticmethod
     def normalize_all_curve_objects(set_curve_objects_all):
-        target_axis_length = 1000 # each, +10000 for the positive side, and -1000 the negative side. 
+        target_axis_length = 1 # each, +10000 for the positive side, and -1000 the negative side. 
         for curve_object in set_curve_objects_all:
-            #curve_object.scaled_span = [[None,None,None],[None,None,None]]
-            #curve_object.scaled_span = [[-1000,-1000,-1000],[1000,1000,1000]]
-            #[[minT,minH,minD],[maxT,maxH,maxD]] = curve_object.raw_span
-            #[min_vector,max_vector] = curve_object.raw_span
-            # foregone. What we need is to get all the value in the curve
-            #for i,min_value in enumerate(min_vector):
-            #    curve_object.scaled_data_array[0,i] = -1000
-            #for i,max_value in enumerate(max_vector):
-            #    curve_object.scaled_data_array[1,i] = 1000
 
-            if True:
-                MultipleAxesScalingAlgorithm.normalize_curve_object_values(curve_object,target_axis_length)
-                MultipleAxesScalingAlgorithm.repair_curve_object_max_min(curve_object)
-                #curve_object.dict_data_vectors_scaled["time"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["time"],target_axis_length)
-                #curve_object.dict_data_vectors_scaled["height"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["height"],target_axis_length)
-                #curve_object.dict_data_vectors_scaled["depth"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["depth"],target_axis_length)
-                #print(f"curve_object.name = {curve_object.name}")
-                #print(f"curve_object.dict_data_vectors_scaled.keys() = {curve_object.dict_data_vectors_scaled.keys()}")
-                #print(f"curve_object.name = {curve_object.name}")
-                curve_object.dict_data_vectors_scaled["halfwidth_time"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["halfwidth_time"],target_axis_length)
-                curve_object.dict_data_vectors_scaled["halfwidth_depth"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["halfwidth_depth"],target_axis_length)
-                curve_object.dict_data_vectors_scaled["halfwidth_height"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["halfwidth_height"],target_axis_length)
-                
-            else:
-                for key,raw_data_vector in curve_object.dict_data_vectors_raw.items():
-                    target_normalized_data_vector = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(raw_data_vector,target_axis_length)
-                    curve_object.dict_data_vectors_normalized.update({key:target_normalized_data_vector})
-                    # allocate values to datapoint_object afterwards
+            MultipleAxesScalingAlgorithm.normalize_curve_object_values(curve_object,target_axis_length)
+            MultipleAxesScalingAlgorithm.repair_curve_object_max_min(curve_object)
+            curve_object.dict_data_vectors_scaled["halfwidth_time"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["halfwidth_time"],target_axis_length)
+            curve_object.dict_data_vectors_scaled["halfwidth_depth"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["halfwidth_depth"],target_axis_length)
+            curve_object.dict_data_vectors_scaled["halfwidth_height"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["halfwidth_height"],target_axis_length)
                  
-        #positive_df = dict()
-        #normalized_df = dict()
-            # do we explicitly call the attributes of curve_object, or do we call in a df-like-dictionary
-            # We should probably organize all vectors in a curve into a df-like-dictionary
-            # And, we should organize all values in a datapoint into a df-like-dictionary, single value each key
-            #normalized_df[col] = (df[col] - df[col].min()) / (df[col].max() - df[col].min())
-        #return normalized_df # not bad
         return True
     
 
