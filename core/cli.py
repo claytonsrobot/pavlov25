@@ -1273,6 +1273,10 @@ class PavlovCLI(cmd2.Cmd):
             print("Time values")
             print(f"Header: {self.scene_object.headers_time[i]}")
             vector = self.scene_object.vectorArray_time[i]
+
+            key_i = list(self.hierarchy_object.dict_curve_objects_all.keys())[i]
+            vector = self.hierarchy_object.dict_curve_objects_all[key_i].dict_data_vectors_scaled["time"]
+
             all = [x-min(vector) for x in vector]
             print(f"initial: {vector[0]}, last: {vector[-1]}, len: {len(vector)}, min: {min(vector)}, max: {max(vector)}")
             for line in sparklines(all,num_lines=1):
