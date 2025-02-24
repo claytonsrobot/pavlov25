@@ -247,20 +247,6 @@ class Plugin:
         self.headers_height = headers_height
         self.headers_depth = headers_depth
 
-        #self.vectorArray_depth = self.style_object.preparecurve_object.dict_data_vectors_raw["halfwidth_time"]_missing_depth(self.vectorArray_time,self.vectorArray_height) # not entirely necessary
-        self.vectorArray_halfwidth_time,self.average_halfwidth_time = self.style_object.prepare_missing_halfwidth_time_vectorArray(self.vectorArray_time)
-        self.vectorArray_halfwidth_height,self.average_halfwidth_height = self.style_object.prepare_missing_halfwidth_height_vectorArray(self.vectorArray_height) 
-        self.vectorArray_halfwidth_depth,self.average_halfwidth_depth = self.style_object.prepare_missing_halfwidth_depth_vectorArray(self.vectorArray_depth) 
-        #self.vectorArray_direction = self.style_object.prepare_missing_direction_vectorArray(vectorArray_time,vectorArray_height,vectorArray_depth)
-        self.vectorArray_direction = None
-        for i,curve_object in enumerate(self.scene_object.hierarchy_object.dict_curve_objects_all.values()):
-            #curve_object.dict_data_vectors_raw["halfwidth_time"]
-            #print(f"curve_object.name = {curve_object.name}")
-            #            .dict_data_vectors_raw[
-            curve_object.dict_data_vectors_raw["halfwidth_time"] = self.vectorArray_halfwidth_time[i]
-            curve_object.dict_data_vectors_raw["halfwidth_height"] = self.vectorArray_halfwidth_height[i]
-            curve_object.dict_data_vectors_raw["halfwidth_depth"] = self.vectorArray_halfwidth_depth[i]
-
         self.import_lib_object.check_point_tally_for_all_files(vectorArray_time)
         #os.chdir(Directories.get_program_dir()) # if dilure, then broken
         return names,vectorArray_time,vectorArray_height,headers_time,headers_height

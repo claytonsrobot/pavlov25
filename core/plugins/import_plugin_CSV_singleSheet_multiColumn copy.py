@@ -118,18 +118,8 @@ class Plugin:
             self.vectorArray_height = vectorArray_height
             self.headers_time = headers_time
             self.headers_height = headers_height
-
-            self.headers_depth = self.headers_height # for 2D redundant data
-            self.vectorArray_depth = self.style_object.prepare_missing_depth(self.vectorArray_time,self.vectorArray_height) # not entirely necessary
-            self.vectorArray_halfwidth_time,self.average_halfwidth_time = self.style_object.prepare_missing_halfwidth_time_vectorArray(self.vectorArray_time)
-            #self.vectorArray_halfwidth_height,self.average_halfwidth_height = self.style_object.prepare_missing_halfwidth_height_vectorArray(self.vectorArray_height) 
-            #self.vectorArray_halfwidth_depth,self.average_halfwidth_depth = self.style_object.prepare_missing_halfwidth_depth_vectorArray(self.vectorArray_depth) 
-            self.vectorArray_halfwidth_height = None # not used now, override
-            self.vectorArray_halfwidth_depth = None # not used now, override
-            self.average_halfwidth_height = None
-            self.average_halfwidth_depth = None
-            #self.vectorArray_direction = self.style_object.prepare_missing_direction_vectorArray(vectorArray_time,vectorArray_height,vectorArray_depth)
-            self.vectorArray_direction = None
+            
+            #self.headers_depth = self.headers_height # for 2D redundant data
 
             curve_object.add_raw_data(vector_time,
                                     vector_height,

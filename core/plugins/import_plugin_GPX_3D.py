@@ -243,9 +243,9 @@ class Plugin:
                 #print(f"datapoint_object.height = {datapoint_object.height}")
                 datapoint_object.depth = vector_depth[i]
         
-                datapoint_object.halfwidth_time
-                datapoint_object.halfwidth_height
-                datapoint_object.halfwidth_depth
+                #datapoint_object.halfwidth_time
+                #datapoint_object.halfwidth_height
+                #datapoint_object.halfwidth_depth
 
         self.names = names 
         self.vectorArray_time = vectorArray_time
@@ -254,13 +254,8 @@ class Plugin:
         self.headers_time = headers_time
         self.headers_height = headers_height
         self.headers_depth = headers_depth
-
+        
         #self.vectorArray_depth = self.style_object.prepare_missing_depth(self.vectorArray_time,self.vectorArray_height) # not entirely necessary
-        self.vectorArray_halfwidth_time,self.average_halfwidth_time = self.style_object.prepare_missing_halfwidth_time_vectorArray(self.vectorArray_time)
-        self.vectorArray_halfwidth_height,self.average_halfwidth_height = self.style_object.prepare_missing_halfwidth_height_vectorArray(self.vectorArray_height) 
-        self.vectorArray_halfwidth_depth,self.average_halfwidth_depth = self.style_object.prepare_missing_halfwidth_depth_vectorArray(self.vectorArray_depth) 
-        #self.vectorArray_direction = self.style_object.prepare_missing_direction_vectorArray(vectorArray_time,vectorArray_height,vectorArray_depth)
-        self.vectorArray_direction = None
 
         self.import_lib_object.check_point_tally_for_all_files(vectorArray_time)
         os.chdir(Directories.get_program_dir())

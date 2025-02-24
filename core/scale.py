@@ -117,87 +117,36 @@ class MultipleAxesScalingAlgorithm:
 
             MultipleAxesScalingAlgorithm.normalize_curve_object_values(curve_object,target_axis_length)
             MultipleAxesScalingAlgorithm.repair_curve_object_max_min(curve_object)
-            curve_object.dict_data_vectors_scaled["halfwidth_time"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["halfwidth_time"],target_axis_length)
-            curve_object.dict_data_vectors_scaled["halfwidth_depth"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["halfwidth_depth"],target_axis_length)
-            curve_object.dict_data_vectors_scaled["halfwidth_height"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["halfwidth_height"],target_axis_length)
-                 
+
         return True
     
 
     def normalize_curve_object_values(curve_object,target_axis_length):
         # how are we handing these scaled values to the datapoint objects? 
-        j=0
+        
         #for key,datapoint_object in curve_object.dict_datapoints.items():
         curve_object.dict_data_vectors_scaled["time"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["time"],target_axis_length)
         curve_object.dict_data_vectors_scaled["height"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["height"],target_axis_length)
         curve_object.dict_data_vectors_scaled["depth"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["depth"],target_axis_length)
-        curve_object.dict_data_vectors_scaled["halfwidth_time"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["halfwidth_time"],target_axis_length)
-        curve_object.dict_data_vectors_scaled["halfwidth_depth"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["halfwidth_depth"],target_axis_length)
-        curve_object.dict_data_vectors_scaled["halfwidth_height"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["halfwidth_height"],target_axis_length)
+        #curve_object.dict_data_vectors_scaled["halfwidth_time"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["halfwidth_time"],target_axis_length)
+        #curve_object.dict_data_vectors_scaled["halfwidth_depth"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["halfwidth_depth"],target_axis_length)
+        #curve_object.dict_data_vectors_scaled["halfwidth_height"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["halfwidth_height"],target_axis_length)
 
+        j=0
         for datapoint_object in curve_object.dict_datapoints.values():
-            """
-            datapoint_object.set_vars(raw_time = curve_object.raw_time[j],
-                                      raw_height = curve_object.raw_height[j],
-                                        raw_depth = curve_object.raw_depth[j],
-                                        raw_halfwidth_time = curve_object.raw_halfwidth_time[j],
-                                        raw_halfwidth_depth = curve_object.raw_halfwidth_depth[j],
-                                        raw_halfwidth_height = curve_object.raw_halfwidth_height[j])
-            """
-            if False:
-                datapoint_object.dict_data_raw["time"] = curve_object.time[j]
-                datapoint_object.dict_data_raw["height"] = curve_object.height[j]
-                datapoint_object.dict_data_raw["depth"] = curve_object.depth[j]
-            if False:
-                datapoint_object.dict_data_raw["halfwidth_time"] = curve_object.halfwidth_time[j]
-                datapoint_object.dict_data_raw["halfwidth_depth"] = curve_object.halfwidth_depth[j]
-                datapoint_object.dict_data_raw["halfwidth_height"] = curve_object.halfwidth_height[j]
 
             datapoint_object.dict_data_raw["time"] = curve_object.dict_data_vectors_raw["time"][j]
             datapoint_object.dict_data_raw["height"] = curve_object.dict_data_vectors_raw["height"][j]
             datapoint_object.dict_data_raw["depth"] = curve_object.dict_data_vectors_raw["depth"][j]
-            if False:
-                datapoint_object.dict_data_raw["halfwidth_time"] = curve_object.dict_data_vectors_raw["halfwidth_time"][j]
-                datapoint_object.dict_data_raw["halfwidth_depth"] = curve_object.dict_data_vectors_raw["halfwidth_depth"][j]
-                datapoint_object.dict_data_raw["halfwidth_height"] = curve_object.dict_data_vectors_raw["halfwidth_height"][j]
-
-            
-            #curve_object.dict_data_scaled["time"] = curve_object.dict_data_raw["time"][j]
-            #curve_object.dict_data_scaled["height"] = curve_object.dict_data_raw["height"][j]
-            #curve_object.dict_data_scaled["depth"] = curve_object.dict_data_raw["depth"][j]
-            #curve_object.dict_data_scaled["halfwidth_time"] = curve_object.dict_data_raw["halfwidth_time"][j]
-            #curve_object.dict_data_scaled["halfwidth_depth"] = curve_object.dict_data_raw["halfwidth_depth"][j]
-            #curve_object.dict_data_scaled["halfwidth_height"] = curve_object.dict_data_raw["halfwidth_height"][j]
 
 
             datapoint_object.dict_data_scaled["time"] = curve_object.dict_data_vectors_scaled["time"][j]
             datapoint_object.dict_data_scaled["height"] = curve_object.dict_data_vectors_scaled["height"][j]
             datapoint_object.dict_data_scaled["depth"] = curve_object.dict_data_vectors_scaled["depth"][j]
-            datapoint_object.dict_data_scaled["halfwidth_time"] = curve_object.dict_data_vectors_scaled["halfwidth_time"][j]
-            datapoint_object.dict_data_scaled["halfwidth_depth"] = curve_object.dict_data_vectors_scaled["halfwidth_depth"][j]
-            datapoint_object.dict_data_scaled["halfwidth_height"] = curve_object.dict_data_vectors_scaled["halfwidth_height"][j]
+            #datapoint_object.dict_data_scaled["halfwidth_time"] = curve_object.dict_data_vectors_scaled["halfwidth_time"][j]
+            #datapoint_object.dict_data_scaled["halfwidth_depth"] = curve_object.dict_data_vectors_scaled["halfwidth_depth"][j]
+            #datapoint_object.dict_data_scaled["halfwidth_height"] = curve_object.dict_data_vectors_scaled["halfwidth_height"][j]
 
-
-            #datapoint_object.dict_data_raw["time"] = datapoint_object.dict_data_raw["time"]
-            #datapoint_object.dict_data_raw["height"] = curve_object["height"][j]
-            #datapoint_object.dict_data_raw["depth"] = curve_object["depth"][j]
-            #datapoint_object.dict_data_raw["halfwidth_time"] = curve_object["halfwidth_time"][j]
-            #datapoint_object.dict_data_raw["halfwidth_depth"] = curve_object["halfwidth_depth"][j]
-            #datapoint_object.dict_data_raw["halfwidth_height"] = curve_object["halfwidth_height"][j]
-            """
-            datapoint_object.set_vars(raw_time = curve_object.time[j],
-                                      raw_height = curve_object.height[j],
-                                        raw_depth = curve_object.depth[j],
-                                        raw_halfwidth_time = curve_object.halfwidth_time[j],
-                                        raw_halfwidth_depth = curve_object.halfwidth_depth[j],
-                                        raw_halfwidth_height = curve_object.halfwidth_height[j])
-            
-            datapoint_object.set_vars(height = curve_object.height[j],
-                            depth = curve_object.depth[j],
-                            halfwidth_time = curve_object.live_halfwidth_time[j],
-                            halfwidth_depth = curve_object.live_halfwidth_depth[j],
-                            halfwidth_height = curve_object.live_halfwidth_height[j])
-            """
             datapoint_object.set_vars(j = j,
                             header_time = curve_object.header_time,
                             header_height = curve_object.header_height,

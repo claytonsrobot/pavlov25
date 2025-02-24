@@ -218,16 +218,6 @@ class Ticks:
             ''' where lines_array_manifests'''
             #curve_object.axis_array = lines_array # leave em both, but reference this in createFBX, 04 Jan 2024
             
-            # These values are all provided relative to the 0,0 origin, based on the data. This is not very scalable.
-            # What would be better is to add a vector to each entry when unpacking at the point of use, a vector from the data 0,0 to the plot 0,0.     curve_object.header_time = headers_time[i]
-            #curve_object.header_height = headers_height[i]
-            curve_object.header_depth = self.scene_object.headers_depth[i]
-            curve_object.live_halfwidth_time = self.scene_object.vectorArray_halfwidth_time[i]
-            curve_object.live_halfwidth_height = self.scene_object.vectorArray_halfwidth_height[i]
-            curve_object.live_halfwidth_depth = self.scene_object.vectorArray_halfwidth_depth[i]
-            # absolutely bonkers.
-
-    
     # defunct, scaled inconsistent ticks
     def ticks(self,curve_object, n_ticks, axis_length, header,THD_direction,tick_length_ratio):
         #example, time: THD_direction = [1,0,0]
@@ -475,16 +465,6 @@ class Ticks:
             axes_arrays.append(lines_array) # all axes for all data objects
             curve_object.set_axis_array(lines_array)
             #curve_object.axis_array = lines_array # leave em both, but reference this in createFBX, 04 Jan 2024
-            
-            # These values are all provided relative to the 0,0 origin, based on the data. This is not very scalable.
-            # What would be better is to add a vector to each entry when unpacking at the point of use, a vector from the data 0,0 to the plot 0,0.     curve_object.header_time = headers_time[i]
-            #curve_object.header_height = headers_height[i]
-            curve_object.header_depth = self.scene_object.headers_depth[i]
-            curve_object.live_halfwidth_time = self.scene_object.vectorArray_halfwidth_time[i]
-            curve_object.live_halfwidth_height = self.scene_object.vectorArray_halfwidth_height[i]
-            curve_object.live_halfwidth_depth = self.scene_object.vectorArray_halfwidth_depth[i]
-
-
     # used, succesor to self.ticks() 
     def ticks_consistent(self,curve_object, n_ticks, axis_length, header,THD_direction,tick_size):
         #example, time: THD_direction = [1,0,0]

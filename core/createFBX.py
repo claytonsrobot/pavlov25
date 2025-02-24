@@ -647,37 +647,17 @@ class CreateFBX:
             #in data import, and for depth and point_size, in style_object. 
             #halfwidths, color coeffs, etx require comlete set to determine'''
             #print("If this breaks here, it is because I am testing. Turn it back on to run. 12 February 2025")
-            if False: # moved to scale normalize_, scale.curve_object_values(); shoun't stay there, but can ocur with normalization of the raw data to the live data
-                datapoint_object.set_vars(height = curve_object.height[j],
-                                            depth = curve_object.depth[j],
-                                            halfwidth_time = curve_object.live_halfwidth_time[j],
-                                            halfwidth_depth = curve_object.live_halfwidth_depth[j],
-                                            halfwidth_height = curve_object.live_halfwidth_height[j],
-                                            point_size = self.style_object.point_size)
+
 
             if True:
+                # this carries the one live datapoint. This is dumb.
                 datapoint_object.set_vars(time = curve_object.dict_data_vectors_scaled["time"][j],
                                           height = curve_object.dict_data_vectors_scaled["height"][j],
                                           depth = curve_object.dict_data_vectors_scaled["depth"][j],
-                                            halfwidth_time = curve_object.live_halfwidth_time[j],
-                                            halfwidth_depth = curve_object.live_halfwidth_depth[j],
-                                            halfwidth_height = curve_object.live_halfwidth_height[j],
+                                            halfwidth_time = curve_object.dict_data_vectors_scaled["halfwidth_time"][j],
+                                            halfwidth_height = curve_object.dict_data_vectors_scaled["halfwidth_height"][j],
+                                            halfwidth_depth = curve_object.dict_data_vectors_scaled["halfwidth_depth"][j],
                                             point_size = self.style_object.point_size)
-                
-            #datapoint_object.dict_data_raw["time"] = curve_object.time[j]
-            #datapoint_object.dict_data_raw["height"] = curve_object.height[j]
-            #datapoint_object.dict_data_raw["depth"] = curve_object.depth[j]
-            #datapoint_object.dict_data_raw["halfwidth_time"] = curve_object.halfwidth_time[j]
-            #datapoint_object.dict_data_raw["halfwidth_depth"] = curve_object.halfwidth_depth[j]
-            #datapoint_object.dict_data_raw["halfwidth_height"] = curve_object.halfwidth_height[j]
-
-            datapoint_object.dict_data_raw["time"] = curve_object.dict_data_vectors_raw["time"][j]
-            datapoint_object.dict_data_raw["height"] = curve_object.dict_data_vectors_raw["height"][j]
-            datapoint_object.dict_data_raw["depth"] = curve_object.dict_data_vectors_raw["depth"][j]
-            datapoint_object.dict_data_raw["halfwidth_time"] = curve_object.dict_data_vectors_raw["halfwidth_time"][j]
-            datapoint_object.dict_data_raw["halfwidth_depth"] = curve_object.dict_data_vectors_raw["halfwidth_depth"][j]
-            datapoint_object.dict_data_raw["halfwidth_height"] = curve_object.dict_data_vectors_raw["halfwidth_height"][j]
-
 
             datapoint_object.set_vars(j = j,
                                         header_time = curve_object.header_time,

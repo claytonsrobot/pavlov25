@@ -77,6 +77,10 @@ if environmental.pyinstaller()==True:
     from plugins import import_plugin_GPX_3D
     #from core.plugins import import_plugin_CSV_singleSheet_multiRow # evil SOB
 
+def fill_list_with_value(length,value):
+    vector = [value] * length
+    return vector
+    
 #print(color_plugin_binned_gradient)
 #print(plugins)
 #from plugins import *
@@ -354,39 +358,36 @@ class Style:
         vectorArray_depth = halfdepth_list # double name for now, until a full shift is made to the standard of vectorArray_depth # naming convention is based on the original bar style, where the origin was the center of the bar, with a halfdepth positive and then negative on each side from the origin
         return vectorArray_depth
     
+
+    
+    def prepare_missing_halfwidth_vector_general(self,vector):
+        halfwidth_min_reasonable_i = deltaList.halfdelta_min_reasonable_finder(vector) # find minimum difference between all points in a vector
+        halfwidth_list = fill_list_with_value(len(vector),halfwidth_min_reasonable_i)
+        return halfwidth_list
+
     def prepare_missing_halfwidth_vectorArray_general(self,vectorArray):
         #vectorArray = vectorArray
         vectorArray
         i=0
-        halfwidth_list = [[]]
+        #halfwidth_list = [[]]
+        halfwidth_vectorArray = [[]]
         while i<len(vectorArray):
             j=0
-            halfwidth_min_i = deltaList.halfdelta_min_finder(vectorArray[i]) # find minimum difference between all points in a vector
-            halfwidth_avg_i = deltaList.halfdelta_avg_finder(vectorArray[i]) # find minimum difference between all points in a vector
-            halfwidth_min_reasonable_i = deltaList.halfdelta_min_reasonable_finder(vectorArray[i]) # find minimum difference between all points in a vector
-            halfwidth_list_i = deltaList.halfdeltaList(vectorArray[i]) # find minimum difference between all points in a vector
-            while j<len(vectorArray[i]):
-                try:
-                    #halfwidth_list[i].append(self.coefficient_deltaTime*halfwidth_min)
-                    
-                    #halfwidth_list[i].append(halfwidth_min_i)
-                    
-                    #halfwidth_list[i].append(halfwidth_list_i[j])
-                    #halfwidth_list[i].append(min(abs(halfwidth_list_i)))
-                    
-                    #halfwidth_list[i].append(halfwidth_avg_i) # stable 5 Jan 2025
-                    halfwidth_list[i].append(halfwidth_min_reasonable_i) # test 5 Jan 2025
-                except:
-                    print(f'self.coefficient_deltaTime = {self.coefficient_deltaTime}')
-                    print(f'halfwidth_min = {halfwidth_min_i}')
-                j=j+1
+            vector = vectorArray[i]
+            halfwidth_min_i = deltaList.halfdelta_min_finder(vector) # find minimum difference between all points in a vector
+            halfwidth_min_reasonable_i = deltaList.halfdelta_min_reasonable_finder(vector) # find minimum difference between all points in a vector
+            halfwidth_list = fill_list_with_value(len(vector),halfwidth_min_reasonable_i)
+
+            
+            halfwidth_vectorArray[i] = halfwidth_list 
             i=i+1
+            # prepare the next list in the vectorArray
             if i<len(vectorArray): # only do this if there is going to be another round (don't do it on the last round)
-                halfwidth_list.append([])
+                halfwidth_vectorArray.append([])
 
         # convert to tuples
-        halfwidth_list = tuple(tuple(i) for x,i in enumerate(halfwidth_list))
-        vectorArray_halfwidth = halfwidth_list
+        halfwidth_vectorArray = tuple(tuple(i) for x,i in enumerate(halfwidth_vectorArray))
+        vectorArray_halfwidth = halfwidth_vectorArray
         return  vectorArray_halfwidth
 
     def prepare_missing_halfwidth_time_vectorArray(self,vectorArray_time):
@@ -487,4 +488,14 @@ class Style:
             if key in self.__dict__.keys():
                 self.__dict__[key] =  value
 
+    def calculate_halfwidths_and_directions(self):
+        for i,curve_object in enumerate(self.scene_object.hierarchy_object.dict_curve_objects_all.values()):
+            curve_object.dict_data_vectors_scaled["halfwidth_time"] = self.prepare_missing_halfwidth_vector_general(curve_object.dict_data_vectors_scaled["time"])
+            curve_object.dict_data_vectors_scaled["halfwidth_height"] = self.prepare_missing_halfwidth_vector_general(curve_object.dict_data_vectors_scaled["height"])
+            curve_object.dict_data_vectors_scaled["halfwidth_depth"] = self.prepare_missing_halfwidth_vector_general(curve_object.dict_data_vectors_scaled["depth"])
+
+            for j,datapoint_object in enumerate(curve_object.dict_datapoints.values()):
+                datapoint_object.dict_data_scaled["halfwidth_time"] = curve_object.dict_data_vectors_scaled["halfwidth_time"][j]
+                datapoint_object.dict_data_scaled["halfwidth_height"] = curve_object.dict_data_vectors_scaled["halfwidth_height"][j]
+                datapoint_object.dict_data_scaled["halfwidth_depth"] = curve_object.dict_data_vectors_scaled["halfwidth_depth"][j]
 

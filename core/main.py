@@ -231,9 +231,12 @@ def import_data(scene_object,style_object,user_input_object,hierarchy_object):
     scale_object.assign_scene_object_etc(scene_object)
     scale_is_ready=True
     if scale_is_ready is True:
-        scale_object.scale_datapoints()
+        pass
+        #scale_object.scale_datapoints() # garbage function, poorly writte. go look and see why.
 
     MultipleAxesScalingAlgorithm.normalize_all_curve_objects(set(hierarchy_object.dict_curve_objects_all.values()))
+    style_object.calculate_halfwidths_and_directions()
+
     # yes scale should be after import and before passing values to scene_object 
     # no, boooo, do it before assignment to curve objects and datapoints
     # well, should the datapoints know their unscaled values? i suppose they would have to for proper labeling.....hmmmm.
