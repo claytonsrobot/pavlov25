@@ -255,8 +255,6 @@ class Plugin:
         self.headers_height = headers_height
         self.headers_depth = headers_depth
         
-        #self.vectorArray_depth = self.style_object.prepare_missing_depth(self.vectorArray_time,self.vectorArray_height) # not entirely necessary
-
         self.import_lib_object.check_point_tally_for_all_files(vectorArray_time)
         os.chdir(Directories.get_program_dir())
         return names,vectorArray_time,vectorArray_height,headers_time,headers_height
