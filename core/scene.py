@@ -79,18 +79,18 @@ class Scene:
         #self.dict_tier_objects = dict() #migrated to hierarchy_object
         self.tier_object = None
 
-        self.average_halfwidth_time = None
-        self.average_halfwidth_height = None
-        self.average_halfwidth_depth = None
-        self.average_halfwidth_time = None
-        self.average_halfwidth_height = None
-        self.average_halfwidth_depth = None
+        #self.average_halfwidth_time = None
+        #self.average_halfwidth_height = None
+        #self.average_halfwidth_depth = None
+        #self.average_halfwidth_time = None
+        #self.average_halfwidth_height = None
+        #self.average_halfwidth_depth = None
         self.dict_text_labels = None
 
-        self.vectorArray_halfwidth_time = None
-        self.vectorArray_halfwidth_height = None
-        self.vectorArray_halfwidth_depth = None
-        self.vectorArray_direction = None
+        #self.vectorArray_halfwidth_time = None
+        #self.vectorArray_halfwidth_height = None
+        #self.vectorArray_halfwidth_depth = None
+        #self.vectorArray_direction = None
         
         self.filename_FBX = None
         self.filesize_FBX = None
@@ -106,11 +106,7 @@ class Scene:
         self.title = None
         self.max_raw_data = None 
         self.min_raw_data = None  
-        ##self.span = [[None,None],[None,None],[None,None]]
-        #self.span_relative_to_scene_data_origin = None
-        #self.span_relative_to_scene_minimum_edge_at_zero_height_plane = None
-        #self.span_relative_to_self_data_origin = None
-        #self.span_relative_to_self_minimum_edge_at_zero_height_plane = None
+
         self.span_relative_to_scene_data_origin = [[None,None],[None,None],[None,None]] 
         self.span_relative_to_scene_minimum_edge_at_zero_height_plane = [[None,None],[None,None],[None,None]] 
         self.span_relative_to_self_data_origin = [[None,None],[None,None],[None,None]] 
@@ -149,7 +145,7 @@ class Scene:
         print(f"self.max_depth = {self.max_depth}")
         self.min_depth = arrayMath.min_arrayMath(self.vectorArray_depth)
         print(f"self.min_depth = {self.min_depth}")
-
+       
     def populate_halfwidth_data(self,vectorArray_halfwidth_time,vectorArray_halfwidth_height,vectorArray_halfwidth_depth,
                                   average_halfwidth_time,average_halfwidth_height,average_halfwidth_depth):
         # the reason this exists is for explicit oversight from main.py
@@ -162,7 +158,7 @@ class Scene:
 
     def populate_direction_data(self,vectorArray_direction):
         self.vectorArray_direction = vectorArray_direction
-
+    
     def add_subgroup(self, subgroup_object,key): # misnomer now, if the hierarchy is scene-groups-subgroups-curves. Is a group a subgroup of a scene? Good question. In the most rigorous sense, this leads to incorrect nomenclature, because the word "subgroup" infers the third tier.
         self.dict_subgroups[key]=subgroup_object
         self.dict_children = {**self.dict_subgroups,**self.dict_curve_objects}

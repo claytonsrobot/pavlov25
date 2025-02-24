@@ -250,7 +250,7 @@ def import_data(scene_object,style_object,user_input_object,hierarchy_object):
             import_function_object.headers_time,
             import_function_object.headers_height,
             import_function_object.headers_depth)    
-    
+    """
     scene_object.populate_halfwidth_data(\
             import_function_object.vectorArray_halfwidth_time,
             import_function_object.vectorArray_halfwidth_height,
@@ -261,7 +261,7 @@ def import_data(scene_object,style_object,user_input_object,hierarchy_object):
     
     scene_object.populate_direction_data(\
             import_function_object.vectorArray_direction)
-
+    """
     messaging.print_data_range(scene_object)
     # sort out parlance between "function" and "plugin"
     export_plugin_list = style_object.prepare_export_modules()
