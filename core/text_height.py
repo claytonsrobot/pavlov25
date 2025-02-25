@@ -58,6 +58,8 @@ class TextHeight:
         text_label_object = TextLabel()
         text_label_object.text_string = curve_object_srg.name
         text_label_object.label_type = 'title_'
+
+        # Make an example by length and then bring bak the result for height to be applied to the rest
         text_height = text_label_object.build_title_label_by_length(curve_object_srg,text_length)
         #text_label_object
         #curve_object_srg.title_object = title_machine.build_title(curve_object_srg)

@@ -114,7 +114,6 @@ class Style:
         self.depthByHeight_coeff = 0.5# 0.5 looks nice: it makes sense because the height direction typically requires no stacking, each item has the whole vertical screen. But this isn't true from top view, so compression is useful.
         self.coefficient_deltaTime = 1 # coefficient compared to width of bar in time direction
         self.text_size_coeff    = 1.0 # the title takes up the whole length of the time axis
-
         self.axis_stacked_redundancy = ['make_redundant_and_non_redundant', 'only_largest_stacked','place_only_largest_stacked_at_extremity','exploded_and_non_redundant']
 
         # make only the longest axis in shortest in stack direction and grandfather stack

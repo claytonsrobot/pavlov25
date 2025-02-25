@@ -53,7 +53,7 @@ class TitleMachine:
         print(f"self.text_height_machine.curve_object_key_srg = {self.text_height_machine.curve_object_key_srg}")
         curve_object_srg = self.hierarchy_object.dict_curve_objects_all[self.text_height_machine.curve_object_key_srg]
         print(f'curve_object_srg.name = {curve_object_srg.name}')
-        text_height_minimum = self.text_height_machine.determine_text_height_for_curve_object_srg(curve_object_srg,title_machine = self)
+        text_height_minimum = self.text_height_machine.determine_text_height_for_curve_object_srg(curve_object_srg,title_machine = self)*1.7 # hacky garbage, forced, to appear proper even though it isnt, Feb 2025
         self.style_object.text_height_minimum_for_curve_objects = text_height_minimum
         return text_height_minimum # returns to main, if you wannt
 

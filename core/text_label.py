@@ -102,7 +102,7 @@ class TextLabel:
         return self
     
     def build_title_label_by_length(self,curve_object,text_length,label_type = 'title_'):
-        # NOT USED
+        # used once, in determine_text_height_for_curve_object_srg()
         self.build_text_by_height = False
         #print(f'build_title_label_by_length')
         self.label_type = label_type
@@ -158,9 +158,9 @@ class TextLabel:
         self.build_text_by_height = True
         if self.build_text_by_height == True:
             if self.parent_object.tier_level == 1: 
-                self.set_text_height(9*self.style_object.text_height_minimum_for_curve_objects)
+                self.set_text_height(3*self.style_object.text_height_minimum_for_curve_objects) # 
             elif self.parent_object.tier_level == 2: 
-                self.set_text_height(7*self.style_object.text_height_minimum_for_curve_objects)
+                self.set_text_height(2*self.style_object.text_height_minimum_for_curve_objects) # this is where the relative group text value sizes are set, but the transation is separate. What a mess.
         self.label_type = label_type
         # here you can pull user_input_object values
         # currently setting axis as the time direction at the span edge of a group. Why not at the lower fence.

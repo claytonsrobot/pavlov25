@@ -25,7 +25,6 @@ class GroupLabelMachine:
     def __init__(self):
         self.name = os.path.basename(__file__).removesuffix('.py')
         
-
     def generate_group_label_for_each_group(self):
         #for group_object in reversed(self.hierarchy_object.dict_group_objects_all.values()):
         for group_object in reversed(self.hierarchy_object.dict_group_objects_most.values()):
