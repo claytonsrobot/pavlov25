@@ -1217,11 +1217,19 @@ class PavlovCLI(cmd2.Cmd):
         else:
             self.do_help("template_cmd2")
 
+    """ an alternative ecample
+    defaults = config_utils.load_defaults('config.toml')    
+    parser = argparse.ArgumentParser(description="Trim an audio file.")
+    parser.add_argument("-i", "--input_file", type=str, default=defaults['input_file'], help="Path to the input audio file")
+    parser.add_argument("-o", "--output_file", type=str, default=defaults['output_file'], help="Path to the output audio file")
+    parser.add_argument("-s", "--start_time", type=float, default=float(defaults['start_time']), help="Start time in seconds")
+    parser.add_argument("-e", "--end_time", type=float, default=defaults['end_time'], help="End time in seconds")
+    """
     spark_parser = cmd2.Cmd2ArgumentParser()
     spark_parser.add_argument('-a','--all',nargs = "?", default=False, const=True,help='')
     spark_parser.add_argument('-t','--time',nargs = "?", default=False, const=True,help='')
     spark_parser.add_argument('-d','--depth',nargs = "?", default=False, const=True,help='')
-    spark_parser.add_argument('-he','--height',help='')
+    spark_parser.add_argument('-he','--height',nargs = "?", default=False, const=True,help='')
     spark_parser.add_argument('-i','--index',help='')
     spark_parser.add_argument('-s','--scaled',help='')
     @cmd2.with_argparser(spark_parser)
@@ -1239,32 +1247,26 @@ class PavlovCLI(cmd2.Cmd):
             #and "-all" in line:
             print("Time values")
             self.sparkarray_direction(self.scene_object.vectorArray_time)
+            #self.spark_dict_vector_key("time")
 
         #elif line.startswith("height") and "-all" in line:
-        elif args.height is not None:
-            #and "-all" in line:
-            if args.height is True:
-                print("Height values")
-                self.sparkarray_direction(self.scene_object.vectorArray_height)
-            else:
-                i = int(args.height)
-                key = list(self.hierarchy_object.dict_curve_objects_all)[i]
-                curve_object = self.hierarchy_object.dict_curve_objects_all[key]
-                vector = curve_object.dict_data_vectors_raw["height"]
-                all = [x-min(vector) for x in vector]
-                print(f"initial: {vector[0]}, last: {vector[-1]}, len: {len(vector)}, min: {min(vector)}, max: {max(vector)}")
-                for line in sparklines(all,num_lines=1):
-                    print(line)
+        elif args.height is True:
+            print("Height values")
+            self.sparkarray_direction(self.scene_object.vectorArray_height)
+            #self.spark_dict_vector_key("height")
         
 
         #elif line.startswith("depth") and "-all" in line:
         elif args.depth is True:
             print("Depth values")
             self.sparkarray_direction(self.scene_object.vectorArray_depth)
+            #self.spark_dict_vector_key("depth")
 
         #elif line.startswith("index"):
         elif args.index is not None:
             i = int(args.index)
+            
+            key_i = list(self.hierarchy_object.dict_curve_objects_all.keys())[i]
             #i = int(line.split("index")[1])
             print(self.scene_object.names[i])
             print(f"i = {i}")
@@ -1272,10 +1274,8 @@ class PavlovCLI(cmd2.Cmd):
             print("-----")
             print("Time values")
             print(f"Header: {self.scene_object.headers_time[i]}")
-            vector = self.scene_object.vectorArray_time[i]
-
-            key_i = list(self.hierarchy_object.dict_curve_objects_all.keys())[i]
-            vector = self.hierarchy_object.dict_curve_objects_all[key_i].dict_data_vectors_scaled["time"]
+            
+            vector = self.hierarchy_object.dict_curve_objects_all[key_i].dict_data_vectors_raw["time"]
 
             all = [x-min(vector) for x in vector]
             print(f"initial: {vector[0]}, last: {vector[-1]}, len: {len(vector)}, min: {min(vector)}, max: {max(vector)}")
@@ -1285,7 +1285,7 @@ class PavlovCLI(cmd2.Cmd):
             print("-----")
             print("Height values")
             print(f"Header: {self.scene_object.headers_height[i]}")
-            vector = self.scene_object.vectorArray_height[i]
+            vector = self.hierarchy_object.dict_curve_objects_all[key_i].dict_data_vectors_raw["height"]
             all = [x-min(vector) for x in vector]
             print(f"initial: {vector[0]}, last: {vector[-1]}, len: {len(vector)}, min: {min(vector)}, max: {max(vector)}")
             for line in sparklines(all,num_lines=1):
@@ -1295,7 +1295,7 @@ class PavlovCLI(cmd2.Cmd):
             print("Depth values")
             print(f"Header: {self.scene_object.headers_depth[i]}")
             print(self.scene_object.headers_depth[i])
-            vector = self.scene_object.vectorArray_depth[i]
+            vector = self.hierarchy_object.dict_curve_objects_all[key_i].dict_data_vectors_raw["depth"]
             all = [x-min(vector) for x in vector]
             print(f"initial: {vector[0]}, last: {vector[-1]}, len: {len(vector)}, min: {min(vector)}, max: {max(vector)}")
             for line in sparklines(all,num_lines=1):
@@ -1337,6 +1337,16 @@ class PavlovCLI(cmd2.Cmd):
             for line in sparklines(all,num_lines=1):
                 print(line)
     
+    def spark_dict_vector_key(self,vector_key):
+        for i,key in enumerate(self.hierarchy_object.dict_curve_objects_all):
+            vector = self.hierarchy_object.dict_curve_objects_all[key].dict_data_vectors_raw[vector_key]
+            print(self.scene_object.names[i])
+            all = [x-min(vector) for x in vector]
+            print(f"n = {i}")       
+            print(f"initial: {vector[0]}, last: {vector[-1]}, len: {len(vector)}, min: {min(vector)}, max: {max(vector)}")
+            for line in sparklines(all,num_lines=1):
+                print(line)
+
     def sparkvector_direction(self,vector):
         i = int(line.split("-index")[1])
         print(self.scene_object.names[i])

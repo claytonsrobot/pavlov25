@@ -82,7 +82,7 @@ standardTextSize=6 # doesn't do anything
 
 #config_input_object = ConfigInput() 
 #config_input_object.define_and_load_default_config_input()
-#config_input_object.pull_values_from_json_config_input_object(config_input_object.loaded_json)
+#config_input_object.pull_values_from_json_config_input_object(config_input_object.loaded_config)
 #config_input_object.import_json_values()
 
 
@@ -374,7 +374,9 @@ class Gui:
         preview_text_3D.show()
 
     def run_and_get_inputs(self):
-        cij=self.config_input_object.loaded_json
+
+        cij=self.config_input_object.loaded_config
+        cig=self.config_input_object.loaded_grouping["grouping"]
         print(f"cij = {cij}")
         self.load_file_encoding(cij)
         # Define the layout of the main window
@@ -410,8 +412,8 @@ class Gui:
             [sg.Text('Metadata Column IDs (strings):'), sg.Input(size=(30, 2),default_text=cij['columns_metadata'], key="metadata_columns"),sg.T(size=(standardTextSize,1)),
             sg.Text('Data Start (column # or row #):'), sg.Input(size=(6, 2),default_text=cij['data_start_idx'], key="data_start_idx"),sg.T(size=(standardTextSize,1))],
             
-            [sg.Text('Groups:'), sg.Input(size=(68, 1),default_text=cij['group_names'], key="group_names"),sg.T(size=(standardTextSize,1))],
-            [sg.Text('Subgroups:'), sg.Input(size=(65, 1),default_text=cij['subgroup_names'], key="subgroup_names"),
+            [sg.Text('Groups:'), sg.Input(size=(68, 1),default_text=cig['group_names'], key="group_names"),sg.T(size=(standardTextSize,1))],
+            [sg.Text('Subgroups:'), sg.Input(size=(65, 1),default_text=cig['subgroup_names'], key="subgroup_names"),
                 sg.T(size=(standardTextSize,1))],   
 
             [sg.Text('Scene Contents Stack Direction:'), sg.Text('Group Contents Stack Direction:'), sg.Text('Subgroup Contents Stack Direction:')],
