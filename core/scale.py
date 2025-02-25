@@ -128,9 +128,6 @@ class MultipleAxesScalingAlgorithm:
         curve_object.dict_data_vectors_scaled["time"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["time"],target_axis_length)
         curve_object.dict_data_vectors_scaled["height"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["height"],target_axis_length)
         curve_object.dict_data_vectors_scaled["depth"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["depth"],target_axis_length)
-        #curve_object.dict_data_vectors_scaled["halfwidth_time"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["halfwidth_time"],target_axis_length)
-        #curve_object.dict_data_vectors_scaled["halfwidth_depth"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["halfwidth_depth"],target_axis_length)
-        #curve_object.dict_data_vectors_scaled["halfwidth_height"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["halfwidth_height"],target_axis_length)
 
         j=0
         for datapoint_object in curve_object.dict_datapoints.values():
@@ -214,9 +211,10 @@ class MultipleAxesScalingAlgorithm:
             target_normalized_data_vector = [
             (x * 2 * target_axis_length) - target_axis_length for x in normalized_data_vector
             ]
-        else: # origin is in corner
+        elif True: # origin is in corner works fine
             target_normalized_data_vector = [x * target_axis_length for x in normalized_data_vector]
-
+        else:
+            target_normalized_data_vector = [None] #  gotcha
         return target_normalized_data_vector
     
     @staticmethod
