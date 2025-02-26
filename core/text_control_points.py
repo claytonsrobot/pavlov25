@@ -13,7 +13,7 @@ Items like coefficeint and length are not availbale from the method level as inp
 import numpy as np
 import math
 import os
-import inspect
+from directories import Directories
 from phrase import phrase as phrase_class
 from letter import letter as letter_class
 import arrayMath
@@ -23,7 +23,9 @@ import sys
 from text_translation import TextTranslationIntermediate
 #from directories import Directories
 #import glob
+import inspect
 
+script_dir = Directories.get_core_dir()
 script_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 directory = script_dir+'/alphanumeric_character_library'
 directory = os.path.normpath(directory)
@@ -144,21 +146,9 @@ class text_control_points_machine:
         self.dict_characters_raw = dict()
         
         script_dir = Path(getattr(sys,'_MEIPASS', Path.cwd()))
-        #print(f"script_dir = {script_dir}")
         #alphanumeric_character_dir = Directories.get_core_dir()+"\\alphanumeric_character_library\\"
         alphanumeric_character_dir = str(script_dir)+"\\alphanumeric_character_library\\"
-        #print(f"alphanumeric_character_dir = {alphanumeric_character_dir}")
-        #if environmental.pyinstaller()==True:
-            #temp_dir = environmental.find_temp_MEI_dir()
-            #script_dir = os.path.dirname(sys.executable)
-            #script_dir = os.path.dirname(sys._MEIPASS)# " add MEI temp"
-            #alphanumeric_character_directory = str(script_dir)+"\\alphanumeric_character_library\\"
-            #alphanumeric_character_directory = script_dir+"\\alphanumeric_character_library\\"
-            #elif environmental.pyinstaller()==False:
-            #alphanumeric_character_directory = os.path.abspath(os.path.dirname(__file__)) # data is imported to top of temp folder
-        #print(f"script_dir = {script_dir}")
-        #for filename in ls(alphanumeric_character_directory).type("html"): # psuedocode
-        #for filename in list(pathlib.Path(alphanumeric_character_directory).glob('*.html')): 
+
         for filename in os.listdir(alphanumeric_character_dir):
             if filename.endswith('_svg.html'):
                 raw_character = self.get_character_from_file(directory = alphanumeric_character_dir,filename = filename)

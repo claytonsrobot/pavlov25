@@ -14,6 +14,7 @@ import filter_files as ff
 import environmental
 import grouping_by_string
 from pprint import pprint
+from directories import Directories
 class UserInput:
     gui_object = None
     style_object = None
@@ -102,12 +103,14 @@ class UserInput:
         #self.group_names = cij["group_names"]
         #self.subgroup_names = gj["subgroup_names"]
         
-        try:
+        if config_input_object.grouping_selection_path is not None:
             gj = config_input_object.loaded_grouping["grouping"]
-        except:
-            gj = config_input_object.loaded_csv_grouping
-        self.group_names = gj["group_names"]
-        self.subgroup_names = gj["subgroup_names"]
+            #gj = config_input_object.loaded_csv_grouping
+            self.group_names = gj["group_names"]
+            self.subgroup_names = gj["subgroup_names"]
+        else:
+            self.group_names = config_input_object.group_names 
+            self.subgroup_names = config_input_object.subgroup_names
         self.grouping_algorithm = config_input_object.grouping_algorithm
 
         self.stack_direction_groups = cij["stack_direction_groups"]
@@ -142,7 +145,7 @@ class UserInput:
         if self.scene_object.request != None:
             self.filenames = ff.snip_filenames_from_request_session(self.scene_object.request.session["list_csv_uploads"])
             self.filepaths = self.scene_object.request.session["list_csv_uploads"]
-        else:
+        elif config_input_object.grouping_algorithm != "group-by-directory":
             print(self.data_directory)
             
             #self.filenames = ff.get_filelist_csvxlsx(self.data_directory) # make gpx possible
@@ -157,8 +160,19 @@ class UserInput:
             pprint(f"self.filenames = {self.filenames}")
             #print("\n")
             self.filepaths = [(self.data_directory).replace("*","") + x for x in self.filenames]
-        
-        self.dict_groups_tiers = grouping_by_string.define_groups(self.group_names,self.subgroup_names)
+
+
+
+        elif config_input_object.grouping_algorithm == "group-by-directory":
+            # for now don't check filetypes, assume all are good
+            self.filepaths = config_input_object.file_names 
+            print(f"self.filepaths = {self.filepaths}")
+
+        if True: # self.grouping_algorithm == "group-by-string" or self.grouping_algorithm == "group-by-directory":
+        # this is a misnomer, because all algorithms can be fed this way. It will generate empties, and then destroy them. Non-ideal, but. 
+            self.dict_groups_tiers = grouping_by_string.define_groups(self.group_names,self.subgroup_names)
+        elif False: # self.grouping_algorithm == "group-by-map":
+            self.dict_groups_tiers = grouping_by_.define_groups(self.group_names,self.subgroup_names)
 
     def extract_filetypes_allowed_list_from_import_plugin(self):
         #import_function = self._check_import_plugin()
@@ -389,8 +403,10 @@ class UserInput:
 
             if plugin_filename.startswith('plugins.'):
                 plugin_filename = plugin_filename.replace('plugins.','')
-            core_dir = os.path.abspath(os.path.dirname(__file__))
-            plugins_directory = core_dir+'/plugins/' # for pavlov_exe # shit is not right
+            
+            
+
+            plugins_directory = Directories.get_core_dir()+'/plugins/' # for pavlov_exe # shit is not right
             
             #print(f'plugins_directory = {plugins_directory}')
             dir_list = os.listdir(plugins_directory)

@@ -44,7 +44,6 @@ Big thing - we need the whole thing to launch and open without a default data di
 #import PySimpleGUI as sg
 import FreeSimpleGUI as sg
 import os
-import inspect
 #import pathlib # for chopping off filename when searching directory
 #import pandas as pd # for data management
 from user_input import UserInput as userInput_class
@@ -56,8 +55,7 @@ from directories import Directories
 #pd.options.display.max_rows = None
 
 standardTextSize=6 # doesn't do anything
-script_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-
+script_dir = Directories.get_core_dir()
 default_data_directory = r"D:\Documents_main\Work\Pavlov\data_sources\SOCEM_data_2022_simple"
 
 default_export_directory = r"C:/Users/clayton/Downloads" # not used, sent to temp instead

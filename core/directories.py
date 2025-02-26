@@ -14,6 +14,7 @@ from directories import Directories
 import os
 import inspect
 import json
+from pathlib import Path
 
 class Directories:
     core = None
@@ -22,6 +23,7 @@ class Directories:
     exports = None
     imports = None
     groupings = None
+
 
     ## migrated
     #initial_program_dir = None
@@ -104,12 +106,33 @@ class Directories:
             # the file exists
             pass
     @classmethod
-    def check_first_level_import_directory_names():
-        group_names = [None]
+    def check_first_level_import_directory_names(cls):
+        cls.get_import_dir() # path of top layer
+        
+        #group_names = [x[1] for x in os.walk(cls.get_import_dir())]
+        group_names = next(os.walk(cls.get_import_dir()))[1]
+
+        print(f"group_names = {group_names}")
         return group_names
     
     @classmethod
-    def check_second_level_import_directory_names():
-        subgroup_names = [None]
+    def check_second_level_import_directory_names(cls,group_names):
+        subgroup_names = []
+        for group_name in group_names:
+            subgroups_of_group = next(os.walk(cls.get_import_dir()+group_name))[1]
+            subgroup_names.extend(subgroups_of_group)
+        print(f"subgroup_names = {subgroup_names}")
         return subgroup_names
 
+    @classmethod
+    def check_third_level_import_file_names(cls,group_names,subgroup_names):
+        file_names = []
+        for group_name in group_names:
+            for subgroup_name in subgroup_names: 
+                directory_pathlib = Path(cls.get_import_dir()+group_name+"/"+subgroup_name)
+                for file_path in directory_pathlib.iterdir():
+                    if file_path.is_file():
+                        file_names.append(str(file_path))
+        print(f"file_names = {file_names}")
+        # check how file paths are already assigned - assumed they are al in improrts/ 
+        return file_names

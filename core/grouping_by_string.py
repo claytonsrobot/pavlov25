@@ -68,8 +68,11 @@ def define_groups(group_names,subgroup_names):
     #self.secret_full_name = "null0-null1-null2-null3" # scene-Stiles-June, scene-Stiles, etc. number of hyphens should equal tier of group, ideally. scene-Maxson-June is different from scene-Stiles-June. Any dictionary keys athat need a name should use the group_object.secret_full_name. No keys might be better.
     #self.compound_subgroup_name = "supergroupname-selfsubgroupname"
     
-    group_names = group_names.split(',') # only works for loaded json - need to do this further upsteam
-    subgroup_names = subgroup_names.split(',')
+    try:
+        group_names = group_names.split(',') # only works for loaded json - need to do this further upsteam
+        subgroup_names = subgroup_names.split(',')
+    except:
+        pass
 
 
 

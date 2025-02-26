@@ -110,11 +110,8 @@ class Hierarchy:
         #tier_object.assign_stack_direction(user_input_object.groups_tier2_stack_direction)
         tier_object.assign_stack_direction(user_input_object.stack_direction_subgroups)
         for i,key in enumerate(user_input_object.dict_groups_tiers[2]):
-            if False:#test 4 Feb 2025
-                group_object = Group(scene_object=self.scene_object,name=key) # OG, works
-                group_object = Group(scene_object=self.scene_object,simple_name=key) # OG, works
-            else:
-                group_object = Group(scene_object=self.scene_object,simple_name=key.split(GBS.comp_char)[-1],compound_subgroup_name=key) #compound-names
+            #group_object = Group(scene_object=self.scene_object,simple_name=key) # OG, works
+            group_object = Group(scene_object=self.scene_object,simple_name=key.split(GBS.comp_char)[-1],compound_subgroup_name=key) #compound-names
             tier_object.add_group_object(group_object,key)
 
         # makig automatic dump group and sugroup is the biggest barrier to launch
@@ -173,6 +170,7 @@ class Hierarchy:
             tier_object.add_group_object(group_object,g_key)
 
     def _assign_group_membership_for_complete_hierarchy(self,grouping_algorithm):
+        # i think once you get to this point, you might not need logic, they all run the same?
         if grouping_algorithm == "group-by-text":
             grouping_by_string.assign_group_membership_for_complete_hierarchy(hierarchy_object = self) # stable but error prone, if you cam say that
         elif grouping_algorithm == "group-by-map": #testing 1 February 2025

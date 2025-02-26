@@ -6,12 +6,14 @@ Created: 20 January 2024
 Purpose:
 Classic Pavlov grouping
 """ 
-
-from grouping_by_string import GBS
+class Vars:
+    # pass, with clarity :)
+    comp_char = "/" #compound character
 def assign_group_membership_for_complete_hierarchy(hierarchy_object):
+    # apparently this is canon now. All hail. 
     # fix this.
     # add objects to groups
-    # do it at conception, inside the GUI process?
+    # do it at conception
     
     #c_key: curve_object_key
     #g_key: group_object_key
@@ -27,11 +29,14 @@ def assign_group_membership_for_complete_hierarchy(hierarchy_object):
                     # to keep this true, subgroups with key 'none' will need to be created to hold data objects that are in a (higher)supergroup but have no relevant provided (immediate)super/group
                     #if g_key.lower() in c_key.lower():
                     #if group.simple_name.lower() in c_key.lower():
-                    if group.simple_name.lower() in c_key.lower() and group.compound_subgroup_name.split(GBS.comp_char)[0].lower() in c_key.lower() and group.compound_subgroup_name.split(GBS.comp_char)[-1].lower() in c_key.lower():
+                    
+                    if group.simple_name.lower() in c_key.lower() and group.compound_subgroup_name.split(Vars.comp_char)[0].lower() in c_key.lower() and group.compound_subgroup_name.split(Vars.comp_char)[-1].lower() in c_key.lower():
+                        #curve_object.add_supergroup(group) # redundant, called in add_curve_object
                         group.add_curve_object(curve_object,c_key)
                         tally_of_curve_objects_assigned_to_a_group += 1 # once complete, will equal len(hierarchy_object.dict_curve_object_all.keys()). If it doesn't, there are 'none' type subgroups, where a curve_object fits into a stated group but none of its stated subgroups
                         # develop further how subgroups are added for 'none'. Add a 'none' to every group, then remove it later?
                     else:
+                        #reject=1
                         pass
                         
                 elif t_key+1 in hierarchy_object.dict_tier_objects and len(hierarchy_object.dict_tier_objects[t_key+1].dict_group_objects)>0:
@@ -39,7 +44,7 @@ def assign_group_membership_for_complete_hierarchy(hierarchy_object):
                     for s_key,subgroup in hierarchy_object.dict_tier_objects[t_key+1].dict_group_objects.items():
                         #if s_key.lower() in c_key.lower() and g_key.lower() in c_key.lower(): # stable for simple-name
                         #if subgroup.simple_name.lower() in c_key.lower() and group.simple_name.lower() in c_key.lower() and subgroup.simple_name.lower() in group.name.lower(): # attempt at complex names
-                        if subgroup.compound_subgroup_name.split(GBS.comp_char)[0].lower() in c_key.lower() and subgroup.compound_subgroup_name.split(GBS.comp_char)[-1].lower() in c_key.lower() and group.simple_name.lower() in c_key.lower():
+                        if subgroup.compound_subgroup_name.split(Vars.comp_char)[0].lower() in c_key.lower() and subgroup.compound_subgroup_name.split(Vars.comp_char)[-1].lower() in c_key.lower() and group.simple_name.lower() in c_key.lower():
                             #print(f"\ngroup.simple_name: {group.simple_name}, subgroup.simple_name: {subgroup.simple_name}")
                             #print(f"group.compound_subgroup_name: {group.compound_subgroup_name}, subgroup.compound_subgroup_name: {subgroup.compound_subgroup_name}")
                             #print(f"g_key: {g_key}, s_key: {s_key}, c_key: {c_key}")
@@ -60,15 +65,15 @@ def assign_group_membership_for_complete_hierarchy(hierarchy_object):
     # check for curve_objects that have not been assigned a supergroup
 
 def define_groups(group_names,subgroup_names):
+    # canon
     
     ## Leverage: Make subgroup names redundant for each group using the compound_subgroup_name
     #self.secret_full_name = "null0-null1-null2-null3" # scene-Stiles-June, scene-Stiles, etc. number of hyphens should equal tier of group, ideally. scene-Maxson-June is different from scene-Stiles-June. Any dictionary keys athat need a name should use the group_object.secret_full_name. No keys might be better.
     #self.compound_subgroup_name = "supergroupname-selfsubgroupname"
-    try:
-        group_names = group_names.split(',') # only works for loaded json - need to do this further upsteam
-        subgroup_names = subgroup_names.split(',')
-    except:
-        pass
+    
+    group_names = group_names.split(',') # only works for loaded json - need to do this further upsteam
+    subgroup_names = subgroup_names.split(',')
+
 
 
     for i,group in enumerate(group_names):
@@ -79,18 +84,17 @@ def define_groups(group_names,subgroup_names):
     subgroup_compound_names = []
     for group_name in group_names:
         for subgroup_name in subgroup_names:
-            subgroup_compound_name = group_name+"-"+subgroup_name
+            subgroup_compound_name = group_name+Vars.comp_char+subgroup_name
             subgroup_compound_names.append(subgroup_compound_name)
 
     group_compound_names = []
     for group_name in group_names:
-        group_compound_name = "scene-"+group_name
+        group_compound_name = "scene"+Vars.comp_char+group_name
         group_compound_names.append(group_compound_name)
 
     dict_groups_tiers = dict()
-    #dict_groups_tiers[2] = subgroup_names
-    dict_groups_tiers[2] = subgroup_compound_names
-    #dict_groups_tiers[1] = group_names
     dict_groups_tiers[1] = group_compound_names
+    dict_groups_tiers[2] = subgroup_compound_names # this is where these compound names are born, here as a key, later to be assigned as compound_subgroup_name in Group() object initialization
+    
     
     return dict_groups_tiers

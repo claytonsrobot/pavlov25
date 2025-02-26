@@ -34,7 +34,7 @@ class ImportLib:
 
     def __init__(self):
         self.name = os.path.basename(__file__).removesuffix('.py')
-        script_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+        #script_dir = Directories.get_core_dir()
         
         self.filenames = None
         self.filenames_sortable = None

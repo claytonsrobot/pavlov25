@@ -15,4 +15,4 @@
 "file_format" = "FBX"       
 "time-series-transcoding" = "null" # null not available in toml before Python 3.11
 "keep-true-destroy-false-unassigned-curves" = false
-"real-true-normalized-false-scale" = true
+"real-true-normalized-false-scale" = false
