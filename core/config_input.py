@@ -146,7 +146,7 @@ class ConfigInput:
             # do this a little differently in terms of how these values are passed.
             self.group_names = Directories.check_first_level_import_directory_names()
             self.subgroup_names = Directories.check_second_level_import_directory_names(self.group_names)
-            self.file_names = Directories.check_third_level_import_file_names(self.group_names,self.subgroup_names)
+            self.file_paths,self.file_names = Directories.check_third_level_import_file_names(self.group_names,self.subgroup_names)
             #HEY! Adjust the way you get data files, from subdirs
             # explore first and second level directories in the projects/{project_name}/"imports" folder
             

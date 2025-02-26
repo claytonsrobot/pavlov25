@@ -126,13 +126,17 @@ class Directories:
 
     @classmethod
     def check_third_level_import_file_names(cls,group_names,subgroup_names):
+        file_paths = []
         file_names = []
         for group_name in group_names:
             for subgroup_name in subgroup_names: 
                 directory_pathlib = Path(cls.get_import_dir()+group_name+"/"+subgroup_name)
                 for file_path in directory_pathlib.iterdir():
                     if file_path.is_file():
-                        file_names.append(str(file_path))
-        print(f"file_names = {file_names}")
+                        file_paths.append(str(file_path))
+                        filename = os.path.basename(str(file_path).replace('\\', '/'))
+                        file_names.append(filename)
+        print(f"file_paths = {file_paths}")
+        
         # check how file paths are already assigned - assumed they are al in improrts/ 
-        return file_names
+        return file_paths, file_names

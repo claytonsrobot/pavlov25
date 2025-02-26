@@ -165,7 +165,8 @@ class UserInput:
 
         elif config_input_object.grouping_algorithm == "group-by-directory":
             # for now don't check filetypes, assume all are good
-            self.filepaths = config_input_object.file_names 
+            self.filenames = config_input_object.file_names
+            self.filepaths = config_input_object.file_paths 
             print(f"self.filepaths = {self.filepaths}")
 
         if True: # self.grouping_algorithm == "group-by-string" or self.grouping_algorithm == "group-by-directory":
