@@ -1679,6 +1679,7 @@ class PavlovCLI(cmd2.Cmd):
                     for line in file:
                         command = line.strip()
                         if command:
+                            print ("batch$> "+line)
                             self.onecmd(command)
             except Exception as e:
                 self.perror(f"Error: {e}")
