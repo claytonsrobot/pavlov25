@@ -24,6 +24,9 @@ from filemanagement import DirectoryControl
 import filemanagement as fm
 import environmental
 import copy
+import importlib
+
+
 
 from directories import Directories
 try:
@@ -102,6 +105,8 @@ class PavlovCLI(cmd2.Cmd):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.vars = {}
+        self.modules = {}
         self.debug = True  # Set the default debug value to True
     """
         #self.name = os.path.basename(__file__).removesuffix('.py')
@@ -1490,6 +1495,49 @@ class PavlovCLI(cmd2.Cmd):
         elif args.copy is True:
             DirectoryControl.copy_project_directory(Directories.get_project_dir(),option="empty")
 
+    def do_assign(self, args):
+        """Assign a variable dynamically."""
+        try:
+            key, value = args.split('=')
+            self.vars[key.strip()] = value.strip()
+            self.poutput(f"Variable '{key.strip()}' assigned to '{value.strip()}'")
+        except ValueError:
+            self.poutput("Usage: assign key=value")
+
+    def do_show(self, _):
+        """Show all variables."""
+        for key, value in self.vars.items():
+            self.poutput(f"{key} = {value}")
+
+    def do_import(self, args):
+        """Import a library dynamically."""
+        module_name = args.strip()
+        if module_name:
+            try:
+                module = importlib.import_module(module_name)
+                self.modules[module_name] = module
+                self.poutput(f"Module '{module_name}' imported successfully")
+            except ImportError:
+                self.poutput(f"Failed to import module '{module_name}'")
+        else:
+            self.poutput("Usage: import <module_name>")
+
+    def do_call(self, args):
+        """Call a method from an imported library."""
+        try:
+            module_name, method_name, *method_args = args.split()
+            module = self.modules.get(module_name)
+            if module:
+                method = getattr(module, method_name, None)
+                if method:
+                    result = method(*map(float, method_args))
+                    self.poutput(f"Result: {result}")
+                else:
+                    self.poutput(f"Method '{method_name}' not found in module '{module_name}'")
+            else:
+                self.poutput(f"Module '{module_name}' is not imported")
+        except ValueError:
+            self.poutput("Usage: call <module_name> <method_name> [args...]")
 
     
 if __name__=='__main__':

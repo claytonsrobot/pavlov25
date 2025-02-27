@@ -172,11 +172,11 @@ class Hierarchy:
     def _assign_group_membership_for_complete_hierarchy(self,grouping_algorithm):
         # i think once you get to this point, you might not need logic, they all run the same?
         if grouping_algorithm == "group-by-text":
-            grouping_by_string.assign_group_membership_for_complete_hierarchy(hierarchy_object = self) # stable but error prone, if you cam say that
+            grouping_by_string.assign_group_membership_for_complete_hierarchy(hierarchy_object = self) # stable but error prone, if you cam say that #
         elif grouping_algorithm == "group-by-map": #testing 1 February 2025
             grouping_by_map.assign_group_membership_for_complete_hierarchy(hierarchy_object = self)
-            
-            # check for curve_objects that have not been assigned a supergroup
+        return True
+    # check for curve_objects that have not been assigned a supergroup    
     def _add_curve_object_to_ungrouped(self,curve_object):
         print(f'>>> {inspect.stack()[2][3]}')
         print(f'>> {inspect.stack()[1][3]}')
