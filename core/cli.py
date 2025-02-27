@@ -1646,7 +1646,7 @@ class PavlovCLI(cmd2.Cmd):
         }
 
         def _eval(node, context):
-            if isinstance(node, ast.Num):  # <number>
+            if isinstance(node, ast.Constant):  # <number>
                 return node.n
             elif isinstance(node, ast.BinOp):  # <left> <operator> <right>
                 return allowed_operators[type(node.op)](_eval(node.left, context), _eval(node.right, context))
@@ -1661,6 +1661,13 @@ class PavlovCLI(cmd2.Cmd):
                 func = _eval(node.func, context)
                 args = [_eval(arg, context) for arg in node.args]
                 return func(*args)
+            elif isinstance(node, ast.Subscript):  # <variable>[<index>]
+                value = _eval(node.value, context)
+                if isinstance(node.slice, ast.Index):
+                    index = _eval(node.slice.value, context)
+                else:
+                    index = _eval(node.slice, context)
+                return value[index]
             else:
                 raise TypeError(node)
 

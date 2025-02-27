@@ -152,7 +152,7 @@ class UserInput:
 
         elif config_input_object.grouping_algorithm == "group-by-directory":
             # for now don't check filetypes, assume all are good
-            self.filepath,self.filenames = (config_input_object.loaded_grouping)
+            self.filepath,self.filenames = foo(config_input_object.loaded_grouping)
             self.filenames = config_input_object.file_names
             self.filepaths = config_input_object.file_paths
 

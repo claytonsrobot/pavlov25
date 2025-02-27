@@ -137,15 +137,15 @@ class Directories:
         file_names = []
         for group_name in group_names:
             for subgroup_name in subgroup_names: 
-                directory_pathlib = Path(cls.get_import_dir()+group_name+"/"+subgroup_name)
-                for file_path in directory_pathlib.iterdir():
-                    if file_path.is_file():
-                        file_paths.append(str(file_path))
-                        filename = os.path.basename(str(file_path).replace('\\', '/'))
-                        file_names.append(filename)
-        #print(f"file_paths = {file_paths}")
-        
-        # check how file paths are already assigned - assumed they are al in improrts/ 
+                try:
+                    directory_pathlib = Path(cls.get_import_dir()) / group_name / subgroup_name
+                    for file_path in directory_pathlib.iterdir(): # special chars make it go whack
+                        if file_path.is_file():
+                            file_paths.append(str(file_path))
+                            filename = os.path.basename(str(file_path).replace('\\', '/'))
+                            file_names.append(filename)
+                except Exception as e:
+                    print(f"Error processing directory: {directory_pathlib}. Error: {e}")
         return file_paths, file_names
     
     @staticmethod
@@ -168,6 +168,8 @@ class Directories:
                     if dir_name not in current_level:
                         current_level[dir_name] = {}
 
-            # Add the files at the current root level
-            current_level["files"] = files
+            ## Add the files at the current root level
+            ##current_level["files"] = files
+            # Add the files at the current root level, skipping 'desktop.ini'
+            current_level["files"] = [file for file in files if file != 'desktop.ini']
         return directory_structure
