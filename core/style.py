@@ -229,6 +229,7 @@ class Style:
         return export_plugin_list
 
     def load_export_control_object(self,export_function):# called in main # is it?
+        # 
         ExportPlugin=self.assign_plugin_dynamically(module_name = export_function) # type is function
         ExportPlugin.assign_style_object(style_object = self) # and vice versa
         export_control_object = ExportPlugin()

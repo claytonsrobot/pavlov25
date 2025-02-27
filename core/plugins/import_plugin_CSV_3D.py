@@ -17,7 +17,7 @@ from datetime import datetime
 import import_lib
 import sys
 import time
-
+import environmental
 from directories import Directories
 
 #from scale import Scale
@@ -82,14 +82,10 @@ class Plugin:
     def run_import(self):
         #Curve.pass_in_scene_object(self.scene_object) # dict_curve_objects_all
 
-        
-        if 'win' in platform.platform().lower():
-            vercel=False
-        else:
-            vercel=True
+
 
         #print(f'\nVERCEL = {vercel}\n')
-        if vercel==False:
+        if environmental.vercel()==False:
             #folder='\\media\\csv_uploads_pavlovdata\\'
 
             # IMPLEMENT CHANGES FOR PROJECTS PARADIGM
@@ -254,10 +250,10 @@ class Plugin:
     def read_data(self,filename,user_input_object):
         print(f"\nfilename: {filename} \n")
         try:
-            df = pd.read_csv(user_input_object.data_directory+"/"+filename,skiprows=user_input_object.skiprows)
+            df = pd.read_csv(Directories.get_import_dir()+"/"+filename,skiprows=user_input_object.skiprows)
             name =  filename.rstrip('.csv')
         except:
-            df = pd.read_excel(user_input_object.data_directory+"/"+filename,skiprows=user_input_object.skiprows)
+            df = pd.read_excel(Directories.get_import_dir()+"/"+filename,skiprows=user_input_object.skiprows)
             name =  filename.rstrip('.xlsx')
         df.replace('nan', 0)
         df.fillna(0)

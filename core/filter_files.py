@@ -41,6 +41,7 @@ def snip_filenames_from_request_session(filepaths):
     return filenames
 
 def get_filtered_list_dict(filetype_list,dirname):
+    # i need a way for this to work either way, in terms of grouping-by-directory
     """
     Returns dictionary of files
     Key is short filename

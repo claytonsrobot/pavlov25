@@ -15,6 +15,7 @@ import os
 import inspect
 import json
 from pathlib import Path
+import environmental
 
 class Directories:
     core = None
@@ -77,6 +78,12 @@ class Directories:
         return cls.get_project_dir()+"\\exports\\"
     @classmethod
     def get_import_dir(cls):
+        if environmental.vercel==False:
+            return cls.get_project_dir()+"\\imports\\"
+        elif environmental.vercel==True: # web app, blob
+            folder='\\tmp\\' # https://maxson-engineering-notes.vercel.app/personal/pavlov3-d/chat-gpt-pavlov3-d-django-improvements-report/
+            folder=cls.scene_object.blob_dir+'/csv_uploads_pavlovdata/' # blob=dir shold be known here.
+            return folder
         return cls.get_project_dir()+"\\imports\\"
     @classmethod
     def get_groupings_dir(cls):
@@ -136,7 +143,31 @@ class Directories:
                         file_paths.append(str(file_path))
                         filename = os.path.basename(str(file_path).replace('\\', '/'))
                         file_names.append(filename)
-        print(f"file_paths = {file_paths}")
+        #print(f"file_paths = {file_paths}")
         
         # check how file paths are already assigned - assumed they are al in improrts/ 
         return file_paths, file_names
+    
+    @staticmethod
+    def generate_directory_structure(root_dir):
+        ## Example usage
+        #root_directory = "/path/to/root"
+        #directory_structure = generate_directory_structure(root_directory)
+        directory_structure = {}
+        for root, dirs, files in os.walk(root_dir):
+            # Create a nested dictionary path based on the current root path
+            current_level = directory_structure
+            path_parts = os.path.relpath(root, root_dir).split(os.sep)
+            for part in path_parts:
+                if part not in current_level:
+                    current_level[part] = {}
+                current_level = current_level[part]
+            if True:
+                # Add the subdirectories at the current root level
+                for dir_name in dirs:
+                    if dir_name not in current_level:
+                        current_level[dir_name] = {}
+
+            # Add the files at the current root level
+            current_level["files"] = files
+        return directory_structure

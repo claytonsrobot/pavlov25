@@ -15,12 +15,6 @@ from directories import Directories
 from pprint import pprint
 import toml_handler
 
-
-if 'win' in platform.platform().lower():
-    vercel=False
-else:
-    vercel=True
-
 #from parse_user_input_config import parse_user_input_config
 
 class ConfigInput:
@@ -135,23 +129,23 @@ class ConfigInput:
         self.loaded_config = self.clean_imported_json_numerics(self.loaded_config) # if the json is poorly formatted for nums
 
         if self.grouping_algorithm == "group-by-text":
-            #self.loaded_json_grouping = self.load_json(self.grouping_selection_path)
-            self.loaded_grouping = toml_handler.load_toml(self.grouping_selection_path)
+            self.loaded_grouping = toml_handler.load_toml(self.grouping_selection_path) # this does have a particalr
         
         elif self.grouping_algorithm == "group-by-map":
-            self.loaded_csv_grouping = self.load_csv(self.grouping_selection_path)
-            print(f"self.loaded_csv_grouping = {self.loaded_csv_grouping}")
+            #self.loaded_csv_grouping = self.load_csv(self.grouping_selection_path) # this will inherently have a different structure compared to the toml import. Hypothetically we could leverage functon overloading to manage this.
+            self.loaded_grouping = self.load_csv(self.grouping_selection_path)
 
         elif self.grouping_algorithm == "group-by-directory":
-            # do this a little differently in terms of how these values are passed.
+            # some dictionary structure based on directory hierarchy
+
+            self.loaded_grouping = Directories.generate_directory_structure(Directories.get_import_dir())             
+
             self.group_names = Directories.check_first_level_import_directory_names()
             self.subgroup_names = Directories.check_second_level_import_directory_names(self.group_names)
             self.file_paths,self.file_names = Directories.check_third_level_import_file_names(self.group_names,self.subgroup_names)
             #HEY! Adjust the way you get data files, from subdirs
             # explore first and second level directories in the projects/{project_name}/"imports" folder
             
-
-        self.determine_data_directory()
         #self.pull_specific_values_from_json_config_input_object(self.loaded_config)
         if True: # force to show outdated (free simple) gui
             self.loaded_config["filter_files_include_and"] = ""
@@ -167,25 +161,7 @@ class ConfigInput:
         loaded_config.update({"config_entry_filepath":config_entry_filepath})
         return loaded_config
     
-    def determine_data_directory(self):
-        if vercel==False:
-            # This is actually wrong, we have a different directory for the json config files
-            #folder='\\media\\csv_uploads_pavlovdata\\'
-            folder='\\imports\\'
-            print(f"Directories.get_program_dir: {Directories.get_program_dir()}")
-            self.data_directory = Directories.get_program_dir()+folder+'*'
-            self.data_directory = Directories.get_project_dir()+folder+'*'
-            print(f'self.data_directory = {self.data_directory}')
-        else:
-            folder='\\tmp\\'
-            folder=self.scene_object.blob_dir+'/csv_uploads_pavlovdata/'
-            self.data_directory = folder
-        return True
-        
 
-
-    #def determine_export_directory(self,loaded_config,script_dir):
-    #    self.export_directory = script_dir+loaded_config["export_directory_relative"]
 
 
 if __name__ == "__main__":

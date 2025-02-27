@@ -40,7 +40,6 @@ class ImportLib:
         self.filenames_sortable = None
         self.column_id_time = None
         self.column_id_height = None
-        self.data_directory = None
 
         self.names = None
         self.vectorArray_time = None

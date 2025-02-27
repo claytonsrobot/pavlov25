@@ -68,6 +68,7 @@ import pathlib # for chopping off filename when searching directory
 #import plugins
 from parse_user_input_config import parse_user_input_config
 import filter_files as ff
+from directories import Directories
 
 #pd.options.display.max_columns = None
 #pd.options.display.max_rows = None
@@ -391,7 +392,7 @@ class Gui:
              sg.Text('Import Style:'),
             sg.Combo(size=(24, 1),default_value=self.default_import_style_dropdown, values = self.values_import_style,key="import_style_dropdown"),sg.T(size=(standardTextSize,1)),
             sg.Text('Import Plugin Override:'), sg.Input(size=(40, 1),default_text=cij['import_style_plugin'], key="import_style_plugin"),sg.T(size=(standardTextSize,1))],
-            [sg.Text('Data Directory:'), sg.Input(size=(60, 1),default_text=self.config_input_object.data_directory, enable_events = True,key="data_directory"), sg.T(size=(standardTextSize,1)),
+            [sg.Text('Data Directory:'), sg.Input(size=(60, 1),default_text=Directories.get_import_dir(), enable_events = True,key="data_directory"), sg.T(size=(standardTextSize,1)),
             sg.Radio('Select Directory',group_id='folderBrowseBehavior',default=True,key='-SELECT_DIR-'),
             sg.Radio('Select Files',group_id='folderBrowseBehavior',key='-SELECT_FILES-'),
             sg.FilesBrowse('Browse', target='-HOLDBROWSE-',visible=True),
@@ -550,14 +551,14 @@ class Gui:
                     target = pervasive_dirname+'\\'+self.selected_item
                     print(f'try:pervasive_dirname')
                 except: #else:
-                    target = self.config_input_object.data_directory+'\\'+self.selected_item
+                    target = Directories.get_import_dir()+'\\'+self.selected_item
                     print(f'except:default_data_directory   ')
                 if os.path.isfile(target):
                     try:
                         df = pd.read_csv(target)
                     except Exception:
                         #df = pd.read_excel(target)
-                        df = pd.read_excel(self.user_input_object.data_directory+"\\"+filename,skiprows=self.user_input_object.skiprows)
+                        df = pd.read_excel(Directories.get_import_dir()+"\\"+filename,skiprows=self.user_input_object.skiprows)
                         # not functioning
                     print('\n\n',self.selected_item)
                     print('\n',df.info())

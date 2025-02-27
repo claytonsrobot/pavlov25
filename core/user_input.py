@@ -32,8 +32,6 @@ class UserInput:
     def __init__(self):
         self.name = os.path.basename(__file__).removesuffix('.py')
         self.instance_name = 'user_input_object'
-        self.instance_name = 'user_input_object'
-        self.data_directory = None
         self.filenames = None
 
         dict_groups_tiers = None
@@ -105,7 +103,6 @@ class UserInput:
         
         if config_input_object.grouping_selection_path is not None:
             gj = config_input_object.loaded_grouping["grouping"]
-            #gj = config_input_object.loaded_csv_grouping
             self.group_names = gj["group_names"]
             self.subgroup_names = gj["subgroup_names"]
         else:
@@ -139,35 +136,28 @@ class UserInput:
         self.export_style_plugin = cij["export_style_plugin"].split(';')
         self.color_style_plugin = cij["color_style_plugin"].split(';')
         self.file_encoding = cij["file_encoding"]
-        self.data_directory = config_input_object.data_directory
-        #self.filenames = [x.lower() for x in ff.get_filelist_csvxlsx(self.data_directory)]
-        #self.filenames = ff.get_filelist_csvxlsx(self.data_directory)
+
         if self.scene_object.request != None:
             self.filenames = ff.snip_filenames_from_request_session(self.scene_object.request.session["list_csv_uploads"])
             self.filepaths = self.scene_object.request.session["list_csv_uploads"]
         elif config_input_object.grouping_algorithm != "group-by-directory":
-            print(self.data_directory)
             
-            #self.filenames = ff.get_filelist_csvxlsx(self.data_directory) # make gpx possible
-            #self.filenames = ff.get_filelist_filetyped(import_function_object,self.data_directory)#not worth it, would have to import the module or check the contents somehow
-            if False:
-                self.filetype_allowed_list = cij["import_filetype_allowed"]
-            else:
-                self.filetype_allowed_list = self.extract_filetypes_allowed_list_from_import_plugin()
-            #print(f"\nimport_filetype_allowed_list = {self.filetype_allowed_list}\n")
-            self.filenames = ff.get_filelist_filetyped(self.filetype_allowed_list,self.data_directory)
-            print("\n")
-            pprint(f"self.filenames = {self.filenames}")
-            #print("\n")
-            self.filepaths = [(self.data_directory).replace("*","") + x for x in self.filenames]
-
-
+            self.filetype_allowed_list = self.extract_filetypes_allowed_list_from_import_plugin() # rather than the cij, which is already known
+            self.filenames = ff.get_filelist_filetyped(self.filetype_allowed_list,Directories.get_import_dir()) # this is non-modular for the group-by-directory algorithm, becase it assumes all raw data files are in the same directory # get away from that assumption
+            
+            # Assume all file are in the same directory
+            self.filepaths = [Directories.get_import_dir() + x for x in self.filenames]
+            # we should be starting with filepaths then trimming to filenames.
+            # all processes should use the whole filepath where possible, to modularize for either group-by-string and group-by-directory
 
         elif config_input_object.grouping_algorithm == "group-by-directory":
             # for now don't check filetypes, assume all are good
+            self.filepath,self.filenames = (config_input_object.loaded_grouping)
             self.filenames = config_input_object.file_names
-            self.filepaths = config_input_object.file_paths 
-            print(f"self.filepaths = {self.filepaths}")
+            self.filepaths = config_input_object.file_paths
+
+        print(f"self.filepaths = {self.filepaths}")
+        print(f"self.filenames = {self.filenames}")
 
         if True: # self.grouping_algorithm == "group-by-string" or self.grouping_algorithm == "group-by-directory":
         # this is a misnomer, because all algorithms can be fed this way. It will generate empties, and then destroy them. Non-ideal, but. 

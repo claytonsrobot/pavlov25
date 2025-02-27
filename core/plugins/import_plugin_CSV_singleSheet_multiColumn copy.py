@@ -9,6 +9,7 @@ if False:
 import os
 from curve_ import Curve
 from datapoint import DataPoint
+from directories import Directories
 import import_lib
 class Plugin:
     """ scene_object = None
@@ -135,12 +136,12 @@ class Plugin:
     def read_data(self,filename,user_input_object):
         print("filename: ",filename)
         try:
-            #df = pd.read_csv(user_input_object.data_directory+"\\"+filename,skiprows=user_input_object.skiprows)
-            df = pd.read_csv(user_input_object.data_directory+"/"+filename)
+            #df = pd.read_csv(Directories.get_import_dir()+"\\"+filename,skiprows=user_input_object.skiprows)
+            df = pd.read_csv(Directories.get_import_dir()+"/"+filename)
             name =  filename.rstrip('.csv')
         except:
-            #df = pd.read_excel(user_input_object.data_directory+"\\"+filename,skiprows=user_input_object.skiprows)
-            df = pd.read_excel(user_input_object.data_directory+"/"+filename)
+            #df = pd.read_excel(Directories.get_import_dir()+"\\"+filename,skiprows=user_input_object.skiprows)
+            df = pd.read_excel(Directories.get_import_dir()+"/"+filename)
             name =  filename.rstrip('.xlsx')
         df=df.replace('nan', 0)
         df=df.fillna(0)

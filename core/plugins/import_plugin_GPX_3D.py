@@ -16,6 +16,7 @@ import os
 import numpy as np
 from directories import Directories
 import import_lib
+import environmental
 
 #from scale import Scale
 from curve_ import Curve
@@ -83,14 +84,9 @@ class Plugin:
         Curve.pass_in_scene_object(self.scene_object) # dict_curve_objects_all
         #self.scene_object.user_input_object.filetype_allowed = self.filetype_allowed # evil workaroud
 
-        
-        if 'win' in platform.platform().lower():
-            vercel=False
-        else:
-            vercel=True
 
         #print(f'\nVERCEL = {vercel}\n')
-        if vercel==False:
+        if environmental.vercel()==False:
             #folder='\\media\\csv_uploads_pavlovdata\\'
             folder='\\imports\\'
             os.chdir(Directories.get_program_dir()+folder)
@@ -262,10 +258,10 @@ class Plugin:
     def read_data(self,filename,user_input_object):
         print(f"\nfilename: {filename} \n")
         try:
-            df = pd.read_csv(user_input_object.data_directory+"/"+filename,skiprows=user_input_object.skiprows)
+            df = pd.read_csv(Directories.get_import_dir()+"/"+filename,skiprows=user_input_object.skiprows)
             name =  filename.rstrip('.csv')
         except:
-            df = pd.read_excel(user_input_object.data_directory+"/"+filename,skiprows=user_input_object.skiprows)
+            df = pd.read_excel(Directories.get_import_dir()+"/"+filename,skiprows=user_input_object.skiprows)
             name =  filename.rstrip('.xlsx')
         df.replace('nan', 0)
         df.fillna(0)
