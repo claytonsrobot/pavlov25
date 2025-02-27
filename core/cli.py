@@ -723,9 +723,9 @@ class PavlovCLI(cmd2.Cmd):
     ''' End main. element access'''
     
 
-    eval_parser = cmd2.Cmd2ArgumentParser()
-    eval_parser.add_argument("-d","--dict", nargs = "?", default=False, const=True, help ="See dictionary of object")
-    eval_parser.add_argument("-k","--keys", nargs = "?", default=False, const=True, help ="See Keys of object")
+    #eval_parser = cmd2.Cmd2ArgumentParser()
+    #eval_parser.add_argument("-d","--dict", nargs = "?", default=False, const=True, help ="See dictionary of object")
+    #eval_parser.add_argument("-k","--keys", nargs = "?", default=False, const=True, help ="See Keys of object")
     #@cmd2.with_argparser(eval_parser)
     """
     def do_eval2(self,line):
@@ -1666,6 +1666,22 @@ class PavlovCLI(cmd2.Cmd):
 
         node = ast.parse(expression, mode='eval').body
         return _eval(node, context)
+
+
+    batch_parser = cmd2.Cmd2ArgumentParser()
+    batch_parser.add_argument('-f','--filepath', help='Path to the text file containing commands')
+    @cmd2.with_argparser(batch_parser)
+    def do_batch(self, args):
+        """Run commands from a specified text file."""
+        if args.filepath is not None:
+            try:
+                with open(args.filepath, 'r') as file:
+                    for line in file:
+                        command = line.strip()
+                        if command:
+                            self.onecmd(command)
+            except Exception as e:
+                self.perror(f"Error: {e}")
             
 if __name__=='__main__':
     Directories.initilize_program_dir()
