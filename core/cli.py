@@ -110,12 +110,13 @@ class PavlovCLI(cmd2.Cmd):
         self.vars = {}
         self.modules = {}
         self.context = {'self': self,
-                        'pprint': pprint,
+                        'pprint': pprint.pprint,
                         'list': list,
                         'str': str,
                         'int': int,
                         'float': float,
                         'dict': dict,
+                        'dir': dir,
                         'set': set,
                         'tuple': tuple,
                         'len': len,
@@ -1551,6 +1552,16 @@ class PavlovCLI(cmd2.Cmd):
                 self.poutput(f"Failed to import module '{module_name}'")
         else:
             self.poutput("Usage: import <module_name>")
+
+    def do_functions(self, args):
+        """List all functions and methods of an imported module."""
+        module_name = args.strip()
+        module = self.modules.get(module_name)
+        if module:
+            functions = [attr for attr in dir(module) if callable(getattr(module, attr))]
+            self.poutput(f"Functions and methods in '{module_name}': {functions}")
+        else:
+            self.poutput(f"Module '{module_name}' is not imported")
 
     def do_call(self, args):
         """Call a method from an imported library."""
