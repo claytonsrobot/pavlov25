@@ -23,8 +23,10 @@ import gui_customtk_basic
 from filemanagement import DirectoryControl
 import filemanagement as fm
 import environmental
-import copy
+#import copy
 import importlib
+import ast
+import operator
 
 
 
@@ -107,6 +109,7 @@ class PavlovCLI(cmd2.Cmd):
         super().__init__(*args, **kwargs)
         self.vars = {}
         self.modules = {}
+        self.context = {'self': self}
         self.debug = True  # Set the default debug value to True
     """
         #self.name = os.path.basename(__file__).removesuffix('.py')
@@ -700,7 +703,7 @@ class PavlovCLI(cmd2.Cmd):
     eval_parser.add_argument("-d","--dict", nargs = "?", default=False, const=True, help ="See dictionary of object")
     eval_parser.add_argument("-k","--keys", nargs = "?", default=False, const=True, help ="See Keys of object")
     #@cmd2.with_argparser(eval_parser)
-    def do_eval(self,line):
+    def do_eval2(self,line):
         """
         See known variables. Use -d flag to see dictionary. 
         Examples:
@@ -728,6 +731,7 @@ class PavlovCLI(cmd2.Cmd):
                 pprint(key_list)
         except Exception as e:
             print(f"self.{line} is not a known variable")
+
     def do_e(self,line):
         print(eval(line))
 
@@ -1495,19 +1499,19 @@ class PavlovCLI(cmd2.Cmd):
         elif args.copy is True:
             DirectoryControl.copy_project_directory(Directories.get_project_dir(),option="empty")
 
-    def do_assign(self, args):
-        """Assign a variable dynamically."""
-        try:
-            key, value = args.split('=')
-            self.vars[key.strip()] = value.strip()
-            self.poutput(f"Variable '{key.strip()}' assigned to '{value.strip()}'")
-        except ValueError:
-            self.poutput("Usage: assign key=value")
+        def do_assign(self, args):
+            """Assign a variable dynamically."""
+            try:
+                key, value = args.split('=')
+                self.vars[key.strip()] = value.strip()
+                self.poutput(f"Variable '{key.strip()}' assigned to '{value.strip()}'")
+            except ValueError:
+                self.poutput("Usage: assign key=value")
 
-    def do_show(self, _):
-        """Show all variables."""
-        for key, value in self.vars.items():
-            self.poutput(f"{key} = {value}")
+        def do_show(self, _):
+            """Show all variables."""
+            for key, value in self.vars.items():
+                self.poutput(f"{key} = {value}")
 
     def do_import(self, args):
         """Import a library dynamically."""
@@ -1525,12 +1529,22 @@ class PavlovCLI(cmd2.Cmd):
     def do_call(self, args):
         """Call a method from an imported library."""
         try:
-            module_name, method_name, *method_args = args.split()
+            parts = args.split()
+            module_name = parts[0]
+            method_name = parts[1]
+            method_args = []
+
+            for arg in parts[2:]:
+                if arg.startswith("self."):
+                    method_args.append(getattr(self, arg[5:]))
+                else:
+                    method_args.append(eval(arg))
+
             module = self.modules.get(module_name)
             if module:
                 method = getattr(module, method_name, None)
                 if method:
-                    result = method(*map(float, method_args))
+                    result = method(*method_args)
                     self.poutput(f"Result: {result}")
                 else:
                     self.poutput(f"Method '{method_name}' not found in module '{module_name}'")
@@ -1538,8 +1552,84 @@ class PavlovCLI(cmd2.Cmd):
                 self.poutput(f"Module '{module_name}' is not imported")
         except ValueError:
             self.poutput("Usage: call <module_name> <method_name> [args...]")
+        except Exception as e:
+            self.poutput(f"An error occurred: {e}")
 
-    
+    def do_call2(self, args):
+        """Call a method from an imported library using the notation module_name.method_name(args...)."""
+        try:
+            parts = args.split('(')
+            method_path = parts[0]
+            method_args_str = parts[1].rstrip(')')
+
+            module_name, method_name = method_path.split('.')
+            module = self.modules.get(module_name)
+
+            if module:
+                method = getattr(module, method_name, None)
+                if method:
+                    method_args = [eval(arg.strip()) for arg in method_args_str.split(',')]
+                    result = method(*method_args)
+                    self.poutput(f"Result: {result}")
+                else:
+                    self.poutput(f"Method '{method_name}' not found in module '{module_name}'")
+            else:
+                self.poutput(f"Module '{module_name}' is not imported")
+        except ValueError:
+            self.poutput("Usage: call <module_name>.<method_name>(args...)")
+        except Exception as e:
+            self.poutput(f"An error occurred: {e}")
+
+    def do_eval(self, args):
+        """Evaluate an expression using stored variables."""
+        try:
+            expr = self._substitute_vars(args)
+            result = self._safe_eval(expr, self.context)
+            self.poutput(f"{args} = {result}")
+        except Exception as e:
+            self.poutput(f"Error evaluating expression: {str(e)}")
+
+    def _substitute_vars(self, expression):
+        """Substitute variables in the expression with their values."""
+        for key, value in self.vars.items():
+            expression = expression.replace(key, value)
+        return expression
+
+    def _safe_eval(self, expression, context):
+        """Safely evaluate an expression using ast and operator modules."""
+        # Define allowed operators
+        allowed_operators = {
+            ast.Add: operator.add,
+            ast.Sub: operator.sub,
+            ast.Mult: operator.mul,
+            ast.Div: operator.truediv,
+            ast.Pow: operator.pow,
+            ast.BitXor: operator.xor,
+            ast.USub: operator.neg,
+        }
+
+        def _eval(node, context):
+            if isinstance(node, ast.Num):  # <number>
+                return node.n
+            elif isinstance(node, ast.BinOp):  # <left> <operator> <right>
+                return allowed_operators[type(node.op)](_eval(node.left, context), _eval(node.right, context))
+            elif isinstance(node, ast.UnaryOp):  # <operator> <operand> e.g., -1
+                return allowed_operators[type(node.op)](_eval(node.operand, context))
+            elif isinstance(node, ast.Name):  # <variable>
+                return context[node.id]
+            elif isinstance(node, ast.Attribute):  # <object.attribute>
+                value = _eval(node.value, context)
+                return getattr(value, node.attr)
+            elif isinstance(node, ast.Call):  # <function call>
+                func = _eval(node.func, context)
+                args = [_eval(arg, context) for arg in node.args]
+                return func(*args)
+            else:
+                raise TypeError(node)
+
+        node = ast.parse(expression, mode='eval').body
+        return _eval(node, context)
+            
 if __name__=='__main__':
     Directories.initilize_program_dir()
     PavlovCLI.initialize_scene_object()
