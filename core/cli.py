@@ -12,7 +12,7 @@ https://medium.com/@noransaber685/simple-guide-to-creating-a-command-line-interf
 '''
 import cmd2
 import os
-from pprint import pprint
+import pprint
 import main
 from hidden_prints import HiddenPrints
 import time
@@ -109,7 +109,31 @@ class PavlovCLI(cmd2.Cmd):
         super().__init__(*args, **kwargs)
         self.vars = {}
         self.modules = {}
-        self.context = {'self': self}
+        self.context = {'self': self,
+                        'pprint': pprint,
+                        'list': list,
+                        'str': str,
+                        'int': int,
+                        'float': float,
+                        'dict': dict,
+                        'set': set,
+                        'tuple': tuple,
+                        'len': len,
+                        'sum': sum,
+                        'min': min,
+                        'max': max,
+                        'sorted': sorted,
+                        'type': type,
+                        'range': range,
+                        'enumerate': enumerate,
+                        'zip': zip,
+                        'map': map,
+                        'filter': filter,
+                        'any': any,
+                        'all': all,
+                        'abs': abs,
+                        'round': round,
+                        'repr': repr,}
         self.debug = True  # Set the default debug value to True
     """
         #self.name = os.path.basename(__file__).removesuffix('.py')
@@ -480,25 +504,25 @@ class PavlovCLI(cmd2.Cmd):
         try:
             if line=="config" or line=="c":
                 print(f"config_input_object = ")
-                pprint(self.config_input_object.__dict__)
+                pprint.pprint(self.config_input_object.__dict__)
             elif line=="userinput" or line=="u":
                 print(f"user_input_object = ")
-                pprint(self.user_input_object.__dict__)
+                pprint.pprint(self.user_input_object.__dict__)
             elif line=="scene" or line=="sc" or line=="s":
                 print(f"scene_object = ")
-                pprint(self.scene_object.__dict__)
+                pprint.pprint(self.scene_object.__dict__)
             elif line=="style" or line=="st":
                 print(f"style_object = ")
-                pprint(self.style_object.__dict__)
+                pprint.pprint(self.style_object.__dict__)
             elif line=="hiearchy" or line=="h":
                 print(f"hierarchy_object = ")
-                pprint(self.hierarchy_object.__dict__)
+                pprint.pprint(self.hierarchy_object.__dict__)
             elif line=="exportcontrol" or line=="ec":
                 print(f"export_control_object = ")
-                pprint(self.export_control_object.__dict__)
+                pprint.pprint(self.export_control_object.__dict__)
             elif line=="createFBX":
                 print(f"createFBX_object = ")
-                pprint(self.createFBX_object.__dict__)
+                pprint.pprint(self.createFBX_object.__dict__)
             elif line == "":
                 self.do_help("see")
             else:
@@ -698,13 +722,13 @@ class PavlovCLI(cmd2.Cmd):
     ''' End main. element access'''
     
 
-
     eval_parser = cmd2.Cmd2ArgumentParser()
     eval_parser.add_argument("-d","--dict", nargs = "?", default=False, const=True, help ="See dictionary of object")
     eval_parser.add_argument("-k","--keys", nargs = "?", default=False, const=True, help ="See Keys of object")
     #@cmd2.with_argparser(eval_parser)
+    """
     def do_eval2(self,line):
-        """
+        '''
         See known variables. Use -d flag to see dictionary. 
         Examples:
             eval scene_object -d
@@ -713,27 +737,28 @@ class PavlovCLI(cmd2.Cmd):
             eval scene_object -k
 
         Security issue.
-        """
+        '''
         try:
             if line == "--all" or line =="-a":
-                pprint(eval("self.__dict__"))
+                pprint.pprint(eval("self.__dict__"))
             elif not("-d" in line) and not("-k" in line):
-                pprint(eval("self."+line))
+                pprint.pprint(eval("self."+line))
             elif "-d" in line:
                 line_clean = line.replace("-d","")
-                pprint(eval("self."+line_clean+".__dict__"))
+                pprint.pprint(eval("self."+line_clean+".__dict__"))
             elif "-k" in line:
                 
                 line_clean = line.replace("-k","")
                 print("keys for line_clean:")
-                #pprint(eval("self."+line_clean+".keys()"))
+                #pprint.pprint(eval("self."+line_clean+".keys()"))
                 key_list = list(eval("self."+line_clean+".__dict__.keys()"))
-                pprint(key_list)
+                pprint.pprint(key_list)
         except Exception as e:
             print(f"self.{line} is not a known variable")
+            """
 
-    def do_e(self,line):
-        print(eval(line))
+    #def do_e(self,line):
+    #   print(eval(line))
 
     config_parser = cmd2.Cmd2ArgumentParser()
     config_parser.add_argument('-l','--list',nargs = "?", default=False, const=True, help='See all project directories that are in the Pavlov program location. This will not include project diretories saved elsewhere, until some future date when a registration file will track those recent locations.')
@@ -1144,8 +1169,8 @@ class PavlovCLI(cmd2.Cmd):
             fm.tree("./projects/")
 
         elif args.list is True:
-            #pprint(DirectoryControl.walk(args.list))
-            pprint(DirectoryControl.walk(Directories.get_program_dir()+"/projects/"))
+            #pprint.pprint(DirectoryControl.walk(args.list))
+            pprint.pprint(DirectoryControl.walk(Directories.get_program_dir()+"/projects/"))
         
         elif args.listexternal is True:
             json_filepath = Directories.get_program_dir()+"\\projects\\external_project_register.json"
@@ -1469,8 +1494,8 @@ class PavlovCLI(cmd2.Cmd):
             fm.tree("./projects/")
 
         elif args.list is True:
-            #pprint(DirectoryControl.walk(args.list))
-            pprint(DirectoryControl.walk(Directories.get_program_dir()+"/projects/"))
+            #pprint.pprint(DirectoryControl.walk(args.list))
+            pprint.pprint(DirectoryControl.walk(Directories.get_program_dir()+"/projects/"))
         
         elif args.listexternal is True:
             json_filepath = Directories.get_program_dir()+"\\projects\\external_project_register.json"
@@ -1499,19 +1524,19 @@ class PavlovCLI(cmd2.Cmd):
         elif args.copy is True:
             DirectoryControl.copy_project_directory(Directories.get_project_dir(),option="empty")
 
-        def do_assign(self, args):
-            """Assign a variable dynamically."""
-            try:
-                key, value = args.split('=')
-                self.vars[key.strip()] = value.strip()
-                self.poutput(f"Variable '{key.strip()}' assigned to '{value.strip()}'")
-            except ValueError:
-                self.poutput("Usage: assign key=value")
+    def do_assign(self, args):
+        """Assign a variable dynamically."""
+        try:
+            key, value = args.split('=')
+            self.vars[key.strip()] = value.strip()
+            self.poutput(f"Variable '{key.strip()}' assigned to '{value.strip()}'")
+        except ValueError:
+            self.poutput("Usage: assign key=value")
 
-        def do_show(self, _):
-            """Show all variables."""
-            for key, value in self.vars.items():
-                self.poutput(f"{key} = {value}")
+    def do_show(self, _):
+        """Show all variables."""
+        for key, value in self.vars.items():
+            self.poutput(f"{key} = {value}")
 
     def do_import(self, args):
         """Import a library dynamically."""
@@ -1520,6 +1545,7 @@ class PavlovCLI(cmd2.Cmd):
             try:
                 module = importlib.import_module(module_name)
                 self.modules[module_name] = module
+                self.context[module_name] = module
                 self.poutput(f"Module '{module_name}' imported successfully")
             except ImportError:
                 self.poutput(f"Failed to import module '{module_name}'")
