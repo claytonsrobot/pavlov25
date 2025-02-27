@@ -72,7 +72,7 @@ class ConfigInput:
         #grouping_algorithm = loaded_grouping_entry_json["algorithm"]
         grouping_selection_filename = loaded_grouping_entry_toml["grouping"]["grouping_selection_filename"]
         grouping_algorithm = loaded_grouping_entry_toml["grouping"]["algorithm"]
-        print(f"grouping_selection_filename = {grouping_selection_filename}")
+        print(f"grouping_selection_filename = {grouping_selection_filename}") 
         breakpoint
         if grouping_selection_filename is None:
             grouping_selection_path = None
