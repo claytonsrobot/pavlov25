@@ -13,7 +13,7 @@ from directories import Directories
 """
 import os
 import inspect
-import json
+import toml_utils 
 from pathlib import Path
 import environmental
 
@@ -97,21 +97,19 @@ class Directories:
         #cls.initialize_startup_project()
     @classmethod
     def initialize_startup_project(cls):
-        filename = "./projects/default-project.json"
-        with open(filename,"r") as file:
-            json_data = file.read()
-        loaded_json = json.loads(json_data)
-        cls.set_project_dir(cls.get_core_dir()+"\\projects\\"+loaded_json["project_directory"])
+        filename_default_project_entry = "./projects/default-project.toml"
+        loaded_entry = toml_utils.load_toml(filename_default_project_entry)
+        cls.set_project_dir(cls.get_core_dir()+"\\projects\\"+loaded_entry["project_directory"])
 
-    @classmethod
-    def check_file(cls,filepath):
+    @staticmethod
+    def check_file(filepath):
         if not(os.path.isfile(filepath)):
             print(f"The file does not exist: {filepath}")
             #raise RuntimeError("Stopping execution")
             raise SystemExit
         else:
             # the file exists
-            pass
+            return True
     @classmethod
     def check_first_level_import_directory_names(cls):
         cls.get_import_dir() # path of top layer

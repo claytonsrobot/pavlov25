@@ -4,16 +4,18 @@ Author: Clayton Bennett
 Created: 01 June 2024
 
 '''
-import os
-import inspect
-import json
-import numpy as np
-import platform # assumes local is windows and server is linux for vercel
+
+#import inspect
+#import json
+#import environmental
+#import platform # assumes local is windows and server is linux for vercel
 import filter_files as ff
-import environmental
+import numpy as np
+import os
+
 from directories import Directories
 from pprint import pprint
-import toml_handler
+import toml_utils
 
 #from parse_user_input_config import parse_user_input_config
 
@@ -57,7 +59,7 @@ class ConfigInput:
         #self.config_entry_filepath = Directories.get_program_dir()+'/media/json_uploads_pavlovuserinputconfig/'+self.config_entry_filename # web app config :: salute
         #print(f"self.config_entry_filepath = {self.config_entry_filepath}")
         #loaded_config_entry_json = self.load_json(self.config_entry_filepath)
-        loaded_config_entry_toml = toml_handler.load_toml(self.config_entry_filepath)
+        loaded_config_entry_toml = toml_utils.load_toml(self.config_entry_filepath)
         #config_input_filename = loaded_config_entry_json["config_input_filename"]
         config_input_filename = loaded_config_entry_toml["entry"]["config_input_filename"]
         config_input_path = os.path.normpath(Directories.get_config_dir()+"\\"+config_input_filename)
@@ -67,7 +69,7 @@ class ConfigInput:
     def load_grouping_entry(self):
         
         #loaded_grouping_entry_json = self.load_json(self.grouping_entry_filepath)
-        loaded_grouping_entry_toml = toml_handler.load_toml(self.grouping_entry_filepath)
+        loaded_grouping_entry_toml = toml_utils.load_toml(self.grouping_entry_filepath)
         #grouping_selection_filename = loaded_grouping_entry_json["grouping_selection_filename"]
         #grouping_algorithm = loaded_grouping_entry_json["algorithm"]
         grouping_selection_filename = loaded_grouping_entry_toml["grouping"]["grouping_selection_filename"]
@@ -124,12 +126,12 @@ class ConfigInput:
         self.grouping_selection_path, self.grouping_algorithm = self.load_grouping_entry()
 
         #self.loaded_config = self.load_json(self.config_input_path)
-        self.loaded_config = toml_handler.load_toml(self.config_input_path)["config"]
+        self.loaded_config = toml_utils.load_toml(self.config_input_path)["config"]
         self.loaded_config = self.assign_known_config_filenames(self.loaded_config,self.config_input_path,self.config_entry_filepath)
         self.loaded_config = self.clean_imported_json_numerics(self.loaded_config) # if the json is poorly formatted for nums
 
         if self.grouping_algorithm == "group-by-text":
-            self.loaded_grouping = toml_handler.load_toml(self.grouping_selection_path) # this does have a particalr
+            self.loaded_grouping = toml_utils.load_toml(self.grouping_selection_path) # this does have a particalr
         
         elif self.grouping_algorithm == "group-by-map":
             #self.loaded_csv_grouping = self.load_csv(self.grouping_selection_path) # this will inherently have a different structure compared to the toml import. Hypothetically we could leverage functon overloading to manage this.
@@ -173,7 +175,7 @@ if __name__ == "__main__":
 
     config_input_object = ConfigInput()
     #loaded_json= config_input_object.load_json(filepath)
-    loaded_config= toml_handler.load_toml(filepath)
+    loaded_config= toml_utils.load_toml(filepath)
     #loaded_json_gui_expected_defaults = config_input_object.load_json(filepath)
     #loaded_json_kate_config = config_input_object.load_json(default_config_path)
     #print(json.dumps(loaded_json,indent=4))

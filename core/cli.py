@@ -87,7 +87,7 @@ class PavlovCLI(cmd2.Cmd):
     @classmethod
     def link_initial_project_directory(cls):
         #cls.project_active = None
-        Directories.set_project_dir(Directories.get_core_dir()+r"/projects/default-sample/")
+        Directories.set_project_dir(Directories.get_core_dir()+r"/projects/sample/")
         print(f"project_active = {Directories.get_project_dir()}")
         # dynamic, points to default-project.json file
         #cls.set_project_active(cls.get_startup_project("./projects/default-project.json")) # pull from config file
