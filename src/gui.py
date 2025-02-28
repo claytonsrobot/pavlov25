@@ -277,7 +277,7 @@ class Gui:
         
     def window_user_input_config_selection(self,cij):
         #config_path = self.config_input_object.config_directory + cij.config_input_file
-        config_path =cij['config_input_path'] # assessed in the user_input_ tool
+        config_path =cij['config_input_path'] # assessed in the user_input_ tool # hacky bullshit, get it another way.
         #config_path = script_dir + self.config_entry_object.config_directory_relative + self.config_entry_object.config_file
         layout = [
             [sg.Text('Filepath:'), sg.Input(size=(60, 1),default_text=config_path, enable_events = True,key="-CONFIG-FILE-"), sg.T(size=(standardTextSize,1)),sg.FilesBrowse('Browse', target='-CONFIG-FILE-',visible=True)],

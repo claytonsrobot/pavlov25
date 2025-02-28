@@ -160,11 +160,6 @@ class Directories:
                 if part not in current_level:
                     current_level[part] = {}
                 current_level = current_level[part]
-            if True:
-                # Add the subdirectories at the current root level
-                for dir_name in dirs:
-                    if dir_name not in current_level:
-                        current_level[dir_name] = {}
 
             ## Add the files at the current root level
             ##current_level["files"] = files

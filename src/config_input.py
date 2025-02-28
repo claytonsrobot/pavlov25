@@ -33,9 +33,11 @@ class ConfigInput:
         self.grouping_entry_filename = r"grouping_entry.toml"
         self.script_dir = Directories.get_program_dir()
         #self.config_guide_filepath = self.config_directory+'\\config-guide.pdf'
+        #self.config_entry_filepath = Directories.get_program_dir()+'/media/json_uploads_pavlovuserinputconfig/'+self.config_entry_filename # web app config :: salute
         self.config_entry_filepath = Directories.get_config_dir()+f'{self.config_entry_filename}'
         self.grouping_entry_filepath = Directories.get_groupings_dir()+f'{self.grouping_entry_filename}'
         
+        # Fail and quit if the file is not found. There is a better way to pause the shell instead.
         Directories.check_file(self.config_entry_filepath)
         Directories.check_file(self.grouping_entry_filepath)
         self.config_directory =Directories.get_config_dir()
@@ -52,30 +54,19 @@ class ConfigInput:
 
         self.export_directory = ""
     
-    def load_config_entry(self):
-
-        #load this, then get resuults, then feed
-        
-        #self.config_entry_filepath = Directories.get_program_dir()+'/media/json_uploads_pavlovuserinputconfig/'+self.config_entry_filename # web app config :: salute
-        #print(f"self.config_entry_filepath = {self.config_entry_filepath}")
-        #loaded_config_entry_json = self.load_json(self.config_entry_filepath)
+    def load_config_entry(self): 
         loaded_config_entry_toml = toml_utils.load_toml(self.config_entry_filepath)
-        #config_input_filename = loaded_config_entry_json["config_input_filename"]
         config_input_filename = loaded_config_entry_toml["entry"]["config_input_filename"]
         config_input_path = os.path.normpath(Directories.get_config_dir()+"\\"+config_input_filename)
         Directories.check_file(config_input_path)
         return config_input_path
     
     def load_grouping_entry(self):
-        
-        #loaded_grouping_entry_json = self.load_json(self.grouping_entry_filepath)
         loaded_grouping_entry_toml = toml_utils.load_toml(self.grouping_entry_filepath)
-        #grouping_selection_filename = loaded_grouping_entry_json["grouping_selection_filename"]
-        #grouping_algorithm = loaded_grouping_entry_json["algorithm"]
         grouping_selection_filename = loaded_grouping_entry_toml["grouping"]["grouping_selection_filename"]
         grouping_algorithm = loaded_grouping_entry_toml["grouping"]["algorithm"]
         print(f"grouping_selection_filename = {grouping_selection_filename}") 
-        breakpoint
+        
         if grouping_selection_filename is None:
             grouping_selection_path = None
         else:    
@@ -83,36 +74,16 @@ class ConfigInput:
             Directories.check_file(grouping_selection_path)
         return grouping_selection_path,grouping_algorithm
     
-    """
-    def load_json(self,filename):
-        # we need a way to check that the json file is formatted properly, namey that commas are in the right place, before attemptig to load itusing json.loads(), because otherwise it might freak out
-        with open(filename,"r") as file:
-            json_data = file.read()
-        try:
-            loaded_json = json.loads(json_data)
-        except:
-            print(f"The JSON file is not properly formatted. Check for missing and hanging commas.: {filename}")
-            raise RuntimeError("Stopping execution")
-        #print(f'{filename}: ')
-        #print(json.dumps(self.loaded_config, indent=4))
-        return loaded_json
-        """
-    
     def load_csv(self,filename):
         with open(filename,"r") as file:
             csv_data = np.genfromtxt(file, dtype=None, delimiter=',', skip_header=0).tolist() # test
             csv_data = np.array(csv_data)
-
         loaded_csv_array =np.nan_to_num(csv_data)
-        
-        loaded_csv_dict = {k:v for k,v in zip(loaded_csv_array[0], loaded_csv_array[1:].T)}        
-        
+        loaded_csv_dict = {k:v for k,v in zip(loaded_csv_array[0], loaded_csv_array[1:].T)}                
         return loaded_csv_dict
 
-    def clean_imported_json_numerics(self,loaded_config):
-
+    def clean_imported_numerics(self,loaded_config):
         for key,value in loaded_config.items():
-            #print(value)
             if isinstance(value,str):
                 if value.isnumeric():
                     try:
@@ -122,13 +93,11 @@ class ConfigInput:
         return loaded_config
 
     def define_and_load_default_config_input(self):
-        self.config_input_path = self.load_config_entry()
+        config_input_path = self.load_config_entry()
         self.grouping_selection_path, self.grouping_algorithm = self.load_grouping_entry()
-
-        #self.loaded_config = self.load_json(self.config_input_path)
-        self.loaded_config = toml_utils.load_toml(self.config_input_path)["config"]
-        self.loaded_config = self.assign_known_config_filenames(self.loaded_config,self.config_input_path,self.config_entry_filepath)
-        self.loaded_config = self.clean_imported_json_numerics(self.loaded_config) # if the json is poorly formatted for nums
+        raw_loaded_config = toml_utils.load_toml(config_input_path)["config"]
+        #self.loaded_config = self.assign_known_config_filenames(raw_loaded_config,config_input_path,self.config_entry_filepath)
+        self.loaded_config = self.clean_imported_numerics(raw_loaded_config) # if the json is poorly formatted for nums
 
         if self.grouping_algorithm == "group-by-text":
             self.loaded_grouping = toml_utils.load_toml(self.grouping_selection_path) # this does have a particalr
@@ -159,6 +128,8 @@ class ConfigInput:
         return 
     
     def assign_known_config_filenames(self,loaded_config,config_input_path,config_entry_filepath):
+        # Manually add config names to the config itsef in order to pass them around with the config dictonary
+        # This is a hack.
         loaded_config.update({"config_input_path":config_input_path})
         loaded_config.update({"config_entry_filepath":config_entry_filepath})
         return loaded_config
