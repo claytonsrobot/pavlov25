@@ -102,11 +102,26 @@ class PavlovCLI(cmd2.Cmd):
     @classmethod
     def get_project_active(cls):
         return Directories.get_project_dir()
-
-    
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # Determine the path to the startup script
+        base_dir = os.path.dirname(os.path.dirname(__file__))  # One level up
+        #base_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))  # Two levels up
+        #startup_script_path = os.path.join(base_dir, "startup", "shell_startup.txt")
+        startup_script_path = os.path.join("startup", "shell_startup.txt") # "relative path"
+        
+        # Check if the file exists before setting it
+        if os.path.exists(startup_script_path):
+            self.startup_script = startup_script_path
+            print(f"Startup script set to: {self.startup_script}")
+        else:
+            self.startup_script = None  # Gracefully handle missing file
+            print("No startup script found. Proceeding without one.")
+        
+        # Optional: Add your own intro message
+        self.intro = "Welcome to PavlovShell. Type 'help' to get started."
+
         self.vars = {}
         self.modules = {}
         self.context = {'self': self,
@@ -136,21 +151,79 @@ class PavlovCLI(cmd2.Cmd):
                         'round': round,
                         'repr': repr,}
         self.debug = True  # Set the default debug value to True
-    """
-        #self.name = os.path.basename(__file__).removesuffix('.py')
-        self.scene_object = None
-        self.style_object = None
-        self.config_input_object = None
-        self.user_input_object = None
-        self.export_control_object = None
-    """
+        
+        # Set startup script - if the file does not exist, there will be problems
+        self.startup_script = os.path.join(os.path.dirname(__file__), "startup.txt")
+
+        # Store command history
+        history_dir = os.path.join(os.path.dirname(__file__), 'history-shell')
+        os.makedirs(history_dir, exist_ok=True)  # Ensure the directory exists
+        self.persistent_history_file = os.path.join(history_dir, 'shell_history.txt')
+
+        # Auto-load history from the file if it exists
+        if os.path.exists(self.persistent_history_file):
+            self._load_history()
+
+    def _load_history(self):
+        """Load commands from the persistent history file at startup."""
+        try:
+            if os.path.exists(self.persistent_history_file):
+                with open(self.persistent_history_file, 'r', encoding='utf-8') as history_file:
+                    for line in history_file:
+                        command = line.strip()
+                        if command:
+                            self.history.append(command)  # Append each command to memory
+                print(f"Loaded {len(self.history)} commands from history.")
+            else:
+                print("No history file found, starting with an empty history.")
+        except Exception as e:
+            self.perror(f"Error loading history: {e}")
+
+    
+    def postcmd(self, stop, statement):
+        """Called after every command to append the full input line to the history file."""
+        try:
+            # Use statement.raw to get the full command line as entered by the user
+            full_command = statement.raw.strip()
+            if full_command:  # Avoid saving empty commands
+                with open(self.persistent_history_file, 'a', encoding='utf-8') as history_file:
+                    history_file.write(full_command + '\n')
+                print(f"Command saved: {full_command}")
+            else:
+                print("Skipped saving empty or invalid command.")
+        except Exception as e:
+            self.perror(f"Error saving command to history: {e}")
+        return stop
+
+
+
+    historyy_parser = cmd2.Cmd2ArgumentParser()
+    historyy_parser.add_argument('-l','--last', nargs = "?", default=False, const=True,help='create new project directory')
+    historyy_parser.add_argument('-a','--append',help='access existing project directory') # the same as actually running a command, except dont run it, just append it to history
+    @cmd2.with_argparser(historyy_parser)
+    def do_historyy(self, args): #
+        if not self.history:
+            self.poutput("No command history available.")
+            # and initialize please
+            return
+        elif args.last is True:
+            item = self.history[-1]
+            self.poutput(f"{item}")
+        elif args.append is not None:
+            with open(self.persistent_history_file, 'a') as history_file:
+                history_file.write(f"{args.append}\n")            
+        else:
+            """Display the command history."""
+            self.poutput("Command history:")
+            for i, item in enumerate(self.history, start=1):
+                self.poutput(f"{i}: {item}")
+        
         
     def run(self):
         #self.scene_object = None
         self.initialize_scene_object()
         #self.link_initial_project_directory()
         Directories.initialize_startup_project()
-        
         self.cmdloop()
 
     def do_status(self,line):
@@ -351,11 +424,27 @@ class PavlovCLI(cmd2.Cmd):
 
     def do_test(self,line):
         "See CPU frequency."
+        self.poutput("Test command executed successfully!")
         try:
             cpu_freq = psutil.cpu_freq()
             print("Current CPU Frequency:", round(cpu_freq.current),"hz, or so.") 
         except:
             pass
+
+    def do_test_command_execution(self,line):
+        """Programmatically run the 'test' command."""
+        try:
+            self.onecmd_plus_hooks("test")
+        except Exception as e:
+            print(f"Error executing 'test': {e}")
+
+    def do_runall(self, arg):
+        """Run a series of predefined commands."""
+        commands = ["1", "2","3a","3b","4","5","6"]
+        for cmd in commands:
+            self.poutput(f"Running: {cmd}")
+            self.onecmd_plus_hooks(cmd)
+
     def do_why(self,line):
         "Why use Pavlov?"
         why = "Visualize lots of raw data. Ideal for first-year graduate students after they finish their experiements. See all of your data, everything at once to reveal untold truths." 
@@ -965,9 +1054,7 @@ class PavlovCLI(cmd2.Cmd):
                 self.user_input_object.__dict__[key] =  new_value
 
 
-
-    '''
-    
+    '''    
     def do_select_gui_mode(self,line):
         "choose gui in simple mode, developer mode, or none"
         gui_mode = str(input("Developer mode (D) or Lite Mode (L)? "))
@@ -1690,10 +1777,13 @@ class PavlovCLI(cmd2.Cmd):
                             self.onecmd(command)
             except Exception as e:
                 self.perror(f"Error: {e}")
-            
+
+
 if __name__=='__main__':
+    app = PavlovCLI()
+    app.onecmd_plus_hooks("test")
     Directories.initilize_program_dir()
-    PavlovCLI.initialize_scene_object()
+    app.initialize_scene_object()
     #PavlovCLI.link_initial_project_directory()
     Directories.initialize_startup_project()
-    PavlovCLI().cmdloop()
+    app.cmdloop()

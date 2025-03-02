@@ -102,7 +102,8 @@ class UserInput:
         #self.subgroup_names = gj["subgroup_names"]
         
         if config_input_object.grouping_selection_path is not None:
-            gj = config_input_object.loaded_grouping["grouping"]
+            #gj = config_input_object.loaded_grouping["grouping"] # this is weirdly influencetial?
+            gj = config_input_object.loaded_grouping
             self.group_names = gj["group_names"]
             self.subgroup_names = gj["subgroup_names"]
         else:

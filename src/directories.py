@@ -160,9 +160,6 @@ class Directories:
                 if part not in current_level:
                     current_level[part] = {}
                 current_level = current_level[part]
-
-            ## Add the files at the current root level
-            ##current_level["files"] = files
             # Add the files at the current root level, skipping 'desktop.ini'
             current_level["files"] = [file for file in files if file != 'desktop.ini']
         return directory_structure

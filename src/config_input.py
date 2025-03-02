@@ -27,8 +27,6 @@ class ConfigInput:
         cls.scene_object = scene_object
 
     def __init__(self):
-        #self.config_entry_filename = r"config_entry.json"
-        #self.grouping_entry_filename = r"grouping_entry.json"
         self.config_entry_filename = r"config_entry.toml"
         self.grouping_entry_filename = r"grouping_entry.toml"
         self.script_dir = Directories.get_program_dir()
@@ -47,10 +45,6 @@ class ConfigInput:
         self.import_style_dropdown = None # will stay none
         self.export_style_dropdown = None # will stay none
         self.color_style_dropdown = None # will stay none
-
-        #self.filter_files_include_and = None
-        #self.filter_files_include_or = None
-        #self.filter_files_exclude = None
 
         self.export_directory = ""
     
@@ -100,8 +94,8 @@ class ConfigInput:
         self.loaded_config = self.clean_imported_numerics(raw_loaded_config) # if the json is poorly formatted for nums
 
         if self.grouping_algorithm == "group-by-text":
-            self.loaded_grouping = toml_utils.load_toml(self.grouping_selection_path) # this does have a particalr
-        
+            self.raw_loaded_grouping = toml_utils.load_toml(self.grouping_selection_path) # this does have a particalr
+            self.loaded_grouping = (self.raw_loaded_grouping["grouping"]).copy() 
         elif self.grouping_algorithm == "group-by-map":
             #self.loaded_csv_grouping = self.load_csv(self.grouping_selection_path) # this will inherently have a different structure compared to the toml import. Hypothetically we could leverage functon overloading to manage this.
             self.loaded_grouping = self.load_csv(self.grouping_selection_path)
@@ -109,13 +103,12 @@ class ConfigInput:
         elif self.grouping_algorithm == "group-by-directory":
             # some dictionary structure based on directory hierarchy
 
-            self.loaded_grouping = Directories.generate_directory_structure(Directories.get_import_dir())             
+            self.loaded_grouping = Directories.generate_directory_structure(Directories.get_import_dir())
 
+            # explore first and second level directories in the projects/{project_name}/"imports" folder
             self.group_names = Directories.check_first_level_import_directory_names()
             self.subgroup_names = Directories.check_second_level_import_directory_names(self.group_names)
             self.file_paths,self.file_names = Directories.check_third_level_import_file_names(self.group_names,self.subgroup_names)
-            #HEY! Adjust the way you get data files, from subdirs
-            # explore first and second level directories in the projects/{project_name}/"imports" folder
             
         #self.pull_specific_values_from_json_config_input_object(self.loaded_config)
         if True: # force to show outdated (free simple) gui
@@ -134,9 +127,6 @@ class ConfigInput:
         loaded_config.update({"config_entry_filepath":config_entry_filepath})
         return loaded_config
     
-
-
-
 if __name__ == "__main__":
     
     config_directory = Directories.get_config_dir()

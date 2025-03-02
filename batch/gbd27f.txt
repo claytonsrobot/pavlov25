@@ -1,0 +1,4 @@
+1
+2
+3
+eval pprint(self.config_input_object.loaded_grouping)
