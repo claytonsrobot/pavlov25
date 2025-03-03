@@ -37,6 +37,23 @@ except:
     pass
 import json_handler # pleae migrate the json-handler.py
 
+
+
+
+class HistoryEntry:
+    """Custom history item to store and display commands properly."""
+    def __init__(self, command: str):
+        self.command = command.strip()  # Ensure no trailing or leading whitespace
+
+    def pr(self, idx: int, script: bool = False, expanded: bool = False, verbose: bool = False) -> str:
+        """Format history for printing, ensuring clean and consistent output."""
+        return f"{idx}: {self.command}"
+
+    def __str__(self):
+        return self.command
+
+
+
     
 class PavlovCLI(cmd2.Cmd):
     pavlov3d_prettyprint =  """
@@ -52,7 +69,7 @@ class PavlovCLI(cmd2.Cmd):
     intro = pavlov3d_prettyprint + \
     '''
     
-    Welcome to the Pavlov 3D CLI. 
+    Welcome to PavlovShell! 
     Type "help" or "h" to see available commands. 
     Type "instructions" or "i" to see a description of workflow.
     Type "gui" or "g" to launch the Graphical User Interface.
@@ -119,8 +136,8 @@ class PavlovCLI(cmd2.Cmd):
             self.startup_script = None  # Gracefully handle missing file
             print("No startup script found. Proceeding without one.")
         
-        # Optional: Add your own intro message
-        self.intro = "Welcome to PavlovShell. Type 'help' to get started."
+        # Optional: Add your own intro message # Set above in class variables.
+        # self.intro = "Welcome to PavlovShell. Type 'help' to get started."
 
         self.vars = {}
         self.modules = {}
@@ -172,28 +189,34 @@ class PavlovCLI(cmd2.Cmd):
                     for line in history_file:
                         command = line.strip()
                         if command:
-                            self.history.append(command)  # Append each command to memory
+                            self.history.append(HistoryEntry(command))  # ✅ Store as object
                 print(f"Loaded {len(self.history)} commands from history.")
             else:
                 print("No history file found, starting with an empty history.")
         except Exception as e:
             self.perror(f"Error loading history: {e}")
 
-    
+
     def postcmd(self, stop, statement):
-        """Called after every command to append the full input line to the history file."""
+        """Called after every command to append it to the history file."""
         try:
-            # Use statement.raw to get the full command line as entered by the user
             full_command = statement.raw.strip()
-            if full_command:  # Avoid saving empty commands
+            if full_command:
                 with open(self.persistent_history_file, 'a', encoding='utf-8') as history_file:
                     history_file.write(full_command + '\n')
-                print(f"Command saved: {full_command}")
+
+                self.history.append(HistoryEntry(full_command))  # ✅ Store properly
+                #print(f"Command saved: {full_command}")
             else:
                 print("Skipped saving empty or invalid command.")
         except Exception as e:
             self.perror(f"Error saving command to history: {e}")
         return stop
+
+    def do_debug_history(self, args):
+        """Debugging command to display raw history entries with hidden characters."""
+        for i, item in enumerate(self.history, start=1):
+            self.poutput(repr(str(item)))  # Use string representation to ensure compatibility
 
 
 
@@ -201,22 +224,25 @@ class PavlovCLI(cmd2.Cmd):
     historyy_parser.add_argument('-l','--last', nargs = "?", default=False, const=True,help='create new project directory')
     historyy_parser.add_argument('-a','--append',help='access existing project directory') # the same as actually running a command, except dont run it, just append it to history
     @cmd2.with_argparser(historyy_parser)
-    def do_historyy(self, args): #
+    def do_historyy(self, args):
+        """Display the command history."""
         if not self.history:
             self.poutput("No command history available.")
-            # and initialize please
             return
+
         elif args.last is True:
             item = self.history[-1]
-            self.poutput(f"{item}")
+            self.poutput(item.pr(len(self.history)))  # ✅ FIXED
+
         elif args.append is not None:
             with open(self.persistent_history_file, 'a') as history_file:
                 history_file.write(f"{args.append}\n")            
+            self.history.append(HistoryEntry(args.append))  # ✅ FIXED!
+
         else:
-            """Display the command history."""
             self.poutput("Command history:")
             for i, item in enumerate(self.history, start=1):
-                self.poutput(f"{i}: {item}")
+                self.poutput(item.pr(i))  # ✅ FIXED!
         
         
     def run(self):
@@ -1287,7 +1313,6 @@ class PavlovCLI(cmd2.Cmd):
         elif args.copy is True:
             DirectoryControl.copy_project_directory(Directories.get_project_dir(),option="empty")
 
-        
 
         elif args.destroy is not None and args.destroy is not False:
             
@@ -1300,6 +1325,7 @@ class PavlovCLI(cmd2.Cmd):
                 self.do_open(f"-b projects")
         else:
             self.do_help("project")
+
     def do_p(self,line):
         " Abbreviation for project" 
         self.do_project(line)
@@ -1507,11 +1533,17 @@ class PavlovCLI(cmd2.Cmd):
         print(f"bool_are_there_args = {bool_are_there_args}")
         return "" == bool_are_there_args
     
-    def do_tree(self,line):
-        # show file tree below current working directory
-        print(os.getcwd())
-        os.system("tree")
-        #subprocess.call("tree")
+    tree_parser = cmd2.Cmd2ArgumentParser()
+    tree_parser.add_argument('-d','--dir', help='See the tree for a particularly directary.')
+    @cmd2.with_argparser(tree_parser)
+    def do_tree(self,args):
+        "Tree"
+        if args.dir is not None:
+            fm.tree(args.dir)
+        else:
+            print(f"os.path.abspath(__file__) = {os.path.abspath(__file__)}")
+            fm.tree(os.path.dirname(os.path.abspath(__file__)))
+
 
     def do_clear(self,line):
         

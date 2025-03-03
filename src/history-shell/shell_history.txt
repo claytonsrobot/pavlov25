@@ -1,66 +1,54 @@
-self.persistent_history_file
+history -c
 1
 2
---append 2
-2
---append 2
-quit
-1
-2
-quit
-1
-2
-quit
-historyy
-quit
-help
-eval self.startup_script
-historyy
-1
-2
-quit
-historyy
-eval self.onecmd_plus_hooks(test)
-eval self.onecmd_plus_hooks(1)
-eval self.onecmd_plus_hooks()
-eval self.onecmd_plus_hooks(0)
-go
-eval self.onecmd_plus_hooks("go")
-eval self.onecmd_plus_hooks(self.do_help)
-eval self.onecmd_plus_hooks(self.do_test)
-eval self.onecmd_plus_hooks(test)
-self.onecmd_plus_hooks("test")
+history
+history -a
 quit
 test
-test_command_execution True
-quit
-1
-2
-3a
-3b
-runall
+history
 quit
 test
-test
-about
-help
 1
 2
-p -l
-p -o sample
+history
+quit
+test
+clear
+1
+history
+debug_history
 1
 2
 3
-4
-5
-historyy
-6
-eval self.__dict__.keys()
-eval self._py_history
-eval self.py_locals
-eval self._settables
-eval self.py_bridge_name
-eval self._persistent_history_length
-eval self.persistent_history_name
-eval self.persistent_history_file
+history
+eval self.scene_objet
+eval self.scene_object
+1uit
+quit
+test
+history
+debug_history
+quit
+test
+debug_history
+project
+project -t
+tree -h
+quit
+test
+quit
+test
+eval os.path.abspath(__file__)
+import os
+os.path.abspath(__file__)
+eval os.path.abspath(__file__)
+eval os.path.abspath("__file__")
+quit
+test
+clear
+quit
+test
+tree
+tree -d "C:\Users\user\.pyenv\pyenv-win\versions\3.10.10\Lib\site-packages\cmd2"
+tree -d C:\Users\user\.pyenv\pyenv-win\versions\3.10.10\Lib\site-packages\cmd2
 quit
