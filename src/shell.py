@@ -27,6 +27,7 @@ import environmental
 import importlib
 import ast
 import operator
+import readline
 
 
 
@@ -189,14 +190,15 @@ class PavlovCLI(cmd2.Cmd):
                     for line in history_file:
                         command = line.strip()
                         if command:
-                            self.history.append(HistoryEntry(command))  # ✅ Store as object
+                            self.history.append(HistoryEntry(command))  
+                            readline.add_history(command)
                 print(f"Loaded {len(self.history)} commands from history.")
             else:
                 print("No history file found, starting with an empty history.")
         except Exception as e:
             self.perror(f"Error loading history: {e}")
 
-
+    
     def postcmd(self, stop, statement):
         """Called after every command to append it to the history file."""
         try:
@@ -205,13 +207,14 @@ class PavlovCLI(cmd2.Cmd):
                 with open(self.persistent_history_file, 'a', encoding='utf-8') as history_file:
                     history_file.write(full_command + '\n')
 
-                self.history.append(HistoryEntry(full_command))  # ✅ Store properly
-                #print(f"Command saved: {full_command}")
+                self.history.append(HistoryEntry(full_command))  # Store properly
             else:
                 print("Skipped saving empty or invalid command.")
         except Exception as e:
             self.perror(f"Error saving command to history: {e}")
         return stop
+    
+
 
     def do_debug_history(self, args):
         """Debugging command to display raw history entries with hidden characters."""

@@ -52,3 +52,85 @@ tree
 tree -d "C:\Users\user\.pyenv\pyenv-win\versions\3.10.10\Lib\site-packages\cmd2"
 tree -d C:\Users\user\.pyenv\pyenv-win\versions\3.10.10\Lib\site-packages\cmd2
 quit
+test
+quit
+test
+history
+quit
+test
+history
+1
+2
+test
+history -s
+history
+history
+history
+test
+1
+2
+p -o sample
+quit
+test
+1
+2
+quit
+test
+1
+history
+history
+1
+2
+history
+quit
+test
+history
+quit
+test
+history
+historyy
+quit
+test
+history
+quit
+test
+1
+quit
+test
+1
+2
+quit
+test
+clear
+history
+history
+history
+history
+history
+history
+history
+test
+test
+history
+test
+history
+clear
+quit
+test
+set persistent_history_file True
+alias create ls !ls -al
+alias create money !1
+money
+alias create money !wwww
+money
+alias create money !wwww -1
+money
+alias list
+history
+quit
+test
+1
+2
+quit
+test
+quit
