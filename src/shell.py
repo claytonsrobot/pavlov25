@@ -27,8 +27,7 @@ import environmental
 import importlib
 import ast
 import operator
-import readline
-
+import readline # for adding history to self.history when loading the history file
 
 
 from directories import Directories
@@ -36,7 +35,7 @@ try:
     import psutil # overkill
 except:
     pass
-import json_handler # pleae migrate the json-handler.py
+import toml_utils # pleae migrate the json-handler.py
 
 
 
@@ -1290,9 +1289,9 @@ class PavlovCLI(cmd2.Cmd):
             pprint.pprint(DirectoryControl.walk(Directories.get_program_dir()+"/projects/"))
         
         elif args.listexternal is True:
-            json_filepath = Directories.get_program_dir()+"\\projects\\external_project_register.json"
-            data_tuple = json_handler.create_tuple_from_json(json_filepath)
-            print(f"data_tuple = {data_tuple}")
+            toml_filepath = Directories.get_program_dir()+"\\projects\\external_project_register.toml"
+            data_tuple = toml_utils.load_toml_tuple(toml_filepath)
+            print(data_tuple)
 
         elif args.current is True:
             print(f"Current project: {Directories.get_project_dir()}")
@@ -1596,56 +1595,6 @@ class PavlovCLI(cmd2.Cmd):
             print("-----")
         else:
             print(self.topography)
-
-
-    project_parser = cmd2.Cmd2ArgumentParser()
-    project_parser.add_argument('-l','--list',nargs = "?", default=False, const=True, help='See all project directories that are in the Pavlov program location. This will not include project diretories saved elsewhere, until some future date when a registration file will track those recent locations.')
-    project_parser.add_argument('-le','--listexternal',nargs = "?", default=False, const=True, help='see project directories in the external-project-register.json file') 
-    project_parser.add_argument('-t','--tree',nargs = "?", default=False, const=True, help='See all project directories that are in the Pavlov program location. ')
-    project_parser.add_argument('-n','--new', nargs = "?",const="project_"+str(int(time.time())), default=False,help='Create new project directory, and make it the active directory.')
-    project_parser.add_argument('-s','--sample', nargs = "?",const="sample-project_"+str(int(time.time())), default=False,help='Generate a sample proect directory, complete with sample files.')
-    project_parser.add_argument('-d','--destroy',nargs = "?", default=False, const=True, help='User is able to destroy existing project directory, when th ')
-    project_parser.add_argument('-o','--open',help='Access an existing project directory.')
-    project_parser.add_argument('-c','--current',nargs = "?",default=False, const=True,help='See current project.')
-    project_parser.add_argument('-cc','--copy',nargs = "?",default=False, const=True,help='Copy current project. New name is hardcoded.')
-    @cmd2.with_argparser(project_parser)
-    def do_project(self,args):
-        "Manage project directories"
-        #print(f"args.sample = {args.sample}")
-        #print(f"args.new = {args.new}")
-        if args.tree is True:
-            fm.tree("./projects/")
-
-        elif args.list is True:
-            #pprint.pprint(DirectoryControl.walk(args.list))
-            pprint.pprint(DirectoryControl.walk(Directories.get_program_dir()+"/projects/"))
-        
-        elif args.listexternal is True:
-            json_filepath = Directories.get_program_dir()+"\\projects\\external_project_register.json"
-            data_tuple = json_handler.create_tuple_from_json(json_filepath)
-            print(f"data_tuple = {data_tuple}")
-
-        elif args.current is True:
-            print(f"Current project: {Directories.get_project_dir()}")
-            
-        elif args.new is not None and args.new is not False:
-            dir_project_new = DirectoryControl.create_directory_with_structure(args.new,option="empty")
-            #dir_project_new = DirectoryControl.create_directory(args.new)
-            self.set_project_active(project_dir=dir_project_new)
-            
-        elif args.sample is not None and args.sample is not False:
-            dir_project_new = DirectoryControl.create_directory_with_structure(args.sample,option="sample")
-            #dir_project_new = DirectoryControl.create_directory(args.new)
-            self.set_project_active(project_dir=dir_project_new) 
-            
-        elif args.open is not None:
-            # Assess if the input textstring is a whole path or is a relative path.
-            # A relative path will look in only the ./projects/ directory. 
-            self.set_project_active(project_dir=args.open)
-            # notes: [[]] https://realpython.com/python-pathlib/
-
-        elif args.copy is True:
-            DirectoryControl.copy_project_directory(Directories.get_project_dir(),option="empty")
 
     def do_assign(self, args):
         """Assign a variable dynamically."""

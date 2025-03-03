@@ -105,11 +105,6 @@ class ConfigInput:
 
             self.loaded_grouping = Directories.generate_directory_structure(Directories.get_import_dir())
 
-            # explore first and second level directories in the projects/{project_name}/"imports" folder
-            self.group_names = Directories.check_first_level_import_directory_names()
-            self.subgroup_names = Directories.check_second_level_import_directory_names(self.group_names)
-            self.file_paths,self.file_names = Directories.check_third_level_import_file_names(self.group_names,self.subgroup_names)
-            
         #self.pull_specific_values_from_json_config_input_object(self.loaded_config)
         if True: # force to show outdated (free simple) gui
             self.loaded_config["filter_files_include_and"] = ""
