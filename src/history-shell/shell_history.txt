@@ -195,3 +195,33 @@ open -l
 eval self.config_input_object.subgroup_names
 eval self.user_input_object.subgroup_names
 quit
+test
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit

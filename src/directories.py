@@ -110,33 +110,43 @@ class Directories:
         else:
             # the file exists
             return True
-    @classmethod
-    def check_first_level_import_directory_names(cls):
-        cls.get_import_dir() # path of top layer
         
-        #group_names = [x[1] for x in os.walk(cls.get_import_dir())]
-        group_names = next(os.walk(cls.get_import_dir()))[1]
+    @classmethod
+    def get_group_names_and_subgroup_names_and_file_names_from_import_directory_hierarchy(cls,directory):
+        # assumes three tiers - in future make modular to any size
+        #directory = cls.get_import_dir()
+        print(f"directory = {directory}")
+        group_names = cls.check_first_level_import_directory_names(directory)
+        subgroup_names = cls.check_second_level_import_directory_names(directory,group_names)
+        file_paths, file_names = cls.check_third_level_import_file_names(directory,group_names,subgroup_names)
+        return group_names, subgroup_names, file_paths, file_names
 
+    @classmethod
+    def check_first_level_import_directory_names(cls,directory):
+        # looks at tree in grouping directory to assess group names 
+        # cls.get_import_dir() # path of top layer
+        #group_names = [x[1] for x in os.walk(cls.get_import_dir())]
+        group_names = next(os.walk(directory))[1]
         print(f"group_names = {group_names}")
         return group_names
     
     @classmethod
-    def check_second_level_import_directory_names(cls,group_names):
+    def check_second_level_import_directory_names(cls,directory,group_names):
         subgroup_names = []
         for group_name in group_names:
-            subgroups_of_group = next(os.walk(cls.get_import_dir()+group_name))[1]
+            subgroups_of_group = next(os.walk(directory+group_name))[1]
             subgroup_names.extend(subgroups_of_group)
         print(f"subgroup_names = {subgroup_names}")
         return subgroup_names
 
     @classmethod
-    def check_third_level_import_file_names(cls,group_names,subgroup_names):
+    def check_third_level_import_file_names(cls,directory,group_names,subgroup_names):
         file_paths = []
         file_names = []
         for group_name in group_names:
             for subgroup_name in subgroup_names: 
                 try:
-                    directory_pathlib = Path(cls.get_import_dir()) / group_name / subgroup_name
+                    directory_pathlib = Path(directory) / group_name / subgroup_name
                     for file_path in directory_pathlib.iterdir(): # special chars make it go whack
                         if file_path.is_file():
                             file_paths.append(str(file_path))
