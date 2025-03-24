@@ -5,12 +5,18 @@ Author(s): Clayton Bennett and Michael Gratzer
 '''
 
 class Test:
-    logprint = True # change it here, or addd a config ile upon program maturity in sic month (target: 23 September 2025)
+    devprint = True # change it here, or addd a config ile upon program maturity in sic month (target: 23 September 2025)
     known_instances = {}
+    
+    @classmethod
+    def reset(cls):
+        cls.devprint = True
+        cls.known_instances = {}
+    
     
     def __init__(self,key): # If this errors, good - the instances are not supposed to be generated.
         self.key = key
-        self.description = "Test is meant to be called as a library / class: Test.logprint() [bool] \nTest is not designed to be run as an instance, like test_object = Test()."
+        self.description = "Test is meant to be called as a library / class: Test.devprint() [bool] \nTest is not designed to be run as an instance, like test_object = Test()."
         self.add_to_known_instances(key = self.key, classinstance_object = self)
         self.print_description()
     @classmethod
@@ -21,9 +27,10 @@ class Test:
         print(f"Do not instantiate the Test class: \n{self.description}")
     
     
-    def logprint(cls):
-        "if Test.logprint()" # bool
-        return cls.logprint 
+    def devprint(cls):
+        "This function calls the class value of devprint, to see if the dev comments should be printed"
+        "if Test.devprint()" # bool
+        return cls.devprint 
 
 
 def foo(line):
@@ -35,8 +42,8 @@ if __name__ == "__main__":
     foo("test_object = Test()")
 
     # "Like this"
-    if Test.logprint():
-        print(f"Test.logprint() = {Test.logprint()}") 
-    elif not(Test.logprint()):
-        print(f"Test.logprint() is False.")
+    if Test.devprint():
+        print(f"Test.devprint() = {Test.devprint()}") 
+    elif not(Test.devprint()):
+        print(f"Test.devprint() is False.")
 
