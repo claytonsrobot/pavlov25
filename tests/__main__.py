@@ -13,7 +13,6 @@ class Test:
         cls.devprint = True
         cls.known_instances = {}
     
-    
     def __init__(self,key): # If this errors, good - the instances are not supposed to be generated.
         self.key = key
         self.description = "Test is meant to be called as a library / class: Test.devprint() [bool] \nTest is not designed to be run as an instance, like test_object = Test()."
@@ -32,14 +31,18 @@ class Test:
         "if Test.devprint()" # bool
         return cls.devprint 
 
+class Print:
+    @staticmethod
+    def nonprint(line):
+        "nonprint"
+        #print(line)
+        pass
 
-def foo(line):
-    pass
 if __name__ == "__main__":
     # " Not like this"
-    foo("test_object = Test(key)")
-    foo("or")
-    foo("test_object = Test()")
+    Test.nonprint("test_object = Test(key)")
+    Test.nonprint("or")
+    Test.nonprint("test_object = Test()")
 
     # "Like this"
     if Test.devprint():
