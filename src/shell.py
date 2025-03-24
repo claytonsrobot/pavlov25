@@ -93,35 +93,6 @@ class PavlovCLI(cmd2.Cmd):
 
 
     name = "Pavlov3D Command Line Interface"
-    def get_version():
-        # for later on storing automatically, not worth the squeeze rn
-        version = "Version: 2025-02February-05" # manually updated
-        return version
-    version = get_version()
-    
-    
-    @classmethod
-    def initialize_scene_object(cls):
-        cls.scene_object = None
-    @classmethod
-    def link_initial_project_directory(cls):
-        #cls.project_active = None
-        Directories.set_project_dir(Directories.get_core_dir()+r"/projects/sample/")
-        print(f"project_active = {Directories.get_project_dir()}")
-        # dynamic, points to default-project.json file
-        #cls.set_project_active(cls.get_startup_project("./projects/default-project.json")) # pull from config file
-        Directories.initialize_startup_project() # pull from config file
-    
-    @classmethod
-    def set_project_active(cls,project_dir):
-        #cls.project_active = project_dir
-        Directories.set_project_dir(project_dir)
-        #print(f"Directories.get_project_dir() = {Directories.get_project_dir()}")
-    
-    @classmethod
-    def get_project_active(cls):
-        return Directories.get_project_dir()
-    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Determine the path to the startup script
@@ -182,6 +153,34 @@ class PavlovCLI(cmd2.Cmd):
         # Auto-load history from the file if it exists
         if os.path.exists(self.persistent_history_file):
             self._load_history()
+
+    def get_version():
+        # for later on storing automatically, not worth the squeeze rn
+        version = "Version: 2025-02February-05" # manually updated
+        return version
+    version = get_version()
+    
+    @classmethod
+    def initialize_scene_object(cls):
+        cls.scene_object = None
+    @classmethod
+    def link_initial_project_directory(cls):
+        #cls.project_active = None
+        Directories.set_project_dir(Directories.get_core_dir()+r"/projects/sample/")
+        print(f"project_active = {Directories.get_project_dir()}")
+        # dynamic, points to default-project.json file
+        #cls.set_project_active(cls.get_startup_project("./projects/default-project.json")) # pull from config file
+        Directories.initialize_startup_project() # pull from config file
+    
+    @classmethod
+    def set_project_active(cls,project_dir):
+        #cls.project_active = project_dir
+        Directories.set_project_dir(project_dir)
+        #print(f"Directories.get_project_dir() = {Directories.get_project_dir()}")
+    
+    @classmethod
+    def get_project_active(cls):
+        return Directories.get_project_dir()
 
     def _load_history(self):
         """Load commands from the persistent history file at startup."""
