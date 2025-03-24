@@ -377,7 +377,10 @@ class Gui:
     def run_and_get_inputs(self):
 
         cij=self.config_input_object.loaded_config
-        cig=self.config_input_object.loaded_grouping["grouping"]
+
+        # this is incomplete - i need to complete my intermediate schema transfer, that will normalize between group-by- hierarchies
+        cig=self.config_input_object.loaded_grouping
+        #cig=self.config_input_object.loaded_grouping["grouping"]
         print(f"cij = {cij}")
         self.load_file_encoding(cij)
         # Define the layout of the main window

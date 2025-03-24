@@ -85,6 +85,7 @@ class UserInput:
         # each export style should have typical text orination scheme - we can use a dataframe for this, with expected values for each choice
 
     def pull_config_input_object(self,config_input_object):
+        self.grouping_algorithm = config_input_object.grouping_algorithm # necessary for hierarchy_object._assign_group_membership_for_complete_hierarchy()
         # it would be better to say use dictA.update(dictB)
         
         # make dictionary instead of mapping!
@@ -111,6 +112,8 @@ class UserInput:
             pass
             #self.group_names = config_input_object.group_names 
             #self.subgroup_names = config_input_object.subgroup_names
+
+
 
         self.stack_direction_groups = cij["stack_direction_groups"]
         self.stack_direction_subgroups = cij["stack_direction_subgroups"]
@@ -158,9 +161,6 @@ class UserInput:
             # explore first and second level directories in the projects/{project_name}/"imports" folder
             # migrate this to user_input_config 
             self.group_names, self.subgroup_names, self.file_paths, self.file_names = Directories.get_group_names_and_subgroup_names_and_file_names_from_import_directory_hierarchy(directory = Directories.get_import_dir())
-            #self.group_names = Directories.check_first_level_import_directory_names()
-            #self.subgroup_names = Directories.check_second_level_import_directory_names(self.group_names)
-            #self.file_paths,self.file_names = Directories.check_third_level_import_file_names(self.group_names,self.subgroup_names)
             
             # for now don't check filetypes, assume all are good
             self.filepath,self.filenames = foo(config_input_object.loaded_grouping)

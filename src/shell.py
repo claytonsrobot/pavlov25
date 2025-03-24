@@ -50,7 +50,9 @@ class HistoryEntry:
         return f"{idx}: {self.command}"
 
     def __str__(self):
-        return self.command
+        "return self.command"
+        return f"{'-'}: {self.command}"
+        
 
 
 
@@ -221,32 +223,6 @@ class PavlovCLI(cmd2.Cmd):
             self.poutput(repr(str(item)))  # Use string representation to ensure compatibility
 
 
-
-    historyy_parser = cmd2.Cmd2ArgumentParser()
-    historyy_parser.add_argument('-l','--last', nargs = "?", default=False, const=True,help='create new project directory')
-    historyy_parser.add_argument('-a','--append',help='access existing project directory') # the same as actually running a command, except dont run it, just append it to history
-    @cmd2.with_argparser(historyy_parser)
-    def do_historyy(self, args):
-        """Display the command history."""
-        if not self.history:
-            self.poutput("No command history available.")
-            return
-
-        elif args.last is True:
-            item = self.history[-1]
-            self.poutput(item.pr(len(self.history)))  # ✅ FIXED
-
-        elif args.append is not None:
-            with open(self.persistent_history_file, 'a') as history_file:
-                history_file.write(f"{args.append}\n")            
-            self.history.append(HistoryEntry(args.append))  # ✅ FIXED!
-
-        else:
-            self.poutput("Command history:")
-            for i, item in enumerate(self.history, start=1):
-                self.poutput(item.pr(i))  # ✅ FIXED!
-        
-        
     def run(self):
         #self.scene_object = None
         self.initialize_scene_object()

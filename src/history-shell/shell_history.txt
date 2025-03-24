@@ -225,3 +225,106 @@ test
 1
 2
 quit
+test
+1
+2
+eval self.config_input_object.loaded_grouping
+p -o sample
+1
+2
+quit
+test
+p -o sample
+1
+2
+quit
+test
+1
+2
+p -o sample
+1
+2
+3
+4
+5
+preview --scene
+eval self.config_input_object.loaded_grouping
+quit
+test
+1
+2
+eval self.config_input_object.loaded_grouping
+quit
+test
+eval self
+eval 1
+eval self.do_1
+tutorial
+test
+quit
+test
+g
+1
+2
+guics
+gui
+quit
+test
+g
+1
+2
+quit
+test
+g
+1
+2
+cig
+eval self.config_input_object.loaded_grouping
+1
+2
+p -l
+p -o Don-EvonikPAA-MemphisCellulose
+1
+2
+p --list
+p -o sample
+1
+2
+3
+4
+5
+6
+open -l
+help
+i
+history
+historyy
+history
+i
+h
+preview --scene
+status
+spark
+spark -a
+spark -a 0
+spark -i 0
+run
+h
+v
+unix2tree
+unix2time
+now
+s
+see scene
+see
+see h
+see
+see style
+s config
+s
+s ec
+s sc
+s st
+s
+test
+quit
