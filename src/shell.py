@@ -28,6 +28,7 @@ import importlib
 import ast
 import operator
 import readline # for adding history to self.history when loading the history file
+from tests import Test
 
 
 from directories import Directories
@@ -427,6 +428,7 @@ class PavlovCLI(cmd2.Cmd):
 
     def do_test(self,line):
         "See CPU frequency."
+        print(f"Test = {Test}")
         self.poutput("Test command executed successfully!")
         try:
             cpu_freq = psutil.cpu_freq()
