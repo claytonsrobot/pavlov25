@@ -1,3 +1,5 @@
+# tests/__init__.py
+from .test_core import Test
 import os
 import sys
 
