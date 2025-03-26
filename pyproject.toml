@@ -1,3 +1,11 @@
+[[tool.poetry.source]]
+name = "gitlab-repo-fbx"
+url = "https://gitlab.inria.fr/api/v4/projects/18692/packages/pypi/simple"
+#default = false
+
+
+[tool.poetry.dependencies]
+fbxsdkpy = {source = "gitlab-repo-fbx"}
 [project]
 name = "pavlov25"
 version = "0.1.0"
@@ -11,7 +19,8 @@ dependencies = [
     "cmd2 (>=2.5.11,<3.0.0)",
     "numpy (>=2.2.3,<3.0.0)",
     "toml (>=0.10.2,<0.11.0)",
-    "pylint (>=3.3.6,<4.0.0)"
+    "pylint (>=3.3.6,<4.0.0)",
+    "fbxsdkpy (>=2020.3.post1,<2021.0)"
 ]
 
 

@@ -15,6 +15,11 @@ files = [
 [package.dependencies]
 typing-extensions = {version = ">=4.0.0", markers = "python_version < \"3.11\""}
 
+[package.source]
+type = "legacy"
+url = "https://gitlab.inria.fr/api/v4/projects/18692/packages/pypi/simple"
+reference = "gitlab-repo-fbx"
+
 [[package]]
 name = "cmd2"
 version = "2.5.11"
@@ -33,6 +38,11 @@ pyperclip = ">=1.8"
 pyreadline3 = {version = ">=3.4", markers = "platform_system == \"Windows\""}
 wcwidth = ">=0.2.10"
 
+[package.source]
+type = "legacy"
+url = "https://gitlab.inria.fr/api/v4/projects/18692/packages/pypi/simple"
+reference = "gitlab-repo-fbx"
+
 [[package]]
 name = "colorama"
 version = "0.4.6"
@@ -45,6 +55,11 @@ files = [
     {file = "colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6"},
     {file = "colorama-0.4.6.tar.gz", hash = "sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://gitlab.inria.fr/api/v4/projects/18692/packages/pypi/simple"
+reference = "gitlab-repo-fbx"
 
 [[package]]
 name = "dill"
@@ -61,6 +76,30 @@ files = [
 [package.extras]
 graph = ["objgraph (>=1.7.2)"]
 profile = ["gprof2dot (>=2022.7.29)"]
+
+[package.source]
+type = "legacy"
+url = "https://gitlab.inria.fr/api/v4/projects/18692/packages/pypi/simple"
+reference = "gitlab-repo-fbx"
+
+[[package]]
+name = "fbxsdkpy"
+version = "2020.3.post1"
+description = ""
+optional = false
+python-versions = ">=3.6"
+groups = ["main"]
+files = [
+    {file = "fbxsdkpy-2020.3.post1-cp310-none-win_amd64.whl", hash = "sha256:d00f778e8e2062f5354f30fd03d07f33120c70b04cfebdf32703a15adf03b949"},
+    {file = "fbxsdkpy-2020.3.post1-cp311-none-win_amd64.whl", hash = "sha256:edfe62ba531b7ca71e3ebef44568e6481cd6cad3098e16e371ec543ada7b92f1"},
+    {file = "fbxsdkpy-2020.3.post1-cp312-none-win_amd64.whl", hash = "sha256:8dce7d5de7eaa8ff374a6cf2689776eb509cac028950838bd55da97e025099d3"},
+    {file = "fbxsdkpy-2020.3.post1-cp39-none-win_amd64.whl", hash = "sha256:8ed027439a7bd4340e51be66f5e02de6f713808bb6991a725075d1425c220b06"},
+]
+
+[package.source]
+type = "legacy"
+url = "https://gitlab.inria.fr/api/v4/projects/18692/packages/pypi/simple"
+reference = "gitlab-repo-fbx"
 
 [[package]]
 name = "gnureadline"
@@ -103,6 +142,11 @@ files = [
     {file = "gnureadline-8.2.13.tar.gz", hash = "sha256:c9b9e1e7ba99a80bb50c12027d6ce692574f77a65bf57bc97041cf81c0f49bd1"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://gitlab.inria.fr/api/v4/projects/18692/packages/pypi/simple"
+reference = "gitlab-repo-fbx"
+
 [[package]]
 name = "isort"
 version = "6.0.1"
@@ -119,6 +163,11 @@ files = [
 colors = ["colorama"]
 plugins = ["setuptools"]
 
+[package.source]
+type = "legacy"
+url = "https://gitlab.inria.fr/api/v4/projects/18692/packages/pypi/simple"
+reference = "gitlab-repo-fbx"
+
 [[package]]
 name = "mccabe"
 version = "0.7.0"
@@ -130,6 +179,11 @@ files = [
     {file = "mccabe-0.7.0-py2.py3-none-any.whl", hash = "sha256:6c2d30ab6be0e4a46919781807b4f0d834ebdd6c6e3dca0bda5a15f863427b6e"},
     {file = "mccabe-0.7.0.tar.gz", hash = "sha256:348e0240c33b60bbdf4e523192ef919f28cb2c3d7d5c7794f74009290f236325"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://gitlab.inria.fr/api/v4/projects/18692/packages/pypi/simple"
+reference = "gitlab-repo-fbx"
 
 [[package]]
 name = "numpy"
@@ -196,6 +250,11 @@ files = [
     {file = "numpy-2.2.3.tar.gz", hash = "sha256:dbdc15f0c81611925f382dfa97b3bd0bc2c1ce19d4fe50482cb0ddc12ba30020"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://gitlab.inria.fr/api/v4/projects/18692/packages/pypi/simple"
+reference = "gitlab-repo-fbx"
+
 [[package]]
 name = "platformdirs"
 version = "4.3.7"
@@ -212,6 +271,11 @@ files = [
 docs = ["furo (>=2024.8.6)", "proselint (>=0.14)", "sphinx (>=8.1.3)", "sphinx-autodoc-typehints (>=3)"]
 test = ["appdirs (==1.4.4)", "covdefaults (>=2.3)", "pytest (>=8.3.4)", "pytest-cov (>=6)", "pytest-mock (>=3.14)"]
 type = ["mypy (>=1.14.1)"]
+
+[package.source]
+type = "legacy"
+url = "https://gitlab.inria.fr/api/v4/projects/18692/packages/pypi/simple"
+reference = "gitlab-repo-fbx"
 
 [[package]]
 name = "pylint"
@@ -243,6 +307,11 @@ tomlkit = ">=0.10.1"
 spelling = ["pyenchant (>=3.2,<4.0)"]
 testutils = ["gitpython (>3)"]
 
+[package.source]
+type = "legacy"
+url = "https://gitlab.inria.fr/api/v4/projects/18692/packages/pypi/simple"
+reference = "gitlab-repo-fbx"
+
 [[package]]
 name = "pyperclip"
 version = "1.9.0"
@@ -253,6 +322,11 @@ groups = ["main"]
 files = [
     {file = "pyperclip-1.9.0.tar.gz", hash = "sha256:b7de0142ddc81bfc5c7507eea19da920b92252b548b96186caf94a5e2527d310"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://gitlab.inria.fr/api/v4/projects/18692/packages/pypi/simple"
+reference = "gitlab-repo-fbx"
 
 [[package]]
 name = "pyreadline3"
@@ -270,6 +344,11 @@ files = [
 [package.extras]
 dev = ["build", "flake8", "mypy", "pytest", "twine"]
 
+[package.source]
+type = "legacy"
+url = "https://gitlab.inria.fr/api/v4/projects/18692/packages/pypi/simple"
+reference = "gitlab-repo-fbx"
+
 [[package]]
 name = "toml"
 version = "0.10.2"
@@ -281,6 +360,11 @@ files = [
     {file = "toml-0.10.2-py2.py3-none-any.whl", hash = "sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b"},
     {file = "toml-0.10.2.tar.gz", hash = "sha256:b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://gitlab.inria.fr/api/v4/projects/18692/packages/pypi/simple"
+reference = "gitlab-repo-fbx"
 
 [[package]]
 name = "tomli"
@@ -325,6 +409,11 @@ files = [
     {file = "tomli-2.2.1.tar.gz", hash = "sha256:cd45e1dc79c835ce60f7404ec8119f2eb06d38b1deba146f07ced3bbc44505ff"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://gitlab.inria.fr/api/v4/projects/18692/packages/pypi/simple"
+reference = "gitlab-repo-fbx"
+
 [[package]]
 name = "tomlkit"
 version = "0.13.2"
@@ -336,6 +425,11 @@ files = [
     {file = "tomlkit-0.13.2-py3-none-any.whl", hash = "sha256:7a974427f6e119197f670fbbbeae7bef749a6c14e793db934baefc1b5f03efde"},
     {file = "tomlkit-0.13.2.tar.gz", hash = "sha256:fff5fe59a87295b278abd31bec92c15d9bc4a06885ab12bcea52c71119392e79"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://gitlab.inria.fr/api/v4/projects/18692/packages/pypi/simple"
+reference = "gitlab-repo-fbx"
 
 [[package]]
 name = "typing-extensions"
@@ -350,6 +444,11 @@ files = [
     {file = "typing_extensions-4.12.2.tar.gz", hash = "sha256:1a7ead55c7e559dd4dee8856e3a88b41225abfe1ce8df57b7c13915fe121ffb8"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://gitlab.inria.fr/api/v4/projects/18692/packages/pypi/simple"
+reference = "gitlab-repo-fbx"
+
 [[package]]
 name = "wcwidth"
 version = "0.2.13"
@@ -362,7 +461,12 @@ files = [
     {file = "wcwidth-0.2.13.tar.gz", hash = "sha256:72ea0c06399eb286d978fdedb6923a9eb47e1c486ce63e9b4e64fc18303972b5"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://gitlab.inria.fr/api/v4/projects/18692/packages/pypi/simple"
+reference = "gitlab-repo-fbx"
+
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10"
-content-hash = "54ebfc287fba3961ccb7d1d5527b9227039ec6cfec0685c2d4e0804ad3d13941"
+content-hash = "e2bb48a88ff63d398277e95a3e8a53d4bea518ce3b0341f3ad1f04fa39efa4dc"
