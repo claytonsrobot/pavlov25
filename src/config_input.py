@@ -9,13 +9,13 @@ Created: 01 June 2024
 #import json
 #import environmental
 #import platform # assumes local is windows and server is linux for vercel
-import filter_files as ff
+import src.filter_files as ff
 import numpy as np
 import os
 
-from directories import Directories
+from src.directories import Directories
 from pprint import pprint
-import toml_utils
+from src import toml_utils
 
 #from parse_user_input_config import parse_user_input_config
 

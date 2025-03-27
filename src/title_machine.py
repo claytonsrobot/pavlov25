@@ -10,9 +10,9 @@ Or, the middle road is that the driving characterstics of title are known, so th
 #import math
 #import copy
 import os
-from text_label import TextLabel
-from text_height import TextHeight
-from text_translation import TranslationKit
+from src.text_label import TextLabel
+from src.text_height import TextHeight
+from src.text_translation import TranslationKit
 #import title
 class TitleMachine:
     # last i checked this title machine is only used for curve titles, not group titles

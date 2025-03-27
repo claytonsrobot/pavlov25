@@ -19,10 +19,10 @@ The data origin of a group is equivalent to the data origin of its first child.
 '''
 import numpy as np
 import copy
-import logging # active_object.grandfather_place_cousins
+#import logging # active_object.grandfather_place_cousins
 
-from group_label_machine import GroupLabelMachine
-from stack import StackControl
+from src.group_label_machine import GroupLabelMachine
+from src.stack import StackControl
 stackcontrol_object = StackControl()
 
 '''Start Bottom Up Code'''

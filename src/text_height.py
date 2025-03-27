@@ -21,14 +21,14 @@ Ideally, all of this can be dealt with after scaling the axes,  to limit size pr
 
 axes labels, title label, group label
 '''
-from text_control_points import text_control_points_machine as text_control_points_machine_class
-from text_label import TextLabel
+from text_control_points import TextControlPointMachine
+from src.text_label import TextLabel
 
 class TextHeight:
     
     def __init__(self):
         True
-        self.text_control_points_machine = text_control_points_machine_class()
+        self.text_control_points_machine = TextControlPointMachine()
         self.text_height_minimum = None # text_height_curves
         #self.text_height_curves = 0 # unused
         #self.text_height_groups_tier1 = 0

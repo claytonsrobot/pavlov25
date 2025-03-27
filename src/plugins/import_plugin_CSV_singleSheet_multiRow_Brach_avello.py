@@ -9,7 +9,7 @@ if False:
 import os
 from curve_ import Curve
 from datapoint import DataPoint
-from directories import Directories
+from src.directories import Directories
 import import_lib
 class Plugin:
     """ scene_object = None

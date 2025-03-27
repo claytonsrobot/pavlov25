@@ -15,7 +15,7 @@ import os
 import numpy as np
 import environmental
 import import_lib
-from directories import Directories
+from src.directories import Directories
  
 #from scale import Scale
 from curve_ import Curve

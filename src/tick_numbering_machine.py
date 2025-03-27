@@ -11,8 +11,8 @@ The explosion should be the diameter of the scene in the given direction.
 '''
 import os
 #import chart_element
-from text_label import TextLabel as text_label_class
-from text_translation import TranslationKit
+from src.text_label import TextLabel as text_label_class
+from src.text_translation import TranslationKit
 
 class TickNumberingMachine:
 

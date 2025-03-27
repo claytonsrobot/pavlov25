@@ -13,30 +13,32 @@ https://medium.com/@noransaber685/simple-guide-to-creating-a-command-line-interf
 import cmd2
 import os
 import pprint
-import main
-from hidden_prints import HiddenPrints
+from src import main
+from src.hidden_prints import HiddenPrints
 import time
 from datetime import datetime
 #import subprocess
 from sparklines import sparklines
-import gui_customtk_basic
-from filemanagement import DirectoryControl
-import filemanagement as fm
-import environmental
+#import gui_customtk_basic
+from src.filemanagement import DirectoryControl
+from src import filemanagement as fm
+from src import environmental
 #import copy
 import importlib
 import ast
 import operator
 import readline # for adding history to self.history when loading the history file
+import sys
+#print(sys.path)
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from tests import Test
+from src import toml_utils # pleae migrate the json-handler.py
 
-
-from directories import Directories
+from src.directories import Directories
 try:
     import psutil # overkill
 except:
     pass
-import toml_utils # pleae migrate the json-handler.py
 
 
 

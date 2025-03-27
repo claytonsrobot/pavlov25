@@ -7,7 +7,7 @@ You can make source location a directory or a python file.
 '''
 from pylint import pyreverse
 import os
-from directories import Directories 
+from src.directories import Directories 
 
 def generate_UML(source_location = Directories.get_core_dir()):
     os.system(f'pyreverse -o png {source_location} -d {source_location}')

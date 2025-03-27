@@ -58,33 +58,32 @@ import copy
 
 #import uniqueUnixFilename
 
-from scene import Scene
-from style import Style
-from import_lib import ImportLib
-from scale import Scale
-from scale import MultipleAxesScalingAlgorithm #
+from src.scene import Scene
+from src.style import Style
+from src.import_lib import ImportLib
+from src.scale import Scale, MultipleAxesScalingAlgorithm #
 #MultipleAxesScalingAlgorithm.assign_hierarchy_object(hierarchy_object)
 #MultipleAxesScalingAlgorithm.normalize_all_curve_objects()
 #from converter import converter as converter_class
-from preview import Preview as Preview
+from src.preview import Preview as Preview
 
-import pngMaker
-import messaging
-from config_input import ConfigInput
-from user_input import UserInput
-from datapoint import DataPoint
+from src import pngMaker
+from src import messaging
+from src.config_input import ConfigInput
+from src.user_input import UserInput
+from src.datapoint import DataPoint
 
-from ticks import Ticks
-from fences import Fences 
-from hierarchy import Hierarchy
-from text_translation import TextTranslationIntermediate
+from src.ticks import Ticks
+from src.fences import Fences 
+from src.hierarchy import Hierarchy
+from src.text_translation import TextTranslationIntermediate
 
-import translation
-import environmental
-from directories import Directories
+from src import translation
+from src import environmental
+from src.directories import Directories
 #print(f"environmental.vercel() = {environmental.vercel()}")
 if environmental.vercel():
-    import vercel_blob
+    from src import vercel_blob
 
 def main():
     request = None  # django artifact

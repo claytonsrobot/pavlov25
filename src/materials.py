@@ -16,7 +16,7 @@ import numpy as np
 from fbx import FbxDouble3
 from fbx import FbxSurfacePhong
 
-from colorLerp import colorLerp
+from src.colorLerp import colorLerp
 class materials:
     def __init__(self):
         self.names = 'materials_object'

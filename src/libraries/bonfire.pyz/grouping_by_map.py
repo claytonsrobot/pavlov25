@@ -21,7 +21,7 @@ Inputs:
 # SHould the JSON handler be called in user_config.py - Yes.
 """ 
 import numpy as np
-from directories import Directories
+from src.directories import Directories
 
 
 

@@ -8,14 +8,14 @@ Keep directory assignment organized, particularly for using project folders.
 Migrate away from directory amangement in environmental.py
 
 Example:
-from directories import Directories
+from src.directories import Directories
 
 """
 import os
 import inspect
-import toml_utils 
+from src import toml_utils
 from pathlib import Path
-import environmental
+from src import environmental
 
 class Directories:
     core = None

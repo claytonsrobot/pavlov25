@@ -9,7 +9,7 @@ Or, the middle road is that the driving characterstics of title are known, so th
 #import numpy as np
 #import math
 import os
-from text_label import TextLabel
+from src.text_label import TextLabel
 from text_translation import TranslationKit
 
 class AxesLabelsMachine:

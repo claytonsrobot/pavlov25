@@ -13,8 +13,8 @@ Add shortcuts to imports and exports to central drectories?
 import time
 import os
 from pathlib import Path
-import environmental
-from directories import Directories 
+from src import environmental
+from src.directories import Directories 
 from pprint import pprint
 import shutil
 import sys

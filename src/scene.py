@@ -6,13 +6,13 @@ Purpose: Create class that functions in Pavlov grouping hierarchy
 
 Scale, translation, data object diameter, get, set
 '''
-from group import Group
-from tier import tier as Tier
-import arrayMath
+from src.group import Group
+from src.tier import tier as Tier
+from src import arrayMath
 #import text_label
 import numpy as np
-import inspect
-import os # oof, barely needed
+#import inspect
+#import os # oof, barely needed
 
 
 class Scene:

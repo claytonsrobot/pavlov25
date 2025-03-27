@@ -10,7 +10,7 @@ This should be a functon rather than a class. So that we can keep using it over 
 '''
 import os
 import platform # assumes local is windows and server is linux for vercel
-import environmental
+from src import environmental
 
 if 'win' in platform.platform().lower():
     vercel=False

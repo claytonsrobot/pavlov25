@@ -7,7 +7,7 @@ Created: 14 February 2024
 '''
 Point assignment in import needs to be scaled/sanitized later once we have all the facts
 '''
-import arrayMath
+from src import arrayMath
 
 class AxisChannel:
     def __init__(self,name):

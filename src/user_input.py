@@ -10,11 +10,11 @@ Or maybe all plugins shuld be made into lists, regardless of source,so that all 
 '''
 import os
 #import re
-import filter_files as ff
-import environmental
-import grouping_by_string
+from src import filter_files as ff
+from src import environmental
+from src import grouping_by_string
 from pprint import pprint
-from directories import Directories
+from src.directories import Directories
 class UserInput:
     gui_object = None
     style_object = None

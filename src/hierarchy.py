@@ -7,13 +7,13 @@ Purpose:
 Off load functonality from scene.py, to provide oversight and opportunity for improvement
 """
 
-from group import Group
-from tier import tier as Tier
+from src.group import Group
+from src.tier import tier as Tier
 import inspect
-import grouping_by_string
-from grouping_by_string import GBS
-import grouping_by_map
-from curve_ import Curve
+from src import grouping_by_string
+from src.grouping_by_string import GBS
+from src import grouping_by_map
+from src.curve_ import Curve
 
 class Hierarchy:
     scene_object = None

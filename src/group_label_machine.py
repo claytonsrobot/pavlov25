@@ -9,7 +9,7 @@ Or, the middle road is that the driving characterstics of title are known, so th
 #translation_expression not found here
 
 import os
-from text_label import TextLabel
+from src.text_label import TextLabel
 class GroupLabelMachine:
     scene_object=None
     style_object=None

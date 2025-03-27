@@ -76,7 +76,7 @@ from fbx import FbxVector4
 from fbx import FbxNode # yes
 from fbx import FbxMesh
 
-from materials import materials
+from src.materials import materials
 
 class LinesFBX:
     scene_object = None

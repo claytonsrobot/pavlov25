@@ -20,7 +20,9 @@ dependencies = [
     "numpy (>=2.2.3,<3.0.0)",
     "toml (>=0.10.2,<0.11.0)",
     "pylint (>=3.3.6,<4.0.0)",
-    "fbxsdkpy (>=2020.3.post1,<2021.0)"
+    "fbxsdkpy (>=2020.3.post1,<2021.0)",
+    "matplotlib (>=3.10.1,<4.0.0)",
+    "sparklines (>=0.5.0,<0.6.0)"
 ]
 
 

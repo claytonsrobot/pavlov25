@@ -17,12 +17,10 @@ https://docs.python-guide.org/writing/structure/
 import os # for normalizing pathname of directory
 if False:
     import pandas as pd # for data management
-#import numpy as np
-import inspect
-import numeric_islands as ni
+import src.numeric_islands as ni
 #from datapoint import DataPoint
 #from curve_ import Curve
-import arrayMath
+from src import arrayMath
 
 class ImportLib:
     """ scene_object = None

@@ -18,12 +18,8 @@ Red starts at 204 at the very beginging of purple, then drops linearly to 63 in 
 
 '''
 import numpy as np
-import arrayMath
-'''
-import FbxCommon
-from fbx import FbxDouble3
-from fbx import FbxSurfacePhong
-'''
+from src import arrayMath
+
 # determine RGB values based on color_coeff
 
 '''
@@ -140,7 +136,6 @@ def colorAssign_gradient_nested(vectorArray): # attempt to make function accept 
             color_coeff_list.append([])
 
     return color_coeff_list,color_list
-
 
 #color_coeff = (this_value-min_value)/(max_value-min_value)
 '''

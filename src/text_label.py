@@ -21,7 +21,7 @@ The parent object should be the thing itself - an axis is the parent of an axis 
 import os
 import numpy as np
 
-from text_control_points import text_control_points_machine as text_control_points_machine_class 
+from src.text_control_points import TextControlPointMachine 
 
 
 
@@ -37,11 +37,11 @@ class TextLabel:
         cls.scene_object = scene_object
         cls.style_object = scene_object.style_object
         cls.user_input_object = scene_object.user_input_object
-        text_control_points_machine_class.assign_style_object(cls.style_object)
+        TextControlPointMachine.assign_style_object(cls.style_object)
          
     def __init__(self):
         self.name = os.path.basename(__file__).removesuffix('.py')
-        self.text_control_points_machine = text_control_points_machine_class()
+        self.text_control_points_machine = TextControlPointMachine()
         self.element_span_relative_to_parent_data_origin = None
     
     def assign_parent_object(self,parent_object):

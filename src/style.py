@@ -39,14 +39,12 @@ style factors: #the variables automatically adjusted based on style selection, w
 #import inspect # to check that the export plugin was pulled properly
 #import logging 
 import numpy as np
-import os
+#import os
 import importlib
-import deltaList
-import environmental 
-#from deltaList import halfdelta
-import deltaList 
-import arrayMath
-from createFBX import CreateFBX
+from src import environmental 
+from src import deltaList 
+from src import arrayMath
+from src.createFBX import CreateFBX
 #from createDXF_ import CreateDXF
 #import plugins # like this, for pyinstaller
 

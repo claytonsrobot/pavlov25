@@ -14,7 +14,7 @@ if False:
     import pandas as pd
 import os
 import numpy as np
-from directories import Directories
+from src.directories import Directories
 import import_lib
 import environmental
 

@@ -68,7 +68,7 @@ curve_object.grandfather_place_cousins
 #['Tick, Example',[0,0],[0,0],[0,0]]
 
 import numpy as np
-from chart_element import ChartElement
+from src.chart_element import ChartElement
 
 tick_length_ratio = 0.05
 class Ticks:

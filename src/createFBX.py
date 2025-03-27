@@ -56,12 +56,12 @@ import math
 #import inspect
 import copy
 #import blob
-import environmental
-from directories import Directories
+from src import environmental
+from src.directories import Directories
 if environmental.vercel()==True:
-    from home.session import add_fbx_file_to_blob_dir
+    from .home.session import add_fbx_file_to_blob_dir
 
-from text_translation import TranslationFinal
+from src.text_translation import TranslationFinal
 
 #csv_uploads_pavlovdata
 #from fbx import 
@@ -76,7 +76,7 @@ from fbx import FbxManager
 from fbx import FbxIOSettings
 from fbx import IOSROOT
 
-from metadata import create_fbxPropertiesFrom_df_metadata
+from src.metadata import create_fbxPropertiesFrom_df_metadata
 
 """ #C:\Program Files\Autodesk\FBX\FBX Python SDK\2020.3.2\samples\ImportScene\DisplayUserProperties.py
 from fbx import FbxProperty # metadata
@@ -99,9 +99,9 @@ from fbx import EXP_FBX_TEXTURE
 from fbx import EXP_FBX_EMBEDDED
 
 
-from lines_FBX import LinesFBX
-from conditional_import import conditional_import
-from materials import materials
+from src.lines_FBX import LinesFBX
+from src.conditional_import import conditional_import
+from src.materials import materials
 #from materials import create_materials_9bins_FBX
 #from materials import create_material_free_FBX
 #from materials import assign_materials9_FBX # this is where the magic happens # get gradient colors vs solid colors-in-turn

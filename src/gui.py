@@ -62,13 +62,12 @@ Big thing - we need the whole thing to launch and open without a default data di
 #import PySimpleGUI as sg
 import FreeSimpleGUI as sg
 import os
-import inspect
 import pathlib # for chopping off filename when searching directory
 #import pandas as pd # for data management
 #import plugins
-from parse_user_input_config import parse_user_input_config
-import filter_files as ff
-from directories import Directories
+from src.parse_user_input_config import parse_user_input_config
+import src.filter_files as ff
+from src.directories import Directories
 
 #pd.options.display.max_columns = None
 #pd.options.display.max_rows = None

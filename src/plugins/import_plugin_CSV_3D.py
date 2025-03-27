@@ -18,7 +18,7 @@ import import_lib
 import sys
 import time
 import environmental
-from directories import Directories
+from src.directories import Directories
 
 #from scale import Scale
 from curve_ import Curve

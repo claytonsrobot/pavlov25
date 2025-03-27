@@ -52,7 +52,7 @@ def check_for_null(data):
 
 def check_file(filepath):
     if not(os.path.isfile(filepath)):
-        print(f"The file does not exist: {filepath}")
+        print(f"\nThe file does not exist: {filepath}")
         # Raise RuntimeError("Stopping execution")
         raise SystemExit
     else:

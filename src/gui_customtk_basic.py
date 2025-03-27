@@ -7,7 +7,7 @@ Purpose:
 Generate gui using customtkinter pypi package
 """
 #import tkinter
-import customtkinter as ctk
+#import customtkinter as ctk
 
 if True:
     ctk.set_appearance_mode("dark")

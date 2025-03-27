@@ -13,17 +13,16 @@ Items like coefficeint and length are not availbale from the method level as inp
 import numpy as np
 import math
 import os
-from directories import Directories
-from phrase import phrase as phrase_class
-from letter import letter as letter_class
-import arrayMath
-import environmental
-from pathlib import Path
 import sys
-from text_translation import TextTranslationIntermediate
-#from directories import Directories
-#import glob
 import inspect
+
+from src.directories import Directories
+from src.phrase import phrase as phrase_class
+from src.letter import letter as letter_class
+from src import arrayMath
+from src import environmental
+from pathlib import Path
+from src.text_translation import TextTranslationIntermediate
 
 script_dir = Directories.get_core_dir()
 script_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -33,7 +32,7 @@ directory = os.path.normpath(directory)
 buffer = 10 # space between letters in the same word, svg html units
 space = 40 # space between words, svg html units
 
-class text_control_points_machine:
+class TextControlPointMachine:
     style_object = None
     @classmethod
     def assign_style_object(cls,style_object):
@@ -84,7 +83,7 @@ class text_control_points_machine:
         TextTranslationIntermediate.text_height_pre_rotation = self.text_height_pre_rotation
         characters_control_points_list = self.text_phrase_translate_and_rotate_in_disassembled_form(characters_control_points_list,text_label_object,cursor_position)
         text_label_object.characters_control_points_list = characters_control_points_list # troubleshooting 
-        #text_control_points_machine.characters_control_points_list = characters_control_points_list # for troubleshooting
+        #TextControlPointMachine.characters_control_points_list = characters_control_points_list # for troubleshooting
         characters_array = self.assemble_characters_array(label_type,characters_name_list,characters_control_points_list)
         text_label_object.phrase_object.assign_all_letters_array(characters_array)
         # you should already know text height by here! June 2024. The old ways shall not be forgotten.
