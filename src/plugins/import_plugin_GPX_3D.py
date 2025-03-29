@@ -6,7 +6,7 @@ Created 16 February 2024
 Purpose:
 Serve as a known import plugin (represented in the gui_object import dictionary and as a GUI dropdown menu item available for user selection)
 Process:
-Import each CSV sheet as a dataframe and make the dataframe an attribute of each curve_object "curve"
+Import each CSV sheet as a dataframe and make the dataframe an attribute of each curve_object 'curve'
 '''
 import platform
 import gpxpy
@@ -17,7 +17,7 @@ import numpy as np
 from src.directories import Directories
 import import_lib
 import environmental
-
+from src.plugins.import_plugin_general import read_data_genfromtext
 #from scale import Scale
 from curve_ import Curve
 from datapoint import DataPoint
@@ -26,9 +26,6 @@ class Plugin:
     scene_object = None
     style_object = None
     user_input_object = None
-    
-    
-
     @classmethod
     def assign_scene_object_etc(cls,scene_object):
         cls.scene_object = scene_object
@@ -36,9 +33,9 @@ class Plugin:
     @classmethod
     def assign_user_input_object(cls,user_input_object):
         cls.user_input_object = user_input_object
-    """ @classmethod
+    ''' @classmethod
     def assign_scale_object(cls,scale_object):
-        cls.scale_object = scale_object """
+        cls.scale_object = scale_object '''
     @classmethod
     def assign_import_lib_object(cls,import_lib_object):
         cls.import_lib_object = import_lib_object
@@ -47,35 +44,8 @@ class Plugin:
         
         self.name = os.path.basename(__file__).removesuffix('.py')
         import_lib.PluginSetup.import_None_instantiate(self)
-        self.filetype_allowed_list = ["gpx"]
-        """ self.filenames = None
-        self.names = None
-        self.vectorArray_time = None
-        self.vectorArray_height = None
-        self.vectorArray_depth = None   
-        self.headers_time = None
-        self.headers_height = None
-        self.headers_depth = None
+        self.filetype_allowed_list = ['gpx']
 
-        self.vectorArray_halfwidth_time = None
-        self.vectorArray_halfwidth_height = None
-        self.vectorArray_halfwidth_depth = None
-        self.average_halfwidth_time = None
-        self.average_halfwidth_height = None
-        self.average_halfwidth_depth = None
-        self.vectorArray_direction = None
-    
-        self.vectorArray_radius_minus_time = None
-        self.vectorArray_radius_plus_time = None
-        self.vectorArray_radius_minus_height = None
-        self.vectorArray_radius_plus_height = None
-        self.vectorArray_radius_minus_depth = None
-        self.vectorArray_radius_plus_depth = None """
-
-    """ def assess_for_scaling(self):
-        True
-        print(f'Run import in bulk first. \n import scaling method \n Pass all data. \n Then, once scaled, populate the curves and datapoints')
-    """
     def populate_curves_and_datapoints(self):
         #self.scale_object.post_scaling_populate_curves_and_datapoints()
         True
@@ -93,9 +63,6 @@ class Plugin:
         else:
             #folder='/tmp/'
             folder=self.scene_object.blob_dir+'/csv_uploads_pavlovdata/'
-            #os.chdir(folder)
-        #os.chdir(Directories.get_program_dir()+'\media\csv_uploads_pavlovdata')
-        #os.chdir(Directories.get_program_dir()+folder)
 
         vectorArray_time = []
         vectorArray_height = []
@@ -107,14 +74,14 @@ class Plugin:
         
         #try: 
         #self.filenames, list_blob_urls, list_objects = self.scene_object.session_object.get_list_csv_current()
-        #self.filenames, list_blob_urls, list_objects = self.scene_object.request.session["list_csv_uploads"]
-        #self.scene_object.request.session["list_csv_uploads"]
+        #self.filenames, list_blob_urls, list_objects = self.scene_object.request.session['list_csv_uploads']
+        #self.scene_object.request.session['list_csv_uploads']
         self.filenames, self.filepaths = self.import_lib_object.sort_filenames_after_adding_leading_zeros_vercel(self.user_input_object,self.scene_object)
-        """except:
+        '''except:
             print('We need a way to handle when some or all filenames contain no numbers. ')
-            print("Vercel file import failure ")
+            print('Vercel file import failure ')
             self.filenames = self.user_input_object.filenames
-        """
+        '''
         
         #def import_data_from_all_filenames_into_vector_arrays(self):
         for filepath in self.filepaths:
@@ -126,33 +93,33 @@ class Plugin:
                 vector_height = []
                 vector_depth = []
 
-                """
+                '''
                 # Print general info about the GPX file
-                print(f"GPX File Version: {gpx.version}")
-                print(f"Creator: {gpx.creator}")
+                print(f'GPX File Version: {gpx.version}')
+                print(f'Creator: {gpx.creator}')
 
                 # Accessing waypoints, routes, and tracks
                 for waypoint in gpx.waypoints:
-                    print(f"Waypoint: {waypoint.name}, Lat: {waypoint.latitude}, Lon: {waypoint.longitude}, Elevation: {waypoint.elevation}")
+                    print(f'Waypoint: {waypoint.name}, Lat: {waypoint.latitude}, Lon: {waypoint.longitude}, Elevation: {waypoint.elevation}')
 
                 for route in gpx.routes:
-                    print(f"Route: {route.name}")
+                    print(f'Route: {route.name}')
                     for rtept in route.points:
-                        print(f" - Route point: {rtept.latitude}, {rtept.longitude}")
-                """
+                        print(f' - Route point: {rtept.latitude}, {rtept.longitude}')
+                '''
                 for track in gpx.tracks:
-                    #print(f"Track: {track.name}")
+                    #print(f'Track: {track.name}')
                     for segment in track.segments:
-                        #print(f"segment = {segment}")
+                        #print(f'segment = {segment}')
                         for point in segment.points:
-                            #print(f" - Track point: {point.latitude}, {point.longitude}, Elevation: {point.elevation}")
+                            #print(f' - Track point: {point.latitude}, {point.longitude}, Elevation: {point.elevation}')
                             vector_time.append(point.latitude)
                             vector_depth.append(point.longitude)
                             vector_height.append(point.elevation)
 
-            gdf,name= self.read_data_genfromtext(filepath,self.user_input_object)
-            #print(f"gdf = {gdf}")
-            """
+            gdf,name= read_data_genfromtext(filepath,self.user_input_object, self.scene_object)
+            #print(f'gdf = {gdf}')
+            '''
             column_id_time,column_number_time = \
                 self.import_lib_object.check_existence_of_provided_column_id_time(gdf,self.user_input_object)
             
@@ -161,7 +128,7 @@ class Plugin:
             
             column_id_depth,column_number_depth =\
                   self.import_lib_object.check_existence_of_provided_column_id_depth(gdf,self.user_input_object)
-            """
+            '''
             
             try:
                 scale_t = self.user_input_object.scale_temp[0]
@@ -171,7 +138,7 @@ class Plugin:
                 scale_t = 1
                 scale_h = 1
                 scale_d = 1
-            print(f"scale = [{scale_t},{scale_h},{scale_d}]")
+            print(f'scale = [{scale_t},{scale_h},{scale_d}]')
             
             #vector_time = gdf[:,column_number_time]
 
@@ -189,9 +156,9 @@ class Plugin:
             vector_depth = vector_depth.astype(np.float64)
             vector_depth = np.multiply(scale_d,vector_depth)
 
-            header_time = "Latitude"
-            header_height = "Elevation"
-            header_depth = "Longitude"
+            header_time = 'Latitude'
+            header_height = 'Elevation'
+            header_depth = 'Longitude'
 
             vector_dict = dict()
             vector_dict[header_time] = vector_time # Could just as easily use the number as the key, and need less.
@@ -209,9 +176,9 @@ class Plugin:
             #header_time = gdf[0][column_number_time]
             #header_height = gdf[0][column_number_height]
             #header_depth = gdf[0][column_number_depth]
-            header_time = "Latitude"
-            header_height = "Elevation"
-            header_depth = "Longitude"
+            header_time = 'Latitude'
+            header_height = 'Elevation'
+            header_depth = 'Longitude'
 
             vectorArray_time.append(vector_time)
             vectorArray_height.append(vector_height)
@@ -236,7 +203,7 @@ class Plugin:
                 curve_object.dict_datapoints.update({vector_time[i]:datapoint_object})
                 datapoint_object.time = vector_time[i]
                 datapoint_object.height = vector_height[i]
-                #print(f"datapoint_object.height = {datapoint_object.height}")
+                #print(f'datapoint_object.height = {datapoint_object.height}')
                 datapoint_object.depth = vector_depth[i]
         
                 #datapoint_object.halfwidth_time
@@ -254,46 +221,3 @@ class Plugin:
         self.import_lib_object.check_point_tally_for_all_files(vectorArray_time)
         os.chdir(Directories.get_program_dir())
         return names,vectorArray_time,vectorArray_height,headers_time,headers_height
-
-    def read_data(self,filename,user_input_object):
-        print(f"\nfilename: {filename} \n")
-        try:
-            df = pd.read_csv(Directories.get_import_dir()+"/"+filename,skiprows=user_input_object.skiprows)
-            name =  filename.rstrip('.csv')
-        except:
-            df = pd.read_excel(Directories.get_import_dir()+"/"+filename,skiprows=user_input_object.skiprows)
-            name =  filename.rstrip('.xlsx')
-        df.replace('nan', 0)
-        df.fillna(0)
-        return df,name
-
-    def read_data_genfromtext(self,filepath,user_input_object):
-        filename = os.path.basename(filepath)
-        #if self.scene_object.request.session["vercel_bool"]:
-        #if True: # already loaded
-        if self.scene_object.request != None:
-            # already loaded
-            
-            #front = self.scene_object.request.session["blob_dir"]
-            gdf = self.scene_object.request.session["loaded_csv"][filename] # maybe this iss the wrong key
-            gdf = np.array(gdf)
-            print(f'gdf1={gdf}')
-            
-            
-        else:
-            front = ""
-            with open(front+filepath, 'r', encoding='utf-8-sig') as f:      
-                gdf = np.genfromtxt(f, dtype=None, delimiter=',', skip_header=0).tolist() # test
-                gdf = np.array(gdf)
-                #print(f'gdf2={gdf}')
-
-
-        #print("gdf: ",gdf)
-        
-        name =  filename.rstrip('.gpx')
-        #df.replace('nan', 0)
-        gdf[gdf == 'nan'] = 0
-        #gdf.fillna(0)
-        gdf=np.nan_to_num(gdf)
-        return gdf,name
-        

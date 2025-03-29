@@ -6,12 +6,17 @@ Purpose: object to hold data for each datapoint,as generated in createrFBX.
 Classically has been a list called triangle_vars
 
 '''
-
+import copy
 class DataPoint:
     style_object = None
+    textstring = None
     @classmethod
     def assign_style_object(cls, style_object):
         cls.style_object = style_object
+        style_object.dp = copy.deepcopy(DataPoint)
+    @classmethod
+    def assign_text_string(cls,textstring):
+        cls.textstring = textstring
 
     allowed_keys = set(['parent','time',
                         'height','depth','point_size',

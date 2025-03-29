@@ -57,12 +57,9 @@ class Hierarchy:
 
     def cycle_through_filenames_intialize_curves(self):
         Curve.pass_in_scene_object(self.scene_object)
-        #def add_curve_object_to_scene_object(self): #check use 30Jan
         for filename in self.user_input_object.filenames:
             curve_object = Curve(name=filename)
-            curve_object.hierarchy_registration()
-            #self.hierarchy_object.dict_curve_objects_all.update({filename:curve_object}) 
-        
+            curve_object.add_curve_object_to_hierarchy_object()
 
     def build_tiers_and_groups_objects(self,user_input_object):
         # user input objec is just used for stack direciton and group name dictionary

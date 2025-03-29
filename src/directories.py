@@ -97,7 +97,7 @@ class Directories:
         #cls.initialize_startup_project()
     @classmethod
     def initialize_startup_project(cls):
-        filename_default_project_entry = "./projects/default-project.toml"
+        filename_default_project_entry = "./src/projects/default-project.toml"
         loaded_entry = toml_utils.load_toml(filename_default_project_entry)
         cls.set_project_dir(cls.get_core_dir()+"\\projects\\"+loaded_entry["project_directory"])
 

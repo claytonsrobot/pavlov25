@@ -16,10 +16,11 @@ import numpy as np
 import environmental
 import import_lib
 from src.directories import Directories
+from src.plugins.import_plugin_general import read_data_genfromtext
  
 #from scale import Scale
 from curve_ import Curve
-from datapoint import DataPoint
+#from datapoint import DataPoint
 #class import_plugin_CSV_2D:
 class Plugin:
     scene_object = None
@@ -38,40 +39,16 @@ class Plugin:
     @classmethod
     def assign_import_lib_object(cls,import_lib_object):
         cls.import_lib_object = import_lib_object
+    @classmethod
+    def pass_in_DataPoint_class(cls,DataPoint):
+        cls.DataPoint = DataPoint
         
     def __init__(self):
         
         self.name = os.path.basename(__file__).removesuffix('.py')
         import_lib.PluginSetup.import_None_instantiate(self)
         self.filetype_allowed = ["csv,xlsx,xls"]
-        """ self.filenames = None
-        self.names = None
-        self.vectorArray_time = None
-        self.vectorArray_height = None
-        self.vectorArray_depth = None
-        self.headers_time = None
-        self.headers_height = None
-        self.headers_depth = None
 
-        self.vectorArray_halfwidth_time = None
-        self.vectorArray_halfwidth_height = None
-        self.vectorArray_halfwidth_depth = None
-        self.average_halfwidth_time = None
-        self.average_halfwidth_height = None
-        self.average_halfwidth_depth = None
-        self.vectorArray_direction = None
-    
-        self.vectorArray_radius_minus_time = None
-        self.vectorArray_radius_plus_time = None
-        self.vectorArray_radius_minus_height = None
-        self.vectorArray_radius_plus_height = None
-        self.vectorArray_radius_minus_depth = None
-        self.vectorArray_radius_plus_depth = None """
-
-    """ def assess_for_scaling(self):
-        True
-        print(f'Run import in bulk first. \n import scaling method \n Pass all data. \n Then, once scaled, populate the curves and datapoints')
-    """
     def populate_curves_and_datapoints(self):
         #self.scale_object.post_scaling_populate_curves_and_datapoints()
         True
@@ -116,7 +93,7 @@ class Plugin:
         for filepath in self.filepaths:
             #DATAFRAME
 
-            gdf,name= self.read_data_genfromtext(filepath,self.user_input_object)
+            gdf,name= read_data_genfromtext(filepath,self.user_input_object, self.scene_object)
             
             column_id_time,column_number_time = \
                 self.import_lib_object.check_existence_of_provided_column_id_time(gdf,self.user_input_object)
@@ -173,7 +150,7 @@ class Plugin:
             #    DataPoint.add_non_standard_attributes(non_standard_datapoint_attributes) # retch
             for i,point in enumerate(vector_time):
                 # birth datapoint instances
-                datapoint_object = DataPoint(curve_object) # birth
+                datapoint_object = self.DataPoint(curve_object) # birth
                 #datapoint_object.name 
                 curve_object.dict_datapoints.update({vector_time[i]:datapoint_object})
                 datapoint_object.time = vector_time[i]
@@ -196,48 +173,3 @@ class Plugin:
         self.import_lib_object.check_point_tally_for_all_files(vectorArray_time)
         os.chdir(Directories.get_program_dir())
         return names,vectorArray_time,vectorArray_height,headers_time,headers_height
-
-    def read_data(self,filename,user_input_object):
-        print(f"\nfilename: {filename} \n")
-        try:
-            df = pd.read_csv(Directories.get_import_dir()+"/"+filename,skiprows=user_input_object.skiprows)
-            name =  filename.rstrip('.csv')
-        except:
-            df = pd.read_excel(Directories.get_import_dir()+"/"+filename,skiprows=user_input_object.skiprows)
-            name =  filename.rstrip('.xlsx')
-        df.replace('nan', 0)
-        df.fillna(0)
-        return df,name
-        
-
-    def read_data_genfromtext(self,filepath,user_input_object):
-        filename = os.path.basename(filepath)
-        #if self.scene_object.request.session["vercel_bool"]:
-        #if True: # already loaded
-        if self.scene_object.request != None:
-            # already loaded
-            
-            #front = self.scene_object.request.session["blob_dir"]
-            gdf = self.scene_object.request.session["loaded_csv"][filename] # maybe this iss the wrong key
-            gdf = np.array(gdf)
-            print(f'gdf1={gdf}')
-            
-            
-        else:
-            front = ""
-            with open(front+filepath, 'r', encoding='utf-8-sig') as f: 
-                gdf = np.genfromtxt(f, dtype=None, delimiter=',', skip_header=0).tolist() # test
-                gdf = np.array(gdf)
-                #print(f'gdf2={gdf}')
-
-
-        #print("gdf: ",gdf)
-        
-        name =  filename.rstrip('.csv')
-        name =  filename.rstrip('.xlsx')
-        #df.replace('nan', 0)
-        gdf[gdf == 'nan'] = 0
-        #gdf.fillna(0)
-        gdf=np.nan_to_num(gdf)
-        return gdf,name
-        

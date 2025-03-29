@@ -40,6 +40,8 @@ try:
 except:
     pass
 
+from src.datapoint import DataPoint
+
 
 
 
@@ -104,6 +106,9 @@ class PavlovCLI(cmd2.Cmd):
         #startup_script_path = os.path.join(base_dir, "startup", "shell_startup.txt")
         startup_script_path = os.path.join("startup", "shell_startup.txt") # "relative path"
         
+        
+        self.add_settable(cmd2.Settable('DataPoint', object, 'The DataPoint class, imported in main and accessible in the shell.', DataPoint))
+        
         # Check if the file exists before setting it
         if os.path.exists(startup_script_path):
             self.startup_script = startup_script_path
@@ -159,9 +164,35 @@ class PavlovCLI(cmd2.Cmd):
 
     def get_version():
         # for later on storing automatically, not worth the squeeze rn
-        version = "Version: 2025-02February-05" # manually updated
+        version = "Version: 2025-03March-29" # manually updated
         return version
     version = get_version()
+
+    import cmd2
+
+
+    def do_python(self, arg: str):
+        """Execute Python commands interactively."""
+        try:
+            # Evaluate expressions (e.g., `2 + 2`) and print the result
+            result = eval(arg, globals(), locals())
+            self.poutput(f"Result: {result}")
+        except Exception:
+            try:
+                # Execute statements (e.g., `x = 5`) without returning a result
+                exec(arg, globals(), locals())
+                self.poutput("Executed successfully.")
+            except Exception as e:
+                self.perror(f"Error: {e}")
+
+    def help_python(self):
+        """Display help for the Python command."""
+        self.poutput("Run Python commands interactively. Example usage:")
+        self.poutput("  python 2 + 2")
+        self.poutput("  python x = 5")
+
+
+    
     
     @classmethod
     def initialize_scene_object(cls):

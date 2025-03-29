@@ -330,3 +330,220 @@ test
 quit
 test
 test
+test
+test
+test
+test
+help
+test
+Test
+from tests import Test
+from tests import Test
+eva from tests import Test
+eval from tests import Test
+h
+1
+2
+i
+project -l
+project -o sample
+1
+2
+3
+quit
+test
+project -o sample
+1
+2
+3
+quit
+test
+1
+2
+project -o sample
+1
+2
+3
+quit
+test
+project -o sample
+1
+2
+3
+quit
+test
+project -o sample
+1
+2
+3
+quit
+test
+1
+2
+project -o sample
+clear
+whipe
+wipe
+1
+2
+DataPoint
+quit
+test
+help
+shortcuts
+import
+import datapoint
+datapoint
+eval datapoint
+eval DataPoint
+eval datapoint.DataPoint
+eval dir(datapoint.DataPoint)
+eval dir(datapoint.DataPoint.textstring)
+eval datapoint.DataPoint.textstring
+quit
+test
+show
+help show
+1
+2
+help show
+show
+show
+quit
+test
+show
+quit
+test
+DataPoint
+datapoint
+h
+see
+quit
+test
+eval DataPoint
+import Datapoint
+import datapoint
+import datapoint as d
+d
+datapoint
+quit
+test
+import datapoint as d
+import datapoint
+show
+eval datapoint
+quit
+test
+clear
+1
+2
+project -o  sample
+clear
+1
+2
+3
+eval style_object
+eval scene_object
+scene_object
+eval self.scene_object
+eval self.DataPoint
+eval self.style_object
+eval self.style_object.dp
+eval dir(self.style_object.dp)
+eval self.style_object.dp.textstring
+eval self.style_object.dp.style_object
+eval self.style_object.dp.style_object
+eval self.style_object.dp.textstring
+python
+quit
+test
+1
+2
+project -o sample
+1
+2
+3
+qut
+quit
+test
+clear
+project -o sample
+1
+2
+3
+quit
+test
+project -o sample
+1
+2
+3
+quit
+test
+1
+2
+project -o sample
+1
+2
+3
+quit
+test
+project -o sample
+1
+2
+3
+quit
+test
+poeproject -o sample
+project -o sample
+1
+2
+3
+quit
+test
+project -o sample
+1
+2
+3
+quit
+test
+project -o sample
+1
+2
+quit
+test
+project -o sample
+1
+2
+3
+quit
+test
+project -o sample
+1
+2
+3
+quit
+test
+project -o sample
+1
+2
+3
+quit
+test
+clear
+project -o sample
+1
+2
+3
+4
+quit
+test
+project -o sample
+clear
+1
+2
+3
+4
+5
+6
+open -l
+quit

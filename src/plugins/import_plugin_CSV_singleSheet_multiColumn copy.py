@@ -10,6 +10,7 @@ import os
 from curve_ import Curve
 from datapoint import DataPoint
 from src.directories import Directories
+from src.plugins.import_plugin_general import read_data_genfromtext, read_data_pandas
 import import_lib
 class Plugin:
     """ scene_object = None
@@ -23,31 +24,6 @@ class Plugin:
     def __init__(self):
         self.name = os.path.basename(__file__).removesuffix('.py')
         import_lib.PluginSetup.import_None_instantiate(self)
-        """ self.df = None
-
-        self.names = None
-        self.vectorArray_time = None
-        self.vectorArray_height = None
-        self.vectorArray_depth = None
-        self.headers_time = None
-        self.headers_height = None
-        self.headers_depth = None
-
-        self.vectorArray_halfwidth_time = None
-        self.vectorArray_halfwidth_height = None
-        self.vectorArray_halfwidth_depth = None
-        self.average_halfwidth_time = None
-        self.average_halfwidth_height = None
-        self.average_halfwidth_depth = None
-        self.vectorArray_direction = None
-    
-        self.vectorArray_radius_minus_time = None
-        self.vectorArray_radius_plus_time = None
-        self.vectorArray_radius_minus_height = None
-        self.vectorArray_radius_plus_height = None
-        self.vectorArray_radius_minus_depth = None
-        self.vectorArray_radius_plus_depth = None """
-        
 
     def run_import(self,scene_object,import_lib_object):
         self.style_object = scene_object.style_object
@@ -63,7 +39,7 @@ class Plugin:
         names=[]
 
         filename = user_input_object.filenames[0] # works for single sheet
-        df,filename_sans_extension = self.read_data(filename,user_input_object)
+        df,filename_sans_extension = read_data_pandas(filename,user_input_object)
         self.df = df
         df_heights = import_lib_object.checkColumnNames_singleSheet(df, user_input_object.column_height,user_input_object.data_start_idx)
         self.df_heights = df_heights
@@ -82,7 +58,7 @@ class Plugin:
             name =  df[user_input_object.column_time][index]
             # birth curve_object instances
             curve_object = Curve(name=name)
-            curve_object.add_curve_object_to_scene_object()
+            curve_object.add_curve_object_to_hierarchy_object()
 
             vector_height = row.to_list()
             vector_time_bar = np.array(list(range(len(vector_height))))*20#scaled to make bars wider
@@ -132,17 +108,3 @@ class Plugin:
         #print(f'curve_object.dict_datapoints.keys() = {curve_object.dict_datapoints.keys()}')
 
         return names,vectorArray_time,vectorArray_height,headers_time,headers_height 
-
-    def read_data(self,filename,user_input_object):
-        print("filename: ",filename)
-        try:
-            #df = pd.read_csv(Directories.get_import_dir()+"\\"+filename,skiprows=user_input_object.skiprows)
-            df = pd.read_csv(Directories.get_import_dir()+"/"+filename)
-            name =  filename.rstrip('.csv')
-        except:
-            #df = pd.read_excel(Directories.get_import_dir()+"\\"+filename,skiprows=user_input_object.skiprows)
-            df = pd.read_excel(Directories.get_import_dir()+"/"+filename)
-            name =  filename.rstrip('.xlsx')
-        df=df.replace('nan', 0)
-        df=df.fillna(0)
-        return df,name

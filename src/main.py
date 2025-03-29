@@ -64,7 +64,7 @@ from src.import_lib import ImportLib
 from src.scale import Scale, MultipleAxesScalingAlgorithm #
 #MultipleAxesScalingAlgorithm.assign_hierarchy_object(hierarchy_object)
 #MultipleAxesScalingAlgorithm.normalize_all_curve_objects()
-#from converter import converter as converter_class
+#from converter import converter as Convert
 from src.preview import Preview as Preview
 
 from src import pngMaker
@@ -129,8 +129,10 @@ def set_up(request):
     hierarchy_object = Hierarchy() # instance
     scene_object.assign_hierarchy_object(hierarchy_object)
     style_object.assign_hierarchy_object(hierarchy_object)
-
+    print(f"style_object = {style_object}")
+    print("POWERSHELL")
     DataPoint.assign_style_object(style_object)
+    DataPoint.assign_text_string("this is the same DataPoint class")
     
 
     #print(f"scene_object.hierarchy_object = {scene_object.hierarchy_object}")
@@ -278,6 +280,7 @@ def load_import_plugin_object(scene_object,style_object,user_input_object):
     import_function_object.assign_scene_object_etc(scene_object)
     import_function_object.assign_user_input_object(user_input_object)
     import_function_object.assign_import_lib_object(import_lib_object)
+    import_function_object.pass_in_DataPoint_class(DataPoint)
     return import_function_object
 
 def prepare_export_filepath(scene_object,request):
@@ -480,7 +483,7 @@ def generate_export(scene_object,style_object,export_control_object):
         9) Convert file, using Blender converter. Try the Facebook conversion.
         '''
         if False:
-            converter_object = converter_class()
+            converter_object = Convert()
             converter_object.assign_scene_object_etc(scene_object)
             converter_object.check_request_and_do()
 
@@ -489,8 +492,6 @@ def generate_export(scene_object,style_object,export_control_object):
     '''
     #from createDXF_ import CreateDXF
     #createDXF_object = CreateDXF()
-    #os.chdir(Directories.get_program_dir()) # change working directory to exportdir    
-    ##os.chdir("..") # change from temp directory to code directory
     unix_mark = time.time()
     mark_time = round(unix_mark-scene_object.unix_start,2)
     print("Total time:",    mark_time, "sec")

@@ -127,21 +127,12 @@ class Curve:
         self.header_height = header_height
         self.header_depth = header_depth
 
-        #self.add_curve_object_to_scene_object()
-
-    def hierarchy_registration(self):
-        self.hierarchy_object.dict_curve_objects_all.update({self.name.lower():self}) 
-
-    def add_curve_object_to_scene_object(self): #check use 30Jan
+    def add_curve_object_to_hierarchy_object(self): #check use 30Jan
         self.hierarchy_object.dict_curve_objects_all.update({self.name.lower():self}) 
 
     def add_raw_data(self,raw_time,
                     raw_height,
                     raw_depth):
-        #print(f'raw_time = {raw_time}')
-        #print(raw_height[0])
-        #print(raw_depth[0])
-
         self.min_time = min(raw_time)
         self.max_time = max(raw_time)
         self.min_height = min(raw_height)
@@ -252,8 +243,6 @@ class Curve:
         
         if self.style_object.universally_consistent_padding is True:
             self.padding = self.style_object.padding
-
-        
         return True
 
     def calculate_diameter(self):

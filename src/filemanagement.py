@@ -116,7 +116,6 @@ class DirectoryControl:
 
     @staticmethod
     def create_directory_with_structure(project_dir_name_str,option):
-        #os.chdir("projects")
         # should copy existing files from stock library folder
         if project_dir_name_str == "" or project_dir_name_str is None:
             unix_mark = str(int(time.time()))
@@ -130,7 +129,6 @@ class DirectoryControl:
         os.chdir(Directories.get_program_dir()+"/projects/")
         populate_new_project_dir(project_dir_name_str,option)
         os.chdir(Directories.get_program_dir())
-        #os.chdir(project_dir_name_str)
 
     @staticmethod
     def copy_project_directory(project_dir_name_str,option):
