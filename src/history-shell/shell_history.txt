@@ -547,3 +547,143 @@ clear
 6
 open -l
 quit
+test
+quit
+test
+project -o sample
+1
+2
+3
+quit
+test
+project -o sample
+1
+2
+3
+4
+5
+h
+preview --scene
+dorsl
+h
+spark --all
+spark --time
+spark --height
+spark --depth
+spark --index 0
+spark --all
+spark --scaled 0
+quit
+test
+1
+2
+project -o sample
+clear
+wipe
+1
+2
+3
+4
+5
+quit
+test
+project -o sample
+1
+2
+3
+4
+5
+spark --all
+spark --height
+spark --height 0
+spark --all
+quit
+test
+1
+p -o sample
+1
+2
+3
+4
+5
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+1
+project -o sample
+clear
+about
+1
+2
+3
+quit
+test
+from directories import Directories
+from tests import Test
+import directories.Directories
+import directories
+eval directories.Directories
+eval directories.Directories.get_project_dir()
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+quit
+test
+p -o sample
+1
+2
+3
+4
+5
+6
+o -l
+clear
+p -l
+p -o Don-EvonikPAA-MemphisCellulose
+wipe
+1
+2
+quit
+test
+p -o sampe
+p -o sample
+1
+2
+3
+4
+5
+6
+open -l
+clear
+wipe
+h
+edit
+eval
+v
+what
+where
+when
+why
+quit
+test
+why
+quit

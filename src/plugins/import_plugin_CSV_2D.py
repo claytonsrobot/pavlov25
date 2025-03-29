@@ -8,65 +8,19 @@ Serve as a known import plugin (represented in the gui_object import dictionary 
 Process:
 Import each CSV sheet as a dataframe and make the dataframe an attribute of each curve_object "curve"
 '''
-import platform
 if False:
     import pandas as pd
-import os
 import numpy as np
-import environmental
-import import_lib
-from src.directories import Directories
-from src.plugins.import_plugin_general import read_data_genfromtext
+from src.helpers.filename_utils import get_this_filename
+from src.plugins.import_plugin_general import read_data_genfromtext, ImportPlugin
  
-#from scale import Scale
-from curve_ import Curve
-#from datapoint import DataPoint
-#class import_plugin_CSV_2D:
-class Plugin:
-    scene_object = None
-    style_object = None
-    user_input_object = None
-    @classmethod
-    def assign_scene_object_etc(cls,scene_object):
-        cls.scene_object = scene_object
-        cls.style_object = scene_object.style_object
-    @classmethod
-    def assign_user_input_object(cls,user_input_object):
-        cls.user_input_object = user_input_object
-    """ @classmethod
-    def assign_scale_object(cls,scale_object):
-        cls.scale_object = scale_object """
-    @classmethod
-    def assign_import_lib_object(cls,import_lib_object):
-        cls.import_lib_object = import_lib_object
-    @classmethod
-    def pass_in_DataPoint_class(cls,DataPoint):
-        cls.DataPoint = DataPoint
-        
+class Plugin(ImportPlugin):
     def __init__(self):
-        
-        self.name = os.path.basename(__file__).removesuffix('.py')
-        import_lib.PluginSetup.import_None_instantiate(self)
+        super().__init__()  # Call Parent's __init__
+        self.name = get_this_filename(__file__)
         self.filetype_allowed = ["csv,xlsx,xls"]
 
-    def populate_curves_and_datapoints(self):
-        #self.scale_object.post_scaling_populate_curves_and_datapoints()
-        True
-
     def run_import(self):
-        #Curve.pass_in_scene_object(self.scene_object) # dict_curve_objects_all
-
-        
-
-        #print(f'\nVERCEL = {vercel}\n')
-        if environmental.vercel()==False:
-            #folder='\\media\\csv_uploads_pavlovdata\\'
-            folder='\\imports\\'
-            os.chdir(Directories.get_program_dir()+folder) # here is your problem!!!!!!!!!! if the import step has a partial failure and does not complete. dont change dir and then go lokig for ogdir
-            
-        else:
-            folder=self.scene_object.blob_dir+'/csv_uploads_pavlovdata/'
-
         vectorArray_time = []
         vectorArray_height = []
         vectorArray_depth = []
@@ -75,13 +29,7 @@ class Plugin:
         headers_depth = []
         names=[]
         
-        #try: 
-        #self.filenames, list_blob_urls, list_objects = self.scene_object.session_object.get_list_csv_current()
-        #self.filenames, list_blob_urls, list_objects = self.scene_object.request.session["list_csv_uploads"]
-        #self.scene_object.request.session["list_csv_uploads"]
-        #self.filesnames = self.user_input_object.filenames
-        #self.filespaths = self.user_input_object.filepaths
-        ##self.filenames = self.import_lib_object.sort_filenames_after_adding_leading_zeros(self.user_input_object,self.scene_object)
+        #try:
         self.filenames, self.filepaths = self.import_lib_object.sort_filenames_after_adding_leading_zeros_vercel(self.user_input_object,self.scene_object)
         """except:
             print('We need a way to handle when some or all filenames contain no numbers. ')
@@ -105,7 +53,6 @@ class Plugin:
             vector_time = vector_time.astype(np.float64)
             vector_time = np.multiply(scale_t,vector_time)
 
-            
             vector_height = gdf[:,column_number_height]
             vector_height = np.delete(vector_height, 0)
             vector_height = vector_height.astype(np.float64)
@@ -171,5 +118,5 @@ class Plugin:
         self.headers_depth = self.headers_height # for 2D redundant data
         
         self.import_lib_object.check_point_tally_for_all_files(vectorArray_time)
-        os.chdir(Directories.get_program_dir())
+        
         return names,vectorArray_time,vectorArray_height,headers_time,headers_height

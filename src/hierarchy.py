@@ -13,7 +13,7 @@ import inspect
 from src import grouping_by_string
 from src.grouping_by_string import GBS
 from src import grouping_by_map
-from src.curve_ import Curve
+from src.curve import Curve
 
 class Hierarchy:
     scene_object = None

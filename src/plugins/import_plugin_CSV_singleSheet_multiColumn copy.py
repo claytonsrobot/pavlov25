@@ -6,29 +6,16 @@ Created: 14 February 2024 (HaPpy Valentine's Day <3, from Luang Prabang :D)
 import numpy as np
 if False:
     import pandas as pd
-import os
-from curve_ import Curve
-from datapoint import DataPoint
-from src.directories import Directories
-from src.plugins.import_plugin_general import read_data_genfromtext, read_data_pandas
-import import_lib
-class Plugin:
-    """ scene_object = None
-    style_object = None # should chance all instance of style. to style_object.
+from src.helpers.filename_utils import get_this_filename
+from src.plugins.import_plugin_general import read_data_genfromtext, read_data_pandas, ImportPlugin
 
-    @classmethod
-    def pass_in_scene_object(cls,scene_object):
-        cls.scene_object = scene_object
-        cls.style_object = scene_object.style_object """
-
+class Plugin(ImportPlugin):
     def __init__(self):
-        self.name = os.path.basename(__file__).removesuffix('.py')
-        import_lib.PluginSetup.import_None_instantiate(self)
+        super().__init__()  # Call Parent's __init__
+        self.name = get_this_filename(__file__)
+        self.filetype_allowed = ["csv,xlsx,xls"]
 
     def run_import(self,scene_object,import_lib_object):
-        self.style_object = scene_object.style_object
-        user_input_object = scene_object.user_input_object
-        Curve.pass_in_scene_object(scene_object)
         # need to add third dimension option. Not here, create new similar function.
         #hierarchy_object.dict_curve_objects_all = dict() # supress here 23 March 2024
 
@@ -38,43 +25,43 @@ class Plugin:
         headers_height = []
         names=[]
 
-        filename = user_input_object.filenames[0] # works for single sheet
-        df,filename_sans_extension = read_data_pandas(filename,user_input_object)
+        filename = self.user_input_object.filenames[0] # works for single sheet
+        df,filename_sans_extension = read_data_pandas(filename,self.user_input_object)
         self.df = df
-        df_heights = import_lib_object.checkColumnNames_singleSheet(df, user_input_object.column_height,user_input_object.data_start_idx)
+        df_heights = import_lib_object.checkColumnNames_singleSheet(df, self.user_input_object.column_height,self.user_input_object.data_start_idx)
         self.df_heights = df_heights
 
-        data_start_idx = user_input_object.data_start_idx
+        data_start_idx = self.user_input_object.data_start_idx
         metadataColumns = list(df.columns[:data_start_idx]) # manual. # wrong
         df_data = df.iloc[:,data_start_idx:]
         #print(f'user_input_object.metadata_columns:{user_input_object.metadata_columns}')
-        df_metadata=import_lib_object.check_for_metadata_coloumns(df,user_input_object.metadata_columns)
+        df_metadata=import_lib_object.check_for_metadata_coloumns(df,self.user_input_object.metadata_columns)
 
         #vector_dict = dict.fromkeys({user_input_object.column_time,user_input_object.column_height})
         vector_dict = dict()
         vector_time_labelname = df_data.keys()
 
         for index, row in df_data.iterrows():
-            name =  df[user_input_object.column_time][index]
+            name =  df[self.user_input_object.column_time][index]
             # birth curve_object instances
-            curve_object = Curve(name=name)
+            curve_object = self.Curve(name=name)
             curve_object.add_curve_object_to_hierarchy_object()
 
             vector_height = row.to_list()
             vector_time_bar = np.array(list(range(len(vector_height))))*20#scaled to make bars wider
             vector_time =vector_time_bar
 
-            vector_dict[user_input_object.column_time] = vector_time
-            vector_dict[user_input_object.column_height] = vector_height
+            vector_dict[self.user_input_object.column_time] = vector_time
+            vector_dict[self.user_input_object.column_height] = vector_height
             vector_dict = import_lib_object.check_vectors_for_text(vector_dict)
             vector_dict = import_lib_object.check_time_vector_for_negative_change(vector_dict)
-            vector_time=vector_dict[user_input_object.column_time]
-            vector_height=vector_dict[user_input_object.column_height]
+            vector_time=vector_dict[self.user_input_object.column_time]
+            vector_height=vector_dict[self.user_input_object.column_height]
             curve_object.df_metadata=df_metadata.iloc[index]
 
             for i,point in enumerate(vector_time):
                 # birth datapoint instances
-                datapoint_object = DataPoint(curve_object) # birth
+                datapoint_object = self.DataPoint(curve_object) # birth
                 curve_object.dict_datapoints.update({vector_time_labelname[i]:datapoint_object})
                 datapoint_object.time = vector_time_bar[i]
                 datapoint_object.height = vector_height[i]

@@ -143,10 +143,7 @@ class TextControlPointMachine:
     
     def build_dict_characters_raw(self):
         self.dict_characters_raw = dict()
-        
-        script_dir = Path(getattr(sys,'_MEIPASS', Path.cwd()))
         alphanumeric_character_dir = Directories.get_core_dir()+"\\alphanumeric_character_library\\"
-        #alphanumeric_character_dir = str(script_dir)+"\\alphanumeric_character_library\\"
 
         for filename in os.listdir(alphanumeric_character_dir):
             if filename.endswith('_svg.html'):

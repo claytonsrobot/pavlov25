@@ -3,27 +3,18 @@ Title: import_plugin_general.py
 Author Clayton Bennett
 Created: 289 March 2025
 """
-import platform
 if False:
     import pandas as pd
 import os
 import numpy as np
-from datetime import datetime
 import import_lib
-import sys
 import time
-import environmental
 from src.directories import Directories
-
-
-#from scale import Scale
-from curve_ import Curve
-from datapoint import DataPoint # this is resetting because this import plugin is passed through importlib
+from src.helpers.filename_utils import get_this_filename
 
 def read_data_genfromtext(filepath,user_input_object,scene_object):
     filename = os.path.basename(filepath).lower()
-    name = filename 
-    # name = os.path.splitext(filename)[0]
+    name = filename # name = os.path.splitext(filename)[0]
     if scene_object.request != None:
         # if already loaded
         gdf = scene_object.request.session['loaded_csv'][filename] # maybe this is the wrong key
@@ -53,7 +44,8 @@ class ImportPlugin:
     scene_object = None
     style_object = None
     user_input_object = None
-    DataPoint = DataPoint
+    DataPoint = None
+    Curve = None
     @classmethod
     def assign_scene_object_etc(cls,scene_object):
         cls.scene_object = scene_object
@@ -67,7 +59,12 @@ class ImportPlugin:
     @classmethod
     def assign_import_lib_object(cls,import_lib_object):
         cls.import_lib_object = import_lib_object
-        
+    @classmethod
+    def pass_in_DataPoint_class(cls,DataPoint):
+        cls.DataPoint = DataPoint
+    @classmethod
+    def pass_in_Curve_class(cls,Curve):
+        cls.Curve = Curve
     def __init__(self):
-        self.name = os.path.basename(__file__).removesuffix('.py')
+        self.name = get_this_filename(__file__)
         import_lib.PluginSetup.import_None_instantiate(self)

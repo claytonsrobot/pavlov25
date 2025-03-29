@@ -55,7 +55,6 @@ Data orgin of a group is coincident with the data origin of its first child.
 import os
 import time
 import copy
-
 #import uniqueUnixFilename
 
 from src.scene import Scene
@@ -72,6 +71,7 @@ from src import messaging
 from src.config_input import ConfigInput
 from src.user_input import UserInput
 from src.datapoint import DataPoint
+from src.curve import Curve
 
 from src.ticks import Ticks
 from src.fences import Fences 
@@ -81,7 +81,6 @@ from src.text_translation import TextTranslationIntermediate
 from src import translation
 from src import environmental
 from src.directories import Directories
-#print(f"environmental.vercel() = {environmental.vercel()}")
 if environmental.vercel():
     from src import vercel_blob
 
@@ -129,13 +128,8 @@ def set_up(request):
     hierarchy_object = Hierarchy() # instance
     scene_object.assign_hierarchy_object(hierarchy_object)
     style_object.assign_hierarchy_object(hierarchy_object)
-    print(f"style_object = {style_object}")
-    print("POWERSHELL")
     DataPoint.assign_style_object(style_object)
     DataPoint.assign_text_string("this is the same DataPoint class")
-    
-
-    #print(f"scene_object.hierarchy_object = {scene_object.hierarchy_object}")
     prepare_export_filepath(scene_object,request)
 
     return scene_object, style_object, hierarchy_object
@@ -144,7 +138,6 @@ def get_configuration(scene_object, style_object):
     '''1) Run GUI, select data'''
 
     # check if do not have pysimplegui, take default inputs (from config or from gui default) and skip GUI 
-    
     config_input_object = ConfigInput()
     config_input_object.assign_scene_object(scene_object) # cls
     config_input_object.define_and_load_default_config_input()
@@ -281,6 +274,8 @@ def load_import_plugin_object(scene_object,style_object,user_input_object):
     import_function_object.assign_user_input_object(user_input_object)
     import_function_object.assign_import_lib_object(import_lib_object)
     import_function_object.pass_in_DataPoint_class(DataPoint)
+    Curve.pass_in_scene_object(scene_object)
+    import_function_object.pass_in_Curve_class(Curve)
     return import_function_object
 
 def prepare_export_filepath(scene_object,request):

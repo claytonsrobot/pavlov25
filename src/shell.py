@@ -210,7 +210,7 @@ class PavlovCLI(cmd2.Cmd):
     def set_project_active(cls,project_dir):
         #cls.project_active = project_dir
         Directories.set_project_dir(project_dir)
-        #print(f"Directories.get_project_dir() = {Directories.get_project_dir()}")
+        print(f"Directories.set_project_dir() = {Directories.get_project_dir()}")
     
     @classmethod
     def get_project_active(cls):
@@ -259,7 +259,7 @@ class PavlovCLI(cmd2.Cmd):
     def run(self):
         #self.scene_object = None
         self.initialize_scene_object()
-        #self.link_initial_project_directory()
+        self.link_initial_project_directory()
         Directories.initialize_startup_project()
         self.cmdloop()
 
@@ -485,7 +485,7 @@ class PavlovCLI(cmd2.Cmd):
 
     def do_why(self,line):
         "Why use Pavlov?"
-        why = "Visualize lots of raw data. Ideal for first-year graduate students after they finish their experiements. See all of your data, everything at once to reveal untold truths." 
+        why = "Visualize lots of raw data. \nIdeal for first-year graduate students after they finish their experiements. \nSee all of your data, everything at once to reveal untold truths." 
         print(f"{why}")
 
     def do_how(self,line):
@@ -745,16 +745,9 @@ class PavlovCLI(cmd2.Cmd):
             print("Export failure.")
             print("See instructions for necessary steps.")
 
-    def do_import(self,line):
-        "Future work."
-        #try:
-        if line == "data":
-            self.import_data(None)
-        #except Exception as e:
-        #    "Try again"
-    
     def import_data(self,line):
         "Independantly import data (4). Generates export_control_object. Requires scene_object, style_object, and user_input_object to already exist."
+        
         #try:
         print(f"\nself.scene_object = {self.scene_object}")
         self.export_control_object = main.import_data(self.scene_object,
@@ -1415,12 +1408,15 @@ class PavlovCLI(cmd2.Cmd):
             self.sparkarray_direction(self.scene_object.vectorArray_height)
             #self.spark_dict_vector_key("height")
         
-
         #elif line.startswith("depth") and "-all" in line:
         elif args.depth is True:
             print("Depth values")
             self.sparkarray_direction(self.scene_object.vectorArray_depth)
             #self.spark_dict_vector_key("depth")
+        elif args.all is True:
+            self.do_spark("--time")
+            self.do_spark("--height")
+            self.do_spark("--depth")
 
         #elif line.startswith("index"):
         elif args.index is not None:
@@ -1430,7 +1426,6 @@ class PavlovCLI(cmd2.Cmd):
             #i = int(line.split("index")[1])
             print(self.scene_object.names[i])
             print(f"i = {i}")
-
             print("-----")
             print("Time values")
             print(f"Header: {self.scene_object.headers_time[i]}")
@@ -1620,19 +1615,19 @@ class PavlovCLI(cmd2.Cmd):
         for key, value in self.vars.items():
             self.poutput(f"{key} = {value}")
 
-    def do_import(self, args):
-        """Import a library dynamically."""
-        module_name = args.strip()
-        if module_name:
-            try:
-                module = importlib.import_module(module_name)
-                self.modules[module_name] = module
-                self.context[module_name] = module
-                self.poutput(f"Module '{module_name}' imported successfully")
-            except ImportError:
-                self.poutput(f"Failed to import module '{module_name}'")
-        else:
-            self.poutput("Usage: import <module_name>")
+    #def do_import(self, args):
+    #    """Import a library dynamically."""
+    #    module_name = args.strip()
+    #    if module_name:
+    #        try:
+    #            module = importlib.import_module(module_name)
+    #            self.modules[module_name] = module
+    #            self.context[module_name] = module
+    #            self.poutput(f"Module '{module_name}' imported successfully")
+    #        except ImportError:
+    #            self.poutput(f"Failed to import module '{module_name}'")
+    #    else:
+    #        self.poutput("Usage: import <module_name>")
 
     def do_functions(self, args):
         """List all functions and methods of an imported module."""
@@ -1778,6 +1773,5 @@ if __name__=='__main__':
     app.onecmd_plus_hooks("test")
     Directories.initilize_program_dir()
     app.initialize_scene_object()
-    #PavlovCLI.link_initial_project_directory()
     Directories.initialize_startup_project()
     app.cmdloop()

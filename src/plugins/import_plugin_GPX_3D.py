@@ -8,61 +8,22 @@ Serve as a known import plugin (represented in the gui_object import dictionary 
 Process:
 Import each CSV sheet as a dataframe and make the dataframe an attribute of each curve_object 'curve'
 '''
-import platform
 import gpxpy
+import numpy as np
 if False:
     import pandas as pd
-import os
-import numpy as np
-from src.directories import Directories
-import import_lib
-import environmental
-from src.plugins.import_plugin_general import read_data_genfromtext
+from src.helpers.filename_utils import get_this_filename
+from src.plugins.import_plugin_general import read_data_genfromtext, ImportPlugin
 #from scale import Scale
-from curve_ import Curve
-from datapoint import DataPoint
-#class import_plugin_CSV_2D:
 class Plugin:
-    scene_object = None
-    style_object = None
-    user_input_object = None
-    @classmethod
-    def assign_scene_object_etc(cls,scene_object):
-        cls.scene_object = scene_object
-        cls.style_object = scene_object.style_object
-    @classmethod
-    def assign_user_input_object(cls,user_input_object):
-        cls.user_input_object = user_input_object
-    ''' @classmethod
-    def assign_scale_object(cls,scale_object):
-        cls.scale_object = scale_object '''
-    @classmethod
-    def assign_import_lib_object(cls,import_lib_object):
-        cls.import_lib_object = import_lib_object
-        
     def __init__(self):
-        
-        self.name = os.path.basename(__file__).removesuffix('.py')
-        import_lib.PluginSetup.import_None_instantiate(self)
+        super().__init__()  # Call Parent's __init__
+        self.name = get_this_filename(__file__)
         self.filetype_allowed_list = ['gpx']
 
-    def populate_curves_and_datapoints(self):
-        #self.scale_object.post_scaling_populate_curves_and_datapoints()
-        True
-
     def run_import(self):
-        Curve.pass_in_scene_object(self.scene_object) # dict_curve_objects_all
+        #self.Curve.pass_in_scene_object(self.scene_object) # dict_curve_objects_all
         #self.scene_object.user_input_object.filetype_allowed = self.filetype_allowed # evil workaroud
-
-
-        #print(f'\nVERCEL = {vercel}\n')
-        if environmental.vercel()==False:
-            #folder='\\media\\csv_uploads_pavlovdata\\'
-            folder='\\imports\\'
-            os.chdir(Directories.get_program_dir()+folder)
-        else:
-            #folder='/tmp/'
-            folder=self.scene_object.blob_dir+'/csv_uploads_pavlovdata/'
 
         vectorArray_time = []
         vectorArray_height = []
@@ -73,9 +34,6 @@ class Plugin:
         names=[]
         
         #try: 
-        #self.filenames, list_blob_urls, list_objects = self.scene_object.session_object.get_list_csv_current()
-        #self.filenames, list_blob_urls, list_objects = self.scene_object.request.session['list_csv_uploads']
-        #self.scene_object.request.session['list_csv_uploads']
         self.filenames, self.filepaths = self.import_lib_object.sort_filenames_after_adding_leading_zeros_vercel(self.user_input_object,self.scene_object)
         '''except:
             print('We need a way to handle when some or all filenames contain no numbers. ')
@@ -176,9 +134,6 @@ class Plugin:
             #header_time = gdf[0][column_number_time]
             #header_height = gdf[0][column_number_height]
             #header_depth = gdf[0][column_number_depth]
-            header_time = 'Latitude'
-            header_height = 'Elevation'
-            header_depth = 'Longitude'
 
             vectorArray_time.append(vector_time)
             vectorArray_height.append(vector_height)
@@ -188,17 +143,14 @@ class Plugin:
             headers_depth.append(header_depth)
             names.append(name)
 
-            curve_object = Curve(name=name)
+            curve_object = self.Curve(name=name)
             curve_object.add_headers(header_time,header_height,header_depth)
             curve_object.add_raw_data(vector_time,vector_height,vector_depth) 
             ## work on the data Object initialization
 
-            #non_standard_datapoint_attributes = None # alters kwargs sent to DataPoint
-            #if non_standard_datapoint_attributes is not None:
-            #    DataPoint.add_non_standard_attributes(non_standard_datapoint_attributes) # retch
             for i,point in enumerate(vector_time):
                 # birth datapoint instances
-                datapoint_object = DataPoint(curve_object) # birth
+                datapoint_object = self.DataPoint(curve_object) # birth
                 #datapoint_object.name 
                 curve_object.dict_datapoints.update({vector_time[i]:datapoint_object})
                 datapoint_object.time = vector_time[i]
@@ -219,5 +171,5 @@ class Plugin:
         self.headers_depth = headers_depth
         
         self.import_lib_object.check_point_tally_for_all_files(vectorArray_time)
-        os.chdir(Directories.get_program_dir())
+        
         return names,vectorArray_time,vectorArray_height,headers_time,headers_height

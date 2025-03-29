@@ -188,7 +188,6 @@ class Curve:
                 self.ticks_thickness[i][j]=span_adjust[i][j]
                 
 
-
     """ def update_pre_axisLabel_buffer(self,span_adjust):
         # Set the most extreme values to the defacto
         # basically, this is checking if the value has already been assigned to the pre_axisLabel_buffer, which is initialized as [[0,0],[0,0],[0,0]]
