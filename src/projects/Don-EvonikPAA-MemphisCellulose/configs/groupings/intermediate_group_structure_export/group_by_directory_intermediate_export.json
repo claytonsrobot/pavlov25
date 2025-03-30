@@ -1,0 +1,86 @@
+{
+    "directory": "imports",
+    "files": [
+        "desktop.ini"
+    ],
+    "directories": [
+        {
+            "directory": "test1",
+            "files": [],
+            "directories": [
+                {
+                    "directory": "2024-07July-02 to 2024-07July-16",
+                    "files": [
+                        "AIC402.csv",
+                        "AIC412.csv",
+                        "AIC424.csv",
+                        "Evonik-PAA.csv",
+                        "Ratio-PAA.csv"
+                    ],
+                    "directories": []
+                },
+                {
+                    "directory": "2024-07July-16 to 2024-07July-30",
+                    "files": [
+                        "AIC402.csv",
+                        "AIC412.csv",
+                        "AIC424.csv",
+                        "Evonik-PAA.csv",
+                        "Ratio-PAA.csv"
+                    ],
+                    "directories": []
+                },
+                {
+                    "directory": "2024-07July-30 to 2024-08Aug-13",
+                    "files": [
+                        "AIC402.csv",
+                        "AIC412.csv",
+                        "AIC424.csv",
+                        "Evonik-PAA.csv",
+                        "Ratio-PAA.csv"
+                    ],
+                    "directories": []
+                }
+            ]
+        },
+        {
+            "directory": "test2",
+            "files": [],
+            "directories": [
+                {
+                    "directory": "2024-07July-02 to 2024-07July-16",
+                    "files": [
+                        "AIC402.csv",
+                        "AIC412.csv",
+                        "AIC424.csv",
+                        "Evonik-PAA.csv",
+                        "Ratio-PAA.csv"
+                    ],
+                    "directories": []
+                },
+                {
+                    "directory": "2024-07July-16 to 2024-07July-30",
+                    "files": [
+                        "AIC402.csv",
+                        "AIC412.csv",
+                        "AIC424.csv",
+                        "Evonik-PAA.csv",
+                        "Ratio-PAA.csv"
+                    ],
+                    "directories": []
+                },
+                {
+                    "directory": "2024-07July-30 to 2024-08Aug-13",
+                    "files": [
+                        "AIC402.csv",
+                        "AIC412.csv",
+                        "AIC424.csv",
+                        "Evonik-PAA.csv",
+                        "Ratio-PAA.csv"
+                    ],
+                    "directories": []
+                }
+            ]
+        }
+    ]
+}

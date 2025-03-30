@@ -117,7 +117,7 @@ class ConfigInput:
             self.loaded_config["filter_files_exclude"] = ""
             self.loaded_config["export_directory"] = ""
         pprint(f"loaded_config = {self.loaded_config}")
-        return 
+        return self.loaded_config, self.loaded_grouping
     
     def assign_known_config_filenames(self,loaded_config,config_input_path,config_entry_filepath):
         # Manually add config names to the config itsef in order to pass them around with the config dictonary
@@ -125,6 +125,56 @@ class ConfigInput:
         loaded_config.update({"config_input_path":config_input_path})
         loaded_config.update({"config_entry_filepath":config_entry_filepath})
         return loaded_config
+def get_n_tier_group_names_and_subgroup_names_and_file_names_from_group_by_directory_cij_loaded_grouping():
+    "Generic"
+    pass
+
+def get_three_tier_group_names_and_subgroup_names_and_file_names_from_group_by_directory_cij_loaded_grouping(data):
+    "Flat, based on text"
+    group_names, subgroup_names, file_paths, file_names = get_three_tier_group_names_and_subgroup_names_and_file_names_from_group_by_directory_data(data = data)
+    file_paths = [os.path.join(Directories.get_project_dir(), file) for file in file_paths]
+
+    return group_names, subgroup_names, file_paths, file_names
+
+def get_three_tier_group_names_and_subgroup_names_and_file_names_from_group_by_directory_data(data):
+    """
+    Extracts group names, subgroup names, file paths, and file names from a three-tier directory structure.
+
+    Args:
+        data (dict): The directory structure returned by `generate_directory_structure_v2()`.
+
+    Returns:
+        tuple: (group_names, subgroup_names, file_paths, file_names)
+            - group_names (list): Names of the top-level directories (groups).
+            - subgroup_names (list): Names of second-tier directories (subgroups).
+            - file_paths (list): Full paths of all files in the subgroups.
+            - file_names (list): Names of all files in the subgroups.
+    """
+    group_names = []
+    subgroup_names = []
+    file_paths = []
+    file_names = []
+
+    # Root directory name
+    root_directory = data["directory"]
+
+    # Top-level directories (groups)
+    for group in data.get("directories", []):
+        group_name = group["directory"]
+        group_names.append(group_name)
+
+        # Second-tier directories (subgroups)
+        for subgroup in group.get("directories", []):
+            subgroup_name = subgroup["directory"]
+            subgroup_names.append(subgroup_name)
+
+            # Files within the subgroups
+            for file in subgroup.get("files", []):
+                file_names.append(file)
+                file_paths.append(f"{root_directory}/{group_name}/{subgroup_name}/{file}")
+
+    return group_names, subgroup_names, file_paths, file_names
+    
     
 if __name__ == "__main__":
     

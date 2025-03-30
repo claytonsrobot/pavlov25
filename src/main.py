@@ -140,7 +140,8 @@ def get_configuration(scene_object, style_object):
     # check if do not have pysimplegui, take default inputs (from config or from gui default) and skip GUI 
     config_input_object = ConfigInput()
     config_input_object.assign_scene_object(scene_object) # cls
-    config_input_object.define_and_load_default_config_input()
+    loaded_config, loaded_grouping = config_input_object.define_and_load_default_config_input()
+
     
     #user_input_object = user_input_class()
     user_input_object = UserInput()
@@ -151,7 +152,6 @@ def get_configuration(scene_object, style_object):
     style_object.assign_user_input_object(user_input_object) # cls
     scene_object.hierarchy_object.assign_user_input_object(user_input_object)
     
-
     return config_input_object,user_input_object
 
 def determine_interface(style_object,config_input_object,user_input_object):

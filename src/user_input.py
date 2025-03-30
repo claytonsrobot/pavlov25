@@ -163,15 +163,18 @@ class UserInput:
             
             # explore first and second level directories in the projects/{project_name}/"imports" folder
             # migrate this to user_input_config 
-            self.group_names, self.subgroup_names, file_paths, file_names = src.grouping_by_directory.get_group_names_and_subgroup_names_and_file_names_from_import_directory_hierarchy(directory = Directories.get_import_dir())
-            self.group_names, self.subgroup_names, file_paths, file_names = src.grouping_by_directory.get_group_names_and_subgroup_names_and_file_names_from_group_by_directory_intermediate_export_json_file()
-            self.group_names, self.subgroup_names, file_paths, file_names = src.config_input.get_group_names_and_subgroup_names_and_file_names_from_group_by_directory_cij_loaded_grouping()
+            # old, works: self.group_names, self.subgroup_names, file_paths, file_names = src.grouping_by_directory.get_group_names_and_subgroup_names_and_file_names_from_import_directory_hierarchy(directory = Directories.get_import_dir())
+            #keep: self.group_names, self.subgroup_names, file_paths, file_names = src.grouping_by_directory.get_group_names_and_subgroup_names_and_file_names_from_group_by_directory_intermediate_export_json_file()
+            #toss: self.group_names, self.subgroup_names, file_paths, file_names = src.config_input.get_group_names_and_subgroup_names_and_file_names_from_group_by_directory_cij_loaded_grouping()
+            self.group_names, self.subgroup_names, file_paths, file_names = src.config_input.get_three_tier_group_names_and_subgroup_names_and_file_names_from_group_by_directory_cij_loaded_grouping(data = config_input_object.loaded_grouping)
             # for now don't check filetypes, assume all are good
-            self.filepaths,self.filenames = foo(config_input_object.loaded_grouping) 
+            #self.filepaths,self.filenames = foo(config_input_object.loaded_grouping) 
             self.filenames = file_names
             self.filepaths = file_paths
+            print(f"self.group_names = {self.group_names}")
+            print(f"self.subgroup_names = {self.subgroup_names}")
 
-        print(f"self.filepaths = {self.filepaths}")
+        #print(f"self.filepaths = {self.filepaths}")
         print(f"self.filenames = {self.filenames}")
 
         if True: # config_input_object.grouping_algorithm == "group-by-string" or config_input_object.grouping_algorithm == "group-by-directory":

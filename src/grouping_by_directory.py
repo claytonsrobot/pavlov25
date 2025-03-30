@@ -182,6 +182,6 @@ def call(directory_path): # example
     # Step 1: Generate the directory structure with files appearing first
     directory_structure = generate_directory_structure_v3(directory_path)
     # Step 2: Export the structure to a JSON file
-    src.json_handler.export_to_json(directory_structure, Directories.get_group_by_directory_intermediate_export_json_filepath())
+    src.json_handler.export_to_json(directory_structure, output_file)
     print(f"JSON file '{output_file}' has been created!")
     return directory_structure
