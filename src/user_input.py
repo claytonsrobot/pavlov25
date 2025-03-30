@@ -167,7 +167,7 @@ class UserInput:
             self.group_names, self.subgroup_names, file_paths, file_names = src.grouping_by_directory.get_group_names_and_subgroup_names_and_file_names_from_group_by_directory_intermediate_export_json_file()
             self.group_names, self.subgroup_names, file_paths, file_names = src.config_input.get_group_names_and_subgroup_names_and_file_names_from_group_by_directory_cij_loaded_grouping()
             # for now don't check filetypes, assume all are good
-            self.filepaths,self.filenames = foo(config_input_object.loaded_grouping)
+            self.filepaths,self.filenames = foo(config_input_object.loaded_grouping) 
             self.filenames = file_names
             self.filepaths = file_paths
 
