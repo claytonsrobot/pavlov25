@@ -687,3 +687,23 @@ quit
 test
 why
 quit
+test
+1
+2
+eval self.config_input_object.loaded_grouping
+import
+pp
+eval pp
+eval pprint(self.config_input_object.loaded_grouping)
+quit
+test
+clear
+1
+2
+eval pprint(self.config_input_object.loaded_grouping)
+quit
+test
+1
+2
+eval pprint(self.config_input_object.loaded_grouping)
+quit

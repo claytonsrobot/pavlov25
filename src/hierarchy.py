@@ -10,10 +10,11 @@ Off load functonality from scene.py, to provide oversight and opportunity for im
 from src.group import Group
 from src.tier import tier as Tier
 import inspect
-from src import grouping_by_string
+import src.grouping_by_string
 from src.grouping_by_string import GBS
 from src import grouping_by_map
 from src.curve import Curve
+import src.json_handler
 
 class Hierarchy:
     scene_object = None
@@ -123,21 +124,9 @@ class Hierarchy:
         # look this is very important. This is a quintessential part of the program
         # create a function and give it a real name. But also ughhhhh aesthetics. Pythonic aesthetics.
         for tier_object in self.dict_tier_objects.values():
-            #print(f"tier_object.tier_level = {tier_object.tier_level}")
-            #print(f"tier_object.dict_group_objects = {tier_object.dict_group_objects}")
-            #for key,value in tier_object.dict_group_objects.items():
-                #print(f"GRATZER, key = {key}")
-                #print(f"GRATZER, value = {value}")
-                #print(f"GRATZER, value.name = {value.name}")
-                #print(f"GRATZER, value.dict_subgroups = {value.dict_subgroups}")
-                #try:
-                #    print(f"GRATZER, value.supergroup.name = {value.supergroup.name}")
-                #except:
-                #    pass
             self.dict_group_objects_all.update(tier_object.dict_group_objects)
         
         tier_object = Tier(3)
-        #tier_object.assign_stack_direction(user_input_object.groups_tier3_stack_direction)
         tier_object.assign_stack_direction(user_input_object.stack_direction_curves)
         for key,curve_object in self.dict_curve_objects_all.items():# curve_objects built in input_plugin
             tier_object.add_curve_object(curve_object,key)
@@ -169,7 +158,7 @@ class Hierarchy:
     def _assign_group_membership_for_complete_hierarchy(self,grouping_algorithm):
         # i think once you get to this point, you might not need logic, they all run the same?
         if grouping_algorithm == "group-by-text":
-            grouping_by_string.assign_group_membership_for_complete_hierarchy(hierarchy_object = self) # stable but error prone, if you cam say that #
+            src.grouping_by_string.assign_group_membership_for_complete_hierarchy(hierarchy_object = self) # stable but error prone, if you cam say that #
         elif grouping_algorithm == "group-by-map": #testing 1 February 2025
             grouping_by_map.assign_group_membership_for_complete_hierarchy(hierarchy_object = self)
         return True
@@ -792,3 +781,5 @@ class Hierarchy:
         pass
     def destroy_unassigned_curves(self):
         pass
+
+

@@ -6,6 +6,10 @@ Created: 20 January 2024
 Purpose:
 Classic Pavlov grouping
 """ 
+import os
+from pathlib import Path
+import src.json_handler
+from src.directories import Directories
 class Vars:
     # pass, with clarity :)
     comp_char = "/" #compound character
@@ -98,3 +102,86 @@ def define_groups(group_names,subgroup_names):
     
     
     return dict_groups_tiers
+
+def get_group_names_and_subgroup_names_and_file_names_from_import_directory_hierarchy(directory):
+    # assumes three tiers - in future make modular to any size
+    #directory = cls.get_import_dir()
+    print(f"directory = {directory}")
+    group_names = check_first_level_import_directory_names(directory)
+    subgroup_names = check_second_level_import_directory_names(directory,group_names)
+    file_paths, file_names = check_third_level_import_file_names(directory,group_names,subgroup_names)
+    return group_names, subgroup_names, file_paths, file_names
+
+def check_first_level_import_directory_names(directory):
+    # looks at tree in grouping directory to assess group names 
+    # cls.get_import_dir() # path of top layer
+    #group_names = [x[1] for x in os.walk(cls.get_import_dir())]
+    group_names = next(os.walk(directory))[1]
+    print(f"group_names = {group_names}")
+    return group_names
+
+def check_second_level_import_directory_names(directory,group_names):
+    subgroup_names = []
+    for group_name in group_names:
+        subgroups_of_group = next(os.walk(directory+group_name))[1]
+        subgroup_names.extend(subgroups_of_group)
+    print(f"subgroup_names = {subgroup_names}")
+    return subgroup_names
+
+def check_third_level_import_file_names(directory,group_names,subgroup_names):
+    file_paths = []
+    file_names = []
+    for group_name in group_names:
+        for subgroup_name in subgroup_names: 
+            try:
+                directory_pathlib = Path(directory) / group_name / subgroup_name
+                for file_path in directory_pathlib.iterdir(): # special chars make it go whack
+                    if file_path.is_file():
+                        file_paths.append(str(file_path))
+                        filename = os.path.basename(str(file_path).replace('\\', '/'))
+                        file_names.append(filename)
+            except Exception as e:
+                print(f"Error processing directory: {directory_pathlib}. Error: {e}")
+    return file_paths, file_names
+
+
+def generate_directory_structure(root_dir):
+    ## Example usage
+    #root_directory = "/path/to/root"
+    #directory_structure = generate_directory_structure(root_directory)
+    directory_structure = {}
+    for root, dirs, files in os.walk(root_dir):
+        # Create a nested dictionary path based on the current root path
+        current_level = directory_structure
+        path_parts = os.path.relpath(root, root_dir).split(os.sep)
+        for part in path_parts:
+            if part not in current_level:
+                current_level[part] = {}
+            current_level = current_level[part]
+        # Add the files at the current root level, skipping 'desktop.ini'
+        current_level["files"] = [file for file in files if file != 'desktop.ini']
+    return directory_structure
+
+def generate_directory_structure_v3(path):
+    # Extract the root folder's name
+    folder_name = os.path.basename(os.path.abspath(path))
+    structure = {"directory": folder_name, "files": [], "directories": []}
+
+    for item in os.listdir(path):
+        item_path = os.path.join(path, item)
+        if os.path.isfile(item_path):
+            structure["files"].append(item)
+        elif os.path.isdir(item_path):
+            structure["directories"].append(generate_directory_structure_v3(item_path))
+
+    return structure
+
+def call(directory_path): # example
+    # Replace 'your_directory_path' with the path to the directory you want to analyze
+    output_file = Directories.get_group_by_directory_intermediate_export_json_filepath()
+    # Step 1: Generate the directory structure with files appearing first
+    directory_structure = generate_directory_structure_v3(directory_path)
+    # Step 2: Export the structure to a JSON file
+    src.json_handler.export_to_json(directory_structure, Directories.get_group_by_directory_intermediate_export_json_filepath())
+    print(f"JSON file '{output_file}' has been created!")
+    return directory_structure

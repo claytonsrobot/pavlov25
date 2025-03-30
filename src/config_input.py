@@ -4,18 +4,18 @@ Author: Clayton Bennett
 Created: 01 June 2024
 
 '''
+import numpy as np
+import os
+from pprint import pprint
 
 #import inspect
 #import json
 #import environmental
 #import platform # assumes local is windows and server is linux for vercel
 import src.filter_files as ff
-import numpy as np
-import os
-
+import src.grouping_by_directory
 from src.directories import Directories
-from pprint import pprint
-from src import toml_utils
+import src.toml_utils
 
 #from parse_user_input_config import parse_user_input_config
 
@@ -49,14 +49,14 @@ class ConfigInput:
         self.export_directory = ""
     
     def load_config_entry(self): 
-        loaded_config_entry_toml = toml_utils.load_toml(self.config_entry_filepath)
+        loaded_config_entry_toml = src.toml_utils.load_toml(self.config_entry_filepath)
         config_input_filename = loaded_config_entry_toml["entry"]["config_input_filename"]
         config_input_path = os.path.normpath(Directories.get_config_dir()+"\\"+config_input_filename)
         Directories.check_file(config_input_path)
         return config_input_path
     
     def load_grouping_entry(self):
-        loaded_grouping_entry_toml = toml_utils.load_toml(self.grouping_entry_filepath)
+        loaded_grouping_entry_toml = src.toml_utils.load_toml(self.grouping_entry_filepath)
         grouping_selection_filename = loaded_grouping_entry_toml["grouping"]["grouping_selection_filename"]
         grouping_algorithm = loaded_grouping_entry_toml["grouping"]["algorithm"]
         print(f"grouping_selection_filename = {grouping_selection_filename}") 
@@ -89,21 +89,25 @@ class ConfigInput:
     def define_and_load_default_config_input(self):
         config_input_path = self.load_config_entry()
         self.grouping_selection_path, self.grouping_algorithm = self.load_grouping_entry()
-        raw_loaded_config = toml_utils.load_toml(config_input_path)["config"]
+        raw_loaded_config = src.toml_utils.load_toml(config_input_path)["config"]
         #self.loaded_config = self.assign_known_config_filenames(raw_loaded_config,config_input_path,self.config_entry_filepath)
         self.loaded_config = self.clean_imported_numerics(raw_loaded_config) # if the json is poorly formatted for nums
 
         if self.grouping_algorithm == "group-by-text":
-            self.raw_loaded_grouping = toml_utils.load_toml(self.grouping_selection_path) # this does have a particalr
+            self.raw_loaded_grouping = src.toml_utils.load_toml(self.grouping_selection_path) # this does have a particalr
             self.loaded_grouping = (self.raw_loaded_grouping["grouping"]).copy() 
+            src.json_handler.export_to_json(self.loaded_grouping, Directories.get_group_by_text_intermediate_export_json_filepath())
         elif self.grouping_algorithm == "group-by-map":
             #self.loaded_csv_grouping = self.load_csv(self.grouping_selection_path) # this will inherently have a different structure compared to the toml import. Hypothetically we could leverage functon overloading to manage this.
             self.loaded_grouping = self.load_csv(self.grouping_selection_path)
+            src.json_handler.export_to_json(self.loaded_grouping, Directories.get_group_by_spreadsheet_intermediate_export_json_filepath())
 
         elif self.grouping_algorithm == "group-by-directory":
-            # some dictionary structure based on directory hierarchy
+            "Discren dictionary structure based on directory hierarchy"
+            self.loaded_grouping = src.grouping_by_directory.call(directory_path = Directories.get_import_dir())
+            #defunct, moved to call: self.loaded_grouping = src.grouping_by_directory.generate_directory_structure_v3(Directories.get_import_dir())
+            #defunct, moved to call: src.json_handler.export_to_json(self.loaded_grouping, Directories.get_group_by_directory_intermediate_export_json_filepath())
 
-            self.loaded_grouping = Directories.generate_directory_structure(Directories.get_import_dir())
 
         #self.pull_specific_values_from_json_config_input_object(self.loaded_config)
         if True: # force to show outdated (free simple) gui
@@ -131,7 +135,7 @@ if __name__ == "__main__":
 
     config_input_object = ConfigInput()
     #loaded_json= config_input_object.load_json(filepath)
-    loaded_config= toml_utils.load_toml(filepath)
+    loaded_config= src.toml_utils.load_toml(filepath)
     #loaded_json_gui_expected_defaults = config_input_object.load_json(filepath)
     #loaded_json_kate_config = config_input_object.load_json(default_config_path)
     #print(json.dumps(loaded_json,indent=4))

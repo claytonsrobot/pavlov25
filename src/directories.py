@@ -88,6 +88,18 @@ class Directories:
     @classmethod
     def get_groupings_dir(cls):
         return cls.get_config_dir()+"\\groupings\\"
+    @classmethod
+    def get_intermediate_group_structure_export_dir(cls):
+        return cls.get_groupings_dir()+"\\intermediate_group_structure_export\\"
+    @classmethod
+    def get_group_by_directory_intermediate_export_json_filepath(cls):
+        return cls.get_intermediate_group_structure_export_dir()+"group_by_directory_intermediate_export.json"
+    @classmethod
+    def get_group_by_spreadsheet_intermediate_export_json_filepath(cls):
+        return cls.get_intermediate_group_structure_export_dir()+"group_by_spreadsheet_intermediate_export.json"
+    @classmethod
+    def get_group_by_text_intermediate_export_json_filepath(cls):
+        return cls.get_intermediate_group_structure_export_dir()+"group_by_text_intermediate_export.json"
     
     # migrated
     @classmethod
@@ -111,65 +123,3 @@ class Directories:
             # the file exists
             return True
         
-    @classmethod
-    def get_group_names_and_subgroup_names_and_file_names_from_import_directory_hierarchy(cls,directory):
-        # assumes three tiers - in future make modular to any size
-        #directory = cls.get_import_dir()
-        print(f"directory = {directory}")
-        group_names = cls.check_first_level_import_directory_names(directory)
-        subgroup_names = cls.check_second_level_import_directory_names(directory,group_names)
-        file_paths, file_names = cls.check_third_level_import_file_names(directory,group_names,subgroup_names)
-        return group_names, subgroup_names, file_paths, file_names
-
-    @classmethod
-    def check_first_level_import_directory_names(cls,directory):
-        # looks at tree in grouping directory to assess group names 
-        # cls.get_import_dir() # path of top layer
-        #group_names = [x[1] for x in os.walk(cls.get_import_dir())]
-        group_names = next(os.walk(directory))[1]
-        print(f"group_names = {group_names}")
-        return group_names
-    
-    @classmethod
-    def check_second_level_import_directory_names(cls,directory,group_names):
-        subgroup_names = []
-        for group_name in group_names:
-            subgroups_of_group = next(os.walk(directory+group_name))[1]
-            subgroup_names.extend(subgroups_of_group)
-        print(f"subgroup_names = {subgroup_names}")
-        return subgroup_names
-
-    @classmethod
-    def check_third_level_import_file_names(cls,directory,group_names,subgroup_names):
-        file_paths = []
-        file_names = []
-        for group_name in group_names:
-            for subgroup_name in subgroup_names: 
-                try:
-                    directory_pathlib = Path(directory) / group_name / subgroup_name
-                    for file_path in directory_pathlib.iterdir(): # special chars make it go whack
-                        if file_path.is_file():
-                            file_paths.append(str(file_path))
-                            filename = os.path.basename(str(file_path).replace('\\', '/'))
-                            file_names.append(filename)
-                except Exception as e:
-                    print(f"Error processing directory: {directory_pathlib}. Error: {e}")
-        return file_paths, file_names
-    
-    @staticmethod
-    def generate_directory_structure(root_dir):
-        ## Example usage
-        #root_directory = "/path/to/root"
-        #directory_structure = generate_directory_structure(root_directory)
-        directory_structure = {}
-        for root, dirs, files in os.walk(root_dir):
-            # Create a nested dictionary path based on the current root path
-            current_level = directory_structure
-            path_parts = os.path.relpath(root, root_dir).split(os.sep)
-            for part in path_parts:
-                if part not in current_level:
-                    current_level[part] = {}
-                current_level = current_level[part]
-            # Add the files at the current root level, skipping 'desktop.ini'
-            current_level["files"] = [file for file in files if file != 'desktop.ini']
-        return directory_structure

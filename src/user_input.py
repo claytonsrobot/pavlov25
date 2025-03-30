@@ -1,5 +1,5 @@
 '''
-Title: userInput.py
+Title: user_input.py
 Author: Clayton Bennett
 Created: 25 November 2023
 
@@ -10,11 +10,15 @@ Or maybe all plugins shuld be made into lists, regardless of source,so that all 
 '''
 import os
 #import re
+#from pprint import pprint
+
 from src import filter_files as ff
 from src import environmental
-from src import grouping_by_string
-from pprint import pprint
+import src.grouping_by_string
+import src.grouping_by_directory
+import src.config_input
 from src.directories import Directories
+
 class UserInput:
     gui_object = None
     style_object = None
@@ -146,7 +150,7 @@ class UserInput:
             self.filenames = ff.snip_filenames_from_request_session(self.scene_object.request.session["list_csv_uploads"])
             self.filepaths = self.scene_object.request.session["list_csv_uploads"]
         elif config_input_object.grouping_algorithm != "group-by-directory":
-            
+            "group-by-text, group-by-spreadsheet, group-by-json"
             self.filetype_allowed_list = self.extract_filetypes_allowed_list_from_import_plugin() # rather than the cij, which is already known
             self.filenames = ff.get_filelist_filetyped(self.filetype_allowed_list,Directories.get_import_dir()) # this is non-modular for the group-by-directory algorithm, becase it assumes all raw data files are in the same directory # get away from that assumption
             
@@ -154,25 +158,25 @@ class UserInput:
             self.filepaths = [Directories.get_import_dir() + x for x in self.filenames]
             # we should be starting with filepaths then trimming to filenames.
             # all processes should use the whole filepath where possible, to modularize for either group-by-string and group-by-directory
-
         elif config_input_object.grouping_algorithm == "group-by-directory":
 
             
             # explore first and second level directories in the projects/{project_name}/"imports" folder
             # migrate this to user_input_config 
-            self.group_names, self.subgroup_names, self.file_paths, self.file_names = Directories.get_group_names_and_subgroup_names_and_file_names_from_import_directory_hierarchy(directory = Directories.get_import_dir())
-            
+            self.group_names, self.subgroup_names, file_paths, file_names = src.grouping_by_directory.get_group_names_and_subgroup_names_and_file_names_from_import_directory_hierarchy(directory = Directories.get_import_dir())
+            self.group_names, self.subgroup_names, file_paths, file_names = src.grouping_by_directory.get_group_names_and_subgroup_names_and_file_names_from_group_by_directory_intermediate_export_json_file()
+            self.group_names, self.subgroup_names, file_paths, file_names = src.config_input.get_group_names_and_subgroup_names_and_file_names_from_group_by_directory_cij_loaded_grouping()
             # for now don't check filetypes, assume all are good
-            self.filepath,self.filenames = foo(config_input_object.loaded_grouping)
-            self.filenames = config_input_object.file_names
-            self.filepaths = config_input_object.file_paths
+            self.filepaths,self.filenames = foo(config_input_object.loaded_grouping)
+            self.filenames = file_names
+            self.filepaths = file_paths
 
         print(f"self.filepaths = {self.filepaths}")
         print(f"self.filenames = {self.filenames}")
 
         if True: # config_input_object.grouping_algorithm == "group-by-string" or config_input_object.grouping_algorithm == "group-by-directory":
         # this is a misnomer, because all algorithms can be fed this way. It will generate empties, and then destroy them. Non-ideal, but. 
-            self.dict_groups_tiers = grouping_by_string.define_groups(self.group_names,self.subgroup_names)
+            self.dict_groups_tiers = src.grouping_by_string.define_groups(self.group_names,self.subgroup_names)
         elif False: # config_input_object.grouping_algorithm == "group-by-map":
             self.dict_groups_tiers = grouping_by_.define_groups(self.group_names,self.subgroup_names)
 
