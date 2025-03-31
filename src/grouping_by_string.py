@@ -8,7 +8,7 @@ Classic Pavlov grouping
 """ 
 class GBS:
     comp_char = "/" #compound character
-def assign_group_membership_for_complete_hierarchy(hierarchy_object):
+def assign_group_membership_for_complete_hierarchy(hierarchy_object,loaded_grouping):
     # fix this.
     # add objects to groups
     # do it at conception, inside the GUI process?
@@ -63,6 +63,7 @@ def assign_group_membership_for_complete_hierarchy(hierarchy_object):
     # check for curve_objects that have not been assigned a supergroup
 
 def define_groups(group_names,subgroup_names):
+    "create compound group names, and return a dictionary based on tier. 3 tier paradigm"
     
     ## Leverage: Make subgroup names redundant for each group using the compound_subgroup_name
     #self.secret_full_name = "null0-null1-null2-null3" # scene-Stiles-June, scene-Stiles, etc. number of hyphens should equal tier of group, ideally. scene-Maxson-June is different from scene-Stiles-June. Any dictionary keys athat need a name should use the group_object.secret_full_name. No keys might be better.

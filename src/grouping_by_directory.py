@@ -9,11 +9,13 @@ Classic Pavlov grouping
 import os
 from pathlib import Path
 import src.json_handler
+from src.hierarchy import get_group_filelist_from_loaded_grouping
+from src.hierarchy import get_group_subgrouplist_from_loaded_grouping
 from src.directories import Directories
 class Vars:
     # pass, with clarity :)
     comp_char = "/" #compound character
-def assign_group_membership_for_complete_hierarchy(hierarchy_object):
+def assign_group_membership_for_complete_hierarchy(hierarchy_object, loaded_grouping):
 
     # apparently this is canon now. All hail. 
     # use the existing json stucture, rather than "in" text based stuff
@@ -36,7 +38,31 @@ def assign_group_membership_for_complete_hierarchy(hierarchy_object):
                     #if g_key.lower() in c_key.lower():
                     #if group.simple_name.lower() in c_key.lower():
                     
-                    if group.simple_name.lower() in c_key.lower() and group.compound_subgroup_name.split(Vars.comp_char)[0].lower() in c_key.lower() and group.compound_subgroup_name.split(Vars.comp_char)[-1].lower() in c_key.lower():
+                    # IN TEXT CHECK
+                    #print(f"loaded_grouping, bb = {loaded_grouping}")
+                    #print(f"c_key.lower() = {c_key.lower()}")
+                    #print(f"g_key.lower() = {g_key.lower()}")
+                    #print(f"group.simple_name.lower() = {group.simple_name.lower()}")
+                    #print(f"g_key.split(Vars.comp_char)[0].lower() = {g_key.split(Vars.comp_char)[0].lower()}")
+                    #print(f"g_key.split(Vars.comp_char)[-1].lower() = {g_key.split(Vars.comp_char)[-1].lower()}")
+                    #print(f"get_group_filelist_from_loaded_grouping = {get_group_filelist_from_loaded_grouping}")
+
+                    if (
+                        get_group_filelist_from_loaded_grouping(loaded_grouping=loaded_grouping, group_name=group.simple_name.lower()) is not None
+                        and c_key.lower() in get_group_filelist_from_loaded_grouping(loaded_grouping=loaded_grouping, group_name=group.simple_name.lower())
+                        and get_group_filelist_from_loaded_grouping(loaded_grouping=loaded_grouping, group_name=group.compound_subgroup_name.split(Vars.comp_char)[0].lower()) is not None
+                        and c_key.lower() in get_group_filelist_from_loaded_grouping(loaded_grouping=loaded_grouping, group_name=group.compound_subgroup_name.split(Vars.comp_char)[0].lower())
+                        and get_group_filelist_from_loaded_grouping(loaded_grouping=loaded_grouping, group_name=group.compound_subgroup_name.split(Vars.comp_char)[-1].lower()) is not None
+                        and c_key.lower() in get_group_filelist_from_loaded_grouping(loaded_grouping=loaded_grouping, group_name=group.compound_subgroup_name.split(Vars.comp_char)[-1].lower())
+                        ):
+
+                        #if c_key.lower() in get_group_filelist_from_loaded_grouping(loaded_grouping = loaded_grouping, group_name = group.simple_name.lower()) \
+                        # and c_key.lower() in get_group_filelist_from_loaded_grouping(loaded_grouping = loaded_grouping, group_name = group.compound_subgroup_name.split(Vars.comp_char)[0].lower()) \
+                        # and c_key.lower() in get_group_filelist_from_loaded_grouping(loaded_grouping = loaded_grouping, group_name = group.compound_subgroup_name.split(Vars.comp_char)[-1].lower()): 
+                        #if group.simple_name.lower() in c_key.lower() \
+                        #     and g_key.split(Vars.comp_char)[0].lower() in c_key.lower() \
+                        #     and g_key.split(Vars.comp_char)[-1].lower() in c_key.lower():
+                        
                         #curve_object.add_supergroup(group) # redundant, called in add_curve_object
                         group.add_curve_object(curve_object,c_key)
                         tally_of_curve_objects_assigned_to_a_group += 1 # once complete, will equal len(hierarchy_object.dict_curve_object_all.keys()). If it doesn't, there are 'none' type subgroups, where a curve_object fits into a stated group but none of its stated subgroups
@@ -50,15 +76,37 @@ def assign_group_membership_for_complete_hierarchy(hierarchy_object):
                     for s_key,subgroup in hierarchy_object.dict_tier_objects[t_key+1].dict_group_objects.items():
                         #if s_key.lower() in c_key.lower() and g_key.lower() in c_key.lower(): # stable for simple-name
                         #if subgroup.simple_name.lower() in c_key.lower() and group.simple_name.lower() in c_key.lower() and subgroup.simple_name.lower() in group.name.lower(): # attempt at complex names
-                        if subgroup.compound_subgroup_name.split(Vars.comp_char)[0].lower() in c_key.lower() and subgroup.compound_subgroup_name.split(Vars.comp_char)[-1].lower() in c_key.lower() and group.simple_name.lower() in c_key.lower():
+                        
+                        # IN TEXT CHECK 
+                        #print(f"subgroup.simple_name.lower() = {subgroup.simple_name.lower()}")
+                        #print(f"s_key = {s_key}")
+                        if (
+                            get_group_subgrouplist_from_loaded_grouping(loaded_grouping = loaded_grouping, group_name = subgroup.compound_subgroup_name.split(Vars.comp_char)[0].lower()) is not None
+                            and get_group_filelist_from_loaded_grouping(loaded_grouping = loaded_grouping, group_name = group.simple_name.lower()) is not None
+                            and subgroup.simple_name.lower() in get_group_subgrouplist_from_loaded_grouping(loaded_grouping = loaded_grouping, group_name = subgroup.compound_subgroup_name.split(Vars.comp_char)[0].lower()) 
+                            and c_key.lower() in get_group_filelist_from_loaded_grouping(loaded_grouping = loaded_grouping, group_name = group.simple_name.lower())
+                            ):
+                            #if subgroup.compound_subgroup_name.split(Vars.comp_char)[0].lower() in c_key.lower() 
+                            # and subgroup.compound_subgroup_name.split(Vars.comp_char)[-1].lower() in c_key.lower() \
+                            # and group.simple_name.lower() in c_key.lower():
+                            
                             #print(f"\ngroup.simple_name: {group.simple_name}, subgroup.simple_name: {subgroup.simple_name}")
                             #print(f"group.compound_subgroup_name: {group.compound_subgroup_name}, subgroup.compound_subgroup_name: {subgroup.compound_subgroup_name}")
                             #print(f"g_key: {g_key}, s_key: {s_key}, c_key: {c_key}")
-                            group.add_subgroup(subgroup,s_key)
+                            group.add_subgroup(subgroup,s_key) # need to check for redundancy, especially becuase this loop cycles through each curve name
                             #print(f's_key in c_key and g_key in c_key: {g_key},{s_key},{c_key}')
                             #subgroup.add_supergroup(group,g_key) # redundant, done in group.add_subgroup()
                         #elif s_key.lower() in c_key.lower() and g_key=="scene_object":# the one exception to the rule of the group name needing to be in the file name
-                        elif subgroup.simple_name.lower() in c_key.lower() and g_key=="scene_object":#
+                        
+                        # IN TEXT CHECK
+                        #elif subgroup.simple_name.lower() in c_key.lower() \
+                        #     and g_key=="scene_object":#
+                        elif (
+                            get_group_filelist_from_loaded_grouping(loaded_grouping = loaded_grouping, group_name = subgroup.simple_name.lower()) is not None
+                            and c_key.lower() in get_group_filelist_from_loaded_grouping(loaded_grouping = loaded_grouping, group_name = subgroup.simple_name.lower()) \
+                            and group.name=="scene_object"
+                            ):
+                            
                             #print(f'c_key:{c_key}')
                             group.add_subgroup(subgroup,s_key)
                         #    #subgroup.add_supergroup(group,g_key) # redundant, done in group.add_subgroup()
@@ -70,7 +118,8 @@ def assign_group_membership_for_complete_hierarchy(hierarchy_object):
     
     # check for curve_objects that have not been assigned a supergroup
 
-def define_groups(group_names,subgroup_names):
+def define_groups(loaded_grouping):
+    "create compound group names, and return a dictionary based on tier. 3 tier paradigm"
     # canon
     
     ## Leverage: Make subgroup names redundant for each group using the compound_subgroup_name
@@ -79,7 +128,6 @@ def define_groups(group_names,subgroup_names):
     
     group_names = group_names.split(',') # only works for loaded json - need to do this further upsteam
     subgroup_names = subgroup_names.split(',')
-
 
 
     for i,group in enumerate(group_names):
@@ -101,7 +149,6 @@ def define_groups(group_names,subgroup_names):
     dict_groups_tiers = dict()
     dict_groups_tiers[1] = group_compound_names
     dict_groups_tiers[2] = subgroup_compound_names # this is where these compound names are born, here as a key, later to be assigned as compound_subgroup_name in Group() object initialization
-    
     
     return dict_groups_tiers
 

@@ -851,3 +851,123 @@ test
 quit
 test
 quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+1
+2
+eval self.user_input_object
+eval dir(self.user_input_object)
+eval self.user_input_object.dict_groups_tiers
+eval pprint(self.user_input_object.dict_groups_tiers)
+eval dir(self.user_input_object)
+eval pprint(self.config_input_object.__dict__)
+eval pprint(self.config_input_object.loaded_grouping)
+eval self.config_input_object.loaded_grouping
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+clear
+1
+2
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+1
+2
+eal self.scene_object
+eval self.scene_object
+eval self.scene_object.simple_name
+eval self.scene_object.key
+eval self.scene_object.complex_subgroup_name
+eval self.scene_object.compound_subgroup_name
+eval self.scene_object.__dict__
+eval pprint(self.scene_object.__dict__)
+eval self.scene_object.simple_name
+eval self.scene_object.name
+eval self.scene_object.simple_name
+eval self.scene_object.name
+quit
+test
+1
+2
+quit
+test
+1
+2
+eval (self.scene_object.dict_group_objects_all)
+eval (self.scene_object.dict_group_objects_most)
+eval (self.scene_object.dict_children)
+eval (self.hierarchy_object.dict_children)
+eval (self.hierarchy_object.dict_tier_object)
+eval (self.hierarchy_object.dict_tier_objects)
+eval (self.hierarchy_object.dict_tier_objects[0])
+eval (self.hierarchy_object.dict_tier_objects[0].dict_group_objects)
+eval (self.hierarchy_object.dict_tier_objects[1].dict_group_objects)
+eval (self.hierarchy_object.dict_tier_objects[2].dict_group_objects)
+eval (self.hierarchy_object.dict_tier_objects[3].dict_group_objects)
+eval (self.hierarchy_object.dict_group_objects_all)
+eval (self.hierarchy_object.dict_group_objects_most)
+eval (self.hierarchy_object.dict_tier_objects[2].dict_group_objects)
+eval (self.hierarchy_object.dict_tier_objects[1].dict_group_objects)
+eval (self.hierarchy_object.dict_tier_objects[1].dict_group_objects['scene/test1'])
+eval (self.hierarchy_object.dict_tier_objects[1].dict_group_objects['scene/test1'].dict_children)
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+1
+2
+eval (self.hierarchy_object.dict_tier_objects[1].dict_group_objects)
+eval (self.hierarchy_object.dict_tier_objects[1].dict_group_objects)
+quit

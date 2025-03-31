@@ -98,7 +98,7 @@ class ConfigInput:
             self.raw_loaded_grouping = src.toml_utils.load_toml(self.grouping_selection_path) # this does have a particalr
             self.loaded_grouping = (self.raw_loaded_grouping["grouping"]).copy() 
             src.json_handler.export_to_json(self.loaded_grouping, Directories.get_group_by_text_intermediate_export_json_filepath())
-        elif self.grouping_algorithm == "group-by-map":
+        elif self.grouping_algorithm == "group-by-spreadsheet":
             #self.loaded_csv_grouping = self.load_csv(self.grouping_selection_path) # this will inherently have a different structure compared to the toml import. Hypothetically we could leverage functon overloading to manage this.
             self.loaded_grouping = self.load_csv(self.grouping_selection_path)
             src.json_handler.export_to_json(self.loaded_grouping, Directories.get_group_by_spreadsheet_intermediate_export_json_filepath())

@@ -770,7 +770,7 @@ class PavlovCLI(cmd2.Cmd):
 
     def build_grouping(self,line):
         # jam in do_3(None), skipinterface for now
-        main.build_grouping(self.hierarchy_object,self.user_input_object)
+        main.build_grouping(self.hierarchy_object,self.user_input_object,loaded_grouping = self.config_input_object.loaded_grouping)
 
     def build_pointcloud(self,line):
         "Independantly build the point cloud"  

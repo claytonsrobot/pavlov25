@@ -12,7 +12,7 @@ from src.tier import tier as Tier
 import inspect
 import src.grouping_by_string
 from src.grouping_by_string import GBS
-import src.grouping_by_map
+import src.grouping_by_spreadsheet
 import src.grouping_by_directory
 from src.curve import Curve
 import src.json_handler
@@ -63,7 +63,7 @@ class Hierarchy:
             curve_object = Curve(name=filename)
             curve_object.add_curve_object_to_hierarchy_object()
 
-    def build_tiers_and_groups_objects(self,user_input_object):
+    def build_tiers_and_groups_objects(self,user_input_object,loaded_grouping):
         # user input objec is just used for stack direciton and group name dictionary
         # you could have tiers built ....somewhere else, then have them handed in, but this is fine.
         # fine, if you improve the tier instantiation.
@@ -133,7 +133,7 @@ class Hierarchy:
             tier_object.add_curve_object(curve_object,key)
         
         #self._make_empty_group_for_each_tier() # moved up before dict_group_objects_all is generated from the groups in each tier
-        self._assign_group_membership_for_complete_hierarchy(self.user_input_object.grouping_algorithm) # based on if g_key.lower() in c_key.lower():
+        self._assign_group_membership_for_complete_hierarchy(self.user_input_object.grouping_algorithm, loaded_grouping) # based on if g_key.lower() in c_key.lower():
         
         #self._check_for_unassigned_curve_objects()
         if False: # testing, please turn this back on
@@ -162,14 +162,14 @@ class Hierarchy:
             group_object = Group(scene_object=self.scene_object,name=g_key) 
             tier_object.add_group_object(group_object,g_key)
 
-    def _assign_group_membership_for_complete_hierarchy(self,grouping_algorithm):
+    def _assign_group_membership_for_complete_hierarchy(self,grouping_algorithm,loaded_grouping):
         # i think once you get to this point, you might not need logic, they all run the same?
         if grouping_algorithm == "group-by-text":
-            src.grouping_by_string.assign_group_membership_for_complete_hierarchy(hierarchy_object = self) # stable but error prone, if you cam say that #
-        elif grouping_algorithm == "group-by-map": #testing 1 February 2025
-            src.grouping_by_map.assign_group_membership_for_complete_hierarchy(hierarchy_object = self)
+            src.grouping_by_string.assign_group_membership_for_complete_hierarchy(hierarchy_object = self, loaded_grouping = loaded_grouping) # stable but error prone, if you cam say that #
+        elif grouping_algorithm == "group-by-spreadsheet": #testing 1 February 2025
+            src.grouping_by_spreadsheet.assign_group_membership_for_complete_hierarchy(hierarchy_object = self, loaded_grouping = loaded_grouping)
         elif grouping_algorithm == "group-by-directory": #testing 1 February 2025
-            src.grouping_by_directory.assign_group_membership_for_complete_hierarchy(hierarchy_object = self)
+            src.grouping_by_directory.assign_group_membership_for_complete_hierarchy(hierarchy_object = self, loaded_grouping = loaded_grouping)
         return True
     # check for curve_objects that have not been assigned a supergroup    
     def _add_curve_object_to_ungrouped(self,curve_object):
@@ -304,7 +304,7 @@ class Hierarchy:
     
     def _explicate_siblings(self):
         for group_object in self.dict_group_objects_all.values(): 
-            print(f"group_object.name = {group_object.name}")
+            print(f"group_object.name, bb = {group_object.name}")
             for child in group_object.dict_children.values():
                 #child.siblings = set.union(group_object.dict_children.values())
                 # set way
@@ -796,4 +796,56 @@ class Hierarchy:
     def destroy_unassigned_curves(self):
         pass
 
+    # END Hierarchy CLASS
+
+def get_group_filelist_from_loaded_grouping_v2(loaded_grouping, group_name):
+    "recursive. get_group_filelist_from_loaded_grouping()"
+    filename_list = None
+    # Helper function to traverse the structure recursively
+    def traverse_grouping(grouping):
+        if grouping['directory'] == group_name:  # Check if the directory matches the group name
+            return grouping['files']  # Return the list of files if it matches
+        
+        # If it doesn't match, search in the subdirectories
+        for sub_grouping in grouping.get('directories', []):
+            result = traverse_grouping(sub_grouping)
+            if result is not None:  # If a match is found in subdirectories, return the result
+                return result
+        return None  # Return None if no match is found
+
+    # Start traversing from the root of the grouping
+    filename_list = traverse_grouping(loaded_grouping)
+
+    return filename_list
+
+def get_group_filelist_from_loaded_grouping(loaded_grouping, group_name):
+    "stack based, no recursion. alternative to get_group_filelist_from_loaded_grouping_v2()"
+    # Initialize a stack with the root grouping
+    #print(f"group_name = {group_name}")
+    stack = [loaded_grouping]
+    while stack:
+        current_group = stack.pop()  # Get the last element from the stack
+        if current_group['directory'] == group_name:  # Check if the directory matches the group name
+            return current_group['files']  # Return the list of files if it matches
+        # Add subdirectories to the stack for further exploration
+        stack.extend(current_group.get('directories', []))
+    return None  # Return None if no match is found
+
+def get_group_subgrouplist_from_loaded_grouping(loaded_grouping, group_name):
+    "stack based, no recursion. Ensure that scene_object will work as a key, use 'import' or 'root' or just have that identified here." 
+    "modularize for scene, root, imports"
+    #print(f"group_name = {group_name}")
+    subgroup_name_list = None 
+    stack = [loaded_grouping]
+    while stack:
+        current_group = stack.pop()  # Get the last element from the stack
+        if current_group['directory'] == group_name:  # Check if the directory matches the group name
+            subgroup_name_list = [sub_group['directory'] for sub_group in current_group.get('directories', [])]
+            return subgroup_name_list  # Return the list of subdirectory names
+        
+        # Add subdirectories to the stack for further exploration
+        stack.extend(current_group.get('directories', []))
+    
+    return None  # Return None if no match is found
+    #return subgroup_name_list
 

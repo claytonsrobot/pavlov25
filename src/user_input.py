@@ -181,8 +181,9 @@ class UserInput:
         if True: # config_input_object.grouping_algorithm == "group-by-string" or config_input_object.grouping_algorithm == "group-by-directory":
         # this is a misnomer, because all algorithms can be fed this way. It will generate empties, and then destroy them. Non-ideal, but. 
             self.dict_groups_tiers = src.grouping_by_string.define_groups(self.group_names,self.subgroup_names)
-        elif False: # config_input_object.grouping_algorithm == "group-by-map":
-            self.dict_groups_tiers = grouping_by_.define_groups(self.group_names,self.subgroup_names)
+        elif False: # config_input_object.grouping_algorithm == "group-by-spreadsheet":
+            self.dict_groups_tiers = src.grouping_by_directory.define_groups(loaded_grouping = config_input_object.loaded_grouping)
+            # hosanna
 
     def extract_filetypes_allowed_list_from_import_plugin(self):
         #import_function = self._check_import_plugin()
@@ -194,7 +195,6 @@ class UserInput:
         #print(f"import_function_object.__dict__ = {import_function_object.__dict__}")
         self.import_filetype_list = import_function_object.filetype_allowed_list 
         return self.import_filetype_list
-
 
     def pull_values_from_export_control_object(self,export_control_object):
 

@@ -97,7 +97,7 @@ def main():
 
     run_interface(style_object,interface_object,user_input_object,config_input_object)
 
-    build_grouping(hierarchy_object,user_input_object)
+    build_grouping(hierarchy_object,user_input_object,loaded_grouping = config_input_object.loaded_grouping)
     
     export_control_object = import_data(scene_object,style_object,user_input_object,hierarchy_object)
                                         
@@ -202,10 +202,10 @@ def run_interface(style_object,interface_object,user_input_object,config_input_o
     else:
         user_input_object.pull_config_input_object(config_input_object) # direct pull, no interface
 
-def build_grouping(hierarchy_object,user_input_object):
+def build_grouping(hierarchy_object,user_input_object,loaded_grouping):
 
     hierarchy_object.cycle_through_filenames_intialize_curves()
-    hierarchy_object.build_tiers_and_groups_objects(user_input_object)
+    hierarchy_object.build_tiers_and_groups_objects(user_input_object,loaded_grouping)
 
 def import_data(scene_object,style_object,user_input_object,hierarchy_object):
     if False:

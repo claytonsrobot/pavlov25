@@ -1,5 +1,5 @@
 """
-Title: grouping_by_map.py
+Title: grouping_by_spreadsheet.py
 Author: Clayton Bennett
 Created: 20 January 2024
 
@@ -25,7 +25,7 @@ from src.directories import Directories
 
 
 
-def assign_group_membership_for_complete_hierarchy(hierarchy_object):
+def assign_group_membership_for_complete_hierarchy(hierarchy_object,loaded_grouping):
     hierarchy_object
     
     Directories.get_groupings_dir()
