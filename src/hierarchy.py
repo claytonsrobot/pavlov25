@@ -137,6 +137,11 @@ class Hierarchy:
         
         #self._check_for_unassigned_curve_objects()
         if False: # testing, please turn this back on
+            # the problem is text based assignment. items are deleted from dict_group_objects (though they are not struck from dict_members)
+            # the answer is to convert the legacy group-by-text to recognize the intermediate export format, with n levels, for group creation. 
+            # # and assignment need not be exahustive for every possible combo - no empty to-be-destroyed group needs to be created. 
+            # consider moving the self.group_names, self.subgroup_names, file_paths, file_names = src.config_input.get_three_tier_group_names_and_subgroup_names_and_file_names_from_group_by_directory_cij_loaded_grouping(data = config_input_object.loaded_grouping)
+            # such that it need not be made to use only three levels, and it generated groups directly with their subgroups and file contents, etc, beyond a three level paradigm
             self._destroy_empty_groups()
         self.maybe_destroy_unassigned_curves()
         self._make_dict_group_object_most()
