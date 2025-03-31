@@ -87,6 +87,7 @@ class ConfigInput:
         return loaded_config
 
     def define_and_load_default_config_input(self):
+        print("config_input.define_and_load_default_config_input()")
         config_input_path = self.load_config_entry()
         self.grouping_selection_path, self.grouping_algorithm = self.load_grouping_entry()
         raw_loaded_config = src.toml_utils.load_toml(config_input_path)["config"]
@@ -103,7 +104,7 @@ class ConfigInput:
             src.json_handler.export_to_json(self.loaded_grouping, Directories.get_group_by_spreadsheet_intermediate_export_json_filepath())
 
         elif self.grouping_algorithm == "group-by-directory":
-            "Discren dictionary structure based on directory hierarchy"
+            "Discern dictionary structure based on directory hierarchy"
             self.loaded_grouping = src.grouping_by_directory.call(directory_path = Directories.get_import_dir())
             #defunct, moved to call: self.loaded_grouping = src.grouping_by_directory.generate_directory_structure_v3(Directories.get_import_dir())
             #defunct, moved to call: src.json_handler.export_to_json(self.loaded_grouping, Directories.get_group_by_directory_intermediate_export_json_filepath())

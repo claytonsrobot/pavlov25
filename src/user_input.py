@@ -89,6 +89,7 @@ class UserInput:
         # each export style should have typical text orination scheme - we can use a dataframe for this, with expected values for each choice
 
     def pull_config_input_object(self,config_input_object):
+        print("user_input.pull_config_input_object()")
         self.grouping_algorithm = config_input_object.grouping_algorithm # necessary for hierarchy_object._assign_group_membership_for_complete_hierarchy()
         # it would be better to say use dictA.update(dictB)
         

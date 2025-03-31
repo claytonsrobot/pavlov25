@@ -12,7 +12,8 @@ from src.tier import tier as Tier
 import inspect
 import src.grouping_by_string
 from src.grouping_by_string import GBS
-from src import grouping_by_map
+import src.grouping_by_map
+import src.grouping_by_directory
 from src.curve import Curve
 import src.json_handler
 
@@ -135,7 +136,8 @@ class Hierarchy:
         self._assign_group_membership_for_complete_hierarchy(self.user_input_object.grouping_algorithm) # based on if g_key.lower() in c_key.lower():
         
         #self._check_for_unassigned_curve_objects()
-        self._destroy_empty_groups()
+        if False: # testing, please turn this back on
+            self._destroy_empty_groups()
         self.maybe_destroy_unassigned_curves()
         self._make_dict_group_object_most()
         self._tier_hierarchy_linking()
@@ -160,7 +162,9 @@ class Hierarchy:
         if grouping_algorithm == "group-by-text":
             src.grouping_by_string.assign_group_membership_for_complete_hierarchy(hierarchy_object = self) # stable but error prone, if you cam say that #
         elif grouping_algorithm == "group-by-map": #testing 1 February 2025
-            grouping_by_map.assign_group_membership_for_complete_hierarchy(hierarchy_object = self)
+            src.grouping_by_map.assign_group_membership_for_complete_hierarchy(hierarchy_object = self)
+        elif grouping_algorithm == "group-by-directory": #testing 1 February 2025
+            src.grouping_by_directory.assign_group_membership_for_complete_hierarchy(hierarchy_object = self)
         return True
     # check for curve_objects that have not been assigned a supergroup    
     def _add_curve_object_to_ungrouped(self,curve_object):
@@ -249,6 +253,7 @@ class Hierarchy:
         print("hierarchy._destroy_empty_groups()")
 
         # Part 1: Remove empty groups from dict_group_objects_all
+        # where have items been removed from dict_group_objects_all?
         group_keys_to_remove = [
             key for key, group in list(self.dict_group_objects_all.items())
             if group.dict_children is None
@@ -294,6 +299,7 @@ class Hierarchy:
     
     def _explicate_siblings(self):
         for group_object in self.dict_group_objects_all.values(): 
+            print(f"group_object.name = {group_object.name}")
             for child in group_object.dict_children.values():
                 #child.siblings = set.union(group_object.dict_children.values())
                 # set way
@@ -313,16 +319,19 @@ class Hierarchy:
         # a different looping apprach could find previous_object and place_in_supergroup attributes for all curve_object and group_objects, regardles of tier
 
         for t_key,tier_object in reversed(self.dict_tier_objects.items()):#bottom up
+            print(f"t_key = {t_key}")
             # places do not exist yet
             #sorted_objects = sorted(tier_object.dict_group_objects.values(), key=lambda obj: obj.place_in_supergroup)
             #for group_object in sorted_objects:
             for group_object in tier_object.dict_group_objects.values():
                 c_key_list = list(group_object.dict_children.keys())
+                print(f"group_object.name = {group_object.name}")
+                print(f"c_key_list = {c_key_list}")
                 #for child_objects in group_object.dict_children.values():
                 #for place,c_key in enumerate(c_key_list):
                 for place_in_supergroup,child_object in enumerate(group_object.dict_children.values()):
-                    #print(f"place_in_supergroup = {place_in_supergroup}")
-                    #print(f"child_object = {child_object}")
+                    print(f"place_in_supergroup = {place_in_supergroup}")
+                    print(f"child_object = {child_object}")
                     #child=group_object.dict_children[c_key]
                     #child.place_in_supergroup=place
                     child_object.place_in_supergroup=place_in_supergroup
@@ -343,7 +352,7 @@ class Hierarchy:
                         except:
                             #last_cousin.first_uncle = None
                             #child.last_nephew = None
-                            #print("\nWHACK1,hierarchy._determine_place_in_supergroup()")
+                            print("\nWHACK1,hierarchy._determine_place_in_supergroup()")
                             pass
                             last_cousin_not_yet_initialized=1
                     #finally, for both cases
@@ -351,7 +360,7 @@ class Hierarchy:
                         child_object.next_sibling = group_object.dict_children[c_key_list[place_in_supergroup+1]]
                     except:
                         child_object.next_sibling = None
-                        #print("\nWHACK2,hierarchy._determine_place_in_supergroup()")
+                        print("\nWHACK2,hierarchy._determine_place_in_supergroup()")
                         there_in_no_other_child_in_this_tier=1
                 last_cousin = child_object # hits for the end of the for loop
             if t_key==0:# scene_object

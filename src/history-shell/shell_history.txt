@@ -735,3 +735,117 @@ test
 1
 2
 quit
+test
+p -o sample
+1
+2
+3
+python t = 1
+python t
+eval t
+t
+eval self.user_input_object.dict_groups_tiers
+eval pprint(self.user_input_object.dict_groups_tiers)
+p -l
+p -o Don-EvonikPAA-MemphisCellulose
+1
+2
+eval pprint(self.user_input_object.dict_groups_tiers)
+eval self.user_input_object.grouping_algorithm
+quit
+test
+1
+2
+eval self.hierarchy_object.dict_tier_objects
+eval pprint(self.hierarchy_object.dict_tier_objects)
+eval pprint(self.hierarchy_object.dict_tier_objects[0])
+eval pprint(self.hierarchy_object.dict_tier_objects[])
+eval pprint(self.hierarchy_object.dict_tier_objects[1])
+eval pprint(self.hierarchy_object.dict_tier_objects[2])
+eval pprint(self.hierarchy_object.dict_tier_objects[3])
+eval pprint(self.hierarchy_object.dict_tier_objects[4])
+eval pprint(self.hierarchy_object.dict_tier_objects[4])
+eval pprint(self.hierarchy_object.dict_tier_objects["2"])
+eval pprint(self.hierarchy_object.dict_tier_objects[0])
+eval self.hierarchy_object.dict_tier_objects[0]
+eval dir(self.hierarchy_object.dict_tier_objects[0])
+eval dir(self.hierarchy_object.dict_tier_objects[0].dict_members)
+eval self.hierarchy_object.dict_tier_objects[0].dict_members
+eval self.hierarchy_object.dict_tier_objects[1].dict_members
+eval self.hierarchy_object.dict_tier_objects[2].dict_members
+eval self.hierarchy_object.dict_tier_objects[3].dict_members
+quit
+test
+1
+2
+quit
+test
+clear
+1
+2
+eval self.hierarchy_object.dict_tier_objects[1].dict_members
+eval self.hierarchy_object.dict_tier_objects[1].dict_group_object
+eval self.hierarchy_object.dict_tier_objects[1].dict_group_objects
+eval self.hierarchy_object.dict_tier_objects[1].dict_group_objects
+eval self.hierarchy_object.dict_tier_objects[0].dict_group_objects
+eval self.hierarchy_object.dict_tier_objects[1].dict_group_objects
+eval self.hierarchy_object.dict_tier_objects[3].dict_group_objects
+eval self.hierarchy_object.dict_tier_objects[1].dict_members
+eval self.hierarchy_object.dict_tier_objects[2].dict_members
+eval self.hierarchy_object.dict_tier_objects[3].dict_members
+quit
+test
+1
+2
+eval self.hierarchy_object.dict_tier_objects[3].dict_members
+eval self.hierarchy_object.dict_tier_objects[2].dict_members
+eval dir(self.hierarchy_object.dict_tier_objects[3])
+eval self.hierarchy_object.dict_tier_objects[3].dict_curve_objects
+eval self.hierarchy_object.dict_tier_objects[3].dict_group_objects
+eval self.hierarchy_object.dict_tier_objects[2].dict_group_objects
+eval self.hierarchy_object.dict_tier_objects[1].dict_group_objects
+eval self.hierarchy_object.dict_tier_objects[0].dict_group_objects
+eval self.hierarchy_object.dict_tier_objects[0].dict_members
+eval self.hierarchy_object.dict_tier_objects[1].dict_members
+eval self.hierarchy_object.dict_tier_objects[2].dict_members
+eval self.hierarchy_object.dict_tier_objects[0].dict_group_objects_all
+eval self.hierarchy_object.dict_tier_objects[0].dict_group_objects_most
+eval dir(self.hierarchy_object.dict_tier_objects[0])
+eval self.hierarchy_object.dict_tier_objects[1].key
+eval self.hierarchy_object.dict_tier_objects[1].stack_direction
+eval self.hierarchy_object.dict_tier_objects[1].sub_tier_object
+eval self.hierarchy_object.dict_tier_objects[1].super_tier_object
+eval self.hierarchy_object.dict_tier_objects[2].dict_children
+eval self.hierarchy_object.dict_tier_objects[2].dict_children
+eval self.hierarchy_object.dict_tier_objects[0].dict_group_objects_all
+eval self.hierarchy_object.dict_tier_objects[0]
+eval self.scene_object.dict_group_objects_all
+eval self.scene_object.dict_group_objects_most
+eval self.hierarcy_object.dict_group_objects_most
+eval self.hierarcy_object.dict_group_objects_all
+1
+eval self.hierarcy_object.dict_group_objects_all
+1
+2
+eval self.hierarchy_object.dict_group_objects_all
+eval self.hierarchy_object.dict_group_objects_most
+quit
+test
+1
+2
+eval self.hierarchy_object.dict_group_objects_most
+eval self.hierarchy_object.dict_group_objects_all
+eval self.hierarchy_object.dict_tier_objects[1].dict_members
+eval self.hierarchy_object.dict_tier_objects[1].dict_group_objects
+eval self.hierarchy_object.dict_tier_objects[2].dict_group_objects
+eval self.hierarchy_object.dict_group_objects_all
+eval pprint(self.hierarchy_object.dict_group_objects_all)
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit

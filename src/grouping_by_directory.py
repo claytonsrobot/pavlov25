@@ -14,7 +14,9 @@ class Vars:
     # pass, with clarity :)
     comp_char = "/" #compound character
 def assign_group_membership_for_complete_hierarchy(hierarchy_object):
+
     # apparently this is canon now. All hail. 
+    # use the existing json stucture, rather than "in" text based stuff
     # fix this.
     # add objects to groups
     # do it at conception
