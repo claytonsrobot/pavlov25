@@ -136,7 +136,7 @@ class Hierarchy:
         self._assign_group_membership_for_complete_hierarchy(self.user_input_object.grouping_algorithm, loaded_grouping) # based on if g_key.lower() in c_key.lower():
         
         #self._check_for_unassigned_curve_objects()
-        if False: # testing, please turn this back on
+        if True: # testing, please turn this back on
             # the problem is text based assignment. items are deleted from dict_group_objects (though they are not struck from dict_members)
             # the answer is to convert the legacy group-by-text to recognize the intermediate export format, with n levels, for group creation. 
             # # and assignment need not be exahustive for every possible combo - no empty to-be-destroyed group needs to be created. 
@@ -169,7 +169,7 @@ class Hierarchy:
         elif grouping_algorithm == "group-by-spreadsheet": #testing 1 February 2025
             src.grouping_by_spreadsheet.assign_group_membership_for_complete_hierarchy(hierarchy_object = self, loaded_grouping = loaded_grouping)
         elif grouping_algorithm == "group-by-directory": #testing 1 February 2025
-            src.grouping_by_directory.assign_group_membership_for_complete_hierarchy(hierarchy_object = self, loaded_grouping = loaded_grouping)
+            src.grouping_by_directory.assign_group_membership_for_complete_hierarchy_v0(hierarchy_object = self, loaded_grouping = loaded_grouping)
         return True
     # check for curve_objects that have not been assigned a supergroup    
     def _add_curve_object_to_ungrouped(self,curve_object):
@@ -557,6 +557,7 @@ class Hierarchy:
         # add them all to the same diaspora list
 
         for tier_object in reversed(self.dict_tier_objects.values()):#bottom up
+            print(f"tier_object.key = {tier_object.key}")
             sorted_objects = sorted(tier_object.dict_group_objects.values(), key=lambda obj: obj.place_in_supergroup)
             for group_object in sorted_objects:
             #for group_object in tier_object.dict_group_objects.values():
@@ -820,32 +821,54 @@ def get_group_filelist_from_loaded_grouping_v2(loaded_grouping, group_name):
 
 def get_group_filelist_from_loaded_grouping(loaded_grouping, group_name):
     "stack based, no recursion. alternative to get_group_filelist_from_loaded_grouping_v2()"
+    print(f"\nget_group_filelist_from_loaded_grouping(): group_name = {group_name}")
     # Initialize a stack with the root grouping
     #print(f"group_name = {group_name}")
+    group_name = assume_scene_directory_is_called_imports_in_intermediate_loaded_grouping(group_name)
     stack = [loaded_grouping]
     while stack:
         current_group = stack.pop()  # Get the last element from the stack
-        if current_group['directory'] == group_name:  # Check if the directory matches the group name
+        print(f"\tcurrent_group['directory'] = {current_group['directory']}")
+        if current_group['directory'].lower() == group_name.lower():  # Check if the directory matches the group name
+            print("match")
+            print(f"current_group['files'] = {current_group['files']}")
+            print("\n")
             return current_group['files']  # Return the list of files if it matches
         # Add subdirectories to the stack for further exploration
         stack.extend(current_group.get('directories', []))
+    print("fail")
     return None  # Return None if no match is found
 
 def get_group_subgrouplist_from_loaded_grouping(loaded_grouping, group_name):
     "stack based, no recursion. Ensure that scene_object will work as a key, use 'import' or 'root' or just have that identified here." 
     "modularize for scene, root, imports"
     #print(f"group_name = {group_name}")
+    group_name = assume_scene_directory_is_called_imports_in_intermediate_loaded_grouping(group_name)
+
+    print(f"\nget_group_subgrouplist_from_loaded_grouping(): group_name = {group_name}")
     subgroup_name_list = None 
     stack = [loaded_grouping]
     while stack:
         current_group = stack.pop()  # Get the last element from the stack
-        if current_group['directory'] == group_name:  # Check if the directory matches the group name
-            subgroup_name_list = [sub_group['directory'] for sub_group in current_group.get('directories', [])]
+        print(f"\tcurrent_group['directory'] = {current_group['directory']}")
+        if current_group['directory'].lower() == group_name.lower():  # Check if the directory matches the group name
+            subgroup_name_list = [sub_group['directory'].lower() for sub_group in current_group.get('directories', [])]
+            print("match, get_group_subgrouplist_from_loaded_grouping()")
+            subgroup_name_list
+            print(f"subgroup_name_list = {subgroup_name_list}")
+            print("\n")
             return subgroup_name_list  # Return the list of subdirectory names
         
         # Add subdirectories to the stack for further exploration
         stack.extend(current_group.get('directories', []))
-    
+    print("fail, get_group_subgrouplist_from_loaded_grouping()")
     return None  # Return None if no match is found
     #return subgroup_name_list
+
+def assume_scene_directory_is_called_imports_in_intermediate_loaded_grouping(group_name):
+    if group_name == "scene":
+        return "import"
+    else:
+        return group_name 
+
 

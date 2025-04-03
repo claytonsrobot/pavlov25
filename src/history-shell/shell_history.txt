@@ -971,3 +971,407 @@ test
 eval (self.hierarchy_object.dict_tier_objects[1].dict_group_objects)
 eval (self.hierarchy_object.dict_tier_objects[1].dict_group_objects)
 quit
+test
+eval (self.hierarchy_object.dict_tier_objects[1].dict_group_objects)
+1
+2
+eval (self.hierarchy_object.dict_tier_objects[1].dict_group_objects)
+eval (self.hierarchy_object.dict_tier_objects[1].dict_members)
+eval (self.hierarchy_object.dict_tier_objects[2].dict_group_objects)
+eval (self.hierarchy_object.dict_tier_objects[2].dict_group_objects["test2/2024-07july-30 to 2024-08aug-13"])
+eval (self.hierarchy_object.dict_tier_objects[2].dict_group_objects["test2/2024-07july-30 to 2024-08aug-13"].dict_curve_object)
+eval (self.hierarchy_object.dict_tier_objects[2].dict_group_objects["test2/2024-07july-30 to 2024-08aug-13"].dict_curve_objects)
+eval (self.hierarchy_object.dict_tier_objects[3].dict_curve_objects)
+eval (self.hierarchy_object.dict_tier_objects[2].dict_group_objects["test2/2024-07july-30 to 2024-08aug-13"].simple_name
+eval (self.hierarchy_object.dict_tier_objects[2].dict_group_objects["test2/2024-07july-30 to 2024-08aug-13"].simple_name)
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+quit
+test
+rage
+h
+clear
+about
+help
+rage
+1
+2
+p -o sample
+1
+2
+p -l
+p -o Don-EvonikPAA-MemphisCellulose
+wipe
+1
+2
+rage
+eval (self.hierarchy_object.dict_tier_objects[2].dict_group_objects["test2/2024-07july-30 to 2024-08aug-13"].simple_name)
+eval (self.hierarchy_object)
+eval (self.hierarchy_object.__dict__)
+eval pprint(self.hierarchy_object.__dict__)
+clear
+eval pprint(self.hierarchy_object.__dict__)
+project --open sample
+project --open mike
+eval pprint(dir(self.hierarchy_object))
+eval (self.hierarchy_object.dict_tier_objects[2].dict_group_objects["test2/2024-07july-30 to 2024-08aug-13"].simple_name)
+eval self.hierarchy_object.dict_tier_objects
+eval self.hierarchy_object.dict_group_object_all
+eval self.hierarchy_object.dict_group_objects_all
+eval self.hierarchy_object.dict_group_objects_all["scene_object"].tier_object
+eval self.hierarchy_object.dict_tier_objects[0]
+eval self.hierarchy_object.dict_tier_objects[1]
+eval self.hierarchy_object.dict_tier_objects[1].name
+eval self.hierarchy_object.dict_tier_objects[1].tier_level
+eval self.hierarchy_object.dict_tier_objects[1].name
+eval self.hierarchy_object.dict_tier_objects[0].tier_level
+eval dir(self.hierarchy_object.dict_tier_objects[0])
+eval self.hierarchy_object.dict_tier_objects[0].dict_group_objects
+eval self.hierarchy_object.dict_tier_objects[1].dict_group_objects
+p -o sample
+1
+2
+eval self.hierarchy_object.dict_tier_objects[1].dict_group_objects
+eval self.hierarchy_object.dict_tier_objects[0].dict_group_objects
+eval self.hierarchy_object.dict_tier_objects[2].dict_group_objects
+eval self.hierarchy_object.dict_tier_objects[3].dict_group_objects
+eval self.hierarchy_object.dict_tier_objects[3].dict_curve_objects
+eval self.hierarchy_object.dict_curve_objects_all
+eval self.hierarchy_object.dict_tier_objects[2].dict_group_objects
+eval self.hierarchy_object.dict_tier_objects[2].dict_group_objects['bulldog/may']
+eval self.hierarchy_object.dict_tier_objects[2].dict_group_objects['bulldog/may'].dict_children
+eval self.hierarchy_object.dict_tier_objects[2].dict_group_objects['bulldog/may'].dict_curve_objects
+eval self.hierarchy_object.dict_tier_objects[2].dict_group_objects['stiles/december'].dict_curve_objects
+eval self.hierarchy_object.dict_tier_objects[3].dict_curve_objects
+eval self.hierarchy_object.dict_tier_objects[2].dict_group_objects['stiles/december'].dict_curve_objects
+eval self.hierarchy_object.scene_object
+eval self.hierarchy_object.scene_object.hierarchy_objec
+eval self.hierarchy_object.scene_object.hierarchy_object
+eval self.hierarchy_object
+eval self.scene_object.hierarchy_object
+clear
+wipe
+status
+project
+project -c
+project -l
+project -o Don-EvonikPAA-MemphisCellulose
+1
+2
+quit
+test
+clear
+1
+2
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+1
+2
+p -o sample
+1
+2
+quit
+test
+1
+2
+p -o sample
+1
+2
+quit
+test
+clear
+1
+2
+quit
+test
+clear
+1
+2
+current_group['files']quit
+quit
+test
+p -o sample
+1
+2
+3
+4
+5
+preview --scene
+spark --all
+6
+open -l
+p -l
+p -o Don-EvonikPAA-MemphisCellulose
+1
+2
+eval self.hierarchy_object.dict_tier_objects[2].dict_group_objects
+eval self.hierarchy_object.dict_tier_objects[1].dict_group_objects
+eval self.hierarchy_object.dict_group_objects_all
+eval self.hierarchy_object.dict_group_objects_most
+eval self.hierarchy_object.dict_curve_objects_all
+eval self.hierarchy_object.dict_curve_objects_all['aic4021.csv']
+eval self.hierarchy_object.dict_curve_objects_all['aic4021.csv'].super
+eval self.hierarchy_object.dict_curve_objects_all['aic4021.csv'].super_group
+eval self.hierarchy_object.dict_curve_objects_all['aic4021.csv'].supergroup
+1
+2
+eval self.hierarchy_object.dict_curve_objects_all['aic4021.csv'].supergroup
+eval self.hierarchy_object.dict_curve_objects_all
+eval self.hierarchy_object.dict_group_objects_all
+open -l
+quit
+test
+1
+2
+eval self.hierarchy_object.dict_group_objects_all
+eval self.hierarchy_object.dict_curve_objects_all['aic4021.csv'].supergroup
+eval self.hierarchy_object.dict_group_objects_all
+eval self.hierarchy_object.dict_group_objects_allquit
+quit
+test
+1
+2
+eval self.hierarchy_object.dict_curve_objects_all['aic4021.csv'].supergroup
+eval self.hierarchy_object.dict_group_objects_all
+quit
+test
+1
+2
+eval self.hierarchy_object.dict_group_objects_all
+eval self.hierarchy_object.dict_group_objects_all["scene/test2"]
+eval self.hierarchy_object.dict_group_objects_all["scene/test2"].dict_group_objects
+eval self.hierarchy_object.dict_group_objects_all["scene/test2"].dict_subgroup_objects
+eval self.hierarchy_object.dict_group_objects_all["scene/test2"].__dict__
+eval pprint(self.hierarchy_object.dict_group_objects_all["scene/test2"].__dict__)
+eval pprint(self.hierarchy_object.dict_group_objects_all["scene/test2"].dict_subgroups)
+eval pprint(self.hierarchy_object.dict_group_objects_all["scene/test2"].dict_subgroups."test1/2024-07july-02 to 2024-07july-16")
+eval pprint(self.hierarchy_object.dict_group_objects_all["scene/test2"].dict_subgroups.["test1/2024-07july-02 to 2024-07july-16"])
+eval self.hierarchy_object.dict_group_objects_all["scene/test2"].dict_subgroups["test1/2024-07july-02 to 2024-07july-16"]
+eval self.hierarchy_object.dict_group_objects_all["scene/test2"].dict_subgroups["test1/2024-07july-02 to 2024-07july-16"].supergroup
+quit
+test
+1
+2
+eval self.hierarchy_object.dict_group_objects_all["scene/test2"].dict_subgroups["test1/2024-07july-02 to 2024-07july-16"].supergroup
+eval self.hierarchy_object.dict_group_objects_all
+eval self.hierarchy_object.dict_group_objects_most
+eval self.hierarchy_object.dict_group_objects_all["scene/test2"].dict_subgroups["test1/2024-07july-02 to 2024-07july-16"].supergroup
+eval self.hierarchy_object.dict_group_objects_all["scene/test2"].dict_subgroups["test1/2024-07july-02 to 2024-07july-16"].supergroup.dict_curve_diaspora
+eval self.hierarchy_object.dict_group_objects_all["scene/test2"].dict_subgroups["test1/2024-07july-02 to 2024-07july-16"].supergroup.supegroup.dict_curve_diaspora
+eval self.hierarchy_object.dict_group_objects_all["scene/test2"].dict_subgroups["test1/2024-07july-02 to 2024-07july-16"].supergroup.supergroup.dict_curve_diaspora
+eval self.hierarchy_object.dict_group_objects_all["scene/test2"].dict_subgroups["test1/2024-07july-02 to 2024-07july-16"].dict_curve_diaspora
+quit
+test
+clear
+1
+2
+eval self.hierarchy_object.dict_group_objects_all["scene/test2"].dict_subgroups["test1/2024-07july-02 to 2024-07july-16"].dict_curve_diaspora
+eval self.hierarchy_object.dict_group_objects_all
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+1
+2
+eval self.config_input_object.loaded_grouping
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+1
+2
+eval self.hierarchy_object.dict_group_objects_all
+eval self.hierarchy_object.dict_group_objects_all["scene_object"].name
+eval self.hierarchy_object.dict_group_objects_all["scene_object"].simplename
+eval self.hierarchy_object.dict_group_objects_all["scene_object"].simple_name
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+1
+2
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+clear
+1
+2
+quit
+test
+clear
+1
+2
+quit
+test
+1
+2
+quit
+test
+clear
+1
+2
+eval self.hierarchy_object
+eval self.hierarchy_object.dict_group_object_most
+eval self.hierarchy_object.dict_group_objects_most
+eval self.hierarchy_object.dict_group_objects_most['test2/2024-07july-16 to 2024-07july-30']
+eval self.hierarchy_object.dict_group_objects_most['test2/2024-07july-16 to 2024-07july-30'].dict_children
+eval self.hierarchy_object.dict_group_objects_most['test2/2024-07july-16 to 2024-07july-30'].supergroup
+eval self.hierarchy_object.dict_group_objects_most['test2/2024-07july-16 to 2024-07july-30'].supergroup.supergroup
+eval self.hierarchy_object.dict_group_objects_most['test2/2024-07july-16 to 2024-07july-30'].supergroup.supergroup.dict_children
+eval self.hierarchy_object.dict_group_objects_most['test2/2024-07july-16 to 2024-07july-30'].supergroup.supergroup.dict_curve_objects_all
+eval self.hierarchy_object.dict_group_objects_most['test2/2024-07july-16 to 2024-07july-30'].supergroup.supergroup.dict_curve_objects
+eval self.hierarchy_object.dict_curve_objects_all
+eval self.hierarchy_object.dict_curve_objects_all
+eval pprint(self.hierarchy_object.dict_curve_objects_all)
+eval pprint(self.hierarchy_object.dict_curve_objects_all)wipe
+clear
+status
+wipe
+status
+clear
+1
+2
+eval pprint(self.hierarchy_object.dict_curve_objects_all)
+eval self.hierarchy_object.dict_group_objects_most['test2/2024-07july-16 to 2024-07july-30'].supergroup.supergroup.dict_curve_objects
+eval self.hierarchy_object.dict_group_objects_most['test2/2024-07july-16 to 2024-07july-30']
+eval self.hierarchy_object.dict_group_objects_most['test2/2024-07july-16 to 2024-07july-30'].supergroup
+eval self.hierarchy_object.dict_group_objects_most['scene/test2']
+eval self.hierarchy_object.dict_group_objects_most['scene/test2'].supergroup
+eval self.hierarchy_object.dict_group_objects_most['scene/test2']
+eval self.hierarchy_object.dict_group_objects_most['scene/test2'].compound_subgroup_name.split(Vars.comp_char)[0].lower())
+eval self.hierarchy_object.dict_group_objects_most['scene/test2'].compound_subgroup_name
+eval self.hierarchy_object.dict_group_objects_most['scene/test2'].name
+eval self.hierarchy_object.dict_group_objects_most['scene/test2'].simple
+eval self.hierarchy_object.dict_group_objects_most['scene/test2'].__dict__
+eval self.hierarchy_object.dict_group_objects_most['scene/test2'].simplename
+eval self.hierarchy_object.dict_group_objects_most['scene/test2'].simple_name
+eval self.hierarchy_object.dict_group_objects_all['scene/test2'].simple_name
+eval self.hierarchy_object.dict_group_objects_all
+eval self.hierarchy_object.dict_group_objects_all["scene_object"]
+eval self.hierarchy_object.dict_group_objects_all["scene_object"].simple_name
+quit
+test
+1
+2
+quit
+test
+1
+2
+self.tier_object
+eval self.tier_objecte
+eval self.tier_object
+eval self.dict_tier_objects
+eval self.hierarchy_object.dict_tier_objects
+eval self.hierarchy_object.dict_tier_objects[0]
+eval self.hierarchy_object.dict_tier_objects[0].tier_level
+eval self.hierarchy_object.dict_tier_objects[0].key
+quit
+test
+1
+2
+eval self.hierarchy_object.dict_group_objects_all["scene_object"].simple_name
+eval self.hierarchy_object.dict_group_objects_all["scene_object"].dict_children
+eval self.hierarchy_object.dict_group_objects_all["scene_object"].dict_group_objects
+eval self.hierarchy_object.dict_group_objects_all
+eval self.hierarchy_object.dict_group_objects_all["test2/2024-07july-16 to 2024-07july-30-2"]
+eval self.hierarchy_object.dict_group_objects_all["test2/2024-07july-16 to 2024-07july-30-2"].supergroup
+eval self.hierarchy_object.dict_group_objects_all["test2/2024-07july-16 to 2024-07july-30-2"].dict_children
+eval self.hierarchy_object.dict_group_objects_all["test2/2024-07july-16 to 2024-07july-30-2"]
+eval self.hierarchy_object.dict_group_objects_all["test2"]
+eval self.hierarchy_object.dict_group_objects_all["scene/test2"]
+eval self.hierarchy_object.dict_group_objects_all["scene_object/test2"]
+eval self.hierarchy_object.dict_group_objects_all
+eval self.hierarchy_object.dict_group_objects_allquit
+quit
+test
+1
+2
+clear
+quit
+test
+11
+1
+2
+quit
+test
+1
+2
+3
+4
+spark --all
+eval self.hierarchy_object.dict_group_objects_all
+eval self.hierarchy_object.dict_group_objects_all["test2/2024-07july-16 to 2024-07july-30-2"].dict_children
+eval self.hierarchy_object.dict_group_objects_all["test2/2024-07july-16 to 2024-07july-30-2"].supergroup.dict_children
+eval self.hierarchy_object.dict_group_objects_all["test2/2024-07july-16 to 2024-07july-30-2"].supergroup.supergroup.dict_children
+eval self.hierarchy_object.dict_group_objects_all["test2/2024-07july-16 to 2024-07july-30-2"].supergroup.supergroup.dict_children
+quit

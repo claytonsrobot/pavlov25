@@ -712,6 +712,10 @@ class PavlovCLI(cmd2.Cmd):
             self.make_scene(None)
             self.makeconfig(None)
 
+    def do_rage(self,like):
+        "Suggestions"
+        print("I suggest you take a walk and do some breathing exercises.")
+
     def do_skipinterface(self,line):
         "Skip interface (3), use direct json file. Rather than editing defaults with a GUI."
         #try:

@@ -42,6 +42,7 @@ class Scene:
         self.name = name
         self.simple_name = name
         self.secret_full_name = "null0-null1-null2-null3"
+        self.place_in_supergroup=0
          
         self.blob_dir = 'https://6wuanrrsyel9ave8.public.blob.vercel-storage.com/'# you dont need this, it already knows and is not reduncdant
         self.__dict__.update((key, None) for key in self.allowed_keys)

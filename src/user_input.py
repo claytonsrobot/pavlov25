@@ -183,7 +183,8 @@ class UserInput:
             self.dict_groups_tiers = src.grouping_by_string.define_groups(self.group_names,self.subgroup_names)
         elif False: # config_input_object.grouping_algorithm == "group-by-spreadsheet":
             self.dict_groups_tiers = src.grouping_by_directory.define_groups(loaded_grouping = config_input_object.loaded_grouping)
-            # hosanna
+
+            # hosanna, no. refactor.
 
     def extract_filetypes_allowed_list_from_import_plugin(self):
         #import_function = self._check_import_plugin()

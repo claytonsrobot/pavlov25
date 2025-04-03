@@ -27,6 +27,7 @@ def assign_group_membership_for_complete_hierarchy(hierarchy_object,loaded_group
                     # to keep this true, subgroups with key 'none' will need to be created to hold data objects that are in a (higher)supergroup but have no relevant provided (immediate)super/group
                     #if g_key.lower() in c_key.lower():
                     #if group.simple_name.lower() in c_key.lower():
+
                     
                     if group.simple_name.lower() in c_key.lower() and group.compound_subgroup_name.split(GBS.comp_char)[0].lower() in c_key.lower() and group.compound_subgroup_name.split(GBS.comp_char)[-1].lower() in c_key.lower():
                         #curve_object.add_supergroup(group) # redundant, called in add_curve_object

@@ -121,6 +121,7 @@ class Group:
         curve_object.add_supergroup(self)
         #self.hierarchy_object.dict_curve_objects_all
         self.hierarchy_object.dict_curve_objects_all[key]=curve_object #check use 30Jan
+        print(f"curve object {key} added to group {self.secret_full_name}")
     
     
     
