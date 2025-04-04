@@ -52,8 +52,7 @@ class Curve:
         self.diameter = [0,0,0] # for now
         self.place_in_supergroup = None
         self.previous_object = None
-        self.title_height_placement = None
-        self.title_height_placement = self.style_object.curve_object_title_height_placement
+        self.title_height_placement = 'floor'
 
         self.tick_halflength_THD = [0,0,0]
         

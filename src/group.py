@@ -130,6 +130,7 @@ class Group:
     """APPLY THIS PATTERN BELOW ..... """
     def apply_curve_object_span(self, curve_object):
         # investigate max_values
+        print(f"curve_object = {curve_object}")
         if self.max_raw_data is None:
             self.max_raw_data = [curve_object.raw.data_span[0][1],
                              curve_object.raw.data_span[1][1],

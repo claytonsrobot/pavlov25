@@ -38,9 +38,9 @@ class Hierarchy:
         cls.style_object = style_object
         #style_object.assign_scene_object(cls) # nope. this assigns the class, not the instance
         
-    def __init__(self,name="hierarchy"):
+    def __init__(self):
         
-        self.name = name
+        self.name = "hierarhcy_object"
         self.hierarchy_object = self
 
         self.only_longest_axes_ticks_siblings_and_cousins = True
@@ -140,8 +140,7 @@ class Hierarchy:
             # the problem is text based assignment. items are deleted from dict_group_objects (though they are not struck from dict_members)
             # the answer is to convert the legacy group-by-text to recognize the intermediate export format, with n levels, for group creation. 
             # # and assignment need not be exahustive for every possible combo - no empty to-be-destroyed group needs to be created. 
-            # consider moving the self.group_names, self.subgroup_names, file_paths, file_names = src.config_input.get_three_tier_group_names_and_subgroup_names_and_file_names_from_group_by_directory_cij_loaded_grouping(data = config_input_object.loaded_grouping)
-            # such that it need not be made to use only three levels, and it generated groups directly with their subgroups and file contents, etc, beyond a three level paradigm
+
             self._destroy_empty_groups()
         self.maybe_destroy_unassigned_curves()
         self._make_dict_group_object_most()
@@ -317,7 +316,7 @@ class Hierarchy:
                     if group_object.dict_children[sub] != child
                     }
 
-    def _determine_place_in_supergroup(self):
+    def _determine_place_in_supergroup_v0(self):
         # we arguably do not need last_cousin,last_nephew,or first_uncle values
         # curve_object.place_in_supergroup assignment
         # this assumes all curve_objects are on the same tier
@@ -329,11 +328,11 @@ class Hierarchy:
             #sorted_objects = sorted(tier_object.dict_group_objects.values(), key=lambda obj: obj.place_in_supergroup)
             #for group_object in sorted_objects:
             for group_object in tier_object.dict_group_objects.values():
-                c_key_list = list(group_object.dict_children.keys())
+                child_key_list = list(group_object.dict_children.keys())
                 print(f"group_object.name = {group_object.name}")
-                print(f"c_key_list = {c_key_list}")
+                print(f"child_key_list = {child_key_list}")
                 #for child_objects in group_object.dict_children.values():
-                #for place,c_key in enumerate(c_key_list):
+                #for place,c_key in enumerate(child_key_list):
                 for place_in_supergroup,child_object in enumerate(group_object.dict_children.values()):
                     print(f"place_in_supergroup = {place_in_supergroup}")
                     print(f"child_object = {child_object}")
@@ -341,7 +340,7 @@ class Hierarchy:
                     #child.place_in_supergroup=place
                     child_object.place_in_supergroup=place_in_supergroup
                     if place_in_supergroup>0:
-                        child_object.previous_sibling = group_object.dict_children[c_key_list[place_in_supergroup-1]]
+                        child_object.previous_sibling = group_object.dict_children[child_key_list[place_in_supergroup-1]]
                         #child_object.previous_sibling.next_sibling = group_object # wrong?
                         child_object.previous_sibling.next_sibling = child_object # wrong?
                         child_object.last_nephew = None
@@ -362,7 +361,7 @@ class Hierarchy:
                             last_cousin_not_yet_initialized=1
                     #finally, for both cases
                     try:
-                        child_object.next_sibling = group_object.dict_children[c_key_list[place_in_supergroup+1]]
+                        child_object.next_sibling = group_object.dict_children[child_key_list[place_in_supergroup+1]]
                     except:
                         child_object.next_sibling = None
                         print("\nWHACK2,hierarchy._determine_place_in_supergroup()")
@@ -374,6 +373,33 @@ class Hierarchy:
                 group_object.last_nephew=last_cousin
                 group_object.next_sibling=None
                 group_object.previous_sibling=None
+
+    def _determine_place_in_supergroup(self):
+        last_cousin = None
+        for t_key, tier_object in reversed(self.dict_tier_objects.items()):
+            for group_object in tier_object.dict_group_objects.values():
+                children = list(group_object.dict_children.values())
+                for place_in_supergroup, child_object in enumerate(children): # this assumes the order it was added is the place in supergroup
+                    self._assign_place_and_sibling(child_object, group_object, place_in_supergroup, children)
+                    last_cousin = child_object
+            if t_key == 0:  # Special case for scene_object
+                self._handle_scene_object(group_object, last_cousin)
+
+    def _assign_place_and_sibling(self, child_object, group_object, place_in_supergroup, children):
+        child_object.place_in_supergroup = place_in_supergroup
+        previous_child = children[place_in_supergroup - 1] if place_in_supergroup > 0 else None
+        child_object.previous_sibling = previous_child
+        if previous_child:
+            previous_child.next_sibling = child_object
+        if place_in_supergroup == 0:
+            group_object.first_child = child_object
+
+    def _handle_scene_object(self, group_object, last_cousin):
+        group_object.place_in_supergroup = None
+        #group_object.first_uncle = last_cousin
+        last_cousin.first_uncle = group_object
+        group_object.last_nephew = last_cousin
+        group_object.next_sibling = group_object.previous_sibling = None
     
     def determine_characteristic_length_for_group(self,active_object):
         # doesnt hit for those not in hierarchy 

@@ -97,7 +97,8 @@ def main():
 
     run_interface(style_object,interface_object,user_input_object,config_input_object)
 
-    build_grouping(hierarchy_object,user_input_object,loaded_grouping = config_input_object.loaded_grouping)
+    if config_input_object.grouping_algorithm == "group-by-text":
+        build_grouping(hierarchy_object,user_input_object,loaded_grouping = config_input_object.loaded_grouping)
     
     export_control_object = import_data(scene_object,style_object,user_input_object,hierarchy_object)
                                         

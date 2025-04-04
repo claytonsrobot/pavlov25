@@ -720,8 +720,8 @@ class PavlovCLI(cmd2.Cmd):
         "Skip interface (3), use direct json file. Rather than editing defaults with a GUI."
         #try:
         self.user_input_object.pull_config_input_object(self.config_input_object)
-        
-        self.build_grouping(None) # jammed in here for now - need to process when a gui is used as well
+        if self.config_input_object.grouping_algorithm == "group-by-text":
+            self.build_grouping(None) # jammed in here for now - need to process when a gui is used as well
         
         print("Hint: Next: (4) make data, or, import data ")
         #except Exception as e:

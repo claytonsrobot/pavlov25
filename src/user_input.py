@@ -9,6 +9,7 @@ If color plugin is from the text field (as "gui_object.color_style_plugin"), it 
 Or maybe all plugins shuld be made into lists, regardless of source,so that all of the processing can be the same.
 '''
 import os
+import sys
 #import re
 #from pprint import pprint
 
@@ -161,28 +162,34 @@ class UserInput:
             # all processes should use the whole filepath where possible, to modularize for either group-by-string and group-by-directory
         elif config_input_object.grouping_algorithm == "group-by-directory":
 
-            
-            # explore first and second level directories in the projects/{project_name}/"imports" folder
-            # migrate this to user_input_config 
-            # old, works: self.group_names, self.subgroup_names, file_paths, file_names = src.grouping_by_directory.get_group_names_and_subgroup_names_and_file_names_from_import_directory_hierarchy(directory = Directories.get_import_dir())
-            #keep: self.group_names, self.subgroup_names, file_paths, file_names = src.grouping_by_directory.get_group_names_and_subgroup_names_and_file_names_from_group_by_directory_intermediate_export_json_file()
-            #toss: self.group_names, self.subgroup_names, file_paths, file_names = src.config_input.get_group_names_and_subgroup_names_and_file_names_from_group_by_directory_cij_loaded_grouping()
-            self.group_names, self.subgroup_names, file_paths, file_names = src.config_input.get_three_tier_group_names_and_subgroup_names_and_file_names_from_group_by_directory_cij_loaded_grouping(data = config_input_object.loaded_grouping)
-            # for now don't check filetypes, assume all are good
-            #self.filepaths,self.filenames = foo(config_input_object.loaded_grouping) 
-            self.filenames = file_names
-            self.filepaths = file_paths
-            print(f"self.group_names = {self.group_names}")
-            print(f"self.subgroup_names = {self.subgroup_names}")
+            if False:
+                # explore first and second level directories in the projects/{project_name}/"imports" folder
+                # migrate this to user_input_config 
+                # old, works: self.group_names, self.subgroup_names, file_paths, file_names = src.grouping_by_directory.get_group_names_and_subgroup_names_and_file_names_from_import_directory_hierarchy(directory = Directories.get_import_dir())
+                #keep: self.group_names, self.subgroup_names, file_paths, file_names = src.grouping_by_directory.get_group_names_and_subgroup_names_and_file_names_from_group_by_directory_intermediate_export_json_file()
+                #toss: self.group_names, self.subgroup_names, file_paths, file_names = src.config_input.get_group_names_and_subgroup_names_and_file_names_from_group_by_directory_cij_loaded_grouping()
+                self.group_names, self.subgroup_names, file_paths, file_names = src.config_input.get_three_tier_group_names_and_subgroup_names_and_file_names_from_group_by_directory_cij_loaded_grouping(data = config_input_object.loaded_grouping)
+                # for now don't check filetypes, assume all are good
+                #self.filepaths,self.filenames = foo(config_input_object.loaded_grouping) 
+                self.filenames = file_names
+                self.filepaths = file_paths
+                print(f"self.group_names = {self.group_names}")
+                print(f"self.subgroup_names = {self.subgroup_names}")
+            else:
+                pass
 
         #print(f"self.filepaths = {self.filepaths}")
-        print(f"self.filenames = {self.filenames}")
+        if False:
+            print(f"self.filenames = {self.filenames}")
 
-        if True: # config_input_object.grouping_algorithm == "group-by-string" or config_input_object.grouping_algorithm == "group-by-directory":
+        if config_input_object.grouping_algorithm == "group-by-string":
         # this is a misnomer, because all algorithms can be fed this way. It will generate empties, and then destroy them. Non-ideal, but. 
             self.dict_groups_tiers = src.grouping_by_string.define_groups(self.group_names,self.subgroup_names)
-        elif False: # config_input_object.grouping_algorithm == "group-by-spreadsheet":
-            self.dict_groups_tiers = src.grouping_by_directory.define_groups(loaded_grouping = config_input_object.loaded_grouping)
+        elif config_input_object.grouping_algorithm == "group-by-directory":
+            root_group = self.dict_groups_tiers = src.grouping_by_directory.define_groups(loaded_grouping = config_input_object.loaded_grouping)
+            print(f"root_group = {root_group}")
+        else:
+            sys.exit()
 
             # hosanna, no. refactor.
 

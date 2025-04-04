@@ -244,9 +244,9 @@ def check_group_label_span_relative_to_first_sibling_data_origin(group_object):
     return span_relative_to_self_data_origin
 
 def intermediate_wrap(active_object):
-        #print(f"active_object.name = {active_object.name}")
-        #print(f"active_object.span_relative_to_self_data_origin = {active_object.span_relative_to_self_data_origin}")
-        #print(f"active_object.padding = {active_object.padding}")
+        print(f"\nactive_object.name = {active_object.name}")
+        print(f"active_object.span_relative_to_self_data_origin = {active_object.span_relative_to_self_data_origin}")
+        print(f"active_object.padding = {active_object.padding}")
         active_object.minimum_edge_at_zero_height_plane_relative_to_self_data_origin = np.array([active_object.span_relative_to_self_data_origin[0][0],0,active_object.span_relative_to_self_data_origin[2][0]])-np.array(active_object.padding)
         active_object.data_origin_relative_to_self_minimum_corner_origin = np.multiply(-1,np.array([active_object.span_relative_to_self_data_origin[0][0],active_object.span_relative_to_self_data_origin[1][0],active_object.span_relative_to_self_data_origin[2][0]]))
         active_object.data_origin_relative_to_self_minimum_edge_at_zero_height_plane = np.multiply(-1,active_object.minimum_edge_at_zero_height_plane_relative_to_self_data_origin)
