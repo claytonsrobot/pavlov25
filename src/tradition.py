@@ -70,7 +70,7 @@ def build_tradition(data, parent=None):
         for entity_data in data.get("entities", []):
             entity = Entity(entity_data["name"])
             entity.path = entity_data["path"] 
-            curve_object = Curve(name=entity_data["name"])
+            #curve_object = Curve(name=entity_data["name"])
             group.entities.add(entity)
             group.progeny.add(entity)
         Tradition.set_root_group(group)
@@ -118,96 +118,8 @@ def get_sorted_entity_filenames(group):
     sorted_filenames, sorted_filepaths = numeric_islands.get_sorted_filenames_and_filepaths(entity_filepaths)
     return sorted_filenames, sorted_filepaths
 
-
-        
-
 def test():
     # Example JSON Input
-    json_data_filenames = {
-        "group": "imports",
-        "entities": [],
-        "groups": [
-            {
-                "group": "test1",
-                "entities": [],
-                "groups": [
-                    {
-                        "group": "2024-07July-02 to 2024-07July-16",
-                        "entities": [
-                            "AIC4021.csv",
-                            "AIC4122.csv",
-                            "AIC4243.csv",
-                            "Evonik-PAA4.csv",
-                            "Ratio-PAA5.csv"
-                        ],
-                        "groups": []
-                    },
-                    {
-                        "group": "2024-07July-16 to 2024-07July-30",
-                        "entities": [
-                            "AIC4025.csv",
-                            "AIC4126.csv",
-                            "AIC4247.csv",
-                            "Evonik-PAA7.csv",
-                            "Ratio-PAA7.csv"
-                        ],
-                        "groups": []
-                    },
-                    {
-                        "group": "2024-07July-30 to 2024-08Aug-13",
-                        "entities": [
-                            "AIC4028.csv",
-                            "AIC4128.csv",
-                            "AIC4248.csv",
-                            "Evonik-PAA8.csv",
-                            "Ratio-PAA8.csv"
-                        ],
-                        "groups": []
-                    }
-                ]
-            },
-            {
-                "group": "test2",
-                "entities": [],
-                "groups": [
-                    {
-                        "group": "2024-07July-02 to 2024-07July-16-2",
-                        "entities": [
-                            "AIC402.csv",
-                            "AIC412.csv",
-                            "AIC424.csv",
-                            "Evonik-PAA.csv",
-                            "Ratio-PAA.csv"
-                        ],
-                        "groups": []
-                    },
-                    {
-                        "group": "2024-07July-16 to 2024-07July-30-2",
-                        "entities": [
-                            "AIC402.csv",
-                            "AIC412.csv",
-                            "AIC424.csv",
-                            "Evonik-PAA.csv",
-                            "Ratio-PAA.csv"
-                        ],
-                        "groups": []
-                    },
-                    {
-                        "group": "2024-07July-30 to 2024-08Aug-13-2",
-                        "entities": [
-                            "AIC402.csv",
-                            "AIC412.csv",
-                            "AIC424.csv",
-                            "Evonik-PAA.csv",
-                            "Ratio-PAA.csv"
-                        ],
-                        "groups": []
-                    }
-                ]
-            }
-        ]
-    }
-
     json_data_filepaths = {
         "group": "imports",
         "path": "imports",
@@ -289,7 +201,7 @@ def test():
     print_group(root_group)
     
     # Example usage of get_sorted_entity_filenames)
-    sorted_filenames = get_sorted_entity_filepaths(root_group)
+    sorted_filenames = get_sorted_entity_filenames(root_group)
     print(sorted_filenames)
 if __name__ == "__main__":
     test()
