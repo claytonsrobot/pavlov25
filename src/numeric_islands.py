@@ -9,7 +9,8 @@ Class object instances are only created within this file.
 Only the script is imported elsewhere, 
 to call investigate_numeric_islands as the entry point.
 '''
-#import re
+import re
+import os
 class NumericIslands:
     style_object=None
     user_input_object=None
@@ -131,3 +132,49 @@ def investigate_numeric_islands(names,style_object,user_input_object):
     #return dict_numeric_islands
     names_sortable = equalize_numeric_island_lengths(dict_numeric_islands)
     return names_sortable
+
+def natural_key(filepath):
+    """
+    Key function for natural sorting. Extracts numbers within a filepath
+    and ensures they are sorted numerically while preserving non-numeric parts.
+
+    Parameters:
+    ----------
+    filepath : str
+        The filepath to be analyzed.
+
+    Returns:
+    -------
+    List[Union[str, int]]
+        A list of strings and integers for sorting purposes.
+    """
+    # Split the filepath into parts (strings and numbers)
+    return [int(part) if part.isdigit() else part for part in re.split(r'(\d+)', filepath)]
+
+def get_sorted_filenames_and_filepaths(filepaths):
+    """
+    Sorts filenames naturally while preserving their correlation with filepaths.
+
+    Parameters:
+    ----------
+    filepaths : List[str]
+        A list of filepaths.
+
+    Returns:
+    -------
+    Tuple[List[str], List[str]]
+        A tuple containing:
+        - A naturally sorted list of filenames.
+        - A list of filepaths ordered to match the sorted filenames.
+    """
+    # Create pairs of (filename, filepath) for sorting
+    filename_filepath_pairs = [(os.path.basename(filepath), filepath) for filepath in filepaths]
+
+    # Sort pairs by the natural order of filenames
+    sorted_pairs = sorted(filename_filepath_pairs, key=lambda pair: natural_key(pair[0]))
+
+    # Extract the sorted filenames and filepaths
+    sorted_filenames = [pair[0] for pair in sorted_pairs]
+    sorted_filepaths = [pair[1] for pair in sorted_pairs]
+
+    return sorted_filenames, sorted_filepaths

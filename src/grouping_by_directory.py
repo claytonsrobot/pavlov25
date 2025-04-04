@@ -363,35 +363,21 @@ def check_third_level_import_file_names(directory,group_names,subgroup_names):
     return file_paths, file_names
 
 
-def generate_directory_structure(root_dir):
-    ## Example usage
-    #root_directory = "/path/to/root"
-    #directory_structure = generate_directory_structure(root_directory)
-    directory_structure = {}
-    for root, dirs, files in os.walk(root_dir):
-        # Create a nested dictionary path based on the current root path
-        current_level = directory_structure
-        path_parts = os.path.relpath(root, root_dir).split(os.sep)
-        for part in path_parts:
-            if part not in current_level:
-                current_level[part] = {}
-            current_level = current_level[part]
-        # Add the files at the current root level, skipping 'desktop.ini'
-        current_level["files"] = [file for file in files if file != 'desktop.ini']
-    return directory_structure
 
-def generate_directory_structure_v3(path):
+def generate_directory_structure(path):
     # Extract the root folder's name
     folder_name = os.path.basename(os.path.abspath(path))
-    structure = {"group": folder_name, "entities": [], "groups": []}
+    #structure = {"group": folder_name, "entities": [], "groups": []}
+    structure = {"group": folder_name, "path": path, "entities": [], "groups": []}
 
     for item in os.listdir(path):
         item_path = os.path.join(path, item)
         if os.path.isfile(item_path):
             if item != "desktop.ini":
-                structure["entities"].append(item)
+                #structure["entities"].append(item)
+                structure["entities"].append({"name": item, "path": item_path})
         elif os.path.isdir(item_path):
-            structure["groups"].append(generate_directory_structure_v3(item_path))
+            structure["groups"].append(generate_directory_structure(item_path))
 
     return structure
 
@@ -399,7 +385,7 @@ def call(directory_path): # example
     # Replace 'your_directory_path' with the path to the directory you want to analyze
     output_file = Directories.get_group_by_directory_intermediate_export_json_filepath()
     # Step 1: Generate the directory structure with files appearing first
-    directory_structure = generate_directory_structure_v3(directory_path)
+    directory_structure = generate_directory_structure(directory_path)
     # Step 2: Export the structure to a JSON file
     src.json_handler.export_to_json(directory_structure, output_file)
     print(f"JSON file '{output_file}' has been created!")

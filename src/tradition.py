@@ -1,4 +1,15 @@
+
 from src.curve import Curve
+from src import numeric_islands
+class Tradition:
+    root_group = None
+    @classmethod
+    def set_root_group(cls,group):
+        cls.root_group = group
+    @classmethod
+    def get_root_group(cls):
+        return cls.root_group
+
 class Group:
     """
     The Group class represents a hierarchical collection of groups and entities
@@ -56,21 +67,63 @@ def build_tradition(data, parent=None):
             group.parents.add(parent)
         for subgroup_data in data.get("groups", []):
             build_tradition(subgroup_data, group)
-        for entity_name in data.get("entities", []):
-            entity = Entity(entity_name)
-            curve_object = Curve(name=entity_name)
+        for entity_data in data.get("entities", []):
+            entity = Entity(entity_data["name"])
+            entity.path = entity_data["path"] 
+            curve_object = Curve(name=entity_data["name"])
             group.entities.add(entity)
             group.progeny.add(entity)
+        Tradition.set_root_group(group)
         return group
     elif "entities" in data:
         # Process entities directly if found (shouldn't happen in currentformat)
-        for entity_name in data["entities"]:
-            return Entity(entity_name)
+        for entity_data in data.get("entities", []):
+            entity = Entity(entity_data["name"])
+            entity.path = entity_data["path"]  # Assign relative path
+            return entity
+
+        
+def get_sorted_entity_filenames(group):
+    """
+    Traverses the entire group hierarchy to collect and sort all entity relative filepaths.
+
+    Parameters:
+    ----------
+    group : dict
+        The root group to start traversing from.
+
+    Returns:
+    -------
+    List[str]
+        A naturally sorted list of relative filepaths from all entities within the hierarchy.
+    """
+    entity_filepaths = []
+
+    def traverse(current_group):
+        # Add all entities' relative paths in the current group
+        for entity in current_group.entities:
+            entity_filepaths.append(entity.path)
+
+        
+        # Recursively traverse child groups
+        for child_group in current_group.children:  # Assuming `children` is a set of Group objects
+            if isinstance(child_group, Group):  # Only traverse sub-groups
+                traverse(child_group)
+
+    
+    # Start traversal from the root group
+    traverse(group)
+
+    # Return the naturally sorted list of relative filepaths
+    sorted_filenames, sorted_filepaths = numeric_islands.get_sorted_filenames_and_filepaths(entity_filepaths)
+    return sorted_filenames, sorted_filepaths
+
+
         
 
 def test():
     # Example JSON Input
-    json_data = {
+    json_data_filenames = {
         "group": "imports",
         "entities": [],
         "groups": [
@@ -155,8 +208,76 @@ def test():
         ]
     }
 
+    json_data_filepaths = {
+        "group": "imports",
+        "path": "imports",
+        "entities": [],
+        "groups": [
+            {
+                "group": "test1",
+                "path": "imports/test1",
+                "entities": [],
+                "groups": [
+                    {
+                        "group": "2024-07July-02 to 2024-07July-16",
+                        "path": "imports/test1/2024-07July-02 to 2024-07July-16",
+                        "entities": [
+                            {
+                                "name": "AIC4021.csv",
+                                "path": "imports/test1/2024-07July-02 to 2024-07July-16/AIC4021.csv"
+                            },
+                            {
+                                "name": "AIC4122.csv",
+                                "path": "imports/test1/2024-07July-02 to 2024-07July-16/AIC4122.csv"
+                            }
+                        ],
+                        "groups": []
+                    },
+                    {
+                        "group": "2024-07July-16 to 2024-07July-30",
+                        "path": "imports/test1/2024-07July-16 to 2024-07July-30",
+                        "entities": [
+                            {
+                                "name": "AIC4025.csv",
+                                "path": "imports/test1/2024-07July-16 to 2024-07July-30/AIC4025.csv"
+                            },
+                            {
+                                "name": "AIC4126.csv",
+                                "path": "imports/test1/2024-07July-16 to 2024-07July-30/AIC4126.csv"
+                            }
+                        ],
+                        "groups": []
+                    }
+                ]
+            },
+            {
+                "group": "test2",
+                "path": "imports/test2",
+                "entities": [],
+                "groups": [
+                    {
+                        "group": "2024-07July-02 to 2024-07July-16-2",
+                        "path": "imports/test2/2024-07July-02 to 2024-07July-16-2",
+                        "entities": [
+                            {
+                                "name": "AIC402.csv",
+                                "path": "imports/test2/2024-07July-02 to 2024-07July-16-2/AIC402.csv"
+                            },
+                            {
+                                "name": "AIC412.csv",
+                                "path": "imports/test2/2024-07July-02 to 2024-07July-16-2/AIC412.csv"
+                            }
+                        ],
+                        "groups": []
+                    }
+                ]
+            }
+        ]
+    }
+
+
     # Process the JSON
-    root_group = build_tradition(json_data)
+    root_group = build_tradition(json_data_filepaths)
 
     # Print structure for debugging
     def print_group(group, level=0):
@@ -166,5 +287,9 @@ def test():
             print_group(child, level + 1)
 
     print_group(root_group)
+    
+    # Example usage of get_sorted_entity_filenames)
+    sorted_filenames = get_sorted_entity_filepaths(root_group)
+    print(sorted_filenames)
 if __name__ == "__main__":
     test()

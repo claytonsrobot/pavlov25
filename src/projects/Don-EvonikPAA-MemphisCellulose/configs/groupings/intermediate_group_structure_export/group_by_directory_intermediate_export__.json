@@ -1,0 +1,84 @@
+{
+    "group": "imports",
+    "entities": [],
+    "groups": [
+        {
+            "group": "test1",
+            "entities": [],
+            "groups": [
+                {
+                    "group": "2024-07July-02 to 2024-07July-16",
+                    "entities": [
+                        "AIC4021.csv",
+                        "AIC4122.csv",
+                        "AIC4243.csv",
+                        "Evonik-PAA4.csv",
+                        "Ratio-PAA5.csv"
+                    ],
+                    "groups": []
+                },
+                {
+                    "group": "2024-07July-16 to 2024-07July-30",
+                    "entities": [
+                        "AIC4025.csv",
+                        "AIC4126.csv",
+                        "AIC4247.csv",
+                        "Evonik-PAA7.csv",
+                        "Ratio-PAA7.csv"
+                    ],
+                    "groups": []
+                },
+                {
+                    "group": "2024-07July-30 to 2024-08Aug-13",
+                    "entities": [
+                        "AIC4028.csv",
+                        "AIC4128.csv",
+                        "AIC4248.csv",
+                        "Evonik-PAA8.csv",
+                        "Ratio-PAA8.csv"
+                    ],
+                    "groups": []
+                }
+            ]
+        },
+        {
+            "group": "test2",
+            "entities": [],
+            "groups": [
+                {
+                    "group": "2024-07July-02 to 2024-07July-16-2",
+                    "entities": [
+                        "AIC402.csv",
+                        "AIC412.csv",
+                        "AIC424.csv",
+                        "Evonik-PAA.csv",
+                        "Ratio-PAA.csv"
+                    ],
+                    "groups": []
+                },
+                {
+                    "group": "2024-07July-16 to 2024-07July-30-2",
+                    "entities": [
+                        "AIC402.csv",
+                        "AIC412.csv",
+                        "AIC424.csv",
+                        "Evonik-PAA.csv",
+                        "Ratio-PAA.csv"
+                    ],
+                    "groups": []
+                },
+                {
+                    "group": "2024-07July-30 to 2024-08Aug-13-2",
+                    "entities": [
+                        "AIC402.csv",
+                        "AIC412.csv",
+                        "AIC424.csv",
+                        "Evonik-PAA.csv",
+                        "Ratio-PAA.csv"
+                    ],
+                    "groups": []
+                }
+            ]
+        }
+    ]
+}

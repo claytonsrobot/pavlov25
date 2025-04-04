@@ -11,6 +11,7 @@ import import_lib
 import time
 from src.directories import Directories
 from src.helpers.filename_utils import get_this_filename
+from src import tradition
 
 def read_data_genfromtext(filepath,user_input_object,scene_object):
     filename = os.path.basename(filepath).lower()
@@ -92,12 +93,14 @@ class ImportPlugin:
         if self.config_input_object.grouping_algorithm == "group-by-text": 
             self.filenames, self.filepaths = self.import_lib_object.sort_filenames_after_adding_leading_zeros_vercel(self.user_input_object,self.scene_object)
             return self.filenames, self.filepaths
+        elif self.config_input_object.grouping_algorithm == "group-by-directory":
+            
+            self.filenames, self.filepaths = tradition.get_sorted_entity_filenames(tradition.Tradition.get_root_group())
         '''except:
             print('We need a way to handle when some or all filenames contain no numbers. ')
             print('Vercel file import failure ')
             self.filenames = self.user_input_object.filenames
         '''
-            
     
     def clean_up_vector(self, vector, scale_coeff):
         vector = np.delete(vector, 0) # remove first element 

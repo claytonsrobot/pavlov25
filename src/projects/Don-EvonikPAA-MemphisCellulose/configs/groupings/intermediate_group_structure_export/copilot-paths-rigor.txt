@@ -1,0 +1,66 @@
+{
+    "group": "imports",
+    "relative_path": "imports",
+    "entities": [],
+    "groups": [
+        {
+            "group": "test1",
+            "relative_path": "imports/test1",
+            "entities": [],
+            "groups": [
+                {
+                    "group": "2024-07July-02 to 2024-07July-16",
+                    "relative_path": "imports/test1/2024-07July-02 to 2024-07July-16",
+                    "entities": [
+                        {
+                            "name": "AIC4021.csv",
+                            "relative_path": "imports/test1/2024-07July-02 to 2024-07July-16/AIC4021.csv"
+                        },
+                        {
+                            "name": "AIC4122.csv",
+                            "relative_path": "imports/test1/2024-07July-02 to 2024-07July-16/AIC4122.csv"
+                        }
+                    ],
+                    "groups": []
+                },
+                {
+                    "group": "2024-07July-16 to 2024-07July-30",
+                    "relative_path": "imports/test1/2024-07July-16 to 2024-07July-30",
+                    "entities": [
+                        {
+                            "name": "AIC4025.csv",
+                            "relative_path": "imports/test1/2024-07July-16 to 2024-07July-30/AIC4025.csv"
+                        },
+                        {
+                            "name": "AIC4126.csv",
+                            "relative_path": "imports/test1/2024-07July-16 to 2024-07July-30/AIC4126.csv"
+                        }
+                    ],
+                    "groups": []
+                }
+            ]
+        },
+        {
+            "group": "test2",
+            "relative_path": "imports/test2",
+            "entities": [],
+            "groups": [
+                {
+                    "group": "2024-07July-02 to 2024-07July-16-2",
+                    "relative_path": "imports/test2/2024-07July-02 to 2024-07July-16-2",
+                    "entities": [
+                        {
+                            "name": "AIC402.csv",
+                            "relative_path": "imports/test2/2024-07July-02 to 2024-07July-16-2/AIC402.csv"
+                        },
+                        {
+                            "name": "AIC412.csv",
+                            "relative_path": "imports/test2/2024-07July-02 to 2024-07July-16-2/AIC412.csv"
+                        }
+                    ],
+                    "groups": []
+                }
+            ]
+        }
+    ]
+}
