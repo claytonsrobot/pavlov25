@@ -60,6 +60,9 @@ class ImportPlugin:
     def assign_import_lib_object(cls,import_lib_object):
         cls.import_lib_object = import_lib_object
     @classmethod
+    def assign_config_input_object(cls,config_input_object):
+        cls.config_input_object = config_input_object
+    @classmethod
     def pass_in_DataPoint_class(cls,DataPoint):
         cls.DataPoint = DataPoint
     @classmethod
@@ -79,18 +82,22 @@ class ImportPlugin:
         self.headers_depth = []
         self.names=[]
         
-        if self.config_input_object.grouping_algorithm == "group-by-text": 
-            self.filenames, self.filepaths = self.import_lib_object.sort_filenames_after_adding_leading_zeros_vercel(self.user_input_object,self.scene_object)
-        '''except:
-            print('We need a way to handle when some or all filenames contain no numbers. ')
-            print('Vercel file import failure ')
-            self.filenames = self.user_input_object.filenames
-        '''
         self.scale_t = 1
         self.scale_h = 1
         self.scale_d = 1
 
         print(f'scale = [{self.scale_t},{self.scale_h},{self.scale_d}]')
+    
+    def discern_filenames(self):
+        if self.config_input_object.grouping_algorithm == "group-by-text": 
+            self.filenames, self.filepaths = self.import_lib_object.sort_filenames_after_adding_leading_zeros_vercel(self.user_input_object,self.scene_object)
+            return self.filenames, self.filepaths
+        '''except:
+            print('We need a way to handle when some or all filenames contain no numbers. ')
+            print('Vercel file import failure ')
+            self.filenames = self.user_input_object.filenames
+        '''
+            
     
     def clean_up_vector(self, vector, scale_coeff):
         vector = np.delete(vector, 0) # remove first element 
@@ -102,3 +109,4 @@ class ImportPlugin:
         vector_height = self.clean_up_vector(vector_height, scale_coeff = self.scale_h)
         vector_depth = self.clean_up_vector(vector_depth, scale_coeff = self.scale_d)
         return vector_time,vector_height,vector_depth
+        

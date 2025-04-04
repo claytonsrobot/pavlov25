@@ -24,7 +24,7 @@ class Plugin(ImportPlugin):
         
     def run_import(self):
         #self.Curve.pass_in_scene_object(self.scene_object) # dict_curve_objects_all
-
+        self.discern_filenames()
         for filepath in self.filepaths:
             with open(filepath, 'r') as file:
                 gpx = gpxpy.parse(file)

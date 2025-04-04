@@ -256,8 +256,8 @@ class Style:
 
     def prepare_import_module(self):
         print(f"self.user_input_object.import_function = {self.user_input_object.import_function}")
-        import_plugin_class=self.assign_plugin_dynamically(module_name = self.user_input_object.import_function) # type is function
-        import_function_object = import_plugin_class()
+        DynamicImportPlugin=self.assign_plugin_dynamically(module_name = self.user_input_object.import_function) # type is function
+        import_function_object = DynamicImportPlugin()
         return import_function_object
     
     def set_color_function_list(self,color_function_list):

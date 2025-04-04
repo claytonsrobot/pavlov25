@@ -141,6 +141,7 @@ def get_configuration(scene_object, style_object):
     # check if do not have pysimplegui, take default inputs (from config or from gui default) and skip GUI 
     config_input_object = ConfigInput()
     config_input_object.assign_scene_object(scene_object) # cls
+    scene_object.assign_config_input_object(config_input_object) # cls
     loaded_config, loaded_grouping = config_input_object.define_and_load_default_config_input()
 
     
@@ -269,11 +270,14 @@ def import_data(scene_object,style_object,user_input_object,hierarchy_object):
     return export_control_object
 
 def load_import_plugin_object(scene_object,style_object,user_input_object):
+    print("main.load_import_plugin_object()")
     import_lib_object = ImportLib()
     import_function_object = style_object.prepare_import_module() # set user_input_object.import_style
     import_function_object.assign_scene_object_etc(scene_object)
     import_function_object.assign_user_input_object(user_input_object)
     import_function_object.assign_import_lib_object(import_lib_object)
+    import_function_object.assign_config_input_object(scene_object.config_input_object)
+
     import_function_object.pass_in_DataPoint_class(DataPoint)
     Curve.pass_in_scene_object(scene_object)
     import_function_object.pass_in_Curve_class(Curve)

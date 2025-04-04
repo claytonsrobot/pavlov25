@@ -1477,3 +1477,46 @@ test
 2
 3
 quit
+test
+1
+2
+3
+quit
+test
+1
+2
+3
+quit
+test
+1
+2
+3
+quit
+test
+1
+2
+3
+quit
+test
+clear
+1
+2
+3
+eval style_object.__dict__
+eval self.style_object.__dict__
+eval self.style_object.config_input_object
+eval self.style_object.hierarchy_object.config_input_object
+eval self.scene_object.config_input_object
+eval self.config_input_object
+eval self.user_input_object.config_input_object
+quit
+test
+1
+2
+3
+quit
+test
+1
+2
+3
+quit

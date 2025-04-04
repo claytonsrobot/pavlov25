@@ -25,12 +25,13 @@ class Scene:
     @classmethod
     def assign_user_input_object(cls,user_input_object):
         cls.user_input_object = user_input_object
-
+    @classmethod
+    def assign_config_input_object(cls,config_input_object):
+        cls.config_input_object = config_input_object
     @classmethod
     def assign_style_object(cls,style_object):
         cls.style_object = style_object
         #style_object.assign_scene_object(cls) # nope. this assigns the class, not the instance
-
     @classmethod
     def assign_request(cls,request):
         cls.request = request

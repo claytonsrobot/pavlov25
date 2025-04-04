@@ -21,7 +21,7 @@ class Plugin(ImportPlugin):
         self.filetype_allowed = ["csv,xlsx,xls"]
 
     def run_import(self):
-        
+        self.discern_filenames()
         for filepath in self.filepaths:
         
             gdf,name= read_data_genfromtext(filepath,self.user_input_object, self.scene_object)

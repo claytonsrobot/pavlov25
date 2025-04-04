@@ -25,7 +25,7 @@ class Plugin(ImportPlugin):
         self.filetype_allowed_list = ['csv','xlsx','xls']
     
     def run_import(self):
-
+        self.discern_filenames()
         filecount = len(self.filepaths)
         for j,filepath in enumerate(self.filepaths):
             #DATAFRAME
