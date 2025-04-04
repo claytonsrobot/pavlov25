@@ -19,12 +19,6 @@ class Plugin(ImportPlugin):
         # need to add third dimension option. Not here, create new similar function.
         #hierarchy_object.dict_curve_objects_all = dict() # supress here 23 March 2024
 
-        vectorArray_time = []
-        vectorArray_height = []
-        headers_time = []
-        headers_height = []
-        names=[]
-
         filename = self.user_input_object.filenames[0] # works for single sheet
         df,filename_sans_extension = read_data_pandas(filename,self.user_input_object)
         self.df = df
@@ -71,17 +65,12 @@ class Plugin(ImportPlugin):
 
             header_time = 'Chem_ID'
             header_height = 'Conc'
-            vectorArray_time.append(vector_time)
-            vectorArray_height.append(vector_height)
-            headers_time.append(header_time)
-            headers_height.append(header_height)
-            names.append(name)
-
-            self.names = names 
-            self.vectorArray_time = vectorArray_time
-            self.vectorArray_height = vectorArray_height
-            self.headers_time = headers_time
-            self.headers_height = headers_height
+            # These "self." vector arrays are initialized in super, import_plugin_general.ImportPlugin
+            self.vectorArray_time.append(vector_time)
+            self.vectorArray_height.append(vector_height)
+            self.headers_time.append(header_time)
+            self.headers_height.append(header_height)
+            self.names.append(name)
             
             #self.headers_depth = self.headers_height # for 2D redundant data
 
@@ -94,4 +83,4 @@ class Plugin(ImportPlugin):
             curve_object.chemID_list=vector_time_labelname
         #print(f'curve_object.dict_datapoints.keys() = {curve_object.dict_datapoints.keys()}')
 
-        return names,vectorArray_time,vectorArray_height,headers_time,headers_height 
+        return self.names,self.vectorArray_time,self.vectorArray_height,self.headers_time,self.headers_height 

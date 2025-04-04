@@ -25,26 +25,10 @@ class Plugin(ImportPlugin):
         self.filetype_allowed_list = ['csv','xlsx','xls']
     
     def run_import(self):
-        vectorArray_time = []
-        vectorArray_height = []
-        vectorArray_depth = []
-        headers_time = []
-        headers_height = []
-        headers_depth = []
-        names=[]
-        
-        #try:
-        self.filenames, self.filepaths = self.import_lib_object.sort_filenames_after_adding_leading_zeros_vercel(self.user_input_object,self.scene_object)
-        '''except:
-            print('We need a way to handle when some or all filenames contain no numbers. ')
-            print('Vercel file import failure ')
-            self.filenames = self.user_input_object.filenames
-        '''
-        
+
         filecount = len(self.filepaths)
         for j,filepath in enumerate(self.filepaths):
             #DATAFRAME
-
             gdf,name= read_data_genfromtext(filepath,self.user_input_object, self.scene_object)
             
             column_id_time,column_number_time = \
@@ -103,13 +87,12 @@ class Plugin(ImportPlugin):
             header_height = gdf[0][column_number_height]
             header_depth = gdf[0][column_number_depth]
 
-            vectorArray_time.append(vector_time)
-            vectorArray_height.append(vector_height)
-            vectorArray_depth.append(vector_depth)
-            headers_time.append(header_time)
-            headers_height.append(header_height)
-            headers_depth.append(header_depth)
-            names.append(name)
+            # These "self." vector arrays are initialized in super, import_plugin_general.ImportPlugin
+            self.vectorArray_time.append(vector_time)
+            self.vectorArray_height.append(vector_height)
+            self.headers_time.append(header_time)
+            self.headers_height.append(header_height)
+            self.names.append(name)
 
             #curve_object = Curve(name=name)
             print(f'list(self.scene_object.hierarchy_object.dict_curve_objects_all) = {list(self.scene_object.hierarchy_object.dict_curve_objects_all)}')
@@ -145,13 +128,5 @@ class Plugin(ImportPlugin):
             time.sleep(0.01)
             #print(f'File {j+1}/{filecount} loaded, {i} datapoints.')
 
-        self.names = names 
-        self.vectorArray_time = vectorArray_time
-        self.vectorArray_height = vectorArray_height
-        self.vectorArray_depth = vectorArray_depth
-        self.headers_time = headers_time
-        self.headers_height = headers_height
-        self.headers_depth = headers_depth
-
-        self.import_lib_object.check_point_tally_for_all_files(vectorArray_time)
-        return names,vectorArray_time,vectorArray_height,headers_time,headers_height
+        self.import_lib_object.check_point_tally_for_all_files(self.vectorArray_time)
+        return self.names,self.vectorArray_time,self.vectorArray_height,self.headers_time,self.headers_height 

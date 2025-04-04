@@ -69,7 +69,6 @@ class UserInput:
         self.axis_rotation_degrees_THD_CCW_height = None
         self.axis_rotation_degrees_THD_CCW_depth = None
 
-        self.scale_temp = None
         self.filter_files_include_and = None
         self.filter_files_include_or = None
         self.filter_files_exclude = None
@@ -129,7 +128,6 @@ class UserInput:
         ##self.filetype_allowed = ["gpx"] # hack  # fix this, associate the filetype with the import module
 
         try:
-            self.scale_temp = cij["scale_temp"]
             self.filter_files_include_and = cij['filter_files_include_and'] # for gui
             self.filter_files_include_or = cij['filter_files_include_or'] # for gui
             self.filter_files_exclude = cij['filter_files_exclude'] # for gui

@@ -227,9 +227,7 @@ class ImportLib:
                 filenames_sortable = ni.investigate_numeric_islands(user_input_object.filenames,scene_object.style_object,user_input_object)
             else:
                 filenames_sortable = user_input_object.filenames
-            #print(f"user_input_object.filenames = {user_input_object.filenames}")
-            #print(f"user_input_object.filepaths = {user_input_object.filepaths}")
-            #print(f"filenames_sortable = {filenames_sortable}")
+
             if len(user_input_object.filepaths)>1:
                 #print(zip(filenames_sortable, user_input_object.filenames,  user_input_object.filepaths ))
                 #print(sorted(zip(filenames_sortable, user_input_object.filenames,  user_input_object.filepaths)))

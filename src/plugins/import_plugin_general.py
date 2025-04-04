@@ -68,3 +68,37 @@ class ImportPlugin:
     def __init__(self):
         self.name = get_this_filename(__file__)
         import_lib.PluginSetup.import_None_instantiate(self)
+        self.initialize_in_import_super()
+
+    def initialize_in_import_super(self):
+        self.vectorArray_time = []
+        self.vectorArray_height = []
+        self.vectorArray_depth = []
+        self.headers_time = []
+        self.headers_height = []
+        self.headers_depth = []
+        self.names=[]
+        
+        if self.config_input_object.grouping_algorithm == "group-by-text": 
+            self.filenames, self.filepaths = self.import_lib_object.sort_filenames_after_adding_leading_zeros_vercel(self.user_input_object,self.scene_object)
+        '''except:
+            print('We need a way to handle when some or all filenames contain no numbers. ')
+            print('Vercel file import failure ')
+            self.filenames = self.user_input_object.filenames
+        '''
+        self.scale_t = 1
+        self.scale_h = 1
+        self.scale_d = 1
+
+        print(f'scale = [{self.scale_t},{self.scale_h},{self.scale_d}]')
+    
+    def clean_up_vector(self, vector, scale_coeff):
+        vector = np.delete(vector, 0) # remove first element 
+        vector = vector.astype(np.float64) # cast as type
+        vector = np.multiply(scale_coeff,vector) # scale
+        return vector
+    def shoeshine_all_vectors(self,vector_time,vector_height,vector_depth):
+        vector_time = self.clean_up_vector(vector_time, scale_coeff = self.scale_t)
+        vector_height = self.clean_up_vector(vector_height, scale_coeff = self.scale_h)
+        vector_depth = self.clean_up_vector(vector_depth, scale_coeff = self.scale_d)
+        return vector_time,vector_height,vector_depth

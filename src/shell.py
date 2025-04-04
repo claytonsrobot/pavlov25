@@ -727,9 +727,6 @@ class PavlovCLI(cmd2.Cmd):
         #except Exception as e:
         #    print("See instructions for necessary steps.")
         
-        
-
-        
     def do_no(self,line):
         "(3) skipinterface, hide print"
         with HiddenPrints():

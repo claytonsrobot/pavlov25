@@ -1467,3 +1467,13 @@ test
 2
 3
 quit
+test
+1
+2
+3
+quit
+test
+1
+2
+3
+quit

@@ -166,8 +166,6 @@ class Style:
         self.universally_consistent_padding = True
         self.padding = np.array([1,1,1])
         self.add_bottom_fence_only =  True#False#True
-        self.curve_object_title_height_placement =  'floor'#'floating' # 'floor'
-
 
         self.styleChoice_depth00 = 'depthByHeight_coeff'
         #self.plotting_style = 'temperature'
