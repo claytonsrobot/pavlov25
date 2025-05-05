@@ -253,7 +253,7 @@ def assign_group_membership_for_complete_hierarchy(hierarchy_object, loaded_grou
         
         for file_name in directory_data.get("files", []):
             if file_name in hierarchy_object.dict_curve_objects_all:
-                curve_object = hierarchy_object.dict_curve_objects_all[file_name]
+                curve_object = hierarchy_object.dict_curve_objects_all[file_name] #"careful"
                 current_group.add_curve_object(curve_object, file_name)
         
         for subdirectory in directory_data.get("directories", []):
