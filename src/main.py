@@ -97,7 +97,7 @@ def main():
 
     run_interface(style_object,interface_object,user_input_object,config_input_object)
 
-    if config_input_object.grouping_algorithm == "group-by-text":
+    if config_input_object.grouping_algorithm == "group-by-text" or (None is None):
         build_grouping(hierarchy_object,user_input_object,loaded_grouping = config_input_object.loaded_grouping)
     
     export_control_object = import_data(scene_object,style_object,user_input_object,hierarchy_object)
@@ -205,7 +205,7 @@ def run_interface(style_object,interface_object,user_input_object,config_input_o
         user_input_object.pull_config_input_object(config_input_object) # direct pull, no interface
 
 def build_grouping(hierarchy_object,user_input_object,loaded_grouping):
-
+    print("main.build_grouping(hierarchy_object,user_input_object,loaded_grouping)")
     hierarchy_object.cycle_through_filenames_intialize_curves()
     hierarchy_object.build_tiers_and_groups_objects(user_input_object,loaded_grouping)
 

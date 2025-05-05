@@ -16,6 +16,7 @@ import sys
 import time
 from src.helpers.filename_utils import get_this_filename
 from src.plugins.import_plugin_general import read_data_genfromtext, ImportPlugin
+from src.curve import Curve
 
 class Plugin(ImportPlugin):
         
@@ -94,7 +95,7 @@ class Plugin(ImportPlugin):
             self.headers_height.append(header_height)
             self.names.append(name)
 
-            #curve_object = Curve(name=name)
+            curve_object = Curve(name=name)
             print(f'list(self.scene_object.hierarchy_object.dict_curve_objects_all) = {list(self.scene_object.hierarchy_object.dict_curve_objects_all)}')
             curve_object = self.scene_object.hierarchy_object.dict_curve_objects_all[name]
             #print(f'name: {name}, curve_object: {curve_object.name}')

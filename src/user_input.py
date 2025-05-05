@@ -186,7 +186,10 @@ class UserInput:
         # this is a misnomer, because all algorithms can be fed this way. It will generate empties, and then destroy them. Non-ideal, but. 
             self.dict_groups_tiers = src.grouping_by_string.define_groups(self.group_names,self.subgroup_names)
         elif config_input_object.grouping_algorithm == "group-by-directory":
-            root_group = self.dict_groups_tiers = src.grouping_by_directory.define_groups(loaded_grouping = config_input_object.loaded_grouping)
+            self.dict_groups_tiers = src.grouping_by_directory.define_groups(loaded_grouping = config_input_object.loaded_grouping)
+            print(f"self.dict_groups_tiers = {self.dict_groups_tiers}")
+            print("group mapping: UserInput.pull_config_input_object(self,config_input_object)")
+            root_group = str(config_input_object.loaded_grouping)
             print(f"root_group = {root_group}")
         else:
             sys.exit()

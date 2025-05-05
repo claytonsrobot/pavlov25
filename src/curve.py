@@ -42,6 +42,7 @@ class Curve:
 
 
     def __init__(self,name=""):
+        print(f"Generating curve object: {name}")
         self.name = name.lower()
         self.secret_full_name = "null0-null1-null2-null3"
         self.span = np.array([[0.0,0.0],[0.0,0.0],[0.0,0.0]])

@@ -723,8 +723,10 @@ class PavlovCLI(cmd2.Cmd):
         "Skip interface (3), use direct json file. Rather than editing defaults with a GUI."
         #try:
         self.user_input_object.pull_config_input_object(self.config_input_object)
-        if self.config_input_object.grouping_algorithm == "group-by-text":
-            self.build_grouping(None) # jammed in here for now - need to process when a gui is used as well
+        if self.config_input_object.grouping_algorithm == "group-by-text" or (None is None):
+            self.build_grouping(line=None)
+            #main.build_grouping(self.hierarchy_object,self.user_input_object,loaded_grouping = self.config_input_object.loaded_grouping)
+            # jammed in here for now - need to process when a gui is used as well
         
         print("Hint: Next: (4) make data, or, import data ")
         #except Exception as e:
@@ -732,7 +734,7 @@ class PavlovCLI(cmd2.Cmd):
         
     def do_no(self,line):
         "(3) skipinterface, hide print"
-        with HiddenPrints():
+        with True:#HiddenPrints():
             self.do_skipinterface(None)
         
     def do_go(self,line):
@@ -774,6 +776,7 @@ class PavlovCLI(cmd2.Cmd):
 
     def build_grouping(self,line):
         # jam in do_3(None), skipinterface for now
+        print("build_grouping(line=None)")
         main.build_grouping(self.hierarchy_object,self.user_input_object,loaded_grouping = self.config_input_object.loaded_grouping)
 
     def build_pointcloud(self,line):

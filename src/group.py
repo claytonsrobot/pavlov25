@@ -122,8 +122,8 @@ class Group:
         self.dict_curve_objects[key].group = self
         self.dict_children = {**self.dict_subgroups,**self.dict_curve_objects}
         curve_object.add_supergroup(self)
-        #self.hierarchy_object.dict_curve_objects_all
-        self.hierarchy_object.dict_curve_objects_all[key]=curve_object #check use 30Jan
+        #self.hierarchy_object.dict_curve_objects_all[key.lower()]=curve_object #check use 30Jan
+        self.hierarchy_object.dict_curve_objects_all.update({key.lower():curve_object})
         print(f"curve object {key} added to group {self.secret_full_name}")
     
     
