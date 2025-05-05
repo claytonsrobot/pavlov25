@@ -41,7 +41,7 @@ style factors: #the variables automatically adjusted based on style selection, w
 import numpy as np
 #import os
 import importlib
-from src import environmental 
+from src import environment 
 from src import deltaList 
 from src import arrayMath
 from src.createFBX import CreateFBX
@@ -50,7 +50,7 @@ from src.createFBX import CreateFBX
 
 """pyinstaller work around"""
 # i hate this
-if environmental.pyinstaller()==True:
+if environment.pyinstaller()==True:
     from plugins import color_plugin_per_curve
     from plugins import color_plugin_per_group
     from plugins import color_plugin_per_subgroup
@@ -101,7 +101,7 @@ class Style:
     def __init__(self):
         self.__dict__.update((key, None) for key in self.allowed_keys)
         self.name = 'style_object'
-        self.environmental = environmental
+        self.environment = environment
 
         #list_plugins = self.pre_import_all_plugins()
 
@@ -204,8 +204,8 @@ class Style:
     def prepare_color_modules(self):
         color_plugin_list = []
         for color_function in self.user_input_object.color_function:# assumes color_function is a list # this is different than the export and import versions, which are assumed to only ever have one entry (for the time being)
-            color_plugin_class=self.assign_plugin_dynamically(module_name = color_function) # type is function
-            color_plugin_object = color_plugin_class()
+            ColorPlugin=self.assign_plugin_dynamically(module_name = color_function) # type is function
+            color_plugin_object = ColorPlugin()
             color_plugin_object.assign_scene_object(self.scene_object)
             color_plugin_object.prepare_color_style()   
             color_plugin_list.append(color_plugin_object)
@@ -273,10 +273,10 @@ class Style:
     def assign_plugin_dynamically(self,module_name):
         # https://stackoverflow.com/questions/41678073/import-class-from-module-dynamically
         print(f'assign_plugin_dynamically, module_name: {module_name}') # showing as None, crap
-        #print(f"environmental.pyinstaller() = {environmental.pyinstaller()}")
-        if environmental.pyinstaller()==False:
+        #print(f"environment.pyinstaller() = {environment.pyinstaller()}")
+        if environment.pyinstaller()==False:
             module = importlib.import_module(module_name)
-        elif environmental.pyinstaller()==True: # for pyinstaller, pre imported using self.pre_import_all_plugins
+        elif environment.pyinstaller()==True: # for pyinstaller, pre imported using self.pre_import_all_plugins
             module = eval(module_name.replace("plugins.",""))
             #print(plugins.__dict__)
             #module = eval(module_name) # if import plugins worked. possibly eval
@@ -362,7 +362,7 @@ class Style:
     def prepare_missing_direction_vectorArray(self,vectorArray_time,vectorArray_height,vectorArray_depth):#oh baby
         # for domino style, or from GPX files of any kinda
         # or for just a cool style:
-        # calculat direction of each point as parallel to the lines drawn between the point before it and the point after it
+        # calculate direction of each point as parallel to the lines drawn between the point before it and the point after it
         vectorArray_direction = None
         return vectorArray_direction
 

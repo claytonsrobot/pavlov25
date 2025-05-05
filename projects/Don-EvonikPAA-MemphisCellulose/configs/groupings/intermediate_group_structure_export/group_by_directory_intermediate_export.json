@@ -1,0 +1,183 @@
+{
+    "group": "imports",
+    "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\",
+    "entities": [],
+    "groups": [
+        {
+            "group": "test1",
+            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test1",
+            "entities": [],
+            "groups": [
+                {
+                    "group": "2024-07July-02 to 2024-07July-16",
+                    "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test1\\2024-07July-02 to 2024-07July-16",
+                    "entities": [
+                        {
+                            "name": "AIC4021.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test1\\2024-07July-02 to 2024-07July-16\\AIC4021.csv"
+                        },
+                        {
+                            "name": "AIC4122.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test1\\2024-07July-02 to 2024-07July-16\\AIC4122.csv"
+                        },
+                        {
+                            "name": "AIC4243.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test1\\2024-07July-02 to 2024-07July-16\\AIC4243.csv"
+                        },
+                        {
+                            "name": "Evonik-PAA4.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test1\\2024-07July-02 to 2024-07July-16\\Evonik-PAA4.csv"
+                        },
+                        {
+                            "name": "Ratio-PAA5.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test1\\2024-07July-02 to 2024-07July-16\\Ratio-PAA5.csv"
+                        }
+                    ],
+                    "groups": []
+                },
+                {
+                    "group": "2024-07July-16 to 2024-07July-30",
+                    "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test1\\2024-07July-16 to 2024-07July-30",
+                    "entities": [
+                        {
+                            "name": "AIC4025.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test1\\2024-07July-16 to 2024-07July-30\\AIC4025.csv"
+                        },
+                        {
+                            "name": "AIC4126.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test1\\2024-07July-16 to 2024-07July-30\\AIC4126.csv"
+                        },
+                        {
+                            "name": "AIC4247.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test1\\2024-07July-16 to 2024-07July-30\\AIC4247.csv"
+                        },
+                        {
+                            "name": "Evonik-PAA7.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test1\\2024-07July-16 to 2024-07July-30\\Evonik-PAA7.csv"
+                        },
+                        {
+                            "name": "Ratio-PAA7.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test1\\2024-07July-16 to 2024-07July-30\\Ratio-PAA7.csv"
+                        }
+                    ],
+                    "groups": []
+                },
+                {
+                    "group": "2024-07July-30 to 2024-08Aug-13",
+                    "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test1\\2024-07July-30 to 2024-08Aug-13",
+                    "entities": [
+                        {
+                            "name": "AIC4028.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test1\\2024-07July-30 to 2024-08Aug-13\\AIC4028.csv"
+                        },
+                        {
+                            "name": "AIC4128.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test1\\2024-07July-30 to 2024-08Aug-13\\AIC4128.csv"
+                        },
+                        {
+                            "name": "AIC4248.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test1\\2024-07July-30 to 2024-08Aug-13\\AIC4248.csv"
+                        },
+                        {
+                            "name": "Evonik-PAA8.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test1\\2024-07July-30 to 2024-08Aug-13\\Evonik-PAA8.csv"
+                        },
+                        {
+                            "name": "Ratio-PAA8.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test1\\2024-07July-30 to 2024-08Aug-13\\Ratio-PAA8.csv"
+                        }
+                    ],
+                    "groups": []
+                }
+            ]
+        },
+        {
+            "group": "test2",
+            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test2",
+            "entities": [],
+            "groups": [
+                {
+                    "group": "2024-07July-02 to 2024-07July-16-2",
+                    "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test2\\2024-07July-02 to 2024-07July-16-2",
+                    "entities": [
+                        {
+                            "name": "AIC402.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test2\\2024-07July-02 to 2024-07July-16-2\\AIC402.csv"
+                        },
+                        {
+                            "name": "AIC412.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test2\\2024-07July-02 to 2024-07July-16-2\\AIC412.csv"
+                        },
+                        {
+                            "name": "AIC424.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test2\\2024-07July-02 to 2024-07July-16-2\\AIC424.csv"
+                        },
+                        {
+                            "name": "Evonik-PAA.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test2\\2024-07July-02 to 2024-07July-16-2\\Evonik-PAA.csv"
+                        },
+                        {
+                            "name": "Ratio-PAA.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test2\\2024-07July-02 to 2024-07July-16-2\\Ratio-PAA.csv"
+                        }
+                    ],
+                    "groups": []
+                },
+                {
+                    "group": "2024-07July-16 to 2024-07July-30-2",
+                    "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test2\\2024-07July-16 to 2024-07July-30-2",
+                    "entities": [
+                        {
+                            "name": "AIC402.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test2\\2024-07July-16 to 2024-07July-30-2\\AIC402.csv"
+                        },
+                        {
+                            "name": "AIC412.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test2\\2024-07July-16 to 2024-07July-30-2\\AIC412.csv"
+                        },
+                        {
+                            "name": "AIC424.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test2\\2024-07July-16 to 2024-07July-30-2\\AIC424.csv"
+                        },
+                        {
+                            "name": "Evonik-PAA.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test2\\2024-07July-16 to 2024-07July-30-2\\Evonik-PAA.csv"
+                        },
+                        {
+                            "name": "Ratio-PAA.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test2\\2024-07July-16 to 2024-07July-30-2\\Ratio-PAA.csv"
+                        }
+                    ],
+                    "groups": []
+                },
+                {
+                    "group": "2024-07July-30 to 2024-08Aug-13-2",
+                    "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test2\\2024-07July-30 to 2024-08Aug-13-2",
+                    "entities": [
+                        {
+                            "name": "AIC402.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test2\\2024-07July-30 to 2024-08Aug-13-2\\AIC402.csv"
+                        },
+                        {
+                            "name": "AIC412.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test2\\2024-07July-30 to 2024-08Aug-13-2\\AIC412.csv"
+                        },
+                        {
+                            "name": "AIC424.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test2\\2024-07July-30 to 2024-08Aug-13-2\\AIC424.csv"
+                        },
+                        {
+                            "name": "Evonik-PAA.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test2\\2024-07July-30 to 2024-08Aug-13-2\\Evonik-PAA.csv"
+                        },
+                        {
+                            "name": "Ratio-PAA.csv",
+                            "path": "C:\\Users\\user\\Documents\\dev\\pavlov25\\projects\\Don-EvonikPAA-MemphisCellulose\\imports\\test2\\2024-07July-30 to 2024-08Aug-13-2\\Ratio-PAA.csv"
+                        }
+                    ],
+                    "groups": []
+                }
+            ]
+        }
+    ]
+}

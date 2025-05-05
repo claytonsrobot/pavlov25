@@ -10,6 +10,7 @@ Fences should exist relative to the origin of the group
 '''
 import numpy as np
 
+""" convert all group and curves dictionaries to sets. This way, keys will not confound names"""
 class Group:
 
     #def __init__(self,scene_object=None,name="",tier_object=None):
@@ -113,8 +114,10 @@ class Group:
         self.compound_subgroup_name = self.compound_subgroup_name.replace("selfsubgroupname",str(self.name))
 
 
-    def add_curve_object(self, curve_object,key):
-        self.secret_full_name = self.secret_full_name.replace("-null3",f"-{curve_object.name}")
+    def add_curve_object(self,curve_object,key):
+        print("4.1: Group.add_curve_object(self,curve_object,key)")
+        print(f"curve_object.key = {key}")
+        self.secret_full_name = self.secret_full_name.replace("-null3",f"-{curve_object.name}") #
         self.dict_curve_objects[key]=curve_object
         self.dict_curve_objects[key].group = self
         self.dict_children = {**self.dict_subgroups,**self.dict_curve_objects}

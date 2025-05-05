@@ -1,0 +1,81 @@
+{
+  "vision_summary": {
+    "hardware_ecosystem": {
+      "devices": [
+        {
+          "name": "GPS Unit",
+          "features": [
+            "Timestamp logging",
+            "E-ink display",
+            "Three tactile buttons",
+            "Bluetooth and USB-C connectivity"
+          ]
+        },
+        {
+          "name": "Laser Thermometer",
+          "features": [
+            "Temperature measurement",
+            "GPS tagging",
+            "Timestamp logging",
+            "Automated data syncing"
+          ]
+        },
+        {
+          "name": "Force Sensor",
+          "features": [
+            "Interchangeable attachments",
+            "Configurable sensitivity",
+            "Plug-and-play functionality"
+          ]
+        }
+      ],
+      "connectivity": {
+        "protocols": ["USB-C", "Bluetooth", "Wi-Fi"],
+        "features": [
+          "Checksum verification (SHA256/MD5)",
+          "IoT network file sync",
+          "Plug-and-play modular sensors"
+        ]
+      },
+      "target_markets": [
+        "Field biologists",
+        "Surveyors",
+        "Storm chasers",
+        "Research cavers"
+      ]
+    },
+    "software_ecosystem": {
+      "pavlov_3d": {
+        "features": [
+          "Cmd2 shell",
+          "Visualization of sensor data",
+          "Support for time-series CSV, GPX, SQL APIs",
+          "Config directories with JSON/TOML"
+        ],
+        "enhancements": [
+          "Interactive timelines for storytelling",
+          "Live streaming data visualization",
+          "Collaborative file sharing"
+        ],
+        "platform_support": {
+          "dockerization": true,
+          "fastapi_rest_api": true,
+          "microsoft_store_integration": true,
+          "wsl_optimization": true
+        }
+      },
+      "short_command_workflows": [
+        {
+          "entry_point": "wsl socem",
+          "script": "/usr/local/bin/socem.sh",
+          "description": "Triggers a scripted command for data processing and device management."
+        },
+        {
+          "entry_point": "wsl pavlov",
+          "script": "/usr/local/bin/pavlov.sh",
+          "description": "Launches Pavlov 3D and initializes its API services."
+        }
+      ]
+    }
+  }
+}

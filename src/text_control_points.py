@@ -20,7 +20,7 @@ from src.directories import Directories
 from src.phrase import phrase as phrase_class
 from src.letter import letter as letter_class
 from src import arrayMath
-from src import environmental
+from src import environment
 from pathlib import Path
 from src.text_translation import TextTranslationIntermediate
 
@@ -41,7 +41,7 @@ class TextControlPointMachine:
 
     def __init__(self):
         self.name = os.path.basename(__file__).removesuffix('.py') 
-        if environmental.pyinstaller()==True or environmental.pyinstaller()==False:
+        if environment.pyinstaller()==True or environment.pyinstaller()==False:
             self.dict_characters_raw = self.build_dict_characters_raw()
 
     def text_string_control_points(self,text_label_object,label_type):

@@ -1541,3 +1541,96 @@ test
 2
 3
 quit
+test
+p -o sample
+1
+2
+test
+p -o sample
+1
+2
+eval self.config_input_object.grouping_algorithm
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+ls
+h
+1
+2
+3
+p -o sample
+1
+2
+3
+p -o sample
+1
+2
+3
+test
+1
+2
+3
+quit()
+clear
+quit
+test
+1
+2
+3
+p -o sample
+1
+2
+3
+p -l
+p -o gpx
+1
+test
+1
+2
+3
+quit
+test
+test
+test
+test
+test
+quit
+test
+test
+clear
+quit
+test
+quit
+test
+qut
+quit
+test
+quit
+test
+python
+python os.path.dirname(os.path.abspath(os.path.abspath(inspect.getfile(inspect.currentframe())))))
+python os.path.dirname(os.path.abspath(os.path.abspath(inspect.getfile(inspect.currentframe()))))
+import inspect
+h
+rage
+call
+test
+launch
+inspect
+assign s=2
+s
+call s
+eval s
+eval s
+status
+quit
+test
+1
+2
+3
+quit

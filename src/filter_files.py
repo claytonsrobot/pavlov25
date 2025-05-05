@@ -10,7 +10,7 @@ This should be a functon rather than a class. So that we can keep using it over 
 '''
 import os
 import platform # assumes local is windows and server is linux for vercel
-from src import environmental
+from src import environment
 
 if 'win' in platform.platform().lower():
     vercel=False
@@ -53,7 +53,7 @@ def get_filtered_list_dict(filetype_list,dirname):
     
     files_dict = {}
     dirname=dirname.replace('*','')
-    if environmental.vercel() == False:
+    if environment.vercel() == False:
         dirname = dirname.replace('/','\\')
     else:
         dirname = dirname.replace('\\','/')

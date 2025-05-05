@@ -79,9 +79,9 @@ from src.hierarchy import Hierarchy
 from src.text_translation import TextTranslationIntermediate
 
 from src import translation
-from src import environmental
+from src import environment
 from src.directories import Directories
-if environmental.vercel():
+if environment.vercel():
     from src import vercel_blob
 
 def main():
@@ -469,10 +469,10 @@ def generate_export(scene_object,style_object,export_control_object):
         print("Creating FBX export file ... mark",mark_time,"sec")
         createFBX_object.generate_model()
         createFBX_object.lSdkManager.Destroy() # memory management, this was on;y passed up to troubleshoot variables from the command window
-        if environmental.vercel():
+        if environment.vercel():
             #scene_object.filesize_FBX = round(os.path.getsize(scene_object.filepath)/(1024),3)
             pass
-        elif environmental.pyinstaller():
+        elif environment.pyinstaller():
             scene_object.filesize_FBX = round(os.path.getsize(scene_object.filepath)/(1024),3)
         else:
             scene_object.filesize_FBX = round(os.path.getsize(scene_object.filepath)/(1024),3)

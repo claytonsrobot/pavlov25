@@ -5,7 +5,7 @@ Created: 29 January 2025
 
 Purpose: 
 Keep directory assignment organized, particularly for using project folders.
-Migrate away from directory amangement in environmental.py
+Migrate away from directory amangement in environment.py
 
 Example:
 from src.directories import Directories
@@ -15,9 +15,10 @@ import os
 import inspect
 from src import toml_utils
 from pathlib import Path
-from src import environmental
+from src import environment
 
 class Directories:
+    root = None
     core = None
     project = None
     configs = None
@@ -32,15 +33,22 @@ class Directories:
 
     #setters
     @classmethod
+    def set_root_dir(cls,path):
+        cls.root = path
+    @classmethod
     def set_core_dir(cls,path):
         cls.core = path
     @classmethod
     def set_project_dir(cls,path):
+        print(f"Directories.set_project_dir(cls,path)")
         # if a legitimate full path is not provided, assume that the project directory is within the core\projects\ directory
         if os.path.isdir(path):
             cls.project = path
         else:
-            relative_path =  cls.get_core_dir()+"\\projects\\"+path
+            print(f"cls.get_root_dir() = {cls.get_root_dir()}")
+            #relative_path =  cls.get_core_dir()+"\\projects\\"+path
+            relative_path =  cls.get_root_dir()+"\\projects\\"+path
+            print(f"relative_path = {relative_path}")
             if os.path.isdir(relative_path):
                 cls.project = relative_path
         print(f"Project directory set: {cls.project}")
@@ -61,6 +69,10 @@ class Directories:
 
     # getters
     @classmethod
+    def get_root_dir(cls):
+        #return cls.root
+        return cls.root
+    @classmethod
     def get_core_dir(cls):
         #return cls.core
         return cls.core
@@ -78,9 +90,9 @@ class Directories:
         return cls.get_project_dir()+"\\exports\\"
     @classmethod
     def get_import_dir(cls):
-        if environmental.vercel==False:
+        if environment.vercel==False:
             return cls.get_project_dir()+"\\imports\\"
-        elif environmental.vercel==True: # web app, blob
+        elif environment.vercel==True: # web app, blob
             folder='\\tmp\\' # https://maxson-engineering-notes.vercel.app/personal/pavlov3-d/chat-gpt-pavlov3-d-django-improvements-report/
             folder=cls.scene_object.blob_dir+'/csv_uploads_pavlovdata/' # blob=dir shold be known here.
             return folder
@@ -104,14 +116,19 @@ class Directories:
     # migrated
     @classmethod
     def initilize_program_dir(cls): # called in CLI. Should also be called at other entry points.
+        cls.set_root_dir(os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))))
         cls.set_core_dir(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
         print(f"cls.initial_program_dir = {cls.get_core_dir()}")
         #cls.initialize_startup_project()
     @classmethod
     def initialize_startup_project(cls):
-        filename_default_project_entry = "./src/projects/default-project.toml"
+        print(f"Directories.initialize_startup_project(cls)")
+        #filename_default_project_entry = "./src/projects/default-project.toml"
+        filename_default_project_entry = "./projects/default-project.toml"
         loaded_entry = toml_utils.load_toml(filename_default_project_entry)
-        cls.set_project_dir(cls.get_core_dir()+"\\projects\\"+loaded_entry["project_directory"])
+        #cls.set_project_dir(cls.get_core_dir()+"\\projects\\"+loaded_entry["project_directory"])
+        #cls.set_project_dir(cls.get_root_dir()+"\\projects\\"+loaded_entry["project_directory"])
+        cls.set_project_dir(loaded_entry["project_directory"])
 
     @staticmethod
     def check_file(filepath):

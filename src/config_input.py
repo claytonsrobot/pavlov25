@@ -10,7 +10,7 @@ from pprint import pprint
 
 #import inspect
 #import json
-#import environmental
+#import environment
 #import platform # assumes local is windows and server is linux for vercel
 import src.filter_files as ff
 import src.grouping_by_directory

@@ -22,7 +22,7 @@ from sparklines import sparklines
 #import gui_customtk_basic
 from src.filemanagement import DirectoryControl
 from src import filemanagement as fm
-from src import environmental
+from src import environment
 #import copy
 import importlib
 import ast
@@ -199,8 +199,9 @@ class PavlovCLI(cmd2.Cmd):
         cls.scene_object = None
     @classmethod
     def link_initial_project_directory(cls):
+        print(f"PavlovCLI.link_initial_project_directory(cls)")
         #cls.project_active = None
-        Directories.set_project_dir(Directories.get_core_dir()+r"/projects/sample/")
+        Directories.set_project_dir(Directories.get_root_dir()+r"/projects/sample/")
         print(f"project_active = {Directories.get_project_dir()}")
         # dynamic, points to default-project.json file
         #cls.set_project_active(cls.get_startup_project("./projects/default-project.json")) # pull from config file
@@ -208,6 +209,7 @@ class PavlovCLI(cmd2.Cmd):
     
     @classmethod
     def set_project_active(cls,project_dir):
+        print(f"PavlovCLI.set_project_active(cls,project_dir)")
         #cls.project_active = project_dir
         Directories.set_project_dir(project_dir)
         print(f"Directories.set_project_dir() = {Directories.get_project_dir()}")
@@ -255,13 +257,14 @@ class PavlovCLI(cmd2.Cmd):
         for i, item in enumerate(self.history, start=1):
             self.poutput(repr(str(item)))  # Use string representation to ensure compatibility
 
-
+    """
     def run(self):
         #self.scene_object = None
         self.initialize_scene_object()
         self.link_initial_project_directory()
         Directories.initialize_startup_project()
         self.cmdloop()
+    """
 
     def do_status(self,line):
         "Get a rough idea of what the program has done so far."
@@ -1555,7 +1558,7 @@ class PavlovCLI(cmd2.Cmd):
 
     def do_clear(self,line):
         
-        if environmental.windows():
+        if environment.windows():
             os.system('cls')
         else:
             os.system('clear')
@@ -1770,6 +1773,7 @@ class PavlovCLI(cmd2.Cmd):
 
 
 if __name__=='__main__':
+    print(f"shell.py: if __name__=='__main__' (dunder)")
     app = PavlovCLI()
     app.onecmd_plus_hooks("test")
     Directories.initilize_program_dir()

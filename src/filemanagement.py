@@ -13,7 +13,7 @@ Add shortcuts to imports and exports to central drectories?
 import time
 import os
 from pathlib import Path
-from src import environmental
+from src import environment
 from src.directories import Directories 
 from pprint import pprint
 import shutil
@@ -189,7 +189,7 @@ def openfile(line):
     print(f"filepath: {filepath}")
     if os.path.exists(filepath):
         try:
-            if environmental.windows():
+            if environment.windows():
                 os.startfile(str(filepath))
             else:
                 opener = "open" if sys.platform == "darwin" else "xdg-open"
@@ -205,7 +205,7 @@ def opentxt(line):
     print(f"filepath: {filepath}")
     if os.path.exists(filepath):
         try:
-            if environmental.windows():
+            if environment.windows():
                 os.system(f"notepad {str(filepath)}")
             else:
                 opener = "open" if sys.platform == "darwin" else "xdg-open"
@@ -220,7 +220,7 @@ def opendir(line):
     print(f"filepath: {directory}")
     if os.path.exists(directory):
         try:
-            if environmental.windows():
+            if environment.windows():
                 os.startfile(str(directory))
             else:
                 opener = "open" if sys.platform == "darwin" else "xdg-open"

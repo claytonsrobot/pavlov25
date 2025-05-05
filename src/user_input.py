@@ -14,7 +14,7 @@ import sys
 #from pprint import pprint
 
 from src import filter_files as ff
-from src import environmental
+from src import environment
 import src.grouping_by_string
 import src.grouping_by_directory
 import src.config_input
@@ -23,6 +23,8 @@ from src.directories import Directories
 class UserInput:
     gui_object = None
     style_object = None
+    plugin_class_dict = dict()
+    plugin_class_dict.fromkeys(list(["color","import", "export"]))
     
     @classmethod # called inside of gui.py after user_input_object is instanced
     def assign_interface_object(cls,interface_object):
@@ -157,7 +159,7 @@ class UserInput:
             # Assume all file are in the same directory
             self.filepaths = [Directories.get_import_dir() + x for x in self.filenames]
             # we should be starting with filepaths then trimming to filenames.
-            # all processes should use the whole filepath where possible, to modularize for either group-by-string and group-by-directory
+            # all processes should use the whole filepath where possible, to modularize for either group-by-text and group-by-directory
         elif config_input_object.grouping_algorithm == "group-by-directory":
 
             if False:
@@ -180,7 +182,7 @@ class UserInput:
         if False:
             print(f"self.filenames = {self.filenames}")
 
-        if config_input_object.grouping_algorithm == "group-by-string":
+        if config_input_object.grouping_algorithm == "group-by-text":
         # this is a misnomer, because all algorithms can be fed this way. It will generate empties, and then destroy them. Non-ideal, but. 
             self.dict_groups_tiers = src.grouping_by_string.define_groups(self.group_names,self.subgroup_names)
         elif config_input_object.grouping_algorithm == "group-by-directory":
@@ -331,7 +333,7 @@ class UserInput:
                     except:
                         self.export_function = self.style_object.default_export_function
         #print(f'self.export_function = {self.export_function}')
-        if environmental.pyinstaller()==False or environmental.pyinstaller()==True: #24 Dec 24
+        if environment.pyinstaller()==False or environment.pyinstaller()==True: #24 Dec 24
             self.export_function = self.remove_duplicates(self.export_function)
         print(f'self.export_function = {self.export_function}')
         return self.export_function
@@ -409,8 +411,8 @@ class UserInput:
             self.user_input_object.color_function=[color_style_plugin] """
 
     def check_if_plugin_is_in_plugin_directory(self,plugin_filename):
-        #print(f"environmental.pyinstaller() = {environmental.pyinstaller()}")
-        if environmental.pyinstaller()==False:
+        #print(f"environment.pyinstaller() = {environment.pyinstaller()}")
+        if environment.pyinstaller()==False:
             # allows dev to put plugin in python project directory, as a python file
             if plugin_filename.endswith('.py'):
                 plugin_filename=plugin_filename
@@ -431,7 +433,7 @@ class UserInput:
             #if plugin_filename in dir_list: # any filetype, reckless
             return plugin_filename in py_files # boolean #means you must leave the extension. should really be using json 
         
-        if environmental.pyinstaller()==True:
+        if environment.pyinstaller()==True:
             return True
 
     @staticmethod

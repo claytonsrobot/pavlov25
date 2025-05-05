@@ -56,9 +56,9 @@ import math
 #import inspect
 import copy
 #import blob
-from src import environmental
+from src import environment
 from src.directories import Directories
-if environmental.vercel()==True:
+if environment.vercel()==True:
     from .home.session import add_fbx_file_to_blob_dir
 
 from src.text_translation import TranslationFinal
@@ -604,9 +604,9 @@ class CreateFBX:
         result = lExporter.Initialize(self.filename_FBX, self.lFileFormat, self.lSdkManager.GetIOSettings())
         if result is True:
             
-            #print(f'environmental.vercel()={environmental.vercel()}')
+            #print(f'environment.vercel()={environment.vercel()}')
             
-            if environmental.vercel()==True:
+            if environment.vercel()==True:
                 os.chdir("/tmp/")
                 result = lExporter.Export(self.lScene)
                 print(f'self.filename_FBX = {self.filename_FBX}')
