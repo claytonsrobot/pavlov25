@@ -1,0 +1,36 @@
+[project]
+name = "pavlov-3d"
+version = "2025.0.0"
+dependencies = [
+  "httpx",
+  "gidgethub[httpx]>4.0.0",
+]
+requires-python = ">=3.10"
+authors = [
+  {name = "Clayton Bennett", email = "pavlov3d@proton.me"},
+]
+description = "Pavov 3D is a data visualization software for exploring your 2D to 7D data in a three-dimensional FBX scene."
+readme = "README.md"
+license = "BSD-3"  # or license = {file = "LICENSE.txt"} for legacy declaration
+license-files = ["LICEN[CS]E.*"]
+keywords = ["fbx", "fbxsdk", "CAD Assistant"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python"
+]
+
+[project.optional-dependencies]
+gui = ["PyQt5"]
+cli = [
+  "rich",
+  "click",
+]
+
+[tool.poetry.dev-dependencies]
+pytest
+
+[project.urls]
+Homepage = "https://example.com"
+Documentation = "https://readthedocs.org"
+Repository = "https://github.com/claytonsrobot/pavlov25"
+"Web App" = "https://pavlov3d.world"

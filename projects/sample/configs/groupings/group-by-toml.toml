@@ -1,0 +1,25 @@
+[[group]]
+name = "maxson"
+
+[[group.subgroup]]
+name = "november"
+files = ["maxson-vss-november2024.csv"]
+
+[[group.subgroup]]
+name = "Subgroup2"
+files = ["file3.csv"]
+
+[[group]]
+name = "stiles"
+
+[[group.subgroup]]
+name = "december"
+files = ["stiles-vss-december2024.csv","stiles-vss-december2024b.csv"]
+
+[[group.subgroup]]
+name = "july"
+files = ["stiles-vss-july2024.csv","stiles-xss-july2024.csv"]
+
+[[group.subgroup]]
+name = "march"
+files = ["stiles-vss-march2024.csv"]

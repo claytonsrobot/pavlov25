@@ -1,0 +1,3 @@
+[grouping]
+"grouping_selection_filename" = "null" # unnecessary for group-by-directory algorithm
+"algorithm" = "group-by-directory" # this is what it sounds like - in the level within the imports folder, those folder names will be the group names. the subgroups are below that, in which are expected curves

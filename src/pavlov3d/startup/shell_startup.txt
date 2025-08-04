@@ -1,0 +1,10 @@
+echo The startup is being run: script ./src/startup/shell_startup.txt
+help
+#config load default
+
+#init setup
+#load_project /path/to/default_project
+#run_script /path/to/example_workflow.py
+
+#clear
+#history --clear

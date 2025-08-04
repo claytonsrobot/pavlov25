@@ -1,0 +1,7 @@
+[grouping]
+group_names = "maxson,stiles,bulldog"
+subgroup_names = "analytics,january,february,march,april,may,june,july,august,september,october,november,december" # 
+
+[codex] # this is for translating the filenames to another names list, lookup table, tuple, etc
+group_map_based_on_filename_true_translated_name_false = false
+name_codex_filename = ""
