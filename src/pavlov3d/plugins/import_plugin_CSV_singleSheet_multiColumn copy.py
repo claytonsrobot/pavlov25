@@ -6,8 +6,8 @@ Created: 14 February 2024 (HaPpy Valentine's Day <3, from Luang Prabang :D)
 import numpy as np
 if False:
     import pandas as pd
-from src.helpers.filename_utils import get_this_filename
-from src.plugins.import_plugin_general import read_data_genfromtext, read_data_pandas, ImportPlugin
+from src.pavlov3d.helpers.filename_utils import get_this_filename
+from src.pavlov3d.plugins.import_plugin_general import read_data_genfromtext, read_data_pandas, ImportPlugin
 
 class Plugin(ImportPlugin):
     def __init__(self):

@@ -8,7 +8,7 @@ import numpy as np
 
 #import pandas as pd
 import os
-from src.plugins.import_plugin_general import read_data_genfromtext
+from src.pavlov3d.plugins.import_plugin_general import read_data_genfromtext
 #import import_lib
 class Convert:
     def __init__(self):

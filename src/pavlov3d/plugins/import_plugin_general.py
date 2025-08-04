@@ -10,7 +10,7 @@ import numpy as np
 import import_lib
 import time
 from src.pavlov3d.directories import Directories
-from src.helpers.filename_utils import get_this_filename
+from src.pavlov3d.helpers.filename_utils import get_this_filename
 from src.pavlov3d import tradition
 
 def read_data_genfromtext(filepath,user_input_object,scene_object):

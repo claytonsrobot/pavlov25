@@ -13,8 +13,8 @@ import numpy as np
 import os
 if False:
     import pandas as pd
-from src.helpers.filename_utils import get_this_filename
-from src.plugins.import_plugin_general import read_data_genfromtext, ImportPlugin
+from src.pavlov3d.helpers.filename_utils import get_this_filename
+from src.pavlov3d.plugins.import_plugin_general import read_data_genfromtext, ImportPlugin
 #from scale import Scale
 class Plugin(ImportPlugin):
     def __init__(self):

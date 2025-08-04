@@ -14,8 +14,8 @@ import numpy as np
 from datetime import datetime
 import sys
 import time
-from src.helpers.filename_utils import get_this_filename
-from src.plugins.import_plugin_general import read_data_genfromtext, ImportPlugin
+from src.pavlov3d.helpers.filename_utils import get_this_filename
+from src.pavlov3d.plugins.import_plugin_general import read_data_genfromtext, ImportPlugin
 from src.pavlov3d.curve import Curve
 
 class Plugin(ImportPlugin):

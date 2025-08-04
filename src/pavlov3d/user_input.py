@@ -165,10 +165,10 @@ class UserInput:
             if False:
                 # explore first and second level directories in the projects/{project_name}/"imports" folder
                 # migrate this to user_input_config 
-                # old, works: self.group_names, self.subgroup_names, file_paths, file_names = src.grouping_by_directory.get_group_names_and_subgroup_names_and_file_names_from_import_directory_hierarchy(directory = Directories.get_import_dir())
-                #keep: self.group_names, self.subgroup_names, file_paths, file_names = src.grouping_by_directory.get_group_names_and_subgroup_names_and_file_names_from_group_by_directory_intermediate_export_json_file()
-                #toss: self.group_names, self.subgroup_names, file_paths, file_names = src.config_input.get_group_names_and_subgroup_names_and_file_names_from_group_by_directory_cij_loaded_grouping()
-                self.group_names, self.subgroup_names, file_paths, file_names = src.config_input.get_three_tier_group_names_and_subgroup_names_and_file_names_from_group_by_directory_cij_loaded_grouping(data = config_input_object.loaded_grouping)
+                # old, works: self.group_names, self.subgroup_names, file_paths, file_names = src.pavlov3d.grouping_by_directory.get_group_names_and_subgroup_names_and_file_names_from_import_directory_hierarchy(directory = Directories.get_import_dir())
+                #keep: self.group_names, self.subgroup_names, file_paths, file_names = src.pavlov3d.grouping_by_directory.get_group_names_and_subgroup_names_and_file_names_from_group_by_directory_intermediate_export_json_file()
+                #toss: self.group_names, self.subgroup_names, file_paths, file_names = src.pavlov3d.config_input.get_group_names_and_subgroup_names_and_file_names_from_group_by_directory_cij_loaded_grouping()
+                self.group_names, self.subgroup_names, file_paths, file_names = src.pavlov3d.config_input.get_three_tier_group_names_and_subgroup_names_and_file_names_from_group_by_directory_cij_loaded_grouping(data = config_input_object.loaded_grouping)
                 # for now don't check filetypes, assume all are good
                 #self.filepaths,self.filenames = foo(config_input_object.loaded_grouping) 
                 self.filenames = file_names
@@ -184,9 +184,9 @@ class UserInput:
 
         if config_input_object.grouping_algorithm == "group-by-text":
         # this is a misnomer, because all algorithms can be fed this way. It will generate empties, and then destroy them. Non-ideal, but. 
-            self.dict_groups_tiers = src.grouping_by_string.define_groups(self.group_names,self.subgroup_names)
+            self.dict_groups_tiers = src.pavlov3d.grouping_by_string.define_groups(self.group_names,self.subgroup_names)
         elif config_input_object.grouping_algorithm == "group-by-directory":
-            self.dict_groups_tiers = src.grouping_by_directory.define_groups(loaded_grouping = config_input_object.loaded_grouping)
+            self.dict_groups_tiers = src.pavlov3d.grouping_by_directory.define_groups(loaded_grouping = config_input_object.loaded_grouping)
             print(f"self.dict_groups_tiers = {self.dict_groups_tiers}")
             print("group mapping: UserInput.pull_config_input_object(self,config_input_object)")
             root_group = str(config_input_object.loaded_grouping)
