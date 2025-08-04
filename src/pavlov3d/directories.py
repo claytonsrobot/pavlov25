@@ -116,8 +116,6 @@ class Directories:
     # migrated
     @classmethod
     def initilize_program_dir(cls): # called in CLI. Should also be called at other entry points.
-        #cls.set_root_dir(os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))))
-        #cls.set_core_dir(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
         cls.set_root_dir(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))))
         cls.set_core_dir(os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))))
         
