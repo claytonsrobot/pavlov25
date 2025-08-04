@@ -164,11 +164,11 @@ class Hierarchy:
     def _assign_group_membership_for_complete_hierarchy(self,grouping_algorithm,loaded_grouping):
         # i think once you get to this point, you might not need logic, they all run the same?
         if grouping_algorithm == "group-by-text":
-            src.grouping_by_string.assign_group_membership_for_complete_hierarchy(hierarchy_object = self, loaded_grouping = loaded_grouping) # stable but error prone, if you cam say that #
+            src.pavlov3d.grouping_by_string.assign_group_membership_for_complete_hierarchy(hierarchy_object = self, loaded_grouping = loaded_grouping) # stable but error prone, if you cam say that #
         elif grouping_algorithm == "group-by-spreadsheet": #testing 1 February 2025
-            src.grouping_by_spreadsheet.assign_group_membership_for_complete_hierarchy(hierarchy_object = self, loaded_grouping = loaded_grouping)
+            src.pavlov3d.grouping_by_spreadsheet.assign_group_membership_for_complete_hierarchy(hierarchy_object = self, loaded_grouping = loaded_grouping)
         elif grouping_algorithm == "group-by-directory": #testing 1 February 2025
-            src.grouping_by_directory.assign_group_membership_for_complete_hierarchy_v0(hierarchy_object = self, loaded_grouping = loaded_grouping)
+            src.pavlov3d.grouping_by_directory.assign_group_membership_for_complete_hierarchy_v0(hierarchy_object = self, loaded_grouping = loaded_grouping)
         return True
     # check for curve_objects that have not been assigned a supergroup    
     def _add_curve_object_to_ungrouped(self,curve_object):
