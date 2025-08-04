@@ -1,0 +1,16 @@
+[project]
+name = "pavlov25"
+version = "0.1.0"
+description = "Pavlov3D development project."
+authors = [
+    {name = "George Clayton Bennett",email = "pavlov3d@proton.me"}
+]
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
