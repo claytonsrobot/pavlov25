@@ -14,6 +14,9 @@ import numpy as np
 from datetime import datetime
 import sys
 import time
+from pathlib import Path
+import inspect
+
 from src.pavlov3d.helpers.filename_utils import get_this_filename
 from src.pavlov3d.plugins.import_plugin_general import read_data_genfromtext, ImportPlugin
 from src.pavlov3d.curve import Curve
@@ -26,6 +29,7 @@ class Plugin(ImportPlugin):
         self.filetype_allowed_list = ['csv','xlsx','xls']
     
     def run_import(self):
+        print(f"import_plugin_CSV_3D.run_import")
         self.discern_filenames()
         filecount = len(self.filepaths)
         for j,filepath in enumerate(self.filepaths):
@@ -102,7 +106,6 @@ class Plugin(ImportPlugin):
             curve_object.add_headers(header_time,header_height,header_depth)
             curve_object.add_raw_data(vector_time,vector_height,vector_depth) 
             curve_object.dict_data_vectors_raw['time'] = vector_time
-            
             curve_object.dict_data_vectors_raw['height'] = vector_height
             curve_object.dict_data_vectors_raw['depth'] = vector_depth
             ## work on the data Object initialization

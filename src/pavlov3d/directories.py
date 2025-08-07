@@ -74,7 +74,6 @@ class Directories:
         return cls.root
     @classmethod
     def get_core_dir(cls):
-        #return cls.core
         return cls.core
     @classmethod
     def get_program_dir(cls):
@@ -117,7 +116,7 @@ class Directories:
     @classmethod
     def initilize_program_dir(cls): # called in CLI. Should also be called at other entry points.
         cls.set_root_dir(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))))
-        cls.set_core_dir(os.path.dirname(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))))
+        cls.set_core_dir(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
         
         print(f"cls.initial_program_dir = {cls.get_core_dir()}")
         #cls.initialize_startup_project()

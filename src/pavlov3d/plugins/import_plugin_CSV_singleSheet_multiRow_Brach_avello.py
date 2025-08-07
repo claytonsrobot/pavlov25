@@ -7,7 +7,7 @@ import numpy as np
 from src.pavlov3d.helpers.filename_utils import get_this_filename
 from src.pavlov3d.plugins.import_plugin_general import read_data_genfromtext, read_data_pandas, ImportPlugin
 
-import import_lib
+from src.pavlov3d import import_lib
 class Plugin(ImportPlugin):
 
     def __init__(self):

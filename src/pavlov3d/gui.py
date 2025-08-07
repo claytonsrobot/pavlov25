@@ -61,6 +61,7 @@ Big thing - we need the whole thing to launch and open without a default data di
 
 #import PySimpleGUI as sg
 import FreeSimpleGUI as sg
+import pprint
 import os
 import pathlib # for chopping off filename when searching directory
 #import pandas as pd # for data management
@@ -75,10 +76,6 @@ from src.pavlov3d.directories import Directories
 # import queryTracker
 
 standardTextSize=6 # doesn't do anything
-
-
-
-
 
 #config_input_object = ConfigInput() 
 #config_input_object.define_and_load_default_config_input()
@@ -276,6 +273,8 @@ class Gui:
         
     def window_user_input_config_selection(self,cij):
         #config_path = self.config_input_object.config_directory + cij.config_input_file
+        print(f"cij.keys = ")
+        pprint.pprint(cij.keys)
         config_path =cij['config_input_path'] # assessed in the user_input_ tool # hacky bullshit, get it another way.
         #config_path = script_dir + self.config_entry_object.config_directory_relative + self.config_entry_object.config_file
         layout = [

@@ -55,6 +55,7 @@ Data orgin of a group is coincident with the data origin of its first child.
 import os
 import time
 import copy
+import pprint
 #import uniqueUnixFilename
 
 from src.pavlov3d.scene import Scene
@@ -62,7 +63,6 @@ from src.pavlov3d.style import Style
 from src.pavlov3d.import_lib import ImportLib
 from src.pavlov3d.scale import Scale, MultipleAxesScalingAlgorithm #
 #MultipleAxesScalingAlgorithm.assign_hierarchy_object(hierarchy_object)
-#MultipleAxesScalingAlgorithm.normalize_all_curve_objects()
 #from converter import converter as Convert
 from src.pavlov3d.preview import Preview as Preview
 
@@ -163,10 +163,10 @@ def determine_interface(style_object,config_input_object,user_input_object):
     #if style_object.use_GUI is True:
         #if style_object.developer_mode_gui is True:
         if style_object.interface_choice == 'gui_developer':
-            from gui import Gui
+            from src.pavlov3d.gui import Gui
         #else:
         elif style_object.interface_choice == 'gui_simple':
-            from gui_simple import Gui
+            from src.pavlov3d.gui_simple import Gui
         print('gui_object load\n')
         gui_object = Gui()        
         control_cli_object = None
@@ -225,11 +225,13 @@ def import_data(scene_object,style_object,user_input_object,hierarchy_object):
         
     scale_object = Scale()        
     scale_object.assign_scene_object_etc(scene_object)
-    scale_is_ready=True
+    scale_is_ready=False
     if scale_is_ready is True:
         pass
-        #scale_object.scale_datapoints() # garbage function, poorly writte. go look and see why.
-
+        #scale_object.scale_datapoints() # garbage function, poorly written. go look and see why.
+    print("hierarchy_object.dict_curve_objects_all.values()")
+    for curve_object in set(hierarchy_object.dict_curve_objects_all.values()):
+        print(f"{curve_object}: {curve_object.name}")
     MultipleAxesScalingAlgorithm.normalize_all_curve_objects(set(hierarchy_object.dict_curve_objects_all.values()))
     style_object.calculate_halfwidths_and_directions()
 

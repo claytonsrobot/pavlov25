@@ -10,6 +10,7 @@ Or maybe all plugins shuld be made into lists, regardless of source,so that all 
 '''
 import os
 import sys
+from pathlib import Path 
 #import re
 #from pprint import pprint
 
@@ -199,7 +200,8 @@ class UserInput:
     def extract_filetypes_allowed_list_from_import_plugin(self):
         #import_function = self._check_import_plugin()
         plugin = self.import_style_plugin[0]
-        plugin = "plugins."+plugin
+        #plugin = "plugins."+plugin
+        plugin = "src.pavlov3d.plugins."+plugin
         PluginClass = self.style_object.assign_plugin_dynamically(plugin)
         import_function_object = PluginClass()
         #import_function_object = self.style_object.prepare_import_module()
@@ -399,13 +401,19 @@ class UserInput:
 
     def remove_duplicates(self,old_list):
         #print(f'with duplicates: {old_list}')
-        fresh_list = []
-        for i,entry in enumerate(old_list):
-            if entry not in fresh_list:
-                fresh_list.append(entry)
-        #print(f'without duplicates: {fresh_list}')
+        
+        if isinstance(old_list,list):
+            fresh_list = []
+            for i,entry in enumerate(old_list):
+                if entry not in fresh_list:
+                    fresh_list.append(entry)
+            #print(f'without duplicates: {fresh_list}')
+            return fresh_list
+        elif isinstance(old_list,str):
+            return old_list
 
-        return fresh_list
+
+        
 
     """ def check_or_make_as_list(self,color_style_plugin):# unused
         if isinstance(color_style_plugin,list):
@@ -427,9 +435,8 @@ class UserInput:
             
             
 
-            plugins_directory = Directories.get_core_dir()+'/plugins/' # for pavlov_exe # shit is not right
+            plugins_directory = Path(Directories.get_core_dir()) / 'plugins' # for pavlov_exe # shit is not right
             
-            #print(f'plugins_directory = {plugins_directory}')
             dir_list = os.listdir(plugins_directory)
 
             py_files = [file for file in dir_list if file.endswith('.py')]
@@ -456,7 +463,8 @@ class UserInput:
                     #plugin=plugin # no change
                     pass
                 elif plugin.startswith('color_plugin_') or plugin.startswith('import_plugin_') or plugin.startswith('export_plugin_'):#***typical prefixes***
-                    plugin_list[i] = 'plugins.'+plugin
+                    #plugin_list[i] = 'plugins.'+plugin
+                    plugin_list[i] = 'src.pavlov3d.plugins.'+plugin
                 elif plugin == '' or plugin is None:
                     plugin = None
                 else:

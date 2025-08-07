@@ -19,6 +19,7 @@ import time
 from datetime import datetime
 #import subprocess
 from sparklines import sparklines
+from pathlib import Path
 #import gui_customtk_basic
 from src.pavlov3d.filemanagement import DirectoryControl
 from src.pavlov3d import filemanagement as fm
@@ -1052,7 +1053,7 @@ class PavlovCLI(cmd2.Cmd):
     def do_guic(self,line):
         "Wokin progress. Run classic developer mode FreeSimpleGUI."
         if not(self.scene_object is None) and not(self.user_input_object is None): 
-            from gui import Gui
+            from src.pavlov3d.gui import Gui
             interface_object = Gui()
             interface_object.assign_style_object(self.style_object) 
             interface_object.assign_config_input_object(self.config_input_object)
@@ -1063,7 +1064,7 @@ class PavlovCLI(cmd2.Cmd):
     def do_guics(self,line):
         "Wokin progress. Run classic simple mode FreeSimpleGUI."
         if not(self.scene_object is None) and not(self.user_input_object is None): 
-            from gui_simple import Gui
+            from src.pavlov3d.gui_simple import Gui
             interface_object = Gui()
             interface_object.assign_style_object(self.style_object) 
             interface_object.assign_config_input_object(self.config_input_object)
@@ -1295,8 +1296,9 @@ class PavlovCLI(cmd2.Cmd):
             fm.tree("./projects/")
 
         elif args.list is True:
-            #pprint.pprint(DirectoryControl.walk(args.list))
-            pprint.pprint(DirectoryControl.walk(Directories.get_program_dir()+"/projects/"))
+            path = Path(Directories.get_root_dir()) / "projects"
+            DirectoryControl.print_directory_contents(path)
+
         
         elif args.listexternal is True:
             toml_filepath = Directories.get_program_dir()+"\\projects\\external_project_register.toml"

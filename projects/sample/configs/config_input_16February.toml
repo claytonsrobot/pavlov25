@@ -2,7 +2,7 @@
 "stack_direction_groups" = "diagonal_stack"
 "stack_direction_subgroups" = "time_stack"
 "stack_direction_curves" = "depth_stack"
-"import_style_plugin" =  "import_plugin_CSV_3D"
+"import_style_plugin" =  "import_plugin_CSV_2D"
 "export_style_plugin" =  "export_plugin_createFBX_bar_3D"
 "color_style_plugin" = "color_plugin_binned_gradient"
 "column_time" = "Time"

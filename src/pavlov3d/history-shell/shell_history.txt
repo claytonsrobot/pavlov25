@@ -1707,3 +1707,386 @@ test
 1
 2
 quit
+test
+g
+1
+2
+gui
+quit
+test
+1
+2
+quit
+test
+1
+2
+quit
+test
+1
+2
+h
+show
+i
+status
+h
+projects
+project
+projects
+quit
+test
+quit
+test
+projects -l
+quit
+test
+projects -l
+quit
+test
+projects -l
+quit
+test
+projects -l
+quit
+test
+p
+p -o gpx
+1
+quit
+test
+p -l
+python help(os.walk)
+python help(pathlib)
+python import pathlib
+python help(pathlib)
+python import pathlib; 1
+python import pathlib; python help(pathlib)
+python import pathlib; python print(help(pathlib))
+quit
+test
+quit
+test
+p -l
+quit
+test
+quit
+test
+p -l
+qui
+quit
+test
+p -l
+quit
+test
+p -l
+ls
+ls projects
+quit
+test
+p -o sample
+1
+2
+quit
+test
+p -o sample
+1
+2
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+quit
+test
+p -o sample
+1
+2
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+clear
+1
+2
+3
+quit
+test
+clear
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+clear
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+clear
+quit
+test
+1
+2
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+p -l
+quit
+test
+p -l
+quit
+test
+p -l
+quit
+test
+p -l
+h
+p -o sample
+1
+2
+3
+clear
+quit
+test
+p -o sample
+1
+2
+3
+clear
+clear
+quit
+test
+p -o sample
+1
+2
+3
+test
+p -o sample
+1
+2
+3
+status
+h
+clear
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+h
+config
+see
+see scene
+see
+see style
+see config
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+open
+open  -p
+1
+2
+quit
+test
+p -l
+p
+p -c
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+clear
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+clear
+quit
+test
+p -o sampl
+p -o sample
+1
+2
+clear
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+clear
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+clear
+p -o sample
+quit
+test
+p -o sample
+1
+2
+3
+clear
+quit

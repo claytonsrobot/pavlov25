@@ -39,10 +39,11 @@ class Curve:
         cls.scene_object = scene_object
         cls.user_input_object = scene_object.user_input_object
         cls.hierarchy_object = scene_object.hierarchy_object
-
+        print(f"Curve.hierarchy_object = {Curve.hierarchy_object}")
 
     def __init__(self,name=""):
         print(f"Generating curve object: {name}")
+        print(f"curve === {self}")
         self.name = name.lower()
         self.secret_full_name = "null0-null1-null2-null3"
         self.span = np.array([[0.0,0.0],[0.0,0.0],[0.0,0.0]])
@@ -128,8 +129,9 @@ class Curve:
         self.header_depth = header_depth
 
     def add_curve_object_to_hierarchy_object(self): #check use 30Jan
+        print(f"{self} : add_curve_object_to_hierarchy_object()")
         self.hierarchy_object.dict_curve_objects_all.update({self.name.lower():self}) 
-
+    
     def add_raw_data(self,raw_time,
                     raw_height,
                     raw_depth):

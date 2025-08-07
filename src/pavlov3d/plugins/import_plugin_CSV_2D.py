@@ -8,9 +8,14 @@ Serve as a known import plugin (represented in the gui_object import dictionary 
 Process:
 Import each CSV sheet as a dataframe and make the dataframe an attribute of each curve_object "curve"
 '''
+import logging
 if False:
     import pandas as pd
 import numpy as np
+import inspect
+from pathlib import Path
+import inspect
+
 from src.pavlov3d.helpers.filename_utils import get_this_filename
 from src.pavlov3d.plugins.import_plugin_general import read_data_genfromtext, ImportPlugin
  
@@ -18,9 +23,11 @@ class Plugin(ImportPlugin):
     def __init__(self):
         super().__init__()  # Call Parent's __init__
         self.name = get_this_filename(__file__)
-        self.filetype_allowed = ["csv,xlsx,xls"]
+        #self.filetype_allowed = ["csv,xlsx,xls"]
+        self.filetype_allowed_list = ['csv','xlsx','xls']
 
     def run_import(self):
+        print(f"import_plugin_CSV_2D.run_import")
         self.discern_filenames()
         for filepath in self.filepaths:
         
@@ -69,8 +76,17 @@ class Plugin(ImportPlugin):
             self.names.append(name)
 
             curve_object = self.Curve(name=name) # due to issue with dynamic import
+            print(f"curve_object {curve_object.name} activated for assignment in import plugin")
+            print(f"curve_object = {curve_object}")
+            print(f"curve_object.name = {curve_object.name}")
+        
             curve_object.add_headers(header_time,header_height,header_depth)
             curve_object.add_raw_data(vector_time,vector_height,vector_depth) 
+            curve_object.dict_data_vectors_raw['time'] = vector_time
+            curve_object.dict_data_vectors_raw['height'] = vector_height
+            curve_object.dict_data_vectors_raw['depth'] = vector_depth
+            print(f"curve_object.dict_data_vectors_raw.keys() = {curve_object.dict_data_vectors_raw.keys()}")
+            print("---")
             ## work on the data Object initialization
 
             # security risk

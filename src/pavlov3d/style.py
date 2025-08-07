@@ -171,9 +171,9 @@ class Style:
         #self.plotting_style = 'temperature'
         #self.plotting_style = 'lineGraph_2D' # can reference name of export_plugin_object. name
 
-        self.default_import_function = 'plugins.import_plugin_CSV_2D'
-        self.default_export_function = 'plugins.export_plugin_createFBX_lineGraph_3D'
-        self.default_color_function = 'plugins.color_plugin_per_curve'
+        self.default_import_function = 'src.pavlov3d.plugins.import_plugin_CSV_2D'
+        self.default_export_function = 'src.pavlov3d.plugins.export_plugin_createFBX_lineGraph_3D'
+        self.default_color_function = 'src.pavlov3d.plugins.color_plugin_per_curve'
 
         self.paradigm ='0-0-0 axes origin'
         #self.fences_embedded_in_model_hierarchy = False # False is good, it means you can suppress fences easily fromwithin the model, for your viewing pleasure.

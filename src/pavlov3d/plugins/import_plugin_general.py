@@ -7,7 +7,7 @@ if False:
     import pandas as pd
 import os
 import numpy as np
-import import_lib
+from src.pavlov3d import import_lib
 import time
 from src.pavlov3d.directories import Directories
 from src.pavlov3d.helpers.filename_utils import get_this_filename

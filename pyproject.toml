@@ -14,7 +14,8 @@ dependencies = [
     "pylint (>=3.3.6,<4.0.0)",
     "fbxsdkpy (>=2020.3.post1,<2021.0)",
     "matplotlib (>=3.10.1,<4.0.0)",
-    "sparklines (>=0.5.0,<0.6.0)"
+    "sparklines (>=0.5.0,<0.6.0)",
+    "freesimplegui (>=5.2.0.post1,<6.0.0)"
 ]
 packages = [{ include = "src" }]
 
