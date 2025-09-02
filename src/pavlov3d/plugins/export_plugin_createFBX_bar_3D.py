@@ -3,9 +3,9 @@ Title: export_plugin_createFBX_bar_3D
 Created: 10 February 2024
 Author: Clayton Bennett
 '''
-import arrayMath
+from src.pavlov3d import arrayMath
 #import os
-from plugins.export_plugin import ExportPlugin
+from src.pavlov3d.plugins.export_plugin import ExportPlugin
 
 class Plugin(ExportPlugin):
     def plugin(self,createFBX_,datapoint_object):

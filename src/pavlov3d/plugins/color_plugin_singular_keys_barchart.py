@@ -1,6 +1,6 @@
 import os
-from materials import materials
-import colorLerp
+from src.pavlov3d.materials import materials
+from src.pavlov3d import colorLerp
 class Plugin:
     #materials_object=None
     scene_object = None

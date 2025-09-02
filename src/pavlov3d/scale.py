@@ -116,11 +116,14 @@ class MultipleAxesScalingAlgorithm:
     @staticmethod
     def normalize_all_curve_objects(set_curve_objects_all):
         target_axis_length = 1 # each, +10000 for the positive side, and -1000 the negative side. 
-        
-        for curve_object in set_curve_objects_all:
-
-            MultipleAxesScalingAlgorithm.normalize_curve_object_values(curve_object,target_axis_length)
-            MultipleAxesScalingAlgorithm.repair_curve_object_max_min(curve_object)
+        print(len(set(set_curve_objects_all)))
+        for curve_object in set(set_curve_objects_all):
+            print(f"curve_object.name = {curve_object.name}")
+            if len(curve_object.dict_data_vectors_raw) > 0: 
+                MultipleAxesScalingAlgorithm.normalize_curve_object_values(curve_object,target_axis_length)
+                MultipleAxesScalingAlgorithm.repair_curve_object_max_min(curve_object)
+            else:
+                print(f"{curve_object.name} skipped")
 
         return True
     
@@ -131,7 +134,7 @@ class MultipleAxesScalingAlgorithm:
         #for key,datapoint_object in curve_object.dict_datapoints.items():
         print(f"curve_object = {curve_object}")
         print(f"curve_object.name = {curve_object.name}")
-        print(f"curve_object.dict_data_vectors_raw = {curve_object.dict_data_vectors_raw}")
+        #print(f"curve_object.dict_data_vectors_raw = {curve_object.dict_data_vectors_raw}")
         
         curve_object.dict_data_vectors_scaled["time"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["time"],target_axis_length)
         curve_object.dict_data_vectors_scaled["height"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["height"],target_axis_length)
@@ -201,13 +204,14 @@ class MultipleAxesScalingAlgorithm:
     def _make_target_normalized_data_vector(data_vector,target_axis_length):
         #inputs: data_vector,target_axis_length
         #output: target_normalized_data_vector 
+
         target_normalized_data_vector = None
     
         min_val = min(data_vector)
         max_val = max(data_vector)
         
         # Normalize the positive_data_vector to range [0, 1]
-        #print(f"data_vector = {data_vector}")
+        
         #print(f"target_axis_length = {target_axis_length}")
         #print(f"min_val = {min_val}")
         #print(f"max_val = {max_val}")

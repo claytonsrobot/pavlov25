@@ -172,7 +172,7 @@ class Style:
         #self.plotting_style = 'lineGraph_2D' # can reference name of export_plugin_object. name
 
         self.default_import_function = 'src.pavlov3d.plugins.import_plugin_CSV_2D'
-        self.default_export_function = 'src.pavlov3d.plugins.export_plugin_createFBX_lineGraph_3D'
+        self.default_export_function = 'src.pavlov3d.plugins.export_plugin_createFBX_line_3D'
         self.default_color_function = 'src.pavlov3d.plugins.color_plugin_per_curve'
 
         self.paradigm ='0-0-0 axes origin'
@@ -203,6 +203,11 @@ class Style:
 
     def prepare_color_modules(self):
         color_plugin_list = []
+        if isinstance(self.user_input_object.color_function, list):
+            pass
+        elif isinstance(self.user_input_object.color_function, str):
+            self.user_input_object.color_function = [self.user_input_object.color_function]
+
         for color_function in self.user_input_object.color_function:# assumes color_function is a list # this is different than the export and import versions, which are assumed to only ever have one entry (for the time being)
             ColorPlugin=self.assign_plugin_dynamically(module_name = color_function) # type is function
             color_plugin_object = ColorPlugin()
@@ -213,13 +218,16 @@ class Style:
     
     def prepare_export_modules(self):
         export_plugin_list = []
+        if isinstance(self.user_input_object.export_function, list):
+            pass
+        elif isinstance(self.user_input_object.export_function, str):
+            self.user_input_object.export_function = [self.user_input_object.export_function]
+
         for export_function in self.user_input_object.export_function:
-        #for export_function in self.user_input_object.export_function_list:
-        #for color_function in self.user_input_object.color_function:# assumes color_function is a list # this is different than the export and import versions, which are assumed to only ever have one entry (for the time being)
+            
             ExportPlugin=self.assign_plugin_dynamically(module_name = export_function) # type is function
             export_plugin_object = ExportPlugin()
             export_plugin_object.assign_style_object(style_object = self)
-            #export_plugin_object.prepare_color_style()   
             export_plugin_list.append(export_plugin_object)
         self.set_export_function_list(export_plugin_list)
         return export_plugin_list

@@ -10,7 +10,7 @@ Or, the middle road is that the driving characterstics of title are known, so th
 #import math
 import os
 from src.pavlov3d.text_label import TextLabel
-from text_translation import TranslationKit
+from src.pavlov3d.text_translation import TranslationKit
 
 class AxesLabelsMachine:
     scene_object=None

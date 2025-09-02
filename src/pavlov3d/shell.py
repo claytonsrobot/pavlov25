@@ -733,11 +733,6 @@ class PavlovCLI(cmd2.Cmd):
         #except Exception as e:
         #    print("See instructions for necessary steps.")
         
-    def do_no(self,line):
-        "(3) skipinterface, hide print"
-        with True:#HiddenPrints():
-            self.do_skipinterface(None)
-        
     def do_go(self,line):
         "Run (4) import data , (5) make pointcloud, and (6) make export. Hide print."
 
@@ -1560,7 +1555,6 @@ class PavlovCLI(cmd2.Cmd):
             print(f"os.path.abspath(__file__) = {os.path.abspath(__file__)}")
             fm.tree(os.path.dirname(os.path.abspath(__file__)))
 
-
     def do_clear(self,line):
         
         if environment.windows():
@@ -1596,7 +1590,6 @@ class PavlovCLI(cmd2.Cmd):
         self.hierarchy_object.print_hierarchy_place_in_supergroup_by_lineage()
 
     topo_parser = cmd2.Cmd2ArgumentParser()
-    #topo_parser.add_argument('-t','--topo',nargs = "?", default=False, const=True, help='See topgraphy string, to test terminal capacity.')
     topo_parser.add_argument('-v','--vector', help='Example: topo -v [0,10,1,9,2,8,3,7,4,6,5,5,5,6,7,8,9,10,8,6,4,2,0,10,0,10]') 
     @cmd2.with_argparser(topo_parser)
     def do_topo(self,args):

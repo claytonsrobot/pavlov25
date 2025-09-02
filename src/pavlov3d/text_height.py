@@ -21,7 +21,7 @@ Ideally, all of this can be dealt with after scaling the axes,  to limit size pr
 
 axes labels, title label, group label
 '''
-from text_control_points import TextControlPointMachine
+from src.pavlov3d.text_control_points import TextControlPointMachine
 from src.pavlov3d.text_label import TextLabel
 
 class TextHeight:

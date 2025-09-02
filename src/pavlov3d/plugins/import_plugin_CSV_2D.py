@@ -28,8 +28,10 @@ class Plugin(ImportPlugin):
 
     def run_import(self):
         print(f"import_plugin_CSV_2D.run_import")
-        self.discern_filenames()
-        for filepath in self.filepaths:
+        filenames, filepaths = self.discern_filenames()
+        self.scene_object.hierarchy_object.dict_curve_objects_all
+        
+        for filepath in filepaths:
         
             gdf,name= read_data_genfromtext(filepath,self.user_input_object, self.scene_object)
             
@@ -75,7 +77,9 @@ class Plugin(ImportPlugin):
             self.headers_height.append(header_height)
             self.names.append(name)
 
-            curve_object = self.Curve(name=name) # due to issue with dynamic import
+
+            #curve_object = self.Curve(name=name) # due to issue with dynamic import
+            curve_object = self.scene_object.hierarchy_object.dict_curve_objects_all[name]
             print(f"curve_object {curve_object.name} activated for assignment in import plugin")
             print(f"curve_object = {curve_object}")
             print(f"curve_object.name = {curve_object.name}")

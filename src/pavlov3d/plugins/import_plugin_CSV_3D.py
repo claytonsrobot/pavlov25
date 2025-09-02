@@ -19,7 +19,7 @@ import inspect
 
 from src.pavlov3d.helpers.filename_utils import get_this_filename
 from src.pavlov3d.plugins.import_plugin_general import read_data_genfromtext, ImportPlugin
-from src.pavlov3d.curve import Curve
+#from src.pavlov3d.curve import Curve
 
 class Plugin(ImportPlugin):
         
@@ -30,9 +30,9 @@ class Plugin(ImportPlugin):
     
     def run_import(self):
         print(f"import_plugin_CSV_3D.run_import")
-        self.discern_filenames()
-        filecount = len(self.filepaths)
-        for j,filepath in enumerate(self.filepaths):
+        filenames, filepaths = self.discern_filenames()
+        filecount = len(filepaths)
+        for j,filepath in enumerate(filepaths):
             #DATAFRAME
             gdf,name= read_data_genfromtext(filepath,self.user_input_object, self.scene_object)
             
@@ -99,7 +99,7 @@ class Plugin(ImportPlugin):
             self.headers_height.append(header_height)
             self.names.append(name)
 
-            curve_object = Curve(name=name)
+            #curve_object = self.Curve(name=name)
             print(f'list(self.scene_object.hierarchy_object.dict_curve_objects_all) = {list(self.scene_object.hierarchy_object.dict_curve_objects_all)}')
             curve_object = self.scene_object.hierarchy_object.dict_curve_objects_all[name]
             #print(f'name: {name}, curve_object: {curve_object.name}')
@@ -130,7 +130,6 @@ class Plugin(ImportPlugin):
             sys.stdout.write(f'File {j+1}/{filecount} loaded, {i} datapoints.')
             sys.stdout.flush()
             time.sleep(0.01)
-            #print(f'File {j+1}/{filecount} loaded, {i} datapoints.')
 
         self.import_lib_object.check_point_tally_for_all_files(self.vectorArray_time)
         return self.names,self.vectorArray_time,self.vectorArray_height,self.headers_time,self.headers_height 

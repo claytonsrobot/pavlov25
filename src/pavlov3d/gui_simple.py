@@ -46,7 +46,7 @@ import FreeSimpleGUI as sg
 import os
 #import pathlib # for chopping off filename when searching directory
 #import pandas as pd # for data management
-from user_input import UserInput as userInput_class
+from src.pavlov3d.user_input import UserInput as userInput_class
 #from gui_export_control import GuiExportControl
 #window_export_control = GuiExportControl.window_export_control
 from src.pavlov3d.directories import Directories

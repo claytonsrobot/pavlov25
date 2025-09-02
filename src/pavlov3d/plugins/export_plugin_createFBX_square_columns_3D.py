@@ -9,8 +9,8 @@ to create a minimalist column style
 '''
 import os
 #from arrayMath import fbx4_convert
-import arrayMath
-from plugins.export_plugin import ExportPlugin
+from src.pavlov3d import arrayMath
+from src.pavlov3d.plugins.export_plugin import ExportPlugin
 
 class Plugin(ExportPlugin):
     """ def plugin_dataObject(self,createFBX_,dataObject):

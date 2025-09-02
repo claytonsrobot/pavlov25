@@ -131,6 +131,7 @@ class Curve:
     def add_curve_object_to_hierarchy_object(self): #check use 30Jan
         print(f"{self} : add_curve_object_to_hierarchy_object()")
         self.hierarchy_object.dict_curve_objects_all.update({self.name.lower():self}) 
+        self.hierarchy_object.dict_filenames_vs_curve_objects = {}
     
     def add_raw_data(self,raw_time,
                     raw_height,

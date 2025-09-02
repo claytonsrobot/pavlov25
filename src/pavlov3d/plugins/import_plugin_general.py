@@ -88,13 +88,14 @@ class ImportPlugin:
         self.scale_d = 1
 
         print(f'scale = [{self.scale_t},{self.scale_h},{self.scale_d}]')
-    
+    user_input_object
     def discern_filenames(self):
         if self.config_input_object.grouping_algorithm == "group-by-text": 
-            self.filenames, self.filepaths = self.import_lib_object.sort_filenames_after_adding_leading_zeros_vercel(self.user_input_object,self.scene_object)
-            return self.filenames, self.filepaths
+            filenames, filepaths = self.import_lib_object.sort_filenames_after_adding_leading_zeros_vercel(self.user_input_object,self.scene_object)
+            return filenames, filepaths
         elif self.config_input_object.grouping_algorithm == "group-by-directory":
-            self.filenames, self.filepaths = tradition.get_sorted_entity_filenames(tradition.Tradition.get_root_group())
+            filenames, filepaths = tradition.get_sorted_entity_filenames(self.user_input_object,tradition.Tradition.get_root_group())
+            return filenames, filepaths
 
     
     def clean_up_vector(self, vector, scale_coeff):

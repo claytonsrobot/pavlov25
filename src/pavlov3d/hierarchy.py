@@ -49,6 +49,7 @@ class Hierarchy:
         self.dict_group_objects_all = dict() # regardless of hierarchy
         self.dict_group_objects_most = dict() # regardless of hierarchy
         self.dict_curve_objects_all = dict() # regardless of hierarchy
+        self.dict_filenames_vs_curve_objects = {}
 
         self.grand_cousin_flights_curves = dict()
         self.great_grand_cousin_flights_curves = dict()
@@ -61,6 +62,7 @@ class Hierarchy:
         Curve.pass_in_scene_object(self.scene_object)
         for filename in self.user_input_object.filenames:
             curve_object = Curve(name=filename)
+            #curve_object.add_curve_object_to_hierarchy_object(filepath)
             curve_object.add_curve_object_to_hierarchy_object()
 
     def build_tiers_and_groups_objects(self,user_input_object,loaded_grouping):

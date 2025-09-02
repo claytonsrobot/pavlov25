@@ -7,9 +7,9 @@ Update request: 13 May 2024
 
 '''
 import os
-import arrayMath
+from src.pavlov3d import arrayMath
 
-from plugins.export_plugin import ExportPlugin
+from src.pavlov3d.plugins.export_plugin import ExportPlugin
 
 class Plugin(ExportPlugin):
     def plugin(self,createFBX_object,datapoint_object):

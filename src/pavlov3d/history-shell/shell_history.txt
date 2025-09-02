@@ -2090,3 +2090,210 @@ p -o sample
 3
 clear
 quit
+test
+h
+p
+p -t
+p -c
+1
+2
+p -o sample
+1
+2
+3
+clear
+status
+3
+quit
+test
+1
+p -o sample
+1
+2
+3
+clear
+quit
+test
+p -o sample
+1
+2
+3
+clear
+quit
+test
+p -o sample
+1
+2
+3
+clear
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+clear
+p -o sample
+1
+2
+3
+h
+topo
+topo
+topo -v [0,2,3,4]
+topo -v [10,0,2,3,4]
+topo -v [10,0,2,3,4,57]
+topo -v [10,0,2,3,4,5]
+topo -v [10,0,2,3,4,5,1,2,1,2,1,2,7,6,5,4,3]
+topo -v [10,0,2,3,4,5,1,2,1,2,1,2,7,6,5,4,3]
+hhtree
+sstree
+htree
+quit
+test
+help
+project --list
+project --open sample
+1
+2
+ls
+help
+config
+show --help
+see config
+quit
+test
+p -o sample
+1
+2
+quit
+test
+quit
+test
+p -o sample
+1
+2
+clear
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+clear
+quit
+test
+p -o sample
+1
+2
+3
+clear
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+clear
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+4
+quit
+test
+p -o sample
+1
+2
+3
+4
+quit
+test
+p -o sample
+1
+2
+3
+4
+quit
+test
+p -o sample
+1
+2
+3
+4
+quit
+test
+p -o sample
+1
+2
+3
+4
+quit
+test
+p -o sample
+1
+2
+3
+4
+5
+6
+open --last
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+quit

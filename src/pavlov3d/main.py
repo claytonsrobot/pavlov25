@@ -206,7 +206,7 @@ def run_interface(style_object,interface_object,user_input_object,config_input_o
 
 def build_grouping(hierarchy_object,user_input_object,loaded_grouping):
     print("main.build_grouping(hierarchy_object,user_input_object,loaded_grouping)")
-    hierarchy_object.cycle_through_filenames_intialize_curves()
+    hierarchy_object.cycle_through_filenames_intialize_curves() # curve initialization
     hierarchy_object.build_tiers_and_groups_objects(user_input_object,loaded_grouping)
 
 def import_data(scene_object,style_object,user_input_object,hierarchy_object):
@@ -219,7 +219,7 @@ def import_data(scene_object,style_object,user_input_object,hierarchy_object):
     
     #import_function_object.assign_scale_object(scale_object)
     print("Begin import...")
-    import_function_object.run_import()
+    import_function_object.run_import() # curve initialization happens redundantly
     print(f"Import complete.")
     # curve_objects and data_point_objects are created at birth, in import plugin
         
@@ -373,9 +373,9 @@ def build_ticks(scene_object,style_object):
 
 def build_texts(scene_object, style_object):
     # group_label_machine was shoved into translation.py, look at changing that, CB 2 Feb 2025 
-    from axes_labels_machine import AxesLabelsMachine # axisLabel is imported into axesLabels
-    from title_machine import TitleMachine
-    from tick_numbering_machine import TickNumberingMachine
+    from src.pavlov3d.axes_labels_machine import AxesLabelsMachine # axisLabel is imported into axesLabels
+    from src.pavlov3d.title_machine import TitleMachine
+    from src.pavlov3d.tick_numbering_machine import TickNumberingMachine
 
     # title has to go first, to sus out proper sizing.
           
