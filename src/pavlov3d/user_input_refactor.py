@@ -186,13 +186,13 @@ class UserInput:
             self.subgroup_names = gj.get("subgroup_names", [])
 
         self.stack_direction_list = [
-            cij.get("stack_direction_groups", ""),
-            cij.get("stack_direction_subgroups", ""),
-            cij.get("stack_direction_curves", ""),
+            cij.get('stack_direction_groups', ""),
+            cij.get('stack_direction_subgroups', ""),
+            cij.get('stack_direction_curves', ""),
         ]
-        self.stack_direction_groups = cij["stack_direction_groups"]
-        self.stack_direction_subgroups = cij["stack_direction_subgroups"]
-        self.stack_direction_curves = cij["stack_direction_curves"]
+        self.stack_direction_groups = cij['stack_direction_groups']
+        self.stack_direction_subgroups = cij['stack_direction_subgroups']
+        self.stack_direction_curves = cij['stack_direction_curves']
 
         # Plugins (always normalize to lists)
         self.import_style_plugin = cij.get("import_style_plugin", "").split(";")
@@ -222,9 +222,9 @@ class UserInput:
             self.subgroup_names = gj.get("subgroup_names", [])
 
         self.stack_direction_list = [
-            cij.get("stack_direction_groups"),
-            cij.get("stack_direction_subgroups"),
-            cij.get("stack_direction_curves"),
+            cij.get('stack_direction_groups'),
+            cij.get('stack_direction_subgroups'),
+            cij.get('stack_direction_curves'),
         ]
 
         # Plugins (always normalize to lists)

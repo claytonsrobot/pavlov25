@@ -41,9 +41,9 @@ def sample_cij():
         "import_style_plugin": "import_plugin_test",
         "export_style_plugin": "export_plugin_test1;export_plugin_test2",
         "color_style_plugin": "color_plugin_test",
-        "stack_direction_groups": "group",
-        "stack_direction_subgroups": "subgroup",
-        "stack_direction_curves": "curve",
+        'stack_direction_groups': "group",
+        'stack_direction_subgroups': "subgroup",
+        'stack_direction_curves': "curve",
     }
 
 

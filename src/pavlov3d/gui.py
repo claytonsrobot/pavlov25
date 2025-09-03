@@ -417,9 +417,9 @@ class Gui:
                 sg.T(size=(standardTextSize,1))],   
 
             [sg.Text('Scene Contents Stack Direction:'), sg.Text('Group Contents Stack Direction:'), sg.Text('Subgroup Contents Stack Direction:')],
-            [sg.Combo(size=(18, 1),default_value=cij['stack_direction_groups'], values = values_stack_directions,key="stack_direction_groups"),sg.T(size=(standardTextSize,1)),
-             sg.Combo(size=(18, 1),default_value=cij['stack_direction_subgroups'], values = values_stack_directions,key="stack_direction_subgroups"),sg.T(size=(standardTextSize,1)),
-             sg.Combo(size=(18, 1),default_value=cij['stack_direction_curves'], values = values_stack_directions,key="stack_direction_curves"),sg.T(size=(standardTextSize,1))],
+            [sg.Combo(size=(18, 1),default_value=cij['stack_direction_groups'], values = values_stack_directions,key='stack_direction_groups'),sg.T(size=(standardTextSize,1)),
+             sg.Combo(size=(18, 1),default_value=cij['stack_direction_subgroups'], values = values_stack_directions,key='stack_direction_subgroups'),sg.T(size=(standardTextSize,1)),
+             sg.Combo(size=(18, 1),default_value=cij['stack_direction_curves'], values = values_stack_directions,key='stack_direction_curves'),sg.T(size=(standardTextSize,1))],
             [sg.Text('Export Directory:'), sg.Input(size=(60, 1),default_text=self.config_input_object.export_directory, key="export_directory"),  
                 sg.T(size=(standardTextSize,1))],
             [sg.Text('Export Style:'),
@@ -680,9 +680,9 @@ class Gui:
         self.metadata_columns = self.values["metadata_columns"]
         self.data_start_idx = self.values["data_start_idx"]
 
-        self.stack_direction_groups = self.values["stack_direction_groups"]
-        stack_direction_subgroups = self.values["stack_direction_subgroups"]
-        self.stack_direction_curves = self.values["stack_direction_curves"]
+        self.stack_direction_groups = self.values['stack_direction_groups']
+        stack_direction_subgroups = self.values['stack_direction_subgroups']
+        self.stack_direction_curves = self.values['stack_direction_curves']
         self.stack_vector = str(self.stack_direction_groups+","+stack_direction_subgroups+","+self.stack_direction_curves)
         # note recommended bro, wth is this
         #self.stack_vector = self.values["stack_direction"]

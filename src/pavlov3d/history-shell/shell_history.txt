@@ -2484,3 +2484,120 @@ p -o sample
 6
 o -l
 quit
+test
+o -l
+p -o sample
+1
+2
+3
+4
+test
+p -o sample
+1
+2
+clear
+quit
+test
+p -o sample
+1
+2
+p -o sample
+quit
+test
+clear
+quit
+test
+p -o sample
+1
+2
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+clear
+quit
+test
+p -o sample
+1
+2
+3
+clear
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+clear
+p -o sample
+1
+2
+3
+user_input_object.column_time
+quit
+test
+p -o sample
+1
+2
+3
+column_number_timequit
+quit
+test
+p -o sample
+clear
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+quit
+test
+p -o sample
+1
+2
+3
+clear
+quit
+test
+p -o sample
+1
+2
+3
+4
+5
+6
+o -l
+git add .
+quit

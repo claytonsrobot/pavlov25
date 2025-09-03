@@ -23,6 +23,9 @@ import src.pavlov3d.numeric_islands as ni
 #from curve_ import Curve
 from pavlov3d import arrayMath
 
+from logging import getLogger
+logger = getLogger(__name__)
+
 class ImportLib:
     """ scene_object = None
     style_object = None """
@@ -155,8 +158,8 @@ class ImportLib:
         #column_vector1 = df.columns.get_loc(df.filter(like=column_id_time, axis=1).columns[0])
     
     def check_existence_of_provided_column_id_time(self,gdf,user_input_object):
-    #def check_existence_of_provided_column_id_time(self,df,user_input_object):
         # messy and confusing approach
+        print(f'user_input_object.column_time={user_input_object.column_time}')
 
         if isinstance(user_input_object.column_time,str):
             #column_number_time = self.checkColumnNames(df,user_input_object.column_time)

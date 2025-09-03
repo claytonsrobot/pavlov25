@@ -16,7 +16,7 @@ from pavlov3d.helpers.filename_utils import get_this_filename
 from pavlov3d import tradition
 
 def read_data_genfromtext(filepath,user_input_object,scene_object):
-    filename = filepath.name.lower()
+    filename = Path(filepath).name.lower()
     name = filename # name = os.path.splitext(filename)[0]
     if scene_object.request != None:
         # if already loaded

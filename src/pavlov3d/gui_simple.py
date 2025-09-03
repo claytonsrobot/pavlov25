@@ -204,9 +204,9 @@ class Gui:
             [sg.Text('FBX File Encoding:'),sg.Radio("ASCII",group_id="encoding", key="-ASCII_RADIO-"),sg.Radio("BIN (default)",group_id="encoding", default=True, key="-BIN_RADIO-")],
             [sg.Text('Data Start (column # or row #):'), sg.Input(size=(6, 2),default_text=default_data_start_idx, key="data_start_idx")],
             [sg.Text('Stack Directions:')],
-            [sg.Text('Scene:'),sg.Combo(size=(25, 1),default_value=default_stack_direction_groups, values = values_stack_directions,key="stack_direction_groups")], 
-            [sg.Text('Groups:'),sg.Combo(size=(25, 1),default_value=default_stack_direction_subgroups, values = values_stack_directions,key="stack_direction_subgroups")],
-            [sg.Text('Subgroup:'),sg.Combo(size=(25, 1),default_value=default_stack_direction_curves, values = values_stack_directions,key="stack_direction_curves")],
+            [sg.Text('Scene:'),sg.Combo(size=(25, 1),default_value=default_stack_direction_groups, values = values_stack_directions,key='stack_direction_groups')], 
+            [sg.Text('Groups:'),sg.Combo(size=(25, 1),default_value=default_stack_direction_subgroups, values = values_stack_directions,key='stack_direction_subgroups')],
+            [sg.Text('Subgroup:'),sg.Combo(size=(25, 1),default_value=default_stack_direction_curves, values = values_stack_directions,key='stack_direction_curves')],
             [sg.Text('**imagine example graphics here**')],
             [sg.Button('Okay, Apply Settings'), sg.Button('Nevermind, Exit')],
             ]
@@ -306,18 +306,18 @@ class Gui:
         if self.color_column.lower()=="default":
             self.color_column = ''
 
-        #self.stack_direction_groups = self.values["stack_direction_groups"]
+        #self.stack_direction_groups = self.values['stack_direction_groups']
         '''start'''
         """ default_text=default_data_start_idx, key="data_start_idx"
-        default_value=default_stack_direction_groups,key="stack_direction_groups"
-        default_stack_direction_subgroups,key="stack_direction_subgroups"
-        default_stack_direction_curves,key="stack_direction_curves" """
+        default_value=default_stack_direction_groups,key='stack_direction_groups'
+        default_stack_direction_subgroups,key='stack_direction_subgroups'
+        default_stack_direction_curves,key='stack_direction_curves' """
 
         '''end'''
         try:
-            self.stack_direction_groups = self.values["stack_direction_groups"]
-            stack_direction_subgroups = self.values["stack_direction_subgroups"]
-            self.stack_direction_curves = self.values["stack_direction_curves"]
+            self.stack_direction_groups = self.values['stack_direction_groups']
+            stack_direction_subgroups = self.values['stack_direction_subgroups']
+            self.stack_direction_curves = self.values['stack_direction_curves']
             self.data_start_idx = self.values["data_start_idx"]
             selected_encoding = ""
             if self.values["-ASCII_RADIO-"]:

@@ -78,6 +78,7 @@ class Hierarchy:
 
 
     def build_tiers_and_groups_objects(self,user_input_object,loaded_grouping):
+        print("build_tiers_and_groups_objects()")
         # user input objec is just used for stack direciton and group name dictionary
         # you could have tiers built ....somewhere else, then have them handed in, but this is fine.
         # fine, if you improve the tier instantiation.

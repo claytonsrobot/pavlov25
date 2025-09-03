@@ -44,7 +44,8 @@ class Plugin(ImportPlugin):
                             vector_height.append(point.elevation)
 
             #gdf,name= read_data_genfromtext(filepath,self.user_input_object, self.scene_object)
-            name = os.path.basename(filepath).lower()
+            #name = os.path.basename(filepath).lower()
+            name = filepath.name.lower()
             self.print_gpx_info(gpx)
 
             vector_time,vector_height,vector_depth = self.shoeshine_all_vectors(vector_time,vector_height,vector_depth)

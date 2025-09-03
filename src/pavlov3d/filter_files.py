@@ -9,6 +9,7 @@ Generalized file filtering that can be called from the gui, from a cli, or from 
 This should be a functon rather than a class. So that we can keep using it over and over again in gui.
 '''
 import os
+from pathlib import Path
 import platform # assumes local is windows and server is linux for vercel
 from pavlov3d import environment
 
@@ -36,7 +37,7 @@ def remove_blank_entry(pattern):
 def snip_filenames_from_request_session(filepaths):
     filenames = []
     for filepath in filepaths:
-        filename = filepath.name.lower()
+        filename = Path(filepath).name.lower()
         filenames.append(filename)
     return filenames
 
