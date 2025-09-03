@@ -2601,3 +2601,14 @@ p -o sample
 o -l
 git add .
 quit
+test
+clear
+p -o sample
+1
+2
+3
+4
+5
+6
+o -l
+quit
