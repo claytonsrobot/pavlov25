@@ -4,13 +4,14 @@ Created: 27 February 2024
 Author: Clayton Bennett
 '''
 import os
+from pathlib import Path
 import json 
 import datetime
 
 
 class parse_user_input_config:
     def __init__(self):
-        self.name = os.path.basename(__file__).removesuffix('.py')
+        self.name = Path(__file__).name.lower().removesuffix('.py')
         self.filetype='json'
         self.loaded_data= None
         self.filename = None
@@ -48,7 +49,7 @@ class parse_user_input_config:
         dictionary = {
             "project_id":gui_object.save_config_window["-SAVE-CONFIG-FILENAME-"].Get(),
             "dev":"Clayton Bennett, probably",
-            "date":str(today),
+            "date":str(today),  
             "project description":"Custom inputs saved from GUI, no details provided",
             "import_filetype_dropdown":gui_object.main_window["import_filetype_dropdown"].Get(),
             "data_directory":gui_object.main_window["data_directory"].Get(),
@@ -67,9 +68,9 @@ class parse_user_input_config:
             "group_names":gui_object.main_window["group_names"].Get(),
             "subgroup_names":gui_object.main_window["subgroup_names"].Get(),
             "data_start_idx":gui_object.main_window["data_start_idx"].Get(),
-            "stack_direction_groups":gui_object.main_window["stack_direction_groups"].Get(),
-            "stack_direction_subgroups":gui_object.main_window["stack_direction_subgroups"].Get(),
-            "stack_direction_curves":gui_object.main_window["stack_direction_curves"].Get(),
+            'stack_direction_groups':gui_object.main_window['stack_direction_groups'].Get(),
+            'stack_direction_subgroups':gui_object.main_window['stack_direction_subgroups'].Get(),
+            'stack_direction_curves':gui_object.main_window['stack_direction_curves'].Get(),
             "import_style_dropdown":gui_object.main_window["import_style_dropdown"].Get(),
             "export_style_dropdown":gui_object.main_window["export_style_dropdown"].Get(),
             "color_style_dropdown":gui_object.main_window["color_style_dropdown"].Get(),

@@ -7,7 +7,7 @@ Purpose:
 Classic Pavlov grouping
 """ 
 
-from grouping_by_string import GBS
+from pavlov3d.grouping_by_string import GBS
 def assign_group_membership_for_complete_hierarchy(hierarchy_object):
     # fix this.
     # add objects to groups

@@ -10,7 +10,7 @@ from pprint import pprint
 
 import src.pavlov3d.filter_files as ff
 import src.pavlov3d.grouping_by_directory
-from src.pavlov3d.directories import Directories
+from pavlov3d.directories import Directories
 import src.pavlov3d.toml_utils
 
 #from parse_user_input_config import parse_user_input_config
@@ -26,16 +26,15 @@ class ConfigInput:
         self.config_entry_filename = r"config_entry.toml"
         self.grouping_entry_filename = r"grouping_entry.toml"
         self.script_dir = Directories.get_program_dir()
-        #self.config_guide_filepath = self.config_directory+'\\config-guide.pdf'
         #self.config_entry_filepath = Directories.get_program_dir()+'/media/json_uploads_pavlovuserinputconfig/'+self.config_entry_filename # web app config :: salute
-        self.config_entry_filepath = Directories.get_config_dir()+f'{self.config_entry_filename}'
-        self.grouping_entry_filepath = Directories.get_groupings_dir()+f'{self.grouping_entry_filename}'
+        self.config_entry_filepath = Directories.get_config_dir() / self.config_entry_filename
+        self.grouping_entry_filepath = Directories.get_groupings_dir() / self.grouping_entry_filename
         
         # Fail and quit if the file is not found. There is a better way to pause the shell instead.
         Directories.check_file(self.config_entry_filepath)
         Directories.check_file(self.grouping_entry_filepath)
         self.config_directory =Directories.get_config_dir()
-        self.config_guide_filepath = self.config_directory+'\\config-guide.pdf'
+        self.config_guide_filepath = self.config_directory / 'config-guide.pdf'
         self.loaded_config = None
 
         self.import_style_dropdown = None # will stay none
@@ -47,7 +46,7 @@ class ConfigInput:
     def load_config_entry(self): 
         loaded_config_entry_toml = src.pavlov3d.toml_utils.load_toml(self.config_entry_filepath)
         config_input_filename = loaded_config_entry_toml["entry"]["config_input_filename"]
-        config_input_path = os.path.normpath(Directories.get_config_dir()+"\\"+config_input_filename)
+        config_input_path = os.path.normpath(Directories.get_config_dir() / config_input_filename)
         Directories.check_file(config_input_path)
         return config_input_path
     
@@ -60,7 +59,7 @@ class ConfigInput:
         if grouping_selection_filename is None:
             grouping_selection_path = None
         else:    
-            grouping_selection_path = os.path.normpath(Directories.get_groupings_dir()+"\\"+grouping_selection_filename)
+            grouping_selection_path = Directories.get_groupings_dir() / grouping_selection_filename
             Directories.check_file(grouping_selection_path)
         return grouping_selection_path,grouping_algorithm
     
@@ -129,7 +128,7 @@ def get_n_tier_group_names_and_subgroup_names_and_file_names_from_group_by_direc
 def get_three_tier_group_names_and_subgroup_names_and_file_names_from_group_by_directory_cij_loaded_grouping(data):
     "Flat, based on text"
     group_names, subgroup_names, file_paths, file_names = get_three_tier_group_names_and_subgroup_names_and_file_names_from_group_by_directory_data(data = data)
-    file_paths = [os.path.join(Directories.get_project_dir(), file) for file in file_paths]
+    file_paths = [(Directories.get_project_dir() / file) for file in file_paths]
 
     return group_names, subgroup_names, file_paths, file_names
 

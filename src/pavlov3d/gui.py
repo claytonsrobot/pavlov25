@@ -17,7 +17,7 @@ Task:
 10 October 2023:
     - Convert publish popup to a publish notice in the status bar on the main page. Which status bar?
 11 October 2023:
-    - Coonsider how to use multiple pages instead of one screen.
+    - Consider how to use multiple pages instead of one screen.
     0. Which GUI style would you like? (single page, multipage, command line)
     1. Where is your data?
     2. Choice: Use all data (quick select), or control which files are imported (show 2b)
@@ -58,16 +58,15 @@ Big thing - we need the whole thing to launch and open without a default data di
 
 
 '''
-
-#import PySimpleGUI as sg
 import FreeSimpleGUI as sg
+import pprint
 import os
-import pathlib # for chopping off filename when searching directory
+from pathlib import Path # for chopping off filename when searching directory
 #import pandas as pd # for data management
 #import plugins
-from src.pavlov3d.parse_user_input_config import parse_user_input_config
+from pavlov3d.parse_user_input_config import parse_user_input_config
 import src.pavlov3d.filter_files as ff
-from src.pavlov3d.directories import Directories
+from pavlov3d.directories import Directories
 
 #pd.options.display.max_columns = None
 #pd.options.display.max_rows = None
@@ -75,10 +74,6 @@ from src.pavlov3d.directories import Directories
 # import queryTracker
 
 standardTextSize=6 # doesn't do anything
-
-
-
-
 
 #config_input_object = ConfigInput() 
 #config_input_object.define_and_load_default_config_input()
@@ -182,7 +177,7 @@ class Gui:
             full_file_list = filenames.split(';')
             file_list = []
             for filename in full_file_list:
-                path = pathlib.Path(filename)
+                path = Path(filename)
                 filename = str(path.name)
                 file_list.append(filename)
             foldername = str(path.parent)
@@ -276,6 +271,8 @@ class Gui:
         
     def window_user_input_config_selection(self,cij):
         #config_path = self.config_input_object.config_directory + cij.config_input_file
+        print(f"cij.keys = ")
+        pprint.pprint(cij.keys)
         config_path =cij['config_input_path'] # assessed in the user_input_ tool # hacky bullshit, get it another way.
         #config_path = script_dir + self.config_entry_object.config_directory_relative + self.config_entry_object.config_file
         layout = [
@@ -420,9 +417,9 @@ class Gui:
                 sg.T(size=(standardTextSize,1))],   
 
             [sg.Text('Scene Contents Stack Direction:'), sg.Text('Group Contents Stack Direction:'), sg.Text('Subgroup Contents Stack Direction:')],
-            [sg.Combo(size=(18, 1),default_value=cij['stack_direction_groups'], values = values_stack_directions,key="stack_direction_groups"),sg.T(size=(standardTextSize,1)),
-             sg.Combo(size=(18, 1),default_value=cij['stack_direction_subgroups'], values = values_stack_directions,key="stack_direction_subgroups"),sg.T(size=(standardTextSize,1)),
-             sg.Combo(size=(18, 1),default_value=cij['stack_direction_curves'], values = values_stack_directions,key="stack_direction_curves"),sg.T(size=(standardTextSize,1))],
+            [sg.Combo(size=(18, 1),default_value=cij['stack_direction_groups'], values = values_stack_directions,key='stack_direction_groups'),sg.T(size=(standardTextSize,1)),
+             sg.Combo(size=(18, 1),default_value=cij['stack_direction_subgroups'], values = values_stack_directions,key='stack_direction_subgroups'),sg.T(size=(standardTextSize,1)),
+             sg.Combo(size=(18, 1),default_value=cij['stack_direction_curves'], values = values_stack_directions,key='stack_direction_curves'),sg.T(size=(standardTextSize,1))],
             [sg.Text('Export Directory:'), sg.Input(size=(60, 1),default_text=self.config_input_object.export_directory, key="export_directory"),  
                 sg.T(size=(standardTextSize,1))],
             [sg.Text('Export Style:'),
@@ -506,7 +503,7 @@ class Gui:
             elif event == 'data_directory':
                 dirname = self.main_window['data_directory'].Get()
                 if os.path.isdir(dirname):
-                    pervasive_dirname = dirname
+                    pervasive_dirname = Path(dirname)
                     _fresh_list = self._check_filelist(cij)
                     self.main_window['-FILELISTBOX-'].update(_fresh_list) # uniqueCodeReference_wunderFins
 
@@ -514,7 +511,7 @@ class Gui:
                 if self.values['-SELECT_DIR-'] is True and self.values['-SELECT_FILES-'] is False:
                     filenames = self.values['-HOLDBROWSE-']
                     filename = filenames.split(';', 1)[0]
-                    path = pathlib.Path(filename)
+                    path = Path(filename)
                     foldername = str(path.parent)
                     self.main_window['data_directory'].update(foldername)
                 elif self.values['-SELECT_DIR-'] is False and self.values['-SELECT_FILES-'] is True:
@@ -522,7 +519,7 @@ class Gui:
                     full_file_list = filenames.split(';')
                     file_list = []
                     for filename in full_file_list:
-                        path = pathlib.Path(filename)
+                        path = Path(filename)
                         filename = str(path.name)
                         file_list.append(filename)
                     foldername = str(path.parent)
@@ -550,17 +547,17 @@ class Gui:
                 self.filenames = self.main_window['-FILELISTBOX-'].Values # uniqueCodeReference_peak2Tweak
                 print("peek: ",self.selected_item)
                 try: #if isinstance(pervasive_dirname, str): #I would prefer to not use try, but here we are
-                    target = pervasive_dirname+'\\'+self.selected_item
+                    target = pervasive_dirname / self.selected_item
                     print(f'try:pervasive_dirname')
                 except: #else:
-                    target = Directories.get_import_dir()+'\\'+self.selected_item
+                    target = Directories.get_import_dir() / self.selected_item
                     print(f'except:default_data_directory   ')
                 if os.path.isfile(target):
                     try:
                         df = pd.read_csv(target)
                     except Exception:
                         #df = pd.read_excel(target)
-                        df = pd.read_excel(Directories.get_import_dir()+"\\"+filename,skiprows=self.user_input_object.skiprows)
+                        df = pd.read_excel(Directories.get_import_dir() / filename,skiprows=self.user_input_object.skiprows)
                         # not functioning
                     print('\n\n',self.selected_item)
                     print('\n',df.info())
@@ -652,7 +649,7 @@ class Gui:
             full_file_list = filenames.split(';')
             file_list = []
             for filename in full_file_list:
-                path = pathlib.Path(filename)
+                path = Path(filename)
                 filename = str(path.name)
                 file_list.append(filename)
             foldername = str(path.parent)
@@ -683,9 +680,9 @@ class Gui:
         self.metadata_columns = self.values["metadata_columns"]
         self.data_start_idx = self.values["data_start_idx"]
 
-        self.stack_direction_groups = self.values["stack_direction_groups"]
-        stack_direction_subgroups = self.values["stack_direction_subgroups"]
-        self.stack_direction_curves = self.values["stack_direction_curves"]
+        self.stack_direction_groups = self.values['stack_direction_groups']
+        stack_direction_subgroups = self.values['stack_direction_subgroups']
+        self.stack_direction_curves = self.values['stack_direction_curves']
         self.stack_vector = str(self.stack_direction_groups+","+stack_direction_subgroups+","+self.stack_direction_curves)
         # note recommended bro, wth is this
         #self.stack_vector = self.values["stack_direction"]

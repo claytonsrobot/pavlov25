@@ -9,8 +9,9 @@ Or, the middle road is that the driving characterstics of title are known, so th
 #import numpy as np
 #import math
 import os
-from src.pavlov3d.text_label import TextLabel
-from text_translation import TranslationKit
+from pathlib import Path
+from pavlov3d.text_label import TextLabel
+from pavlov3d.text_translation import TranslationKit
 
 class AxesLabelsMachine:
     scene_object=None
@@ -27,8 +28,7 @@ class AxesLabelsMachine:
         TextLabel.assign_class_variables(scene_object)
 
     def __init__(self):
-        self.name = os.path.basename(__file__).removesuffix('.py')
-
+        self.name = Path(__file__).name.lower().removesuffix('.py')
     def determine_best_text_height(self):
         print('\naxis label machine.determine_best_text_height()\n')
 

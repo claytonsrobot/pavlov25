@@ -10,9 +10,10 @@ Exploded view - with explosion translation occuring in creatFBX_
 The explosion should be the diameter of the scene in the given direction.
 '''
 import os
+from pathlib import Path
 #import chart_element
-from src.pavlov3d.text_label import TextLabel as text_label_class
-from src.pavlov3d.text_translation import TranslationKit
+from pavlov3d.text_label import TextLabel as text_label_class
+from pavlov3d.text_translation import TranslationKit
 
 class TickNumberingMachine:
 
@@ -30,7 +31,7 @@ class TickNumberingMachine:
         text_label_class.assign_class_variables(scene_object)
 
     def __init__(self):
-        self.name = os.path.basename(__file__).removesuffix('.py')
+        self.name = Path(__file__).name.lower().removesuffix('.py')
 
     def expand_span(self):
         #emulate existing

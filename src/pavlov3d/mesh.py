@@ -6,7 +6,7 @@ Create: 10 April 2025
 Entity objets and mesh objects should be added to the Pavlovian lexicon.
 """
 import numpy as np
-from src.pavlov3d.pavlovian_object import PavlovianObject
+from pavlov3d.pavlovian_object import PavlovianObject
 
 
 class Mesh(PavlovianObject):

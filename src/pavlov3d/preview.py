@@ -7,6 +7,7 @@ show scene without yet generating and FBX export
 '''
 import os
 import numpy as np
+from pathlib import Path
             
 
 if True:
@@ -25,7 +26,7 @@ class Preview:
         cls.user_input_object = scene_object.user_input_object
 
     def __init__(self):
-        self.name = os.path.basename(__file__).removesuffix('.py')
+        self.name = Path(__file__).name.lower().removesuffix('.py')
 
     def build(self,scene_object):
         print('develop_preview')

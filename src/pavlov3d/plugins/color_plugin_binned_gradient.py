@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 #from materials import materials
 import colorLerp
 class Plugin:
@@ -15,7 +16,7 @@ class Plugin:
 
     def __init__(self):
         self.friendly_name = 'Binned Gradient'
-        self.name = os.path.basename(__file__).removesuffix('.py')
+        self.name = Path(__file__).name.lower().removesuffix('.py')
 
     def prepare_color_style(self):
         color_coeff_list_gradient,color_list = colorLerp.colorAssign_gradient_nested(self.scene_object.vectorArray_height) # color is a factor of height # so it needs allllll at once.

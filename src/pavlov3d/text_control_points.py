@@ -15,14 +15,15 @@ import math
 import os
 import sys
 import inspect
-
-from src.pavlov3d.directories import Directories
-from src.pavlov3d.phrase import phrase as phrase_class
-from src.pavlov3d.letter import letter as letter_class
-from src.pavlov3d import arrayMath
-from src.pavlov3d import environment
 from pathlib import Path
-from src.pavlov3d.text_translation import TextTranslationIntermediate
+
+from pavlov3d.directories import Directories
+from pavlov3d.phrase import phrase as phrase_class
+from pavlov3d.letter import letter as letter_class
+from pavlov3d import arrayMath
+from pavlov3d import environment
+from pathlib import Path
+from pavlov3d.text_translation import TextTranslationIntermediate
 
 script_dir = Directories.get_core_dir()
 script_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -40,7 +41,8 @@ class TextControlPointMachine:
         cls.scene_object = style_object.scene_object
 
     def __init__(self):
-        self.name = os.path.basename(__file__).removesuffix('.py') 
+        self.name = Path(__file__).name.lower().removesuffix('.py') 
+        self.name = Path(__file__).name.lower().removesuffix('.py')
         if environment.pyinstaller()==True or environment.pyinstaller()==False:
             self.dict_characters_raw = self.build_dict_characters_raw()
 
@@ -143,7 +145,7 @@ class TextControlPointMachine:
     
     def build_dict_characters_raw(self):
         self.dict_characters_raw = dict()
-        alphanumeric_character_dir = Directories.get_core_dir()+"\\alphanumeric_character_library\\"
+        alphanumeric_character_dir = Directories.get_core_dir() / "alphanumeric_character_library"
 
         for filename in os.listdir(alphanumeric_character_dir):
             if filename.endswith('_svg.html'):
@@ -153,7 +155,7 @@ class TextControlPointMachine:
         return self.dict_characters_raw
     
     def get_character_from_file(self,directory,filename):    
-            html_file = open(directory+filename,'r', encoding = 'utf-8') # no, wrong
+            html_file = open(directory / filename,'r', encoding = 'utf-8') # no, wrong
             raw_character = html_file.read()
             return raw_character
     

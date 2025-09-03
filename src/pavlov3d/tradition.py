@@ -1,7 +1,8 @@
 
-from src.pavlov3d.curve import Curve
-from src.pavlov3d import numeric_islands
+from pavlov3d.curve import Curve
+from pavlov3d import numeric_islands
 class Tradition:
+    """Careful. This whole thing assumes a JSON structure has been captured to represent a file structure, but it doesn't actually check the paths."""
     root_group = None
     @classmethod
     def set_root_group(cls,group):
@@ -201,7 +202,8 @@ def test():
     print_group(root_group)
     
     # Example usage of get_sorted_entity_filenames)
-    sorted_filenames = get_sorted_entity_filenames(root_group)
-    print(sorted_filenames)
+    sorted_filenames, sorted_filepaths = get_sorted_entity_filenames(root_group)
+    print(sorted_filenames) 
+    print(sorted_filepaths)
 if __name__ == "__main__":
     test()

@@ -9,12 +9,13 @@ Process:
 Import each CSV sheet as a dataframe and make the dataframe an attribute of each curve_object 'curve'
 '''
 import gpxpy
+from pathlib import Path
 import numpy as np
 import os
 if False:
     import pandas as pd
-from src.pavlov3d.helpers.filename_utils import get_this_filename
-from src.pavlov3d.plugins.import_plugin_general import read_data_genfromtext, ImportPlugin
+from pavlov3d.helpers.filename_utils import get_this_filename
+from pavlov3d.plugins.import_plugin_general import read_data_genfromtext, ImportPlugin
 #from scale import Scale
 class Plugin(ImportPlugin):
     def __init__(self):
@@ -24,8 +25,8 @@ class Plugin(ImportPlugin):
         
     def run_import(self):
         #self.Curve.pass_in_scene_object(self.scene_object) # dict_curve_objects_all
-        self.discern_filenames()
-        for filepath in self.filepaths:
+        filenames, filepaths = self.discern_filenames()
+        for filepath in filepaths:
             with open(filepath, 'r') as file:
                 gpx = gpxpy.parse(file)
                 vector_time = []
@@ -43,7 +44,8 @@ class Plugin(ImportPlugin):
                             vector_height.append(point.elevation)
 
             #gdf,name= read_data_genfromtext(filepath,self.user_input_object, self.scene_object)
-            name = os.path.basename(filepath).lower()
+            #name = os.path.basename(filepath).lower()
+            name = filepath.name.lower()
             self.print_gpx_info(gpx)
 
             vector_time,vector_height,vector_depth = self.shoeshine_all_vectors(vector_time,vector_height,vector_depth)

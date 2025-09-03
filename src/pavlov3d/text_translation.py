@@ -17,7 +17,7 @@ leverages eval()
 object abbreviation: trk
 '''
 import numpy as np
-from src.pavlov3d import arrayMath
+from pavlov3d import arrayMath
 
 class TranslationFinal:
     def final_group_label_translation_relative_to_scene_fence(group_object):

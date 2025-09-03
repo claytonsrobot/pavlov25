@@ -1,6 +1,8 @@
 import os
-from materials import materials
-import colorLerp
+from pathlib import Path
+
+from pavlov3d.materials import materials
+from pavlov3d import colorLerp
 class Plugin:
     #materials_object=None
     scene_object = None
@@ -16,7 +18,7 @@ class Plugin:
 
     def __init__(self):
         self.friendly_name = 'Color by Barchart Keys'
-        self.name = os.path.basename(__file__).removesuffix('.py')
+        self.name = Path(__file__).name.lower().removesuffix('.py')
         self.dict_known_datapoint_keys=None
 
     def prepare_color_style(self):

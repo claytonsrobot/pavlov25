@@ -15,12 +15,16 @@ https://docs.python-guide.org/writing/structure/
 '''
 
 import os # for normalizing pathname of directory
+from pathlib import Path
 if False:
     import pandas as pd # for data management
 import src.pavlov3d.numeric_islands as ni
 #from datapoint import DataPoint
 #from curve_ import Curve
-from src.pavlov3d import arrayMath
+from pavlov3d import arrayMath
+
+from logging import getLogger
+logger = getLogger(__name__)
 
 class ImportLib:
     """ scene_object = None
@@ -31,8 +35,7 @@ class ImportLib:
 
 
     def __init__(self):
-        self.name = os.path.basename(__file__).removesuffix('.py')
-        #script_dir = Directories.get_core_dir()
+        self.name = Path(__file__).name.lower().removesuffix('.py')
         
         self.filenames = None
         self.filenames_sortable = None
@@ -155,8 +158,8 @@ class ImportLib:
         #column_vector1 = df.columns.get_loc(df.filter(like=column_id_time, axis=1).columns[0])
     
     def check_existence_of_provided_column_id_time(self,gdf,user_input_object):
-    #def check_existence_of_provided_column_id_time(self,df,user_input_object):
         # messy and confusing approach
+        print(f'user_input_object.column_time={user_input_object.column_time}')
 
         if isinstance(user_input_object.column_time,str):
             #column_number_time = self.checkColumnNames(df,user_input_object.column_time)

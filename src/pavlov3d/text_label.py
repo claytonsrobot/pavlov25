@@ -20,8 +20,9 @@ The parent object should be the thing itself - an axis is the parent of an axis 
 '''
 import os
 import numpy as np
+from pathlib import Path
 
-from src.pavlov3d.text_control_points import TextControlPointMachine 
+from pavlov3d.text_control_points import TextControlPointMachine 
 
 
 
@@ -40,7 +41,7 @@ class TextLabel:
         TextControlPointMachine.assign_style_object(cls.style_object)
          
     def __init__(self):
-        self.name = os.path.basename(__file__).removesuffix('.py')
+        self.name = Path(__file__).name.lower().removesuffix('.py')
         self.text_control_points_machine = TextControlPointMachine()
         self.element_span_relative_to_parent_data_origin = None
     

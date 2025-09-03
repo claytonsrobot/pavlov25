@@ -212,7 +212,6 @@ class UserInput:
 
     def pull_config_input_object(self, config_input_object):
         print("[UserInput] Pulling config_input_object")
-        self.grouping_algorithm = config_input_object.grouping_algorithm
         cij = config_input_object.loaded_config
         self.dict_config = dict(cij)
 
@@ -227,18 +226,6 @@ class UserInput:
             cij.get('stack_direction_subgroups'),
             cij.get('stack_direction_curves'),
         ]
-        self.stack_direction_groups = cij['stack_direction_groups']
-        self.stack_direction_subgroups = cij['stack_direction_subgroups']
-        self.stack_direction_curves = cij['stack_direction_curves']
-
-        self.column_time = cij["column_time"]
-        self.column_height = cij["column_height"]
-        self.column_depth = cij["column_depth"]
-        self.column_color = cij["column_color"]
-        self.columns_metadata = cij["columns_metadata"]
-        self.data_start_idx = cij["data_start_idx"]
-        self.file_encoding = cij["file_encoding"]
-
 
         # Plugins (always normalize to lists)
         self.import_style_plugin = cij.get("import_style_plugin", "").split(";")
@@ -284,7 +271,7 @@ class UserInput:
         self.export_style_plugin = self.resolver.normalize_plugins(self.export_style_plugin)
         self.color_style_plugin = self.resolver.normalize_plugins(self.color_style_plugin)
 
-        if gui_mode or True:
+        if gui_mode:
             self._check_plugins()
 
     def _check_plugins(self):

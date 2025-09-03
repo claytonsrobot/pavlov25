@@ -13,8 +13,8 @@ Add shortcuts to imports and exports to central drectories?
 import time
 import os
 from pathlib import Path
-from src.pavlov3d import environment
-from src.pavlov3d.directories import Directories 
+from pavlov3d import environment
+from pavlov3d.directories import Directories 
 from pprint import pprint
 import shutil
 import sys
@@ -126,7 +126,7 @@ class DirectoryControl:
         print(f"os.getcwd() = {os.getcwd()}")
         print(f"Directories.get_program_dir() = {Directories.get_program_dir()}")
 
-        os.chdir(Directories.get_program_dir()+"/projects/")
+        os.chdir(Directories.get_program_dir() / "projects")
         populate_new_project_dir(project_dir_name_str,option)
         os.chdir(Directories.get_program_dir())
 
@@ -147,12 +147,32 @@ class DirectoryControl:
     # print_directory_tree('/your/directory/path')
 
     @staticmethod
-    def walk(path):
+    def walk_(path):
+        print(f"path = {path}")
         if path is not None:
-            return os.walk(path).send(None)
+            #return os.walk(path)#   .send(None)
+        
+            for root, dirs, files in os.walk(path):
+                yield root, dirs, files
+
         else:
             return os.walk(os.getcwd()).send(None)
-        
+    
+    @staticmethod
+    def print_directory_contents(path):
+        print(f"path = {path}")
+        if not path:
+            path = os.getcwd()
+
+        for root, dirs, files in os.walk(path):
+            print("projects:")
+            for d in dirs:
+                print(f"  - {d}")
+            #print("\n📄 Other files:")
+            #for f in files:
+            #    print(f"  - {f}")
+            break  # only top level
+
     @staticmethod
     def destroy_directory(path):
         if not(os.path.exists(path)):

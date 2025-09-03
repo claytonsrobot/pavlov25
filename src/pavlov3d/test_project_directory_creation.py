@@ -1,4 +1,4 @@
-import filemanagement as fm
+from pavlov3d import filemanagement as fm
 import os
 print(f"os.getcwd() = {os.getcwd()}")
 os.chdir("projects")

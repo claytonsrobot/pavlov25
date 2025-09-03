@@ -9,8 +9,9 @@ Generalized file filtering that can be called from the gui, from a cli, or from 
 This should be a functon rather than a class. So that we can keep using it over and over again in gui.
 '''
 import os
+from pathlib import Path
 import platform # assumes local is windows and server is linux for vercel
-from src.pavlov3d import environment
+from pavlov3d import environment
 
 if 'win' in platform.platform().lower():
     vercel=False
@@ -36,12 +37,12 @@ def remove_blank_entry(pattern):
 def snip_filenames_from_request_session(filepaths):
     filenames = []
     for filepath in filepaths:
-        filename = os.path.basename(filepath)
+        filename = Path(filepath).name.lower()
         filenames.append(filename)
     return filenames
 
 def get_filtered_list_dict(filetype_list,dirname):
-    # i need a way for this to work either way, in terms of grouping-by-directory
+    # i need a way for this to work either way, in terms of group-by-directory
     """
     Returns dictionary of files
     Key is short filename
@@ -52,11 +53,12 @@ def get_filtered_list_dict(filetype_list,dirname):
     """
     
     files_dict = {}
-    dirname=dirname.replace('*','')
-    if environment.vercel() == False:
-        dirname = dirname.replace('/','\\')
-    else:
-        dirname = dirname.replace('\\','/')
+    #print(f"str(dirname) = {str(dirname)}")
+    #dirname=dirname.replace('*','')
+    #if not environment.vercel():
+    #    dirname = dirname.replace('/','\\')
+    #else:
+    #    dirname = dirname.replace('\\','/')
 
     if isinstance(filetype_list,list):
         pass

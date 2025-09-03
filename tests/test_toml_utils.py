@@ -9,7 +9,7 @@ import unittest
 from unittest.mock import patch, mock_open
 
 # import all functions from the relative path
-from ..core.toml_utils import check_file, check_for_null, load_toml, load_toml_tuple
+from pavlov3d.toml_utils import check_file, check_for_null, load_toml, load_toml_tuple
 
 class TestTomlFunctions(unittest.TestCase):
     

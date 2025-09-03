@@ -55,34 +55,35 @@ Data orgin of a group is coincident with the data origin of its first child.
 import os
 import time
 import copy
+import pprint
 #import uniqueUnixFilename
 
-from src.pavlov3d.scene import Scene
-from src.pavlov3d.style import Style
-from src.pavlov3d.import_lib import ImportLib
-from src.pavlov3d.scale import Scale, MultipleAxesScalingAlgorithm #
-#MultipleAxesScalingAlgorithm.assign_hierarchy_object(hierarchy_object)
-#MultipleAxesScalingAlgorithm.normalize_all_curve_objects()
+from pavlov3d.scene import Scene
+from pavlov3d.style import Style
+from pavlov3d.import_lib import ImportLib
+from pavlov3d.scale import Scale, MultipleAxesScalingAlgorithm 
 #from converter import converter as Convert
-from src.pavlov3d.preview import Preview as Preview
+from pavlov3d.preview import Preview as Preview
 
-from src.pavlov3d import pngMaker
-from src.pavlov3d import messaging
-from src.pavlov3d.config_input import ConfigInput
-from src.pavlov3d.user_input import UserInput
-from src.pavlov3d.datapoint import DataPoint
-from src.pavlov3d.curve import Curve
+from pavlov3d import pngMaker
+from pavlov3d import messaging
+from pavlov3d.config_input import ConfigInput
+from pavlov3d.config_manager import ConfigManager 
 
-from src.pavlov3d.ticks import Ticks
-from src.pavlov3d.fences import Fences 
-from src.pavlov3d.hierarchy import Hierarchy
-from src.pavlov3d.text_translation import TextTranslationIntermediate
+from pavlov3d.user_input import UserInput
+from pavlov3d.datapoint import DataPoint
+from pavlov3d.curve import Curve
 
-from src.pavlov3d import translation
-from src.pavlov3d import environment
-from src.pavlov3d.directories import Directories
+from pavlov3d.ticks import Ticks
+from pavlov3d.fences import Fences 
+from pavlov3d.hierarchy import Hierarchy
+from pavlov3d.text_translation import TextTranslationIntermediate
+
+from pavlov3d import translation
+from pavlov3d import environment
+from pavlov3d.directories import Directories
 if environment.vercel():
-    from src.pavlov3d import vercel_blob
+    from pavlov3d import vercel_blob
 
 def main():
     request = None  # django artifact
@@ -148,7 +149,6 @@ def get_configuration(scene_object, style_object):
     #user_input_object = user_input_class()
     user_input_object = UserInput()
     user_input_object.assign_style_object(style_object) # cls
-    user_input_object.set_default_text_style() # Get rid of this, set in gui or in export plugin
 
     scene_object.assign_user_input_object(user_input_object) # cls
     style_object.assign_user_input_object(user_input_object) # cls
@@ -163,10 +163,10 @@ def determine_interface(style_object,config_input_object,user_input_object):
     #if style_object.use_GUI is True:
         #if style_object.developer_mode_gui is True:
         if style_object.interface_choice == 'gui_developer':
-            from gui import Gui
+            from pavlov3d.gui import Gui
         #else:
         elif style_object.interface_choice == 'gui_simple':
-            from gui_simple import Gui
+            from pavlov3d.gui_simple import Gui
         print('gui_object load\n')
         gui_object = Gui()        
         control_cli_object = None
@@ -206,46 +206,59 @@ def run_interface(style_object,interface_object,user_input_object,config_input_o
 
 def build_grouping(hierarchy_object,user_input_object,loaded_grouping):
     print("main.build_grouping(hierarchy_object,user_input_object,loaded_grouping)")
-    hierarchy_object.cycle_through_filenames_intialize_curves()
+    hierarchy_object.cycle_through_filenames_intialize_curves() # curve initialization
     hierarchy_object.build_tiers_and_groups_objects(user_input_object,loaded_grouping)
 
-def import_data(scene_object,style_object,user_input_object,hierarchy_object):
-    if False:
-        style_object.override_style_with_cij()
-    user_input_object.determine_which_plugins_to_use_gui() # toggle
-
-    '''1b) Import data'''
-    import_function_object = load_import_plugin_object(scene_object,style_object,user_input_object)
+# -----------------------------
+# import_data orchestrator
+# -----------------------------
+def import_data(scene_object, style_object, user_input_object, hierarchy_object):
+    user_input_object.determine_which_plugins_to_use()  # toggle
     
-    #import_function_object.assign_scale_object(scale_object)
+    importer = _run_import(scene_object, style_object, user_input_object)
+    _normalize(hierarchy_object, style_object)
+    _populate_scene(scene_object, importer)
+    export_control = _prepare_exports(scene_object, style_object, user_input_object)
+    
+    return export_control
+
+def _run_import(scene_object, style_object, user_input_object):
+    import_function_object = load_import_plugin_object(
+        scene_object, style_object, user_input_object
+    )
+
     print("Begin import...")
     import_function_object.run_import()
-    print(f"Import complete.")
-    # curve_objects and data_point_objects are created at birth, in import plugin
-        
-    scale_object = Scale()        
-    scale_object.assign_scene_object_etc(scene_object)
-    scale_is_ready=True
-    if scale_is_ready is True:
-        pass
-        #scale_object.scale_datapoints() # garbage function, poorly writte. go look and see why.
+    print("Import complete.")
 
-    MultipleAxesScalingAlgorithm.normalize_all_curve_objects(set(hierarchy_object.dict_curve_objects_all.values()))
+    return import_function_object
+
+def _normalize(hierarchy_object, style_object):
+    print("hierarchy_object.dict_curve_objects_all.values()")
+    MultipleAxesScalingAlgorithm.normalize_all_curve_objects(
+        set(hierarchy_object.dict_curve_objects_all.values())
+    )
     style_object.calculate_halfwidths_and_directions()
-
     # yes scale should be after import and before passing values to scene_object 
     # no, boooo, do it before assignment to curve objects and datapoints
     # well, should the datapoints know their unscaled values? i suppose they would have to for proper labeling.....hmmmm.
-    # he was right the first time. After.
+    # yes, datapoints should know their unscaled values, for labeling
+    # but, curve objects should only know their scaled values, for layout and spacing
 
-    scene_object.populate_basic_data(\
-            import_function_object.names,
-            import_function_object.vectorArray_time,
-            import_function_object.vectorArray_height,
-            import_function_object.vectorArray_depth,
-            import_function_object.headers_time,
-            import_function_object.headers_height,
-            import_function_object.headers_depth)    
+def _populate_scene(scene_object, importer):
+    scene_object.populate_basic_data(
+        importer.names,
+        importer.vectorArray_time,
+        importer.vectorArray_height,
+        importer.vectorArray_depth,
+        importer.headers_time,
+        importer.headers_height,
+        importer.headers_depth,
+    )
+
+    # Optional: halfwidths & directions were commented out in original
+    # scene_object.populate_halfwidth_data(...)
+    # scene_object.populate_direction_data(...)
     """
     scene_object.populate_halfwidth_data(\
             import_function_object.vectorArray_halfwidth_time,
@@ -259,15 +272,35 @@ def import_data(scene_object,style_object,user_input_object,hierarchy_object):
             import_function_object.vectorArray_direction)
     """
     messaging.print_data_range(scene_object)
-    # sort out parlance between "function" and "plugin"
+
+def _prepare_exports(scene_object, style_object, user_input_object):
     export_plugin_list = style_object.prepare_export_modules()
-    export_control_object = export_plugin_list[0] # for text angling only 
-    user_input_object.pull_values_from_export_control_object(export_control_object) # for text angling only
-    #style_object.prepare_text(user_input_object) # ultimately shut this down, migrated to text_translation.py
+    export_control_object = export_plugin_list[0]  # for text angling only
+
+    ###user_input_object.pull_values_from_export_control_object(export_control_object)
+
+
+    # -----------------------------
+    # Modern replacement for old pull_values_from_export_control_object
+    # -----------------------------
+    cm = ConfigManager()
+    gui_overrides = get_gui_export_overrides(user_input_object)
+    merged_config = cm.pull_values(export_control_object, gui_object=user_input_object)
+    # Now merged_config is a validated ExportConfig instance
+
+    # If user_input_object still needs attributes, optionally cast:
+    user_input_object.config = merged_config
+    for key, value in merged_config.model_dump().items():
+        setattr(user_input_object, key, value)
+
+
     TextTranslationIntermediate.assign_style_object(style_object)
-    TextTranslationIntermediate.prepare_text() # ultimately shut this down, migrated to text_translation.py
+    TextTranslationIntermediate.prepare_text()
+
     export_control_object.export_name = scene_object.filename_FBX
     return export_control_object
+
+
 
 def load_import_plugin_object(scene_object,style_object,user_input_object):
     print("main.load_import_plugin_object()")
@@ -287,23 +320,16 @@ def prepare_export_filepath(scene_object,request):
     '''
     1c) Prepare temp directory and export filename
     '''
-    #print(f"\nDirectories.get_program_dir() ={Directories.get_program_dir()}")
     if request != None:
         #filepath = request.session["current_fbx_export"] # the filename wil be chopped off - this is just to get the 
         export_dir = os.path.dirname(request.session["current_fbx_export"]) # the filename wil be chopped off - this is just to get the 
         
     else: # for running cli.py locally
-        #print(f'Working directory: {os.getcwd()}')
-        # head,tail = os.path.split(os.getcwd()) # assumes the export dir will be within the code directory, which is good for installaton, but not for document control. Find a typical existing way. 
-        # you should call "python3 core\cli.py" while in the project directory, instead of "python3 cli.py" while in \core\ 
-        #filepath = head+"\\"+tail+"\\exports\\filler_chopped_off" # 
-        #export_dir = os.getcwd()+"\\exports\\"
-        #export_dir = Directories.get_program_dir()+"\\exports\\"
-        export_dir = Directories.get_project_dir()+"\\exports\\"
+        export_dir = Directories.get_project_dir() / "exports"
 
     scene_object.exportdir = export_dir
     scene_object.filename_FBX = 'pavlov_'+str(int(scene_object.unix_start)) +'.fbx'
-    scene_object.filepath = scene_object.exportdir + scene_object.filename_FBX
+    scene_object.filepath = scene_object.exportdir / scene_object.filename_FBX
     return None
 
 def png_preview(scene_object,user_input_object,export_control_object):
@@ -371,9 +397,9 @@ def build_ticks(scene_object,style_object):
 
 def build_texts(scene_object, style_object):
     # group_label_machine was shoved into translation.py, look at changing that, CB 2 Feb 2025 
-    from axes_labels_machine import AxesLabelsMachine # axisLabel is imported into axesLabels
-    from title_machine import TitleMachine
-    from tick_numbering_machine import TickNumberingMachine
+    from pavlov3d.axes_labels_machine import AxesLabelsMachine # axisLabel is imported into axesLabels
+    from pavlov3d.title_machine import TitleMachine
+    from pavlov3d.tick_numbering_machine import TickNumberingMachine
 
     # title has to go first, to sus out proper sizing.
           
@@ -422,7 +448,6 @@ def layout_spatial(scene_object, style_object,hierarchy_object):
     hierarchy_object.step_through_hierarchy_bottom_up(translation.calculate_placement_bottom_up) # ERROR 30January2025, #failuremode: ?
     print("\ntranslation.calculate_span_relative_to_scene_minimum_edge_at_zero_height_plane_top_down()")
     hierarchy_object.step_through_hierarchy_top_down(translation.calculate_span_relative_to_scene_minimum_edge_at_zero_height_plane_top_down)
-    #scene_object.add_scene_description_textbox(userInput.scene_description_text)#top lefthand corner of textbox is the same as the lower lefthand corner of the scene, including padding)
 
     return True
 
@@ -496,6 +521,7 @@ def generate_export(scene_object,style_object,export_control_object):
     mark_time = round(unix_mark-scene_object.unix_start,2)
     print("Total time:",    mark_time, "sec")
     return createFBX_object
+
 
 
 if __name__ == "__main__":

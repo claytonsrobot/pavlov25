@@ -3,9 +3,9 @@ Title: export_plugin_createFBX_square_depth_gratzer_USGS
 Created: 11 February 2024
 Author: Clayton Bennett
 '''
-import arrayMath
+from pavlov3d import arrayMath
 import os
-from plugins.export_plugin import ExportPlugin
+from pavlov3d.plugins.export_plugin import ExportPlugin
 
 class Plugin(ExportPlugin):
         

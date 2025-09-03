@@ -1,3 +1,4 @@
+# pavlov3d/plugins/export_plugin_createFBX_square_columns_2D.py
 '''
 Author: Clayton Bennett
 Date Created: 18 July 2023, converted to plugin in mid February 2024
@@ -9,8 +10,8 @@ to create a minimalist column style
 
 import os
 #from arrayMath import fbx4_convert
-import arrayMath
-from plugins.export_plugin import ExportPlugin
+from pavlov3d import arrayMath
+from pavlov3d.plugins.export_plugin import ExportPlugin
 
 class Plugin(ExportPlugin):
     def plugin(self,createFBX_,datapoint_object):

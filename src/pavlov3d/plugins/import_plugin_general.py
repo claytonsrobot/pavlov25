@@ -7,22 +7,23 @@ if False:
     import pandas as pd
 import os
 import numpy as np
-import import_lib
+from pathlib import Path
+ 
+from pavlov3d import import_lib
 import time
-from src.pavlov3d.directories import Directories
-from src.pavlov3d.helpers.filename_utils import get_this_filename
-from src.pavlov3d import tradition
+from pavlov3d.directories import Directories
+from pavlov3d.helpers.filename_utils import get_this_filename
+from pavlov3d import tradition
 
 def read_data_genfromtext(filepath,user_input_object,scene_object):
-    filename = os.path.basename(filepath).lower()
+    filename = Path(filepath).name.lower()
     name = filename # name = os.path.splitext(filename)[0]
     if scene_object.request != None:
         # if already loaded
         gdf = scene_object.request.session['loaded_csv'][filename] # maybe this is the wrong key
         gdf = np.array(gdf)
     else:
-        front = ''
-        with open(front+filepath, 'r', encoding='utf-8-sig') as f:      
+        with open(filepath, 'r', encoding='utf-8-sig') as f:      
             gdf = np.genfromtxt(f, dtype=None, delimiter=',', skip_header=0).tolist() # test
             gdf = np.array(gdf)
             time.sleep(2)
@@ -34,9 +35,9 @@ def read_data_pandas(filename,user_input_object):
     print(f'\nfilename: {filename} \n')
     name = os.path.splitext(filename)[0]
     try:
-        df = pd.read_csv(Directories.get_import_dir()+'/'+filename,skiprows=user_input_object.skiprows)
+        df = pd.read_csv(Directories.get_import_dir() / filename,skiprows=user_input_object.skiprows)
     except:
-        df = pd.read_excel(Directories.get_import_dir()+'/'+filename,skiprows=user_input_object.skiprows)
+        df = pd.read_excel(Directories.get_import_dir() / filename,skiprows=user_input_object.skiprows)
     df.replace('nan', 0)
     df.fillna(0)
     return df,name
@@ -86,15 +87,15 @@ class ImportPlugin:
         self.scale_t = 1
         self.scale_h = 1
         self.scale_d = 1
+        #print(f'scale = [{self.scale_t},{self.scale_h},{self.scale_d}]')
 
-        print(f'scale = [{self.scale_t},{self.scale_h},{self.scale_d}]')
-    
     def discern_filenames(self):
         if self.config_input_object.grouping_algorithm == "group-by-text": 
-            self.filenames, self.filepaths = self.import_lib_object.sort_filenames_after_adding_leading_zeros_vercel(self.user_input_object,self.scene_object)
-            return self.filenames, self.filepaths
+            filenames, filepaths = self.import_lib_object.sort_filenames_after_adding_leading_zeros_vercel(self.user_input_object,self.scene_object)
+            return filenames, filepaths
         elif self.config_input_object.grouping_algorithm == "group-by-directory":
-            self.filenames, self.filepaths = tradition.get_sorted_entity_filenames(tradition.Tradition.get_root_group())
+            filenames, filepaths = tradition.get_sorted_entity_filenames(self.user_input_object,tradition.Tradition.get_root_group())
+            return filenames, filepaths
 
     
     def clean_up_vector(self, vector, scale_coeff):
