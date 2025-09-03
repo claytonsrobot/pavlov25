@@ -4,13 +4,14 @@ Created: 27 February 2024
 Author: Clayton Bennett
 '''
 import os
+from pathlib import Path
 import json 
 import datetime
 
 
 class parse_user_input_config:
     def __init__(self):
-        self.name = os.path.basename(__file__).removesuffix('.py')
+        self.name = Path(__file__).name.lower().removesuffix('.py')
         self.filetype='json'
         self.loaded_data= None
         self.filename = None

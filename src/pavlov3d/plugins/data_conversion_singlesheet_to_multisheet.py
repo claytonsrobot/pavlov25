@@ -5,14 +5,15 @@ Created: 20 October 2024
 '''
 import sys
 import numpy as np
+from pathlib import Path
 
 #import pandas as pd
 import os
-from src.pavlov3d.plugins.import_plugin_general import read_data_genfromtext
+from pavlov3d.plugins.import_plugin_general import read_data_genfromtext
 #import import_lib
 class Convert:
     def __init__(self):
-        self.name = os.path.basename(__file__).removesuffix('.py')        
+        self.name = Path(__file__).name.lower().removesuffix('.py')        
 
     def run_import(self,filename):
         head,tail = os.path.split(os.getcwd())

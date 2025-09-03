@@ -27,6 +27,7 @@ Onward:
 '''
 
 import os
+from pathlib import Path
 #from arrayMath import fbx4_convert
 #import arrayMath
 
@@ -40,7 +41,7 @@ class ExportPlugin:
         cls.style_object=style_object
 
     def __init__(self):
-        self.name = os.path.basename(__file__).removesuffix('.py')
+        self.name = Path(__file__).name.lower().removesuffix('.py')
         self.point_size =2  
         #self.point_size = self.style_object.point_size
         self.set_axis_rotation_angles()

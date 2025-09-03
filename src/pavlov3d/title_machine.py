@@ -10,9 +10,10 @@ Or, the middle road is that the driving characterstics of title are known, so th
 #import math
 #import copy
 import os
-from src.pavlov3d.text_label import TextLabel
-from src.pavlov3d.text_height import TextHeight
-from src.pavlov3d.text_translation import TranslationKit
+from pathlib import Path
+from pavlov3d.text_label import TextLabel
+from pavlov3d.text_height import TextHeight
+from pavlov3d.text_translation import TranslationKit
 #import title
 class TitleMachine:
     # last i checked this title machine is only used for curve titles, not group titles
@@ -30,7 +31,7 @@ class TitleMachine:
         TextLabel.assign_class_variables(scene_object)
 
     def __init__(self):
-        self.name = os.path.basename(__file__).removesuffix('.py')
+        self.name = Path(__file__).name.lower().removesuffix('.py')
         self.friendly_name = 'title'
         self.text_height_machine = TextHeight()
 
@@ -66,7 +67,7 @@ class TitleMachine:
         curve_object.title_object.assign_parent_object(curve_object)
         curve_object.title_object.trk = TranslationKit()
         if False:#'depth_stack' in self.user_input_object.stack_direction_list:
-        # it would be far better to instead have a list of which counsins share the stack column and row in the 'cell hive'. This would be illucidated in scene.py, in the cousin determination.
+        # it would be far better to instead have a list of which cousins share the stack column and row in the 'cell hive'. This would be illucidated in scene.py, in the cousin determination.
             curve_object.title_object.trk.translation_expression = "[0,0,-1.2*text_height]"
             curve_object.title_object.trk.rotation_expression = "[0,0,0]"
 

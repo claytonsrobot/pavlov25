@@ -15,9 +15,10 @@ dependencies = [
     "fbxsdkpy (>=2020.3.post1,<2021.0)",
     "matplotlib (>=3.10.1,<4.0.0)",
     "sparklines (>=0.5.0,<0.6.0)",
-    "freesimplegui (>=5.2.0.post1,<6.0.0)"
+    "freesimplegui (>=5.2.0.post1,<6.0.0)"	
 ]
-packages = [{ include = "src" }]
+#packages = [{ include = "src" }]
+packages = [{ include = "pavlov3d", from = "src" }]
 
 
 [[tool.poetry.source]]
@@ -28,6 +29,9 @@ url = "https://gitlab.inria.fr/api/v4/projects/18692/packages/pypi/simple"
 
 [tool.poetry.dependencies]
 fbxsdkpy = {source = "gitlab-repo-fbx"}
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.4.1"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

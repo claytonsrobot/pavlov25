@@ -41,47 +41,44 @@ style factors: #the variables automatically adjusted based on style selection, w
 import numpy as np
 #import os
 import importlib
-from src.pavlov3d import environment 
-from src.pavlov3d import deltaList 
-from src.pavlov3d import arrayMath
-from src.pavlov3d.createFBX import CreateFBX
+from pavlov3d import environment 
+from pavlov3d import deltaList 
+from pavlov3d import arrayMath
+from pavlov3d.createFBX import CreateFBX
 #from createDXF_ import CreateDXF
 #import plugins # like this, for pyinstaller
 
 """pyinstaller work around"""
 # i hate this
 if environment.pyinstaller()==True:
-    from plugins import color_plugin_per_curve
-    from plugins import color_plugin_per_group
-    from plugins import color_plugin_per_subgroup
-    from plugins import color_plugin_singular_keys_barchart
-    from plugins import color_plugin_true_gradient
-    from plugins import color_plugin_binned_gradient
-    from plugins import export_plugin_createFBX_bar_3D
-    from plugins import export_plugin_createFBX_bar_3Dvert
-    from plugins import export_plugin_createFBX_bar_3Dvert_heavy 
-    from plugins import export_plugin_createFBX_bar_gratzer_USGS 
-    from plugins import export_plugin_createFBX_line_2D
-    from plugins import export_plugin_createFBX_line_3D
-    from plugins import export_plugin_createFBX_plus
-    from plugins import export_plugin_createFBX_square_columns_2D
-    from plugins import export_plugin_createFBX_square_columns_3D
-    from plugins import export_plugin_createFBX_square_depth
-    from plugins import export_plugin_createFBX_square_depth_gratzer_USGS 
-    from plugins import export_plugin_createFBX_triangle_columns_2D
-    from plugins import export_plugin_createFBX_triangle_columns_3D
-    from plugins import import_plugin_CSV_2D
-    from plugins import import_plugin_CSV_3D
-    from plugins import import_plugin_GPX_3D
+    from pavlov3d.plugins import color_plugin_per_curve
+    from pavlov3d.plugins import color_plugin_per_group
+    from pavlov3d.plugins import color_plugin_per_subgroup
+    from pavlov3d.plugins import color_plugin_singular_keys_barchart
+    from pavlov3d.plugins import color_plugin_true_gradient
+    from pavlov3d.plugins import color_plugin_binned_gradient
+    from pavlov3d.plugins import export_plugin_createFBX_bar_3D
+    from pavlov3d.plugins import export_plugin_createFBX_bar_3Dvert
+    from pavlov3d.plugins import export_plugin_createFBX_bar_3Dvert_heavy 
+    from pavlov3d.plugins import export_plugin_createFBX_bar_gratzer_USGS 
+    from pavlov3d.plugins import export_plugin_createFBX_line_2D
+    from pavlov3d.plugins import export_plugin_createFBX_line_3D
+    from pavlov3d.plugins import export_plugin_createFBX_plus
+    from pavlov3d.plugins import export_plugin_createFBX_square_columns_2D
+    from pavlov3d.plugins import export_plugin_createFBX_square_columns_3D
+    from pavlov3d.plugins import export_plugin_createFBX_square_depth
+    from pavlov3d.plugins import export_plugin_createFBX_square_depth_gratzer_USGS 
+    from pavlov3d.plugins import export_plugin_createFBX_triangle_columns_2D
+    from pavlov3d.plugins import export_plugin_createFBX_triangle_columns_3D
+    from pavlov3d.plugins import import_plugin_CSV_2D
+    from pavlov3d.plugins import import_plugin_CSV_3D
+    from pavlov3d.plugins import import_plugin_GPX_3D
     #from core.plugins import import_plugin_CSV_singleSheet_multiRow # evil SOB
 
 def fill_list_with_value(length,value):
     vector = [value] * length
     return vector
     
-#print(color_plugin_binned_gradient)
-#print(plugins)
-#from plugins import *
 class Style:
     
     scene_object = None
@@ -176,23 +173,15 @@ class Style:
         self.default_color_function = 'src.pavlov3d.plugins.color_plugin_per_curve'
 
         self.paradigm ='0-0-0 axes origin'
-        #self.fences_embedded_in_model_hierarchy = False # False is good, it means you can suppress fences easily fromwithin the model, for your viewing pleasure.
-        #self.groupLabels_embedded_in_model_hierarchy = False#True #False 
         
         self.find_numbers_in_filenames_and_equalize_digits=True # this currently only works to add a preceding 0 to the last single-digit numeric entry, and ignores items that have less than the highest count of numeric entries
         
         self.n_numeric_island_size_target_after_leading_zero_insertion=3 # 2 
         self.calculate_FBX_normal_and_material_layers = False # if True, file will be 50% larger, with no apparent useful improvements
 
-
-        # DEADLINE- MAKE THIS EXIST BY APRIL 10 OR DEStrOY CONCEPT
-        self.group_label_axis_high_or_low_or_zero = 'zero' # 'high' # 'low'
-
         # kb # 150,000 is too high, 20,000 is great. There's a sweet spot somewhere in between. Make graph, including number of data points and time to completion.
         #FBX_conversion_limit =40000
         self.FBX_conversion_limit = 16000 # kb
-
-
 
     def use_consistent_tick_size_as_consistent_padding(self,size):
         self.padding = np.array([size,size,size])
@@ -224,7 +213,6 @@ class Style:
             self.user_input_object.export_function = [self.user_input_object.export_function]
 
         for export_function in self.user_input_object.export_function:
-            
             ExportPlugin=self.assign_plugin_dynamically(module_name = export_function) # type is function
             export_plugin_object = ExportPlugin()
             export_plugin_object.assign_style_object(style_object = self)
@@ -255,7 +243,7 @@ class Style:
         export_plugin_object = self.load_export_control_object(export_function[0]) # why reload? the alterative it to input the export control object from main, or to store it in this class instance.
         
         for curve_object in self.hierarchy_object.dict_curve_objects_all.values():
-            export_plugin_object.run_per_curve(curve_object)
+            export_plugin_object.run_per_curve(curve_object)    
         #for group_object in self.hierarchy_object.dict_group_objects_all.values():
         for group_object in self.hierarchy_object.dict_group_objects_most.values():
             _check_for_characteristic_length(group_object)

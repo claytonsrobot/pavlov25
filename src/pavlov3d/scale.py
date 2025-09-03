@@ -10,7 +10,7 @@ Point assignment in import needs to be scaled/sanitized later once we have all t
 
 import pprint
 
-from src.pavlov3d import arrayMath
+from pavlov3d import arrayMath
 
 class AxisChannel:
     def __init__(self,name):
@@ -118,7 +118,8 @@ class MultipleAxesScalingAlgorithm:
         target_axis_length = 1 # each, +10000 for the positive side, and -1000 the negative side. 
         print(len(set(set_curve_objects_all)))
         for curve_object in set(set_curve_objects_all):
-            print(f"curve_object.name = {curve_object.name}")
+            print("---")
+            print(f"normalize_all_curve_objects: curve_object.name = {curve_object.name}")
             if len(curve_object.dict_data_vectors_raw) > 0: 
                 MultipleAxesScalingAlgorithm.normalize_curve_object_values(curve_object,target_axis_length)
                 MultipleAxesScalingAlgorithm.repair_curve_object_max_min(curve_object)
@@ -132,9 +133,9 @@ class MultipleAxesScalingAlgorithm:
         # how are we handing these scaled values to the datapoint objects? 
         
         #for key,datapoint_object in curve_object.dict_datapoints.items():
-        print(f"curve_object = {curve_object}")
-        print(f"curve_object.name = {curve_object.name}")
-        #print(f"curve_object.dict_data_vectors_raw = {curve_object.dict_data_vectors_raw}")
+        print(f"normalize_curve_object_values: curve_object = {curve_object}")
+        print(f"normalize_curve_object_values: curve_object.name = {curve_object.name}")
+        print(f"curve_object.dict_data_vectors_raw.keys() = {curve_object.dict_data_vectors_raw.keys()}")
         
         curve_object.dict_data_vectors_scaled["time"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["time"],target_axis_length)
         curve_object.dict_data_vectors_scaled["height"] = MultipleAxesScalingAlgorithm._make_target_normalized_data_vector(curve_object.dict_data_vectors_raw["height"],target_axis_length)
@@ -146,7 +147,6 @@ class MultipleAxesScalingAlgorithm:
             datapoint_object.dict_data_raw["time"] = curve_object.dict_data_vectors_raw["time"][j]
             datapoint_object.dict_data_raw["height"] = curve_object.dict_data_vectors_raw["height"][j]
             datapoint_object.dict_data_raw["depth"] = curve_object.dict_data_vectors_raw["depth"][j]
-
 
             datapoint_object.dict_data_scaled["time"] = curve_object.dict_data_vectors_scaled["time"][j]
             datapoint_object.dict_data_scaled["height"] = curve_object.dict_data_vectors_scaled["height"][j]
@@ -212,9 +212,9 @@ class MultipleAxesScalingAlgorithm:
         
         # Normalize the positive_data_vector to range [0, 1]
         
-        #print(f"target_axis_length = {target_axis_length}")
-        #print(f"min_val = {min_val}")
-        #print(f"max_val = {max_val}")
+        print(f"target_axis_length = {target_axis_length}")
+        print(f"min_val = {min_val}")
+        print(f"max_val = {max_val}")
         
         normalized_data_vector = [(x - min_val) / (max_val - min_val) for x in data_vector]
         
@@ -227,6 +227,9 @@ class MultipleAxesScalingAlgorithm:
             target_normalized_data_vector = [x * target_axis_length for x in normalized_data_vector]
         else:
             target_normalized_data_vector = [None] #  gotcha
+
+        print(f"min(target_normalized_data_vector) = {min(target_normalized_data_vector)}")
+        print(f"max(target_normalized_data_vector) = {max(target_normalized_data_vector)}")
         return target_normalized_data_vector
     
     @staticmethod

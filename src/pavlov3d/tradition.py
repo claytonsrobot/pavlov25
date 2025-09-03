@@ -1,6 +1,6 @@
 
-from src.pavlov3d.curve import Curve
-from src.pavlov3d import numeric_islands
+from pavlov3d.curve import Curve
+from pavlov3d import numeric_islands
 class Tradition:
     """Careful. This whole thing assumes a JSON structure has been captured to represent a file structure, but it doesn't actually check the paths."""
     root_group = None

@@ -13,8 +13,8 @@ Add shortcuts to imports and exports to central drectories?
 import time
 import os
 from pathlib import Path
-from src.pavlov3d import environment
-from src.pavlov3d.directories import Directories 
+from pavlov3d import environment
+from pavlov3d.directories import Directories 
 from pprint import pprint
 import shutil
 import sys
@@ -126,7 +126,7 @@ class DirectoryControl:
         print(f"os.getcwd() = {os.getcwd()}")
         print(f"Directories.get_program_dir() = {Directories.get_program_dir()}")
 
-        os.chdir(Directories.get_program_dir()+"/projects/")
+        os.chdir(Directories.get_program_dir() / "projects")
         populate_new_project_dir(project_dir_name_str,option)
         os.chdir(Directories.get_program_dir())
 

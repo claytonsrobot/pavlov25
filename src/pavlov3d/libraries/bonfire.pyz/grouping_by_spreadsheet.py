@@ -21,7 +21,7 @@ Inputs:
 # SHould the JSON handler be called in user_config.py - Yes.
 """ 
 import numpy as np
-from src.pavlov3d.directories import Directories
+from pavlov3d.directories import Directories
 
 
 
@@ -31,7 +31,7 @@ def assign_group_membership_for_complete_hierarchy(hierarchy_object):
     Directories.get_groupings_dir()
 
 
-    with open(front+filepath, 'r', encoding='utf-8-sig') as f: 
+    with open(front / filepath, 'r', encoding='utf-8-sig') as f: 
         gdf = np.genfromtxt(f, dtype=None, delimiter=',', skip_header=0).tolist() # test
         gdf = np.array(gdf)
                 

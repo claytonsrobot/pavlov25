@@ -2297,3 +2297,190 @@ p -o sample
 2
 3
 quit
+test
+p -o sample
+1
+2
+3
+4
+5
+6
+open --last
+hhtree
+psl
+psl
+guic
+p -l
+p -c
+1
+2
+3
+4
+clear
+4
+quit
+test
+p -o sample
+1
+2
+3
+4
+clear
+quit
+test
+p -o sample
+1
+2
+3
+4
+clear quit
+quit
+test
+p -o sample
+1
+2
+3
+4
+quit
+test
+p -o sample
+1
+2
+3
+4
+quit
+test
+p -o sample
+1
+2
+3
+4
+5
+6
+open -l
+quit
+test
+p -o sample
+1
+2
+3
+4
+5
+6
+o -l
+main
+quit
+test
+clear
+quit
+test
+p -o sample
+quit
+test
+quit
+test
+p -o sample
+1
+2
+quit
+test
+test
+test
+p -o sample
+quit
+test
+p -o sample
+quit
+test
+p -o sample
+1
+clear
+quit
+test
+p -o sample
+1
+quit
+test
+p -o sample
+1
+clear
+quit
+test
+p -o sample
+1
+2
+clear
+quit\
+quit
+test
+p -o sample
+1
+2
+quit
+test
+p -o sample
+1
+2
+quit
+test
+p -o sample
+1
+2
+quit
+test
+p -o sample
+1
+2
+clear
+quit
+test
+p -o sample
+1
+2
+quit
+test
+p -o sample
+1
+2
+quit
+test
+p -o sample
+1
+2
+quit
+test
+p -o sample
+1
+2
+quit
+test
+p -o sample
+1
+2
+3
+clear
+quit
+test
+p -o sample
+1
+2
+3
+clear
+quit
+test
+p -o sample
+1
+2
+3
+4
+quit
+test
+p -o sample
+1
+2
+3
+4
+5
+6
+o -l
+quit

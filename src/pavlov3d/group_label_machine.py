@@ -9,7 +9,9 @@ Or, the middle road is that the driving characterstics of title are known, so th
 #translation_expression not found here
 
 import os
-from src.pavlov3d.text_label import TextLabel
+from pathlib import Path
+
+from pavlov3d.text_label import TextLabel
 class GroupLabelMachine:
     scene_object=None
     style_object=None
@@ -23,7 +25,7 @@ class GroupLabelMachine:
         TextLabel.assign_class_variables(scene_object)
 
     def __init__(self):
-        self.name = os.path.basename(__file__).removesuffix('.py')
+        self.name = Path(__file__).name.lower().removesuffix('.py')
         
     def generate_group_label_for_each_group(self):
         #for group_object in reversed(self.hierarchy_object.dict_group_objects_all.values()):

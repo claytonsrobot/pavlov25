@@ -13,17 +13,16 @@ https://medium.com/@noransaber685/simple-guide-to-creating-a-command-line-interf
 import cmd2
 import os
 import pprint
-from src.pavlov3d import main
-from src.pavlov3d.hidden_prints import HiddenPrints
+from pavlov3d import main
+from pavlov3d.hidden_prints import HiddenPrints
 import time
 from datetime import datetime
 #import subprocess
 from sparklines import sparklines
 from pathlib import Path
-#import gui_customtk_basic
-from src.pavlov3d.filemanagement import DirectoryControl
-from src.pavlov3d import filemanagement as fm
-from src.pavlov3d import environment
+from pavlov3d.filemanagement import DirectoryControl
+from pavlov3d import filemanagement as fm
+from pavlov3d import environment
 #import copy
 import importlib
 import ast
@@ -33,15 +32,15 @@ import sys
 #print(sys.path)
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from tests import Test
-from src.pavlov3d import toml_utils # pleae migrate the json-handler.py
+from pavlov3d import toml_utils # pleae migrate the json-handler.py
 
-from src.pavlov3d.directories import Directories
+from pavlov3d.directories import Directories
 try:
     import psutil # overkill
 except:
     pass
 
-from src.pavlov3d.datapoint import DataPoint
+from pavlov3d.datapoint import DataPoint
 
 
 
@@ -202,7 +201,7 @@ class PavlovCLI(cmd2.Cmd):
     def link_initial_project_directory(cls):
         print(f"PavlovCLI.link_initial_project_directory(cls)")
         #cls.project_active = None
-        Directories.set_project_dir(Directories.get_root_dir()+r"/projects/sample/")
+        Directories.set_project_dir(Directories.get_root_dir() / "projects/sample")
         print(f"project_active = {Directories.get_project_dir()}")
         # dynamic, points to default-project.json file
         #cls.set_project_active(cls.get_startup_project("./projects/default-project.json")) # pull from config file
@@ -1017,38 +1016,11 @@ class PavlovCLI(cmd2.Cmd):
     
     def do_g(self,line):
         self.do_guic(line)
-
-    ## Not useful, customtkinter is dead, error showing. 
-    ## pip install freesimplegui
-    ## import freesimplegui as psg
-    # def do_gui(self,line):
-    #     """
-    #     Launch GUI. Futurework.
-    #     Defaults to developer mode. Dependency: PySimpleGui. Secondary: TKinter.
-    #     For basic mode, use flag: -b. For developer mode, use flag: -d
-    #     """
-    #     print("Starting the GUI.")
-    #     print("To continue using the CLI, quit the GUI.")
-    #     try:
-    #         app = gui_customtk_basic.App()
-    #         app.pass_in_cli_object(self)
-    #         #app = App()
-    #         app.mainloop()
-    #         #app.quit()
-            
-    #         if self.style_object.use_GUI is True:
-    #             do_launch_gui = str(input("Do you want to launch the Pavlov GUI? (y/N)"))
-    #             if do_launch_gui.lower() == "y":
-    #                 self.do_select_gui_mode() # this is outdated CB 14Dec24 
-    #     except:
-    #         pass
-        
-    
     
     def do_guic(self,line):
         "Wokin progress. Run classic developer mode FreeSimpleGUI."
         if not(self.scene_object is None) and not(self.user_input_object is None): 
-            from src.pavlov3d.gui import Gui
+            from pavlov3d.gui import Gui
             interface_object = Gui()
             interface_object.assign_style_object(self.style_object) 
             interface_object.assign_config_input_object(self.config_input_object)
@@ -1059,7 +1031,7 @@ class PavlovCLI(cmd2.Cmd):
     def do_guics(self,line):
         "Wokin progress. Run classic simple mode FreeSimpleGUI."
         if not(self.scene_object is None) and not(self.user_input_object is None): 
-            from src.pavlov3d.gui_simple import Gui
+            from pavlov3d.gui_simple import Gui
             interface_object = Gui()
             interface_object.assign_style_object(self.style_object) 
             interface_object.assign_config_input_object(self.config_input_object)
@@ -1296,7 +1268,7 @@ class PavlovCLI(cmd2.Cmd):
 
         
         elif args.listexternal is True:
-            toml_filepath = Directories.get_program_dir()+"\\projects\\external_project_register.toml"
+            toml_filepath = Directories.get_program_dir() / "projects/external_project_register.toml"
             data_tuple = toml_utils.load_toml_tuple(toml_filepath)
             print(data_tuple)
 

@@ -6,14 +6,14 @@ Created: 20 January 2024
 Purpose:
 Classic Pavlov grouping
 """ 
-from src.pavlov3d import tradition
+from pavlov3d import tradition
 import os
 from pathlib import Path
 import src.pavlov3d.json_handler
-from src.pavlov3d.hierarchy import get_group_filelist_from_loaded_grouping
-from src.pavlov3d.hierarchy import get_group_subgrouplist_from_loaded_grouping, assume_scene_directory_is_called_imports_in_intermediate_loaded_grouping
-from src.pavlov3d.directories import Directories
-from src.pavlov3d.hierarchy import Hierarchy
+from pavlov3d.hierarchy import get_group_filelist_from_loaded_grouping
+from pavlov3d.hierarchy import get_group_subgrouplist_from_loaded_grouping, assume_scene_directory_is_called_imports_in_intermediate_loaded_grouping
+from pavlov3d.directories import Directories
+from pavlov3d.hierarchy import Hierarchy
 class Vars:
     # pass, with clarity :)
     comp_char = "/" #compound character
@@ -37,11 +37,8 @@ def assign_group_membership_for_complete_hierarchy_v0(hierarchy_object, loaded_g
                     # are you at the bottom tier? Yes with the highest t_key value and with curve_objects in it.
                     # if data objects are in the tier, we assume it is the bottom tier (with the highest t_key value)
                     # to keep this true, subgroups with key 'none' will need to be created to hold data objects that are in a (higher)supergroup but have no relevant provided (immediate)super/group
-                    for filename in get_group_filelist_from_loaded_grouping(loaded_grouping=loaded_grouping, group_name=group.simple_name.lower()):
-                        #print(f"filename.lower() = {filename.lower()}")
-                        #print(f"os.path.basename(filename).lower() = {os.path.basename(filename).lower()}")
-                        
-                        if os.path.basename(filename).lower()==c_key.lower():
+                    for filepath in get_group_filelist_from_loaded_grouping(loaded_grouping=loaded_grouping, group_name=group.simple_name.lower()):
+                        if filepath.name.lower()==c_key.lower():
                             group.add_curve_object(curve_object,c_key)
                             tally_of_curve_objects_assigned_to_a_group += 1 # once complete, will equal len(hierarchy_object.dict_curve_object_all.keys()). If it doesn't, there are 'none' type subgroups, where a curve_object fits into a stated group but none of its stated subgroups
                             # develop further how subgroups are added for 'none'. Add a 'none' to every group, then remove it later?
@@ -346,40 +343,66 @@ def check_second_level_import_directory_names(directory,group_names):
     print(f"subgroup_names = {subgroup_names}")
     return subgroup_names
 
-def check_third_level_import_file_names(directory,group_names,subgroup_names):
+def check_third_level_import_file_names(directory, group_names, subgroup_names):
+    """
+    Walks through a three-level folder structure: directory/group/subgroup,
+    collects all file paths and names.
+
+    Args:
+        directory (str | Path): Root directory.
+        group_names (list[str]): First-level subdirectories.
+        subgroup_names (list[str]): Second-level subdirectories inside each group.
+
+    Returns:
+        tuple[list[Path], list[str]]: (list of file Paths, list of file names)
+    """
+    directory = Path(directory)  # Ensure Path object
     file_paths = []
     file_names = []
+
     for group_name in group_names:
-        for subgroup_name in subgroup_names: 
-            try:
-                directory_pathlib = Path(directory) / group_name / subgroup_name
-                for file_path in directory_pathlib.iterdir(): # special chars make it go whack
-                    if file_path.is_file():
-                        file_paths.append(str(file_path))
-                        filename = os.path.basename(str(file_path).replace('\\', '/'))
-                        file_names.append(filename)
-            except Exception as e:
-                print(f"Error processing directory: {directory_pathlib}. Error: {e}")
+        for subgroup_name in subgroup_names:
+            subdir = directory / group_name / subgroup_name
+            if not subdir.exists() or not subdir.is_dir():
+                print(f"Warning: Directory does not exist: {subdir}")
+                continue
+            for file_path in subdir.iterdir():
+                if file_path.is_file():
+                    file_paths.append(file_path)
+                    file_names.append(file_path.name)  # Just the file name
+
     return file_paths, file_names
 
-
-
 def generate_directory_structure(path):
-    # Extract the root folder's name
-    folder_name = os.path.basename(os.path.abspath(path))
-    #structure = {"group": folder_name, "entities": [], "groups": []}
-    structure = {"group": folder_name, "path": path, "entities": [], "groups": []}
+    """
+    Recursively generate a nested dictionary representing a directory structure.
 
-    for item in os.listdir(path):
-        item_path = os.path.join(path, item)
-        if os.path.isfile(item_path):
-            if item != "desktop.ini":
-                #structure["entities"].append(item)
-                structure["entities"].append({"name": item, "path": item_path})
-        elif os.path.isdir(item_path):
-            structure["groups"].append(generate_directory_structure(item_path))
+    Args:
+        path (str | Path): Root directory path.
+
+    Returns:
+        dict: Dictionary with keys 'group', 'path', 'entities', 'groups'.
+    """
+    path = Path(path).resolve()  # ensure Path object and absolute path
+    structure = {
+        "group": path.name,
+        "path": str(path),
+        "entities": [],
+        "groups": []
+    }
+
+    for item in path.iterdir():
+        if item.is_file():
+            if item.name.lower() != "desktop.ini":
+                structure["entities"].append({
+                    "name": item.name,
+                    "path": str(item)
+                })
+        elif item.is_dir():
+            structure["groups"].append(generate_directory_structure(item))
 
     return structure
+
 
 def call(directory_path): # example
     # Replace 'your_directory_path' with the path to the directory you want to analyze

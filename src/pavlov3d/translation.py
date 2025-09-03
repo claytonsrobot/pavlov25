@@ -21,8 +21,8 @@ import numpy as np
 import copy
 #import logging # active_object.grandfather_place_cousins
 
-from src.pavlov3d.group_label_machine import GroupLabelMachine
-from src.pavlov3d.stack import StackControl
+from pavlov3d.group_label_machine import GroupLabelMachine
+from pavlov3d.stack import StackControl
 stackcontrol_object = StackControl()
 
 '''Start Bottom Up Code'''

@@ -9,12 +9,13 @@ Process:
 Import each CSV sheet as a dataframe and make the dataframe an attribute of each curve_object 'curve'
 '''
 import gpxpy
+from pathlib import Path
 import numpy as np
 import os
 if False:
     import pandas as pd
-from src.pavlov3d.helpers.filename_utils import get_this_filename
-from src.pavlov3d.plugins.import_plugin_general import read_data_genfromtext, ImportPlugin
+from pavlov3d.helpers.filename_utils import get_this_filename
+from pavlov3d.plugins.import_plugin_general import read_data_genfromtext, ImportPlugin
 #from scale import Scale
 class Plugin(ImportPlugin):
     def __init__(self):

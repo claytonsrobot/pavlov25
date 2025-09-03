@@ -1,5 +1,5 @@
 # __main__.py
-from src.pavlov3d.shell import main
+from pavlov3d.shell import main
 
 def cli_entry():
     try:

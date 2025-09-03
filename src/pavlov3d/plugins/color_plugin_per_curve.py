@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 #from materials import materials
 #import colorLerp
 class Plugin:
@@ -18,7 +19,7 @@ class Plugin:
 
     def __init__(self):
         self.friendly_name = 'Color per Curve'
-        self.name = os.path.basename(__file__).removesuffix('.py')
+        self.name = Path(__file__).name.lower().removesuffix('.py')
         self.dict_known_datapoint_keys=None
         
     def prepare_color_style(self):

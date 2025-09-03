@@ -55,12 +55,12 @@ import numpy as np
 import math
 import copy
 #import blob
-from src.pavlov3d import environment
-from src.pavlov3d.directories import Directories
+from pavlov3d import environment
+from pavlov3d.directories import Directories
 if environment.vercel()==True:
     from .home.session import add_fbx_file_to_blob_dir
 
-from src.pavlov3d.text_translation import TranslationFinal
+from pavlov3d.text_translation import TranslationFinal
 
 #csv_uploads_pavlovdata
 #from fbx import 
@@ -75,7 +75,7 @@ from fbx import FbxManager
 from fbx import FbxIOSettings
 from fbx import IOSROOT
 
-from src.pavlov3d.metadata import create_fbxPropertiesFrom_df_metadata
+from pavlov3d.metadata import create_fbxPropertiesFrom_df_metadata
 
 """ #C:\Program Files\Autodesk\FBX\FBX Python SDK\2020.3.2\samples\ImportScene\DisplayUserProperties.py
 from fbx import FbxProperty # metadata
@@ -98,9 +98,9 @@ from fbx import EXP_FBX_TEXTURE
 from fbx import EXP_FBX_EMBEDDED
 
 
-from src.pavlov3d.lines_FBX import LinesFBX
-from src.pavlov3d.conditional_import import conditional_import
-from src.pavlov3d.materials import materials
+from pavlov3d.lines_FBX import LinesFBX
+from pavlov3d.conditional_import import conditional_import
+from pavlov3d.materials import materials
 #from materials import create_materials_9bins_FBX
 #from materials import create_material_free_FBX
 #from materials import assign_materials9_FBX # this is where the magic happens # get gradient colors vs solid colors-in-turn
@@ -651,8 +651,8 @@ class CreateFBX:
             if True:
                 # this carries the one live datapoint. This is dumb.
                 datapoint_object.set_vars(time = curve_object.dict_data_vectors_scaled["time"][j],
-                                          height = curve_object.dict_data_vectors_scaled["height"][j],
-                                          depth = curve_object.dict_data_vectors_scaled["depth"][j],
+                                            height = curve_object.dict_data_vectors_scaled["height"][j],
+                                            depth = curve_object.dict_data_vectors_scaled["depth"][j],
                                             halfwidth_time = curve_object.dict_data_vectors_scaled["halfwidth_time"][j],
                                             halfwidth_height = curve_object.dict_data_vectors_scaled["halfwidth_height"][j],
                                             halfwidth_depth = curve_object.dict_data_vectors_scaled["halfwidth_depth"][j],
@@ -673,19 +673,16 @@ class CreateFBX:
             # it's dumb because it overwrites it
 
             if j<len(curve_object.time)-1:
-                time_next = curve_object.time[j+1]
-                height_next = curve_object.height[j+1]
-                depth_next = curve_object.depth[j+1]
-                #try:
+                time_next = curve_object.dict_data_vectors_scaled["time"][j+1]
+                height_next = curve_object.dict_data_vectors_scaled["height"][j+1]
+                depth_next = curve_object.dict_data_vectors_scaled["depth"][j+1]
                 color_coeff_next = curve_object.dict_color_coeff[model_ID][j+1]
-                #except:
-                #    print(f'color_skipped: model_ID={model_ID},j={j}')
-            else:# you are at the last item, and should make a last line of zero length
-                time_next = curve_object.time[j]
-                height_next = curve_object.height[j]
-                depth_next = curve_object.depth[j]
-                color_coeff_next = curve_object.dict_color_coeff[model_ID][1]
-        
+            else: # you are at the last item, and should make a last line of zero length
+                time_next = curve_object.dict_data_vectors_scaled["time"][j]
+                height_next = curve_object.dict_data_vectors_scaled["height"][j]
+                depth_next = curve_object.dict_data_vectors_scaled["depth"][j]
+                color_coeff_next = curve_object.dict_color_coeff[model_ID][j]
+
             datapoint_object.set_vars(time_next = time_next,
                                     height_next = height_next,
                                     depth_next = depth_next,

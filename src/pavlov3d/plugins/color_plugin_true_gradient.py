@@ -1,4 +1,6 @@
 import os
+from pathlib import Path
+
 #from materials import materials
 import colorLerp
 class Plugin:
@@ -18,7 +20,7 @@ class Plugin:
 
     def __init__(self):
         self.friendly_name = 'True Gradient'
-        self.name = os.path.basename(__file__).removesuffix('.py')
+        self.name = Path(__file__).name.lower().removesuffix('.py')
 
     def prepare_color_style(self):
         for i,curve_object in enumerate(self.hierarchy_object.dict_curve_objects_all.values()):

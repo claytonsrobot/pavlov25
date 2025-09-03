@@ -168,7 +168,7 @@ def get_sorted_filenames_and_filepaths(filepaths):
         - A list of filepaths ordered to match the sorted filenames.
     """
     # Create pairs of (filename, filepath) for sorting
-    filename_filepath_pairs = [(os.path.basename(filepath), filepath) for filepath in filepaths]
+    filename_filepath_pairs = [(filepath.name.lower() , filepath) for filepath in filepaths]
 
     # Sort pairs by the natural order of filenames
     sorted_pairs = sorted(filename_filepath_pairs, key=lambda pair: natural_key(pair[0]))

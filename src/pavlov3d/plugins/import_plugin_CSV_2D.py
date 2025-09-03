@@ -16,8 +16,8 @@ import inspect
 from pathlib import Path
 import inspect
 
-from src.pavlov3d.helpers.filename_utils import get_this_filename
-from src.pavlov3d.plugins.import_plugin_general import read_data_genfromtext, ImportPlugin
+from pavlov3d.helpers.filename_utils import get_this_filename
+from pavlov3d.plugins.import_plugin_general import read_data_genfromtext, ImportPlugin
  
 class Plugin(ImportPlugin):
     def __init__(self):

@@ -6,9 +6,9 @@ Purpose: Create class that functions in Pavlov grouping hierarchy
 
 Scale, translation, data object diameter, get, set
 '''
-from src.pavlov3d.group import Group
-from src.pavlov3d.tier import tier as Tier
-from src.pavlov3d import arrayMath
+from pavlov3d.group import Group
+from pavlov3d.tier import tier as Tier
+from pavlov3d import arrayMath
 #import text_label
 import numpy as np
 

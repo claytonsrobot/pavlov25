@@ -17,9 +17,9 @@ import time
 from pathlib import Path
 import inspect
 
-from src.pavlov3d.helpers.filename_utils import get_this_filename
-from src.pavlov3d.plugins.import_plugin_general import read_data_genfromtext, ImportPlugin
-#from src.pavlov3d.curve import Curve
+from pavlov3d.helpers.filename_utils import get_this_filename
+from pavlov3d.plugins.import_plugin_general import read_data_genfromtext, ImportPlugin
+#from pavlov3d.curve import Curve
 
 class Plugin(ImportPlugin):
         

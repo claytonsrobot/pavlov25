@@ -18,7 +18,7 @@ Red starts at 204 at the very beginging of purple, then drops linearly to 63 in 
 
 '''
 import numpy as np
-from src.pavlov3d import arrayMath
+from pavlov3d import arrayMath
 
 # determine RGB values based on color_coeff
 

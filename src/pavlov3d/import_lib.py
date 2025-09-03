@@ -15,12 +15,13 @@ https://docs.python-guide.org/writing/structure/
 '''
 
 import os # for normalizing pathname of directory
+from pathlib import Path
 if False:
     import pandas as pd # for data management
 import src.pavlov3d.numeric_islands as ni
 #from datapoint import DataPoint
 #from curve_ import Curve
-from src.pavlov3d import arrayMath
+from pavlov3d import arrayMath
 
 class ImportLib:
     """ scene_object = None
@@ -31,8 +32,7 @@ class ImportLib:
 
 
     def __init__(self):
-        self.name = os.path.basename(__file__).removesuffix('.py')
-        #script_dir = Directories.get_core_dir()
+        self.name = Path(__file__).name.lower().removesuffix('.py')
         
         self.filenames = None
         self.filenames_sortable = None

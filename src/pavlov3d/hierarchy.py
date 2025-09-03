@@ -7,14 +7,14 @@ Purpose:
 Off load functonality from scene.py, to provide oversight and opportunity for improvement
 """
 
-from src.pavlov3d.group import Group
-from src.pavlov3d.tier import tier as Tier
+from pavlov3d.group import Group
+from pavlov3d.tier import tier as Tier
 import inspect
 import src.pavlov3d.grouping_by_string
-from src.pavlov3d.grouping_by_string import GBS
+from pavlov3d.grouping_by_string import GBS
 import src.pavlov3d.grouping_by_spreadsheet
 import src.pavlov3d.grouping_by_directory
-from src.pavlov3d.curve import Curve
+from pavlov3d.curve import Curve
 import src.pavlov3d.json_handler
 
 class Hierarchy:
@@ -59,11 +59,23 @@ class Hierarchy:
         self.dict_tier_objects = dict()
 
     def cycle_through_filenames_intialize_curves(self):
+        """
+        Initializes curves for each filename in the UserInput object.
+        Safe against None or empty filenames.
+        """
         Curve.pass_in_scene_object(self.scene_object)
+        if not getattr(self.user_input_object, "filenames", None):
+            print("[Hierarchy] No filenames found; skipping curve initialization.")
+            return
+
         for filename in self.user_input_object.filenames:
+            if not filename:
+                continue
+            # Initialize curve object as before
             curve_object = Curve(name=filename)
-            #curve_object.add_curve_object_to_hierarchy_object(filepath)
             curve_object.add_curve_object_to_hierarchy_object()
+            #self.curves.append(curve)
+
 
     def build_tiers_and_groups_objects(self,user_input_object,loaded_grouping):
         # user input objec is just used for stack direciton and group name dictionary
