@@ -68,7 +68,7 @@ from pavlov3d.preview import Preview as Preview
 from pavlov3d import pngMaker
 from pavlov3d import messaging
 from pavlov3d.config_input import ConfigInput
-from pavlov3d.config_manager import ConfigManager 
+from pavlov3d.config_manager import ConfigManager, get_gui_export_overrides
 
 from pavlov3d.user_input import UserInput
 from pavlov3d.datapoint import DataPoint
@@ -285,7 +285,7 @@ def _prepare_exports(scene_object, style_object, user_input_object):
     # -----------------------------
     cm = ConfigManager()
     gui_overrides = get_gui_export_overrides(user_input_object)
-    merged_config = cm.pull_values(export_control_object, gui_object=user_input_object)
+    merged_config = cm.pull_values(export_control_object, gui_overrides)
     # Now merged_config is a validated ExportConfig instance
 
     # If user_input_object still needs attributes, optionally cast:
