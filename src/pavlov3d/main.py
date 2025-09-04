@@ -291,7 +291,7 @@ def _prepare_exports(scene_object, style_object, user_input_object):
     # If user_input_object still needs attributes, optionally cast:
     user_input_object.config = merged_config
     
-    if not environment.is_termx():
+    if not environment.is_termux():
         for key, value in merged_config.model_dump().items():
             setattr(user_input_object, key, value)
 
