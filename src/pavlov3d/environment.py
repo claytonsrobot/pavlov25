@@ -11,6 +11,12 @@ def vercel():
     # the important questions is actually "are we running on a webserver?"
     return False # hard code this
 
+def matplotlib_enabled():
+    if is_termux():
+        return False
+    else:
+        return True
+    
 def fbx_enabled():
     if is_termux():
         return False
