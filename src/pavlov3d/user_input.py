@@ -287,6 +287,19 @@ class UserInput:
         if gui_mode or True:
             self._check_plugins()
 
+    def determine_which_plugins_to_use(self, gui_mode=True):
+        # Normalize plugins first
+        self.import_style_plugin = self.resolver.normalize_plugins(self.import_style_plugin)
+        self.export_style_plugin = self.resolver.normalize_plugins(self.export_style_plugin)
+        self.color_style_plugin = self.resolver.normalize_plugins(self.color_style_plugin)
+
+        # Only apply GUI dropdown overrides if gui_mode is True
+        if gui_mode:
+            self._check_plugins()
+        else:
+            # Runtime overrides / default resolver
+            self._check_plugins(gui_mode=False)
+
     def _check_plugins(self):
         self.import_function = self.resolver.resolve_single(
             plugin=self.import_style_plugin[0] if self.import_style_plugin else None,

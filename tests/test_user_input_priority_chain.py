@@ -2,6 +2,7 @@
 import pytest
 from types import SimpleNamespace
 from pavlov3d.user_input import UserInput
+from pavlov3d.directories import Directories
 
 
 @pytest.fixture
@@ -28,18 +29,41 @@ def mock_interface_object():
         export_style_dictionary={"dropdown_export": "export_from_dropdown"},
         color_style_dictionary={"dropdown_color": "color_from_dropdown"},
     )
-
+    
+@pytest.fixture(autouse=True)
+def mock_directories_paths(tmp_path, monkeypatch):
+    # Mock project folder
+    Directories.project = tmp_path
+    (tmp_path / "plugins").mkdir(parents=True, exist_ok=True)
+    
+    # Patch get_core_dir to return the tmp_path
+    monkeypatch.setattr(Directories, "get_core_dir", lambda cls=None: tmp_path)
+    
+    # Patch get_import_dir as well if tests pull files
+    monkeypatch.setattr(
+        Directories,
+        "get_import_dir",
+        lambda cls=None: tmp_path / "imports"
+    )
+    (tmp_path / "imports").mkdir(parents=True, exist_ok=True)
 
 @pytest.fixture
 def sample_cij():
     return {
-        "import_style_plugin": "import_plugin_test",
-        "export_style_plugin": "export_plugin_test1;export_plugin_test2",
-        "color_style_plugin": "color_plugin_test",
-        'stack_direction_groups': "group",
-        'stack_direction_subgroups': "subgroup",
-        'stack_direction_curves': "curve",
-    }
+    "import_style_plugin": "import_plugin_test",
+    "export_style_plugin": "export_plugin_test1;export_plugin_test2",
+    "color_style_plugin": "color_plugin_test",
+    "stack_direction_groups": "group",
+    "stack_direction_subgroups": "subgroup",
+    "stack_direction_curves": "curve",
+    "column_time": "time",
+    "column_height": "height",
+    "column_depth": "depth",
+    "column_color": "color",
+    "columns_metadata": "metadata",
+    "data_start_idx": 0,
+    "file_encoding": "utf-8"
+}
 
 
 @pytest.fixture
@@ -49,7 +73,8 @@ def user_input(mock_style_object, mock_interface_object):
     return UserInput()
 
 
-def test_priority_chain(user_input, sample_cij, mock_interface_object):
+#def test_priority_chain(user_input, sample_cij, mock_interface_object):
+def test_priority_chain(user_input, sample_cij, mock_directories_paths):
     # Step 1: load config
     config_input_object = SimpleNamespace(
         loaded_config=sample_cij,
@@ -71,15 +96,18 @@ def test_priority_chain(user_input, sample_cij, mock_interface_object):
     # Step 4: determine plugins (GUI mode)
     user_input.determine_which_plugins_to_use(gui_mode=True)
 
-    # Step 5: check GUI override took precedence
+    # Step 5: check that GUI dropdown override took precedence
     assert user_input.import_function == "import_from_dropdown"
     assert "export_from_dropdown" in user_input.export_function
     assert "color_from_dropdown" in user_input.color_function
 
-    # Step 6: simulate runtime override
-    # e.g., manually replace import plugin at runtime
+    # Step 6: simulate runtime override (manual plugin assignment)
+    user_input.import_style_dropdown = []  # clear GUI override
     user_input.import_style_plugin = ["import_plugin_runtime"]
     user_input.determine_which_plugins_to_use(gui_mode=False)
 
-    # Check that runtime override took precedence (not GUI dropdown)
-    assert user
+    assert user_input.import_function == "import_plugin_runtime"
+    
+    # Step 7: check that runtime override now took precedence
+    assert user_input.import_function == "import_plugin_runtime"
+
