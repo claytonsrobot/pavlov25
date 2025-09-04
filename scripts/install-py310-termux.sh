@@ -8,8 +8,9 @@ PREFIX_DIR=$HOME/.localpython310
 
 # 1. Install dependencies
 pkg update -y && pkg upgrade -y
-pkg install -y build-essential git wget clang make pkg-config \
-               zlib zlib-dev libffi libffi-dev bzip2 bzip2-dev xz-utils
+pkg install build-essential git wget clang make pkg-config \
+    zlib libffi bzip2 xz-utils
+
 
 # 2. Download Python 3.10 source
 cd $HOME
