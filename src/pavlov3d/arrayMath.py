@@ -8,6 +8,7 @@ provide min and max functions for nested array with two levels
 
 '''
 import numpy as np
+from pavlov3d import environment
 # from stackoverflow.com/questions/47327646/handling-none-when-adding-numbers
 def max_arrayMath_(vectorArray):
     if not vectorArray:
@@ -70,7 +71,8 @@ def fbx4_convert(array):
     # why would it be a four to start with?
     # this function might not be merited.
     # import FbxCommon
-    from fbx import FbxVector4
+    if environment.fbx_enabled():
+        from fbx import FbxVector4
     array_fbx4 = []
     for vector in array:
         #print("vector = ",vector)

@@ -31,19 +31,21 @@ if False:
     import pandas as pd
 import copy
 
-from fbx import FbxProperty # metadata
-from fbx import FbxString
-#from fbx import FbxBool # nope
-from fbx import FbxDouble4
-from fbx import FbxStringDT
-from fbx import FbxBoolDT
-from fbx import FbxDoubleDT
-#from fbx import FbxObjectMetaData # nope
-from fbx import FbxObject # supposedly not different from FbxObjectMetaData
-from fbx import FbxPropertyFlags
-from fbx import FbxDataType
-from fbx import FbxManager
-import fbx
+from pavlov3d import environment
+if environment.fbx_enabled():
+    from fbx import FbxProperty # metadata
+    from fbx import FbxString
+    #from fbx import FbxBool # nope
+    from fbx import FbxDouble4
+    from fbx import FbxStringDT
+    from fbx import FbxBoolDT
+    from fbx import FbxDoubleDT
+    #from fbx import FbxObjectMetaData # nope
+    from fbx import FbxObject # supposedly not different from FbxObjectMetaData
+    from fbx import FbxPropertyFlags
+    from fbx import FbxDataType
+    from fbx import FbxManager
+    import fbx
 
 '''
 Data import
