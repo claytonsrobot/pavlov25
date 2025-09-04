@@ -291,9 +291,13 @@ def _prepare_exports(scene_object, style_object, user_input_object):
     # If user_input_object still needs attributes, optionally cast:
     user_input_object.config = merged_config
     
-    if not environment.is_termux():
-        for key, value in merged_config.model_dump().items():
-            setattr(user_input_object, key, value)
+    if hasattr(merged_config, "model_dump"):         # Pydantic v2
+        items = merged_config.model_dump().items()
+    else:                                            # Pydantic v1
+        items = merged_config.dict().items()
+
+    for key, value in items:
+        setattr(user_input_object, key, value)
 
 
     TextTranslationIntermediate.assign_style_object(style_object)
