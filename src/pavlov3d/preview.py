@@ -9,8 +9,8 @@ import os
 import numpy as np
 from pathlib import Path
             
-
-if True:
+from pavlov3d import environment
+if environment.matplotlib_enabled():
     #import matplotlib # hungry hungry hippo
     import matplotlib.pyplot as plt
 
