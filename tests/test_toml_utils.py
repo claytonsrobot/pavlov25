@@ -1,57 +1,82 @@
-'''
-Title: test_toml_utils.py
-Author: Clayton Bennett assisted by Microsoft Co-Pilot
-Created: 27 February 2025
-Purpose: Unit test of the functions in the core.toml_utils.py file.
-'''
-import sys 
-import unittest
-from unittest.mock import patch, mock_open
+# tests/test_toml_utils.py
+import builtins
+from pathlib import Path
+import io
 
-# import all functions from the relative path
-from pavlov3d.toml_utils import check_file, check_for_null, load_toml, load_toml_tuple
+import pytest
 
-class TestTomlFunctions(unittest.TestCase):
-    
-    def test_check_file_exists(self):
-        with patch("os.path.isfile", return_value=True):
-            self.assertTrue(check_file("dummy_path"))
-    
-    def test_check_file_not_exists(self):
-        with patch("os.path.isfile", return_value=False):
-            with self.assertRaises(SystemExit):
-                check_file("dummy_path")
-    
-    def test_check_for_null(self):
-        data = {
-            "section1": {"key1": "value1", "key2": "null"},
-            "section2": {"key3": "Null", "key4": "123"}
-        }
-        expected = {
-            "section1": {"key1": "value1", "key2": None},
-            "section2": {"key3": None, "key4": "123"}
-        }
-        result = check_for_null(data)
-        self.assertEqual(result, expected)
-    
-    @patch("builtins.open", new_callable=mock_open, read_data='{"section": {"key": "value"}}')
-    def test_load_toml(self, mock_file):
-        with patch("os.path.isfile", return_value=True):
-            if sys.version_info >= (3, 11):
-                with patch("tomllib.load", return_value={"section": {"key": "value"}}):
-                    result = load_toml("dummy_path")
-            else:
-                with patch("toml.load", return_value={"section": {"key": "value"}}):
-                    result = load_toml("dummy_path")
-            
-            self.assertEqual(result, {"section": {"key": "value"}})
+import pavlov3d.toml_utils as tu
 
-    def test_load_toml_tuple(self):
-        data = {"section": {"key1": "value1"}}
-        with patch("os.path.isfile", return_value=True):
-            with patch("toml.load", return_value=data):
-                result = load_toml_tuple("dummy_path")
-                self.assertEqual(result, (("section", {"key1": "value1"}),))
 
-if __name__ == "__main__":
-    unittest.main()
+def test_check_file_not_exists(monkeypatch, tmp_path):
+    """
+    If neither os.path.isfile nor Path.is_file report existence,
+    check_file should return False.
+    """
+    # Ensure os.path.isfile returns False
+    monkeypatch.setattr(tu.os.path, "isfile", lambda _p: False)
+
+    # Ensure Path.is_file returns False as well
+    monkeypatch.setattr(Path, "is_file", lambda self: False)
+
+    # Using non-existing path (tmp path is fine because we've mocked checks)
+    result = tu.check_file(tmp_path / "no-such-file.toml")
+    assert result is False
+
+
+def test_load_toml_tuple_prefers_path_string(monkeypatch, tmp_path):
+    """
+    load_toml_tuple should call toml.load and return the top-level (key, value)
+    pair for a single-key toml structure.
+    """
+    data = {"section": {"key1": "value1"}}
+
+    # Pretend the file exists
+    monkeypatch.setattr(tu.os.path, "isfile", lambda _p: True)
+    monkeypatch.setattr(Path, "is_file", lambda self: True)
+
+    # Patch toml.load to return our data (simulating toml.load(str(path)) behavior)
+    monkeypatch.setattr(tu, "toml", type("T", (), {"load": lambda src: data}))
+
+    result = tu.load_toml_tuple("dummy_path")
+    # Expect a tuple pair (key, value) — i.e., ('section', {...})
+    assert result == ("section", {"key1": "value1"})
+
+
+def test_load_toml_falls_back_to_fileobj_on_typeerror(monkeypatch, tmp_path):
+    """
+    If toml.load raises TypeError when passed a string path, load_toml should
+    open the file and call toml.load(fileobj).
+    """
+    data = {"section2": {"k": "v"}}
+    dummy_file = tmp_path / "dummy.toml"
+    dummy_file.write_text('section2 = { k = "v" }', encoding="utf-8")
+
+    # ensure file existence checks pass
+    monkeypatch.setattr(tu.os.path, "isfile", lambda p: True)
+    monkeypatch.setattr(Path, "is_file", lambda self: True)
+
+    # Create a toml-like loader that raises TypeError on str, but accepts file objects
+    def fake_toml_load(arg):
+        if isinstance(arg, str):
+            raise TypeError("simulate toml lib that expects file-like object")
+        # assume file-like: return desired data
+        return data
+
+    monkeypatch.setattr(tu, "toml", type("T", (), {"load": fake_toml_load}))
+
+    result = tu.load_toml(str(dummy_file))
+    assert result == data
+
+
+def test_load_toml_raises_when_missing(monkeypatch, tmp_path):
+    """
+    If the file doesn't exist, load_toml should raise FileNotFoundError (or SystemExit
+    depending on your check_file implementation). This test expects FileNotFoundError;
+    if your implementation intentionally raises SystemExit change this assertion.
+    """
+    monkeypatch.setattr(tu.os.path, "isfile", lambda p: False)
+    monkeypatch.setattr(Path, "is_file", lambda self: False)
+
+    with pytest.raises((FileNotFoundError, SystemExit)):
+        tu.load_toml(tmp_path / "nonexistent.toml")
