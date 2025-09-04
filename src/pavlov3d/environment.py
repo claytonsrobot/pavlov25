@@ -7,7 +7,9 @@ import platform
 import sys
 
 def vercel():
-    return not(windows())
+    #return not(windows()) # conflated, when using any linux that is not a webserver
+    # the important questions is actually "are we running on a webserver?"
+    return False # hard code this
 
 def windows():
     if 'win' in platform.platform().lower():
