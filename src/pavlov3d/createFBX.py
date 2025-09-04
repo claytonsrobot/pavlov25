@@ -55,7 +55,7 @@ import numpy as np
 import math
 import copy
 #import blob
-
+from pavlov3d import environment
 if environment.fbx_enabled():
     #csv_uploads_pavlovdata
     #from fbx import 
