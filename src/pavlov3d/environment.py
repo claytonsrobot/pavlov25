@@ -11,6 +11,20 @@ def vercel():
     # the important questions is actually "are we running on a webserver?"
     return False # hard code this
 
+def fbx_enabled():
+    if is_termux():
+        return False
+    else:
+        return True 
+
+def is_termux():
+    # There might be other android versions that can work with the rise od Debian on android in 2025, but for now, assume all android is termux.
+    # I wonder how things would go on pydroid3
+    return is_android()
+
+def is_android():
+    return "android" in platform.platform().lower()
+
 def windows():
     if 'win' in platform.platform().lower():
         windows=True
