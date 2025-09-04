@@ -72,9 +72,12 @@ Previously, there was an effort to allow existing meshes to be revisted and adde
 '''
 import numpy as np
 
-from fbx import FbxVector4
-from fbx import FbxNode # yes
-from fbx import FbxMesh
+from pavlov3d import environment
+
+if environment.fbx_enabled():
+    from fbx import FbxVector4
+    from fbx import FbxNode # yes
+    from fbx import FbxMesh
 
 from pavlov3d.materials import materials
 

@@ -55,49 +55,48 @@ import numpy as np
 import math
 import copy
 #import blob
+
+if environment.fbx_enabled():
+    #csv_uploads_pavlovdata
+    #from fbx import 
+    from fbx import FbxVector4 
+    from fbx import FbxNode 
+    from fbx import FbxDouble3
+    from fbx import FbxMesh # for node creation
+
+    #from fbx import FbxSurfacePhong
+    from fbx import FbxScene
+    from fbx import FbxManager
+    from fbx import FbxIOSettings
+    from fbx import IOSROOT
+
+    from pavlov3d.metadata import create_fbxPropertiesFrom_df_metadata
+
+    """ #C:\Program Files\Autodesk\FBX\FBX Python SDK\2020.3.2\samples\ImportScene\DisplayUserProperties.py
+    from fbx import FbxProperty # metadata
+    from fbx import FbxString
+    #from fbx import FbxObjectMetaData # nope
+    from fbx import FbxObject # supposedly not different from FbxObjectMetaData
+    from fbx import FbxPropertyFlags """
+
+    #lProperty = pObject.GetFirstProperty()
+    #lProperty.GetFlag(FbxPropertyFlags.eUserDefined):
+    #lString = lProperty.GetLabel() # display name
+    #lString = lProperty.GetName() # internal name
+    #lPropertyDataType=lProperty.GetPropertyDataType()  
+
+    # from fbx import FbxDocument
+    #from fbx import fbxsip
+    from fbx import FbxExporter
+    from fbx import EXP_FBX_MATERIAL
+    from fbx import EXP_FBX_TEXTURE
+    from fbx import EXP_FBX_EMBEDDED
+
 from pavlov3d import environment
 from pavlov3d.directories import Directories
 if environment.vercel()==True:
     from .home.session import add_fbx_file_to_blob_dir
-
 from pavlov3d.text_translation import TranslationFinal
-
-#csv_uploads_pavlovdata
-#from fbx import 
-from fbx import FbxVector4 
-from fbx import FbxNode 
-from fbx import FbxDouble3
-from fbx import FbxMesh # for node creation
-
-#from fbx import FbxSurfacePhong
-from fbx import FbxScene
-from fbx import FbxManager
-from fbx import FbxIOSettings
-from fbx import IOSROOT
-
-from pavlov3d.metadata import create_fbxPropertiesFrom_df_metadata
-
-""" #C:\Program Files\Autodesk\FBX\FBX Python SDK\2020.3.2\samples\ImportScene\DisplayUserProperties.py
-from fbx import FbxProperty # metadata
-from fbx import FbxString
-#from fbx import FbxObjectMetaData # nope
-from fbx import FbxObject # supposedly not different from FbxObjectMetaData
-from fbx import FbxPropertyFlags """
-
-#lProperty = pObject.GetFirstProperty()
-#lProperty.GetFlag(FbxPropertyFlags.eUserDefined):
- #lString = lProperty.GetLabel() # display name
-#lString = lProperty.GetName() # internal name
-#lPropertyDataType=lProperty.GetPropertyDataType()  
-
-# from fbx import FbxDocument
-#from fbx import fbxsip
-from fbx import FbxExporter
-from fbx import EXP_FBX_MATERIAL
-from fbx import EXP_FBX_TEXTURE
-from fbx import EXP_FBX_EMBEDDED
-
-
 from pavlov3d.lines_FBX import LinesFBX
 from pavlov3d.conditional_import import conditional_import
 from pavlov3d.materials import materials

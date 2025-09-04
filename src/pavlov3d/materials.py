@@ -12,9 +12,11 @@ The goal today is to clean up yesterday's implementation.
 '''
 import numpy as np
 
-#import FbxCommon
-from fbx import FbxDouble3
-from fbx import FbxSurfacePhong
+from pavlov3d import environment
+if environment.fbx_enabled():
+    #import FbxCommon
+    from fbx import FbxDouble3
+    from fbx import FbxSurfacePhong
 
 from pavlov3d.colorLerp import colorLerp
 class materials:

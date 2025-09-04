@@ -9,6 +9,7 @@ Created: 14 February 2024
 #https://discussions.unity.com/t/what-is-the-correct-way-to-set-fbx-user-properties-for-import-in-unity/120286/2
 
 import os
+from pavlov3d import environment
 if False:
     import pandas as pd
 
@@ -24,7 +25,8 @@ from fbx import FbxObject # supposedly not different from FbxObjectMetaData
 from fbx import FbxPropertyFlags
 from fbx import FbxDataType
 from fbx import FbxManager """
-import fbx
+if environment.fbx_enabled():
+    import fbx
  
 # (lProperty.GetFlag(FbxPropertyFlags::eUserDefined))
 '''

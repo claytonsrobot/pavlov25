@@ -1,6 +1,9 @@
-from fbx import *
-import sys
 
+import sys
+from pavlov3d import environment
+if environment.fbx_enabled():
+    from fbx import *
+    
 def InitializeSdkObjects():
     # The first thing to do is to create the FBX SDK manager which is the 
     # object allocator for almost all the classes in the SDK.
