@@ -84,11 +84,28 @@ def _to_dict(obj):
     if hasattr(obj, "model_dump"):          # pydantic v2
         return obj.model_dump()
     if hasattr(obj, "dict"):                # pydantic v1
-        return obj.model_dump()
+        return obj.dict()
+    if hasattr(obj, "__dataclass_fields__"):  # dataclass
+        return {k: getattr(obj, k) for k in obj.__dataclass_fields__}
     if hasattr(obj, "__dict__"):
         return obj.__dict__
     raise TypeError(f"Cannot convert {type(obj)} to dict")
 
+def to_dict(model):
+    """Return dict from Pydantic v1 or v2 model."""
+    if hasattr(model, "model_dump"):   # v2
+        return model.model_dump()
+    if hasattr(model, "dict"):         # v1
+        return model.dict()
+    raise TypeError(f"Not a Pydantic model: {type(model)}")
+
+def to_json(model, **kwargs):
+    """Return JSON string from Pydantic v1 or v2 model."""
+    if hasattr(model, "model_dump_json"):  # v2
+        return model.model_dump_json(**kwargs)
+    if hasattr(model, "json"):             # v1
+        return model.json(**kwargs)
+    raise TypeError(f"Not a Pydantic model: {type(model)}")
 
 if __name__ == "__main__":
 
