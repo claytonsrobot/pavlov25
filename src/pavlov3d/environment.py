@@ -15,8 +15,11 @@ def matplotlib_enabled():
     if is_termux():
         return False
     else:
-        return True
-    
+        try:
+            import matplotlib
+        except ImportError:
+            return False
+        
 def fbx_enabled():
     if is_termux():
         return False

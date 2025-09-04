@@ -2634,3 +2634,10 @@ p -o sample
 6
 o -l
 quit
+test
+p -o sample
+1
+2
+3
+4
+quit
